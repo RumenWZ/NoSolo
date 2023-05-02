@@ -38,7 +38,10 @@ export class RegisterComponent {
     this.userSubmitted = true;
 
     if(this.registerForm.valid) {
-
+      this.userService.addUser(this.userData()).subscribe(() => {
+        this.registerForm.reset();
+        this.userSubmitted = false;
+      })
     }
   }
 
