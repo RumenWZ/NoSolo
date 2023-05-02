@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <a class="navbar-brand" href="#">NoSolo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -26,8 +26,10 @@
       </li>
     </ul>
   </div>
-  <div class="navbar-account-nav">
-    <a routerLink="/login">Login</a>
-    <a routerLink="/register">Register</a>
+  <div class="navbar-account-nav" style="display: flex;">
+    <a *ngIf="!loggedIn()" routerLink="/login">Login</a>
+    <a *ngIf="!loggedIn()" routerLink="/register">Register</a>
+    <a *ngIf="loggedIn()">Welcome {{username}}</a>
+    <a *ngIf="loggedIn()" (click)="onLogout()">Logout</a>
   </div>
 </nav>

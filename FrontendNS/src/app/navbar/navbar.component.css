@@ -1,0 +1,10 @@
+.navbar {
+  background-color: #212529;
+}
+
+.navbar-account-nav {
+  color: white;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}

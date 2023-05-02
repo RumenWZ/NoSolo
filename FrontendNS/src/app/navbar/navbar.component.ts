@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  username: string;
+
+  constructor(
+    private user: UserService
+  ) {}
+
+  loggedIn() {
+    this.username = this.user.getUsername();
+    return this.user.getUsername();
+  }
+
+  onLogout() {
+    this.user.logoutUser();
+  }
   
+  ngOnInit() {
+
+  }
 }
