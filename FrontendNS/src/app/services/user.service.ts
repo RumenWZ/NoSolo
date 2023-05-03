@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as alertify from 'alertifyjs';
 import { User } from '../model/user';
 import { AlertifyService } from './alertify.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private router: Router
   ) { }
 
   addUser(user: User) {
@@ -32,6 +34,7 @@ export class UserService {
   logoutUser() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    this.router.navigate(['/']);
     this.alertify.success("You have logged out.");
   }
 

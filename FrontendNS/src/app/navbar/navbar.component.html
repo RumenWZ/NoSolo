@@ -26,10 +26,10 @@
       </li>
     </ul>
   </div>
-  <div class="navbar-account-nav" style="display: flex;">
-    <a *ngIf="!loggedIn()" routerLink="/login">Login</a>
-    <a *ngIf="!loggedIn()" routerLink="/register">Register</a>
-    <a *ngIf="loggedIn()">Welcome {{username}}</a>
-    <a *ngIf="loggedIn()" (click)="onLogout()">Logout</a>
-  </div>
+
+  <ul class="navbar-acc-nav">
+    <li *ngIf="!loggedIn()" class="navbar-acc-item" routerLink="/login"><a>Login</a></li>
+    <li *ngIf="!loggedIn()" class="navbar-acc-item" routerLink="/register"><a>Register</a></li>
+    <p *ngIf="loggedIn()" class="welcome">Welcome {{username}}</p>
+  </ul>
 </nav>

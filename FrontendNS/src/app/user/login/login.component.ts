@@ -23,7 +23,7 @@ export class LoginComponent {
         console.log(response);
         const user = response;
         localStorage.setItem('token', user.token);
-        localStorage.setItem('userName', user.userName);
+        localStorage.setItem('userName', user.username);
         this.router.navigate(['/']);
         this.alertify.success("Login Successful");
       }

@@ -1,10 +1,23 @@
 .navbar {
-  background-color: #212529;
+  background-color: var(--main-color);
 }
 
-.navbar-account-nav {
+.navbar-acc-nav {
   color: white;
   display: flex;
   align-items: center;
   margin: 0;
+}
+
+.navbar-acc-item {
+  list-style: none;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  margin-right: 65px;
 }

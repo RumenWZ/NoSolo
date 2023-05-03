@@ -1,0 +1,20 @@
+.offcanvas {
+  background-color: var(--main-color);
+}
+
+.close-btn, .sidebar-open-btn{
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.text {
+  color: #fff;
+}
+
+.sidebar-open-btn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  margin: 8px 10px 0 0;
+}
