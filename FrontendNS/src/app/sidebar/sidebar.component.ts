@@ -16,24 +16,16 @@ export class SidebarComponent {
 
   onLogout() {
     this.user.logoutUser();
-    this.isOpen = false;
-    this.username = null;
     const offcanvasElement = document.querySelector('.offcanvas');
     const backdropElement = document.querySelector('.offcanvas-backdrop');
     offcanvasElement.classList.remove();
     backdropElement.parentNode.removeChild(backdropElement);
     location.reload();
-
   }
 
   onOffcanvasHidden() {
 
     this.isOpen = false;
-  }
-
-  checkStatus(){
-    console.log('Is open : ', this.isOpen);
-    console.log('Userisloggedin : ', this.userIsLoggedin());
   }
 
   onBurgermenuClick() {
