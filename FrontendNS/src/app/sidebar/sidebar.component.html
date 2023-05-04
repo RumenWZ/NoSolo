@@ -3,7 +3,7 @@
 <div class="offcanvas offcanvas-end text" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" [ngClass]="{'show': isOpen}" (hidden.bs.offcanvas)="onOffcanvasHidden()">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasRightLabel">Account Settings</h5>
-    <i class='bx bx-x close-btn' style='color:#e4e0e0'  data-bs-dismiss="offcanvas" (click)="isOpen = false"></i>
+    <i class='bx bx-x close-btn' style='color:#e4e0e0'  data-bs-dismiss="offcanvas" (click)="onCloseButton()"></i>
   </div>
   <div class="offcanvas-body">
     <a (click)="onLogout()">Logout</a>

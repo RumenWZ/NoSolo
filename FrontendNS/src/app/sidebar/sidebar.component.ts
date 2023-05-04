@@ -24,8 +24,13 @@ export class SidebarComponent {
   }
 
   onOffcanvasHidden() {
-
     this.isOpen = false;
+  }
+
+  onCloseButton() {
+    setTimeout(() => {
+      this.onOffcanvasHidden();
+    }, 250)
   }
 
   onBurgermenuClick() {
