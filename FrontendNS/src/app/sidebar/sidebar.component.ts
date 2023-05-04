@@ -1,5 +1,6 @@
 import { Component,} from '@angular/core';
 import { UserService } from '../services/user.service';
+import { sidebarMenuEntries } from './sidebarMenuEntries';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +10,7 @@ import { UserService } from '../services/user.service';
 export class SidebarComponent {
   username: string;
   isOpen = false;
+  sidebarData = sidebarMenuEntries;
 
   constructor(
     private user: UserService
@@ -40,5 +42,16 @@ export class SidebarComponent {
   userIsLoggedin() {
     this.username = this.user.getUsername();
     return this.user.getUsername();
+  }
+
+  onDashboard() {
+    console.log('Dashboard button clicked');
+  }
+
+  executeFunction(functionName: string) {
+    if (functionName === 'onLogout')
+      this.onLogout();
+    else if (functionName === 'onDashboard')
+      this.onDashboard()
   }
 }

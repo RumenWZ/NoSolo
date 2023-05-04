@@ -6,7 +6,17 @@
     <i class='bx bx-x close-btn' style='color:#e4e0e0'  data-bs-dismiss="offcanvas" (click)="onCloseButton()"></i>
   </div>
   <div class="offcanvas-body">
-    <a (click)="onLogout()">Logout</a>
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of sidebarData" class="sidebar-menu-item">
+        <i class="{{item.icon}} icon"></i>
+        <a class="label" (click)="executeFunction(item.functionName)">{{item.label}}</a>
+      </li>
+    </ul>
+
+    <!-- <div class="sidebar-menu-item logout-btn">
+      <i class='bx bx-exit icon'></i>
+      <a class="label" (click)="onLogout()">Logout</a>
+    </div> -->
   </div>
 </div>
 
