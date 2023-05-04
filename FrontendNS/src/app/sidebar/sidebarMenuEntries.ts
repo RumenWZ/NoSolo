@@ -9,4 +9,15 @@ export const sidebarMenuEntries = [
     'icon': 'bx bx-exit',
     'functionName': 'onLogout',
   },
+  {
+    'label': 'Settings',
+    'icon': 'bx bxs-cog',
+    'functionName': 'onDashboard',
+  },
+  {
+    'label': 'Friends',
+    'icon': 'bx bxs-contact',
+    'functionName': 'onDashboard',
+  }
+
 ]

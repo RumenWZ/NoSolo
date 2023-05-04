@@ -1,6 +1,7 @@
 import { Component,} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { sidebarMenuEntries } from './sidebarMenuEntries';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ export class SidebarComponent {
   sidebarData = sidebarMenuEntries;
 
   constructor(
-    private user: UserService
+    private user: UserService,
+    private alertify: AlertifyService
   ) {}
 
   onLogout() {
