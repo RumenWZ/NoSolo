@@ -1,5 +1,6 @@
 using API.Data;
 using API.Interfaces;
+using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,8 @@ var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(op =>
 {
     op.TokenValidationParameters = new TokenValidationParameters
