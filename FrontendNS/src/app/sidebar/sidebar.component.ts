@@ -1,7 +1,8 @@
 import { Component,} from '@angular/core';
 import { UserService } from '../services/user.service';
-import { sidebarMenuEntries } from './sidebarMenuEntries';
+import { sidebarMenuEntries, sidebarMenuEntriesAdmin } from './sidebarMenuEntries';
 import { AlertifyService } from '../services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,19 +13,18 @@ export class SidebarComponent {
   username: string;
   isOpen = false;
   sidebarData = sidebarMenuEntries;
+  sidebarDataAdmin = sidebarMenuEntriesAdmin;
 
   constructor(
     private user: UserService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private router: Router
   ) {}
 
   onLogout() {
     this.user.logoutUser();
-    const offcanvasElement = document.querySelector('.offcanvas');
-    const backdropElement = document.querySelector('.offcanvas-backdrop');
-    offcanvasElement.classList.remove();
-    backdropElement.parentNode.removeChild(backdropElement);
-    location.reload();
+    this.fullyCloseSideBar();
+
   }
 
   onOffcanvasHidden() {
@@ -41,6 +41,14 @@ export class SidebarComponent {
     this.isOpen = true;
   }
 
+  fullyCloseSideBar() {
+    const offcanvasElement = document.querySelector('.offcanvas');
+    const backdropElement = document.querySelector('.offcanvas-backdrop');
+    offcanvasElement.classList.remove();
+    backdropElement.parentNode.removeChild(backdropElement);
+    location.reload();
+  }
+
   userIsLoggedin() {
     this.username = this.user.getUsername();
     return this.user.getUsername();
@@ -50,10 +58,22 @@ export class SidebarComponent {
     console.log('Dashboard button clicked');
   }
 
+  onGameAdd() {
+    this.router.navigate(['/add-game']);
+    this.fullyCloseSideBar();
+  }
+
   executeFunction(functionName: string) {
-    if (functionName === 'onLogout')
-      this.onLogout();
-    else if (functionName === 'onDashboard')
-      this.onDashboard()
+    switch (functionName) {
+      case 'onLogout': this.onLogout();
+        break;
+      case 'onDashboard': this.onDashboard();
+        break;
+      case 'onGameAdd': this.onGameAdd();
+        break;
+      default:
+        console.log('Unknown function');
+        break;
+    }
   }
 }

@@ -13,10 +13,12 @@ import { RegisterComponent } from './user/register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { GameAddComponent } from './game/game-add/game-add.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'add-game', component: GameAddComponent}
 
 ];
 
@@ -27,6 +29,7 @@ const appRoutes: Routes = [
     RegisterComponent,
     NavbarComponent,
     SidebarComponent,
+    GameAddComponent,
 
   ],
   imports: [

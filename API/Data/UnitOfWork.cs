@@ -13,6 +13,7 @@ namespace API.Data
         }
 
         public IUserRepository UserRepository => new UserRepository(dc);
+        public IGameRepository GameRepository => new GameRepository(dc);
 
         public async Task<bool> SaveAsync()
         {

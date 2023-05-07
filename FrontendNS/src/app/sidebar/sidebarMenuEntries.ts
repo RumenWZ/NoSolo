@@ -19,5 +19,13 @@ export const sidebarMenuEntries = [
     'icon': 'bx bxs-contact',
     'functionName': 'onDashboard',
   }
-
 ]
+
+export const sidebarMenuEntriesAdmin = [
+  {
+    'label': 'Add Game',
+    'icon': 'bx bx-plus-circle',
+    'functionName': 'onGameAdd'
+  }
+]
+
