@@ -46,7 +46,7 @@ export class SidebarComponent {
     const backdropElement = document.querySelector('.offcanvas-backdrop');
     offcanvasElement.classList.remove();
     backdropElement.parentNode.removeChild(backdropElement);
-    location.reload();
+    this.isOpen = false;
   }
 
   userIsLoggedin() {

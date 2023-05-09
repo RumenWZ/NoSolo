@@ -19,7 +19,7 @@ export class UserService {
   ) { }
 
   addUser(user: User) {
-    alertify.success("Registration successful")
+    alertify.success("Registration successful");
     return this.http.post(this.baseUrl + '/account/register', user);
   }
 

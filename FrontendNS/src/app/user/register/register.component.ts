@@ -15,9 +15,8 @@ export class RegisterComponent {
   userSubmitted :boolean;
 
   constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private alertify: AlertifyService) {
+    private userService: UserService
+    ) {
   }
 
   ngOnInit() {
