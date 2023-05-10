@@ -49,5 +49,13 @@ namespace API.Controllers
 
             return Ok(newGame);
         }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            uow.GameRepository.Delete(id);
+            await uow.SaveAsync();
+            return Ok(id);
+        }
     }
 }

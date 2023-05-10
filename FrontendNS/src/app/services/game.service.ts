@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Game } from "../model/game";
 import { HttpClient } from "@angular/common/http";
-import { AlertifyService } from "./alertify.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +9,6 @@ export class GameService {
 
   constructor(
     private http: HttpClient,
-    private alertify: AlertifyService
   ) {}
 
   addGame(game: FormData) {

@@ -1,7 +1,14 @@
+.add-game-form {
+  z-index: 1;
+}
+
 .photo-form {
   min-height: 140px;
   vertical-align: middle;
   text-align: center;
   border: 1px dashed white;
   margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

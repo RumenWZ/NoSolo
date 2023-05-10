@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
-import { Game } from 'src/app/model/game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
 

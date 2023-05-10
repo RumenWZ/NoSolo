@@ -21,5 +21,17 @@ namespace API.Data.Repository
 
             dc.Games.Add(game);
         }
+
+        public void Delete(int id)
+        {
+            var game = dc.Games.FirstOrDefault(x => x.Id == id);
+            if (game != null)
+            {
+                dc.Games.Remove(game);
+            } else
+            {
+                // add API error here later
+            }
+        }
     }
 }
