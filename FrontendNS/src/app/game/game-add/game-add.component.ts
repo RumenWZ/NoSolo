@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { Game } from 'src/app/model/game';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -10,13 +11,13 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class GameAddComponent {
   gameAddForm!: FormGroup
-  game: Game = { name: '', image: null };
   userSubmitted: boolean;
   image: File;
 
 
   constructor(
-    private gameService: GameService
+    private gameService: GameService,
+    private alertify: AlertifyService
   ) {}
 
   getImage(event: any) {
@@ -24,11 +25,15 @@ export class GameAddComponent {
   }
 
   onSubmit(gameForm: NgForm) {
-    this.game.image = this.image;
-    this.game.name = gameForm.form.value.name;
+    const formData = new FormData();
+    formData.append('name', gameForm.form.value.name);
+    formData.append('image', this.image, this.image.name);
     if (gameForm.valid) {
-      this.gameService.addGame(this.game).subscribe(() => {
+      this.gameService.addGame(formData).subscribe(() => {
         gameForm.reset();
+        this.alertify.success('Successfully added game to database');
+      }, (error) => {
+        this.alertify.error(error.error);
       })
     }
   }

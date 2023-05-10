@@ -14,8 +14,7 @@ export class GameService {
     private alertify: AlertifyService
   ) {}
 
-  addGame(game: Game) {
-    this.alertify.success('Successfully added game to database');
+  addGame(game: FormData) {
     return this.http.post(this.baseUrl + '/game/add', game);
   }
 }
