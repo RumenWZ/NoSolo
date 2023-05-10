@@ -1,21 +1,20 @@
 ﻿using API.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.Extensions.Options;
 
 namespace API.Services
 {
     public class PhotoService : IPhotoService
     {
         private readonly Cloudinary cloudinary;
-        public PhotoService(IConfiguration config)
+        public PhotoService(IOptions<CloudinarySettings> cloudinaryConfig)
         {
-            Console.WriteLine("Before Account");
             Account account = new Account(
-                config.GetSection("CloudinarySettings:CloudName").Value,
-                config.GetSection("CloudinarySettings:ApiKey").Value,
-                config.GetSection("CloudinarySettings:ApiSecret").Value
+                cloudinaryConfig.Value.CloudName,
+                cloudinaryConfig.Value.ApiKey,
+                cloudinaryConfig.Value.ApiSecret
                 );
-            Console.WriteLine("After account: ", account.ApiKey);
             cloudinary = new Cloudinary( account );
         }
         public async Task<ImageUploadResult> UploadPhotoAsync(IFormFile photo)

@@ -3,6 +3,7 @@ using API.Interfaces;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -20,9 +21,11 @@ builder.Services.AddCors();
 
 var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+var cloudinaryConfig = builder.Configuration.GetSection("CloudinarySettings");
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.Configure<CloudinarySettings>(cloudinaryConfig);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(op =>
 {

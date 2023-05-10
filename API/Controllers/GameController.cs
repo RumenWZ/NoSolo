@@ -13,12 +13,14 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IPhotoService photoService;
+
         public GameController(
             IUnitOfWork uow,
             IPhotoService photoService
             ) 
         {
             this.uow = uow;
+            this.photoService = photoService;
         }
 
         [HttpPost("add")]
@@ -29,6 +31,9 @@ namespace API.Controllers
             if (image == null)
             {
                 return BadRequest("No image uploaded");
+            } else if (game.Name == null)
+            {
+                return BadRequest("Name can not be empty");
             } 
 
             var cloudinaryResult = await photoService.UploadPhotoAsync(image);
@@ -36,7 +41,7 @@ namespace API.Controllers
             var newGame = new Game
             {
                 Name = game.Name,
-                ImageUrl = cloudinaryResult.SecureUrl.ToString()
+                ImageUrl = cloudinaryResult.SecureUrl.ToString(),
             };
 
             uow.GameRepository.Add(newGame.Name, newGame.ImageUrl);
