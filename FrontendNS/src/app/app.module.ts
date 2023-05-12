@@ -14,11 +14,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { GameAddComponent } from './game/game-add/game-add.component';
+import { GameListComponent } from './game/game-list/game-list.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'add-game', component: GameAddComponent}
+  {path: 'add-game', component: GameAddComponent},
+  {path: 'game-list', component: GameListComponent}
 
 ];
 
@@ -30,6 +32,7 @@ const appRoutes: Routes = [
     NavbarComponent,
     SidebarComponent,
     GameAddComponent,
+    GameListComponent,
 
   ],
   imports: [

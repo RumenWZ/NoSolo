@@ -26,5 +26,10 @@ export const sidebarMenuEntriesAdmin = [
     'label': 'Add Game',
     'icon': 'bx bx-plus-circle',
     'functionName': 'onGameAdd'
+  },
+  {
+    'label': 'Games List',
+    'icon': 'bx bx-list-ul',
+    'functionName': 'onGameList'
   }
 ]

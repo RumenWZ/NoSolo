@@ -14,4 +14,8 @@ export class GameService {
   addGame(game: FormData) {
     return this.http.post(this.baseUrl + '/game/add', game);
   }
+
+  getGamesList() {
+    return this.http.get(this.baseUrl + '/game/getall');
+  }
 }
