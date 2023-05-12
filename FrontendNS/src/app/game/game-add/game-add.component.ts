@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
 
@@ -16,16 +17,25 @@ export class GameAddComponent {
 
   constructor(
     private gameService: GameService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private ng2ImgMax: Ng2ImgMaxService
   ) {}
 
   getImage(event: any) {
     this.image = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(this.image);
-    reader.onload = () => {
-    this.previewImage = reader.result;
-  };
+    this.ng2ImgMax.resizeImage(this.image, 150, 150).subscribe(
+      result => {
+        this.image = new File([result], result.name);
+        const reader = new FileReader();
+        reader.readAsDataURL(this.image);
+        reader.onload = () => {
+          this.previewImage = reader.result;
+        };
+      },
+      error => {
+        console.log('An error occured: ', error);
+      }
+    );
   }
 
   onSubmit(gameForm: NgForm) {
@@ -36,11 +46,11 @@ export class GameAddComponent {
       this.gameService.addGame(formData).subscribe(() => {
         gameForm.reset();
         this.alertify.success('Successfully added game to database');
+        this.previewImage = null;
       }, (error) => {
         this.alertify.error(error.error);
       })
     }
   }
-
 
 }
