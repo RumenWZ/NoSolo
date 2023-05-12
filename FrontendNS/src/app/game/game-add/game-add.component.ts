@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
 
@@ -12,7 +12,7 @@ export class GameAddComponent {
   gameAddForm!: FormGroup
   userSubmitted: boolean;
   image: File;
-
+  previewImage: string | ArrayBuffer
 
   constructor(
     private gameService: GameService,
@@ -21,6 +21,11 @@ export class GameAddComponent {
 
   getImage(event: any) {
     this.image = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.image);
+    reader.onload = () => {
+    this.previewImage = reader.result;
+  };
   }
 
   onSubmit(gameForm: NgForm) {
@@ -36,4 +41,6 @@ export class GameAddComponent {
       })
     }
   }
+
+
 }

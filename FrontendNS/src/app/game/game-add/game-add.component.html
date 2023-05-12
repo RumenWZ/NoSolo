@@ -21,12 +21,15 @@
                 <label class="form-label">Image</label>
                 <div class="photo-form">
                   <input type="file" id="game-image" name="game-image" ngModel (change)="getImage($event)" required name="image">
+                  <img *ngIf="image" class="preview-image" [src]="previewImage">
                 </div>
               </div>
 
+
               <button [disabled]="!gameForm.valid" class="btn btn-outline-light btn-lg px-5" type="submit">Add Game</button>
             </form>
-            </div>
+
+          </div>
 
           </div>
         </div>
