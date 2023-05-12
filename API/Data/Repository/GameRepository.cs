@@ -33,5 +33,10 @@ namespace API.Data.Repository
                 // add API error here later
             }
         }
+
+        public Task<IEnumerable<Game>> GetAllAsync()
+        {
+            return Task.FromResult<IEnumerable<Game>>(dc.Games);
+        }
     }
 }

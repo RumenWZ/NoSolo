@@ -57,5 +57,12 @@ namespace API.Controllers
             await uow.SaveAsync();
             return Ok(id);
         }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var games = await uow.GameRepository.GetAllAsync();
+            return Ok(games);
+        }
     }
 }
