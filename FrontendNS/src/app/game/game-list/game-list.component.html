@@ -9,14 +9,14 @@
 
               <h2 class="fw-bold mb-2 text-uppercase">Games List</h2>
               <p class="text-white-50 mb-5"></p>
-              <ul class="game-list">
+              <ul *ngIf="gamesList.length > 0" class="game-list">
                 <li *ngFor="let game of gamesList" class="game-list-item">
                   <img class="game-image" src="{{game.imageUrl}}">
                   <label class="game-label">{{game.name}}</label>
-                  <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                  <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
                 </li>
-
               </ul>
+              <p *ngIf="getGamesErrorMessage" class="error-block">{{getGamesErrorMessage}}</p>
             </div>
           </div>
         </div>
@@ -25,15 +25,11 @@
   </div>
 </section>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">WARNING</h1>
+        <h1 class="modal-title fs-5" id="confirmDeleteModalLabel">WARNING</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

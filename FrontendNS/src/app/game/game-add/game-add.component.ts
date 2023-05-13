@@ -48,7 +48,7 @@ export class GameAddComponent {
         this.alertify.success('Successfully added game to database');
         this.previewImage = null;
       }, (error) => {
-        this.alertify.error(error.error);
+        this.alertify.error(error.message);
       })
     }
   }

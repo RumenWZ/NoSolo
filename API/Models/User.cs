@@ -11,6 +11,7 @@ namespace API.Models
         public string Email { get; set; }
         [Required]
         public byte[] Password { get; set; }
+        [Required]
         public byte[] PasswordKey { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 

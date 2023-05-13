@@ -9,8 +9,9 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent {
-  gamesList: any;
+  gamesList: any[] = [];
   gamePendingDeletion: Game;
+  getGamesErrorMessage: string = null;
 
   constructor(
     private gameService: GameService,
@@ -22,7 +23,7 @@ export class GameListComponent {
   }
 
   deleteGame(){
-    this.gameService.deleteGame(this.gamePendingDeletion.id).subscribe((response: any) => {
+    this.gameService.deleteGame(this.gamePendingDeletion.id).subscribe(() => {
       this.alertify.success(this.gamePendingDeletion.name + " successfully deleted from database");
       this.getGamesList();
     }, error => {
@@ -32,7 +33,12 @@ export class GameListComponent {
 
   getGamesList() {
     this.gameService.getGamesList().subscribe((games: any) => {
-      this.gamesList = games;
+      if (games) {
+        this.gamesList = games;
+      }
+    }, error => {
+      this.getGamesErrorMessage = error.message;
+      console.log(error);
     });
   }
 
