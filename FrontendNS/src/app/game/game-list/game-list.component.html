@@ -8,9 +8,13 @@
             <div class="mb-md-5 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">Games List</h2>
-              <p class="text-white-50 mb-5"></p>
+              <div class="filter-menu">
+                <input [(ngModel)]="filterString" class="filter-input" type="text" placeholder="Filter Games...">
+                <button>A</button>
+                <button>D</button>
+              </div>
               <ul *ngIf="gamesList.length > 0" class="game-list">
-                <li *ngFor="let game of gamesList" class="game-list-item">
+                <li *ngFor="let game of gamesList | filter: filterString " class="game-list-item">
                   <img class="game-image" src="{{game.imageUrl}}">
                   <label class="game-label">{{game.name}}</label>
                   <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>

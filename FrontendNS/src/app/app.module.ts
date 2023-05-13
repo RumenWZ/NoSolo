@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { GameAddComponent } from './game/game-add/game-add.component';
 import { GameListComponent } from './game/game-list/game-list.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     SidebarComponent,
     GameAddComponent,
     GameListComponent,
+    FilterPipe,
 
   ],
   imports: [

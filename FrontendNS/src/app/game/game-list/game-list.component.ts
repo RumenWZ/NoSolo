@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { filter } from 'rxjs';
 import { Game } from 'src/app/model/game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
@@ -9,9 +10,10 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent {
-  gamesList: any[] = [];
+  gamesList: Game[] = [];
   gamePendingDeletion: Game;
   getGamesErrorMessage: string = null;
+  filterString: string;
 
   constructor(
     private gameService: GameService,
@@ -44,5 +46,7 @@ export class GameListComponent {
 
   ngOnInit() {
     this.getGamesList();
+    this.filterString = '';
   }
+
 }
