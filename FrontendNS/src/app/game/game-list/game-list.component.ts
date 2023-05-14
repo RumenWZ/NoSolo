@@ -14,6 +14,8 @@ export class GameListComponent {
   gamePendingDeletion: Game;
   getGamesErrorMessage: string = null;
   filterString: string;
+  gameListSortOrder : string;
+  sortButtonIcon = "<i class='bx bx-sort-up'></i>";
 
   constructor(
     private gameService: GameService,
@@ -44,9 +46,14 @@ export class GameListComponent {
     });
   }
 
+  onSortGamesList() {
+    this.gameListSortOrder = this.gameListSortOrder === 'ascending' ? 'descending' : 'ascending';
+  }
+
   ngOnInit() {
     this.getGamesList();
     this.filterString = '';
+    this.gameListSortOrder = 'ascending';
   }
 
 }

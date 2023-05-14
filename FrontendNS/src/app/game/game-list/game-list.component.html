@@ -10,11 +10,10 @@
               <h2 class="fw-bold mb-2 text-uppercase">Games List</h2>
               <div class="filter-menu">
                 <input [(ngModel)]="filterString" class="filter-input" type="text" placeholder="Filter Games...">
-                <button>A</button>
-                <button>D</button>
+                <button (click)="onSortGamesList()"><i class="sort-btn" [ngClass]="gameListSortOrder === 'ascending' ? 'bx bx-sort-up' : 'bx bx-sort-down'"></i></button>
               </div>
               <ul *ngIf="gamesList.length > 0" class="game-list">
-                <li *ngFor="let game of gamesList | filter: filterString " class="game-list-item">
+                <li *ngFor="let game of gamesList | filter: filterString |sort: gameListSortOrder: 'name'" class="game-list-item">
                   <img class="game-image" src="{{game.imageUrl}}">
                   <label class="game-label">{{game.name}}</label>
                   <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
