@@ -38,5 +38,11 @@ namespace API.Data.Repository
         {
             return Task.FromResult<IEnumerable<Game>>(dc.Games);
         }
+
+        public async Task<Game> GetByIdAsync(int gameId)
+        {
+            var game = await dc.Games.FindAsync(gameId);
+            return game;
+        }
     }
 }

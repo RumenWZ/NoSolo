@@ -60,6 +60,17 @@ namespace API.Controllers
             return StatusCode(201);
         }
 
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> FindUserById(int userId)
+        {
+            var user = await uow.UserRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+            return Ok(user);
+        }
+
         private string CreateJWT(User user)
         {
             var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";

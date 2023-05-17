@@ -42,9 +42,17 @@
 }
 
 .filter-input {
-  width: 80%;
+  width: 90%;
+  border-radius: 10px;
 }
 
 .sort-btn {
-  font-size: 1.3rem;
+  height: 1.75rem;
+  width: auto;
+  border: none;
+  border-radius: 5px;
+}
+
+.sort-btn-icon {
+  font-size: 1.2rem;
 }

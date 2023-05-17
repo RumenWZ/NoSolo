@@ -15,7 +15,6 @@ export class GameListComponent {
   getGamesErrorMessage: string = null;
   filterString: string;
   gameListSortOrder : string;
-  sortButtonIcon = "<i class='bx bx-sort-up'></i>";
 
   constructor(
     private gameService: GameService,

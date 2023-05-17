@@ -33,6 +33,12 @@ namespace API.Data.Repository
             return user;
         }
 
+        public async Task<User> GetByIdAsync(int userId)
+        {
+            var user = await dc.Users.FindAsync(userId);
+            return user;
+        }
+
         public void Register(string username, string email, string password)
         {
             byte[] passwordHash, passwordKey;

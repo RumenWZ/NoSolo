@@ -64,5 +64,17 @@ namespace API.Controllers
             var games = await uow.GameRepository.GetAllAsync();
             return Ok(games);
         }
+
+        [HttpGet("gameId")]
+        public async Task<IActionResult> GetByIdAsync(int gameId)
+        {
+            var game = await uow.GameRepository.GetByIdAsync(gameId);
+            if (game == null)
+            {
+                return BadRequest("Game could not be found");
+            }
+            
+            return Ok(game);
+        }
     }
 }

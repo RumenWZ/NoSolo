@@ -7,5 +7,6 @@ namespace API.Interfaces
         void Add(string name, string imageUrl);
         void Delete(int id);
         Task<IEnumerable<Game>> GetAllAsync();
+        Task<Game> GetByIdAsync(int gameId);
     }
 }

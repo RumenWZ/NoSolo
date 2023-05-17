@@ -20,7 +20,6 @@ export class LoginComponent {
   onLogin(form: NgForm) {
     this.user.authUser(form.value).subscribe(
       (response: any) => {
-        console.log(response);
         const user = response;
         localStorage.setItem('token', user.token);
         localStorage.setItem('userName', user.username);
