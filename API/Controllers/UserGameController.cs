@@ -19,20 +19,20 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add(int userid, int gameid, string description)
+        public async Task<IActionResult> Add(int userId, int gameId, string description)
         {
-            //var user = dc.Users.FirstOrDefault(x => x.Id  == userid);
-            //var game = dc.Games.FirstOrDefault(x => x.Id == gameid);
-            //if (user == null)
-            //{
-            //    return BadRequest("User can not be found");
-            //}
-            //if (game == null)
-            //{
-            //    return BadRequest("Game can not be found");
-            //}
-        
-            uow.UserGameRepository.Add(userid, gameid, description);
+            var user = await uow.UserRepository.GetByIdAsync(userId);
+            var game = await uow.GameRepository.GetByIdAsync(gameId);
+            if (user == null)
+            {
+                return BadRequest("User can not be found");
+            }
+            if (game == null)
+            {
+                return BadRequest("Game can not be found");
+            }
+
+            uow.UserGameRepository.Add(user.Id, game.Id, description);
             await uow.SaveAsync();
             return Ok(201);
         }
