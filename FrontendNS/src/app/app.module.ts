@@ -17,13 +17,15 @@ import { GameAddComponent } from './game/game-add/game-add.component';
 import { GameListComponent } from './game/game-list/game-list.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { SettingsComponent } from './settings/settings.component';
+import { GameSelectionComponent } from './user-games/game-selection/game-selection.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'add-game', component: GameAddComponent},
-  {path: 'game-list', component: GameListComponent}
-
+  {path: 'game-list', component: GameListComponent},
+  {path: 'game-selection', component: GameSelectionComponent}
 ];
 
 @NgModule({
@@ -37,6 +39,8 @@ const appRoutes: Routes = [
     GameListComponent,
     FilterPipe,
     SortPipe,
+    SettingsComponent,
+    GameSelectionComponent,
 
   ],
   imports: [
