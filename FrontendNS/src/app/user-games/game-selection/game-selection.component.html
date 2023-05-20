@@ -1,13 +1,28 @@
 
-<div class="row mb-5">
-  <div class="col-10 game-selection shadow-lg vh-100 px-0">
-    <ul class="col game-sidebar">
-      <li  class="game-sidebar-item">
-        <i class='add-btn bx bx-plus'></i>
-      </li>
-      <li class="game-sidebar-item" *ngFor="let game of gamesList">
-        <img class="game-sidebar-image" src="{{game.imageUrl}}" alt="">
-      </li>
-    </ul>>
+<div class="main-body">
+  <div class="row">
+    <div class="game-selection shadow-lg px-0">
+
+      <ul class="p-0 game-sidebar">
+        <li  class="game-sidebar-item">
+          <i (click)="addGameCardEnabled = true" class='add-btn bx bx-plus'></i>
+        </li>
+        <li class="game-sidebar-item" (click)="onMyGame(game.id)" *ngFor="let game of gamesList">
+          <img class="game-sidebar-image" src="{{game.imageUrl}}" alt="">
+        </li>
+        <li class="game-sidebar-item" (click)="onMyGame(game.id)" *ngFor="let game of gamesList">
+          <img class="game-sidebar-image" src="{{game.imageUrl}}" alt="">
+        </li>
+      </ul>
+      <div *ngIf="addGameCardEnabled" class="add-game">
+      <p class="add-game-header">Add game</p>
+      <div  class="add-game-card card">
+        <div class="card-body">
+          <app-user-game-add></app-user-game-add>
+        </div>
+      </div>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -19,6 +19,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { SettingsComponent } from './settings/settings.component';
 import { GameSelectionComponent } from './user-games/game-selection/game-selection.component';
+import { UserGameAddComponent } from './user-games/user-game-add/user-game-add.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     SortPipe,
     SettingsComponent,
     GameSelectionComponent,
+    UserGameAddComponent,
 
   ],
   imports: [

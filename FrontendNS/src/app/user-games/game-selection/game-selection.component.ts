@@ -9,12 +9,20 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class GameSelectionComponent {
   gamesList: Game[];
+  addGameCardEnabled: boolean = true;
 
   constructor(
     private gameService: GameService
   ) {}
 
+  onAddGame() {
+    console.log("test");
+  }
 
+  onMyGame(gameId: number) {
+    console.log(`Game ${gameId} clicked`)
+    this.addGameCardEnabled = false;
+  }
 
   ngOnInit() {
     this.gameService.getGamesList().subscribe((response: any) => {
