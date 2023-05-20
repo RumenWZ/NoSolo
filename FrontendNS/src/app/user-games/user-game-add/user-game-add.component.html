@@ -1,1 +1,19 @@
-<p>user-game-add works!</p>
+<!-- <div class="card-content">
+  <label>Select a Game</label>
+  <input type="text" [(ngModel)]="filterString" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()">
+    <ul *ngIf="isDropdownVisible" id="game-list" class="dropdown-list">
+      <li *ngFor="let game of gameList | filter: filterString">
+        {{game.name}}
+      </li>
+    </ul>
+</div> -->
+<div class="card-content">
+  <label for="game-input">Select a Game</label>
+  <input type="text" [(ngModel)]="filterString" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()">
+  <ul id="game-list" class="dropdown-list" [ngClass]="{'visible': isDropdownVisible}">
+    <li *ngFor="let game of gameList | filter: filterString">
+      <img src="{{game.imageUrl}}">
+      <label class="game-label">{{game.name}}</label>
+    </li>
+  </ul>
+</div>

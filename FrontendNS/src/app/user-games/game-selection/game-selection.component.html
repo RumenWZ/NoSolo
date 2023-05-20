@@ -10,9 +10,7 @@
         <li class="game-sidebar-item" (click)="onMyGame(game.id)" *ngFor="let game of gamesList">
           <img class="game-sidebar-image" src="{{game.imageUrl}}" alt="">
         </li>
-        <li class="game-sidebar-item" (click)="onMyGame(game.id)" *ngFor="let game of gamesList">
-          <img class="game-sidebar-image" src="{{game.imageUrl}}" alt="">
-        </li>
+
       </ul>
       <div *ngIf="addGameCardEnabled" class="add-game">
       <p class="add-game-header">Add game</p>
