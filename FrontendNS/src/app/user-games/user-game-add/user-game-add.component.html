@@ -1,15 +1,9 @@
-<!-- <div class="card-content">
-  <label>Select a Game</label>
-  <input type="text" [(ngModel)]="filterString" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()">
-    <ul *ngIf="isDropdownVisible" id="game-list" class="dropdown-list">
-      <li *ngFor="let game of gameList | filter: filterString">
-        {{game.name}}
-      </li>
-    </ul>
-</div> -->
 <div class="card-content">
   <label for="game-input">Select a Game</label>
-  <input type="text" [(ngModel)]="filterString" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()">
+  <div class="input-wrapper">
+    <input class="search-field" type="text" [(ngModel)]="filterString" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()">
+    <i class="clear-button bx bx-x" (click)="clearInput()"></i>
+  </div>
   <ul id="game-list" class="dropdown-list" [ngClass]="{'visible': isDropdownVisible}">
     <li *ngFor="let game of gameList | filter: filterString">
       <img src="{{game.imageUrl}}">

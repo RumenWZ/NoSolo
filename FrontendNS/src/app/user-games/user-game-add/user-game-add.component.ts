@@ -24,6 +24,10 @@ export class UserGameAddComponent {
     this.isDropdownVisible = false;
   }
 
+  clearInput() {
+    this.filterString = '';
+  }
+
   ngOnInit() {
     this.filterString = '';
     this.isDropdownVisible = false;
