@@ -87,7 +87,7 @@
 
 .add-game-card {
   min-height: 300px;
-  max-height: 350px;
+  max-height: 450px;
   background-color: var(--main-color);
   border: 1px solid #eaeaea;
 }

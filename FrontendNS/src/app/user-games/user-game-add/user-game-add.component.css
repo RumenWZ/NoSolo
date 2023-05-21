@@ -1,8 +1,11 @@
-.card-content {
+.card-content, .description-wrapper{
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+}
+
+.card-content {
+  min-height: 55rem;
 }
 
 .dropdown-list {
@@ -13,11 +16,13 @@
   margin: 0;
   background-color: #ffffff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: 15;
   top: 100%;
-  width: 70%;
+  width: 100%;
   overflow-y: auto;
   max-height: 25rem;
+  transform: translateY(1px);
+
 }
 
 .search-field {
@@ -66,5 +71,68 @@
   background: none;
   border: none;
   cursor: pointer;
+}
 
+
+.description-wrapper {
+  margin-top: 2rem;
+  width: 100%;
+  min-height: 10rem;
+}
+
+.description-field {
+  width: 70%;
+  height: 10rem;
+  max-height: 10rem;
+}
+
+
+.selected-game-wrapper {
+  margin-top: 1.50rem;
+  position: relative;
+  background-color: #b2b2b2;
+  min-height: 2.3rem;
+  min-width: 50%;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.selected-game-wrapper img {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.selected-game-wrapper label {
+  margin-left: 2.70rem;
+  color: var(--main-color);
+  font-family: poppips, sans-serif;
+  font-weight: 600;
+  flex: 1;
+  display: inline-block;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: text;
+  z-index: 5;
+}
+
+.selected-game-wrapper i {
+  margin-right: 5px;
+  z-index: 10;
+  background: #b2b2b2;
+}
+
+.confirm-button {
+  background-color: var(--main-color);
+  color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 20px;
+  margin-top: 1rem;
+  min-width: 10rem;
+  min-height: 3rem;
 }

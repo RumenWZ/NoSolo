@@ -10,6 +10,7 @@ import { GameService } from 'src/app/services/game.service';
 export class GameSelectionComponent {
   gamesList: Game[];
   addGameCardEnabled: boolean = true;
+  userGameList: Game[];
 
   constructor(
     private gameService: GameService
