@@ -71,6 +71,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 
@@ -90,12 +91,21 @@
 .selected-game-wrapper {
   margin-top: 1.50rem;
   position: relative;
-  background-color: #b2b2b2;
+  background-color: #cf26ff;
   min-height: 2.3rem;
   min-width: 50%;
   display: flex;
   align-items: center;
   border-radius: 25px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%);
+}
+
+.selected-game-wrapper:hover {
+  background-color: #9123b2;
+}
+
+.selected-game-wrapper:hover .clear-button {
+  background-color: #9123b2;
 }
 
 .selected-game-wrapper img {
@@ -107,10 +117,10 @@
 }
 
 .selected-game-wrapper label {
-  margin-left: 2.70rem;
-  color: var(--main-color);
-  font-family: poppips, sans-serif;
-  font-weight: 600;
+  margin-left: 3rem;
+  color: white;
+  font-family: poppins, sans-serif;
+  font-weight: 700;
   flex: 1;
   display: inline-block;
   max-width: 10rem;
@@ -124,7 +134,7 @@
 .selected-game-wrapper i {
   margin-right: 5px;
   z-index: 10;
-  background: #b2b2b2;
+  background: #cf26ff;
 }
 
 .confirm-button {
@@ -135,4 +145,13 @@
   margin-top: 1rem;
   min-width: 10rem;
   min-height: 3rem;
+}
+
+.confirm-button:hover {
+  background-color: #3b4045;
+}
+
+.confirm-button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }

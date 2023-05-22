@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as alertify from 'alertifyjs';
-import { User } from '../model/user';
+import { User, UserGame } from '../model/user';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
 
@@ -19,7 +19,6 @@ export class UserService {
   ) { }
 
   addUser(user: User) {
-    alertify.success("Registration successful");
     return this.http.post(this.baseUrl + '/account/register', user);
   }
 
@@ -29,6 +28,10 @@ export class UserService {
 
   getUsername() {
     return localStorage.getItem('userName');
+  }
+
+  addUserGame(userGame: UserGame) {
+    return this.http.post(this.baseUrl + '/UserGame/add', userGame);
   }
 
   logoutUser() {

@@ -17,14 +17,8 @@ namespace API.Data.Repository
             UserGame userGame = new UserGame();
             userGame.UserId = userId;
             userGame.GameId = gameId;
-            if (!string.IsNullOrEmpty(description))
-            {
-                userGame.Description = description;
-            }
-            else
-            {
-                userGame.Description = string.Empty;
-            }
+            userGame.Description =  description;
+            userGame.AddedOn = DateTime.Now;
             dc.UserGames.Add(userGame);
         }
 

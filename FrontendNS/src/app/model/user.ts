@@ -9,3 +9,10 @@ export interface UserForLogin {
   password: string;
   token: string;
 }
+
+export interface UserGame {
+  userId: number,
+  gameId: number,
+  description: string
+}
+

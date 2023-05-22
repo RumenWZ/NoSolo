@@ -15,7 +15,8 @@ export class RegisterComponent {
   userSubmitted :boolean;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private alertify: AlertifyService
     ) {
   }
 
@@ -40,6 +41,7 @@ export class RegisterComponent {
       this.userService.addUser(this.userData()).subscribe(() => {
         this.registerForm.reset();
         this.userSubmitted = false;
+        this.alertify.success("Successful registration");
       })
     }
   }

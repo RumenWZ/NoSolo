@@ -1,4 +1,4 @@
-<form #gameForm="ngForm">
+<form #gameForm="ngForm" (submit)="onSubmit(gameForm)">
   <div class="card-content">
       <label for="game-input">Select a Game</label>
       <div class="input-wrapper">
@@ -13,13 +13,13 @@
       </div>
       <div *ngIf="selectedGame" class="selected-game-wrapper">
         <img src="{{selectedGame.imageUrl}}">
-        <label>{{selectedGame.name}}</label>
+        <label>{{selectedGame.name.toUpperCase()}}</label>
         <i class="clear-button bx bx-x" (click)="clearSelectedGame()"></i>
       </div>
       <div class="description-wrapper">
         <label>Game Description</label>
-        <textarea class="description-field" [(ngModel)]="gameDescription" placeholder={{gameDescriptionPlaceholder}}></textarea>
+        <textarea class="description-field" required [(ngModel)]="gameDescription" name="description" placeholder={{gameDescriptionPlaceholder}}></textarea>
       </div>
-      <button class="confirm-button">Confirm</button>
+      <button type="submit" [disabled]="!gameForm.valid || !selectedGame" class="confirm-button">Confirm</button>
   </div>
 </form>
