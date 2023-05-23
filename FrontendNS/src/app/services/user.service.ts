@@ -4,6 +4,7 @@ import * as alertify from 'alertifyjs';
 import { User, UserGame } from '../model/user';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +32,17 @@ export class UserService {
   }
 
   addUserGame(userGame: UserGame) {
-    return this.http.post(this.baseUrl + '/UserGame/add', userGame);
+    return this.http.post(this.baseUrl + '/usergame/add', userGame);
   }
 
   getUserByUsername(username: string) {
     return this.http.get(this.baseUrl + '/account/get-user-by-username/' + username);
   }
+
+  getUserGames(username: string) {
+    return this.http.get(this.baseUrl + '/usergame/get-user-games/' + username);
+  }
+
 
   logoutUser() {
     localStorage.removeItem('token');

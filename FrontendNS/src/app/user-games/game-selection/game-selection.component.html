@@ -7,8 +7,8 @@
         <li  class="game-sidebar-item">
           <i (click)="addGameCardEnabled = true" class='add-btn bx bx-plus'></i>
         </li>
-        <li class="game-sidebar-item" (click)="onMyGame(game.id)" *ngFor="let game of userGameList">
-          <img class="game-sidebar-image" src="{{game.imageUrl}}" alt="">
+        <li class="game-sidebar-item" (click)="onMyGame(game.gameId)" *ngFor="let game of userGameList">
+          <img class="game-sidebar-image" src="{{game.gameImageUrl}}" alt="">
         </li>
 
       </ul>

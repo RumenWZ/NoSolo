@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Game } from 'src/app/model/game';
 import { GameService } from 'src/app/services/game.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-selection',
@@ -8,12 +8,13 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./game-selection.component.css']
 })
 export class GameSelectionComponent {
-  gamesList: Game[];
+  userGameList: any[];
   addGameCardEnabled: boolean = true;
-  userGameList: Game[];
+  username = localStorage.getItem('userName');
 
   constructor(
-    private gameService: GameService
+    private gameService: GameService,
+    private user: UserService
   ) {}
 
   onAddGame() {
@@ -26,8 +27,8 @@ export class GameSelectionComponent {
   }
 
   ngOnInit() {
-    this.gameService.getGamesList().subscribe((response: any) => {
-      this.gamesList = response;
+    this.user.getUserGames(this.username).subscribe((response: any) => {
+      this.userGameList = response;
     })
   }
 }

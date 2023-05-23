@@ -7,7 +7,7 @@ import { filter } from 'rxjs';
 export class FilterPipe implements PipeTransform {
 
   transform(value: any[], filterString: string): any {
-    if(value.length === 0 || filterString === ''){
+    if(!value || value.length === 0 || filterString === ''){
       return value;
     }
 
