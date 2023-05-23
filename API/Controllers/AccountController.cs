@@ -71,6 +71,17 @@ namespace API.Controllers
             return Ok(user);
         }
 
+        [HttpGet("get-user-by-username/{username}")]
+        public async Task<IActionResult> GetUserByUsername(string username)
+        {
+            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest("No such user exists");
+            }
+            return Ok(user);
+        }
+
         private string CreateJWT(User user)
         {
             var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
@@ -97,5 +108,6 @@ namespace API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        
     }
 }

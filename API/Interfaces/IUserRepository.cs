@@ -8,5 +8,6 @@ namespace API.Interfaces
         void Register(string username,string email, string password);
         Task<bool> UserAlreadyExists(string username);
         Task<User> GetByIdAsync(int userId);
+        Task<User> GetByUserNameAsync(string username);
     }
 }

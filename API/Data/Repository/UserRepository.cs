@@ -39,6 +39,16 @@ namespace API.Data.Repository
             return user;
         }
 
+        public async Task<User> GetByUserNameAsync(string username)
+        {
+            var user = await dc.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
+        }
+
         public void Register(string username, string email, string password)
         {
             byte[] passwordHash, passwordKey;

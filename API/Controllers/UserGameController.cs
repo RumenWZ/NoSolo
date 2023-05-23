@@ -19,10 +19,10 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add(int userId, int gameId, string description)
+        public async Task<IActionResult> Add(UserGameAddRequest request)
         {
-            var user = await uow.UserRepository.GetByIdAsync(userId);
-            var game = await uow.GameRepository.GetByIdAsync(gameId);
+            var user = await uow.UserRepository.GetByIdAsync(request.UserId);
+            var game = await uow.GameRepository.GetByIdAsync(request.GameId);
             if (user == null)
             {
                 return BadRequest("User can not be found");
@@ -32,7 +32,7 @@ namespace API.Controllers
                 return BadRequest("Game can not be found");
             }
 
-            uow.UserGameRepository.Add(user.Id, game.Id, description);
+            uow.UserGameRepository.Add(user.Id, game.Id, request.Description);
             await uow.SaveAsync();
             return Ok(201);
         }

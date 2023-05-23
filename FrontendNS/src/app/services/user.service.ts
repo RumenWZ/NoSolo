@@ -34,6 +34,10 @@ export class UserService {
     return this.http.post(this.baseUrl + '/UserGame/add', userGame);
   }
 
+  getUserByUsername(username: string) {
+    return this.http.get(this.baseUrl + '/account/get-user-by-username/' + username);
+  }
+
   logoutUser() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
