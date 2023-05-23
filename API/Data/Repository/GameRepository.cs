@@ -1,5 +1,6 @@
 ﻿using API.Interfaces;
 using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
 {
@@ -43,6 +44,12 @@ namespace API.Data.Repository
         {
             var game = await dc.Games.FindAsync(gameId);
             return game;
+        }
+
+        public async Task<IEnumerable<Game>> GetGamesByIds(IEnumerable<int> ids)
+        {
+            var games = await dc.Games.Where(g => ids.Contains(g.Id)).ToListAsync();
+            return games.ToList();
         }
     }
 }

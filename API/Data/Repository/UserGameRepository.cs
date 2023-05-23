@@ -1,6 +1,7 @@
 ﻿using API.Interfaces;
 using API.Migrations;
 using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
 {
@@ -22,5 +23,10 @@ namespace API.Data.Repository
             dc.UserGames.Add(userGame);
         }
 
+        public async Task<IEnumerable<UserGame>> GetUserGameListById(int userId)
+        {
+            var userGameList = await dc.UserGames.Where(u => u.UserId == userId).ToListAsync();
+            return userGameList;
+        }
     }
 }

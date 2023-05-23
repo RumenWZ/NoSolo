@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { switchMap } from 'rxjs';
   import { Game } from 'src/app/model/game';
 import { UserGame } from 'src/app/model/user';
+import { AlertifyService } from 'src/app/services/alertify.service';
   import { GameService } from 'src/app/services/game.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
   })
   export class UserGameAddComponent {
     userGame: UserGame = {description: null, userId: null, gameId: null};
+    userGameList: Game[];
     gameList: Game[];
     filterString: '';
     isDropdownVisible: boolean;
@@ -24,7 +26,8 @@ import { UserService } from 'src/app/services/user.service';
 
     constructor(
       private gameService: GameService,
-      private user: UserService
+      private user: UserService,
+      private alertify: AlertifyService
       ) {}
 
     showDropdownList() {
@@ -50,24 +53,6 @@ import { UserService } from 'src/app/services/user.service';
       this.selectedGame = null;
     }
 
-    // onSubmit(gameForm: NgForm) {
-    //   var userId : number;
-    //   var username = localStorage.getItem('userName');
-    //   this.user.getUserByUsername(username).subscribe((response: any) => {
-    //     userId = response;
-    //     console.log(response);
-    //   });
-    //   this.userGame.description = gameForm.form.value.description;
-    //   this.userGame.gameId = this.selectedGame.id;
-    //   this.userGame.userId = userId;
-    //   console.log(userId);
-
-    //   this.user.addUserGame(this.userGame).subscribe((response: any) => {
-    //     console.log(response);
-    //   })
-    //   console.log(this.userGame.description);
-    // }
-
     onSubmit(gameForm: NgForm) {
       const username = localStorage.getItem('userName');
 
@@ -80,7 +65,7 @@ import { UserService } from 'src/app/services/user.service';
           return this.user.addUserGame(this.userGame)
         })
       ).subscribe((response: any) => {
-        console.log(response);
+        this.alertify.success(`${this.selectedGame.name} succesfully added to your games list`);
       });
     }
 
