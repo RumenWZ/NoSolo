@@ -34,7 +34,7 @@ namespace API.Controllers
 
             if (user == null)
             {
-                return Unauthorized("Unknown API error");
+                return Unauthorized("Invalid username or password");
             }
             var loginResponse = new LoginResponseDTO();
             loginResponse.Username = user.Username;
