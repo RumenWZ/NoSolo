@@ -4,7 +4,6 @@ namespace WebAPI.Errors
 {
     public class ApiError
     {
-        public ApiError() { }
         public ApiError(int errorCode, string errorMessage, string errorDetails = null)
         {
             ErrorCode = errorCode;

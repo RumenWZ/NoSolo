@@ -62,11 +62,10 @@ namespace API.Controllers
                     GameId = game.Id,
                     GameName = game.Name,
                     GameImageUrl = game.ImageUrl,
-                    UserDescription = userGame?.Description
+                    UserDescription = userGame.Description
                 };
                 userGameDTOs.Add(userGameDTO);
             }
-
 
             return Ok(userGameDTOs);
         }

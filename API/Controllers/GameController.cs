@@ -61,6 +61,7 @@ namespace API.Controllers
         [HttpGet("getall")]
         public async Task<IActionResult> GetAllAsync()
         {
+            throw new UnauthorizedAccessException();
             var games = await uow.GameRepository.GetAllAsync();
             return Ok(games);
         }
