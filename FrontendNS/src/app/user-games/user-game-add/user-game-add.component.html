@@ -1,25 +1,31 @@
-<form #gameForm="ngForm" (submit)="onSubmit(gameForm)">
-  <div class="card-content">
-      <label for="game-input">Select a Game</label>
-      <div class="input-wrapper">
-        <input class="search-field" type="text" [(ngModel)]="filterString" [ngModelOptions]="{ standalone: true }" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()" autocomplete="off" (keydown.enter)="$event.preventDefault()">
-        <i class="clear-button bx bx-x" (click)="clearInput()"></i>
-        <ul id="game-list" class="dropdown-list" [ngClass]="{'visible': isDropdownVisible}">
-          <li *ngFor="let game of gameList | filter: filterString" (click)="onSelectGame(game)">
-            <img src="{{game.imageUrl}}">
-            <label class="game-label">{{game.name}}</label>
-          </li>
-        </ul>
+<p class="add-game-header">Add game</p>
+      <div  class="add-game-card card">
+        <div class="card-body">
+          <form #gameForm="ngForm" (submit)="onSubmit(gameForm)">
+            <div class="card-content">
+                <label for="game-input">Select a Game</label>
+                <div class="input-wrapper">
+                  <input class="search-field" type="text" [(ngModel)]="filterString" [ngModelOptions]="{ standalone: true }" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+                  <i class="clear-button bx bx-x" (click)="clearInput()"></i>
+                  <ul id="game-list" class="dropdown-list" [ngClass]="{'visible': isDropdownVisible}">
+                    <li *ngFor="let game of gameList | filter: filterString" (click)="onSelectGame(game)">
+                      <img src="{{game.imageUrl}}">
+                      <label class="game-label">{{game.name}}</label>
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="selectedGame" class="selected-game-wrapper">
+                  <img src="{{selectedGame.imageUrl}}">
+                  <label>{{selectedGame.name.toUpperCase()}}</label>
+                  <i class="clear-button bx bx-x" (click)="clearSelectedGame()"></i>
+                </div>
+                <div class="description-wrapper">
+                  <label>Game Description</label>
+                  <textarea class="description-field" required [(ngModel)]="gameDescription" name="description" placeholder={{gameDescriptionPlaceholder}}></textarea>
+                </div>
+                <button type="submit" [disabled]="!gameForm.valid || !selectedGame" class="confirm-button">Confirm</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div *ngIf="selectedGame" class="selected-game-wrapper">
-        <img src="{{selectedGame.imageUrl}}">
-        <label>{{selectedGame.name.toUpperCase()}}</label>
-        <i class="clear-button bx bx-x" (click)="clearSelectedGame()"></i>
-      </div>
-      <div class="description-wrapper">
-        <label>Game Description</label>
-        <textarea class="description-field" required [(ngModel)]="gameDescription" name="description" placeholder={{gameDescriptionPlaceholder}}></textarea>
-      </div>
-      <button type="submit" [disabled]="!gameForm.valid || !selectedGame" class="confirm-button">Confirm</button>
-  </div>
-</form>
+

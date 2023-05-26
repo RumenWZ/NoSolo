@@ -43,6 +43,10 @@ export class UserService {
     return this.http.get(this.baseUrl + '/usergame/get-user-games/' + username);
   }
 
+  getUserGame(username: string, gameId: number) {
+    return this.http.get(`${this.baseUrl}/usergame/get-user-game/${username}/${gameId}`);
+  }
+
 
   logoutUser() {
     localStorage.removeItem('token');

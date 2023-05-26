@@ -23,7 +23,13 @@ namespace API.Data.Repository
             dc.UserGames.Add(userGame);
         }
 
-        public async Task<IEnumerable<UserGame>> GetUserGameListById(int userId)
+        public async Task<UserGame> GetUserGameByIdAsync(int gameId)
+        {
+            var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.GameId == gameId);
+            return userGame;
+        }
+
+        public async Task<IEnumerable<UserGame>> GetUserGameListByIdAsync(int userId)
         {
             var userGameList = await dc.UserGames.Where(u => u.UserId == userId).ToListAsync();
             return userGameList;

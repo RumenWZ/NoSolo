@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Game } from 'src/app/model/game';
+import { User, UserGame, UserGameDTO } from 'src/app/model/user';
 import { GameService } from 'src/app/services/game.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,9 +10,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./game-selection.component.css']
 })
 export class GameSelectionComponent {
+  selectedGame: UserGameDTO = undefined;
+
   userGameList: any[];
   addGameCardEnabled: boolean = true;
+  userGameDetailsEnabled: boolean = false;
   username = localStorage.getItem('userName');
+
 
   constructor(
     private gameService: GameService,
@@ -18,12 +24,14 @@ export class GameSelectionComponent {
   ) {}
 
   onAddGame() {
-    console.log("test");
+    this.addGameCardEnabled = true;
+    this.userGameDetailsEnabled = false;
   }
 
-  onMyGame(gameId: number) {
-    console.log(`Game ${gameId} clicked`)
+  onMyGame(game: UserGameDTO) {
+    this.userGameDetailsEnabled = true;
     this.addGameCardEnabled = false;
+    this.selectedGame = game;
   }
 
   ngOnInit() {

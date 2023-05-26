@@ -155,3 +155,16 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+.add-game-card {
+  min-height: 300px;
+  max-height: 450px;
+  background-color: var(--main-color);
+  border: 1px solid #eaeaea;
+}
+
+.add-game-header {
+  font-size: 2rem;
+  text-align: center;
+}
+

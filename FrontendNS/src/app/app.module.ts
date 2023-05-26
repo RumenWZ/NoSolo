@@ -24,6 +24,7 @@ import { UserService } from './services/user.service';
 import { GameService } from './services/game.service';
 import { AlertifyService } from './services/alertify.service';
 import { HttpErrorInterceptorService } from './services/error-interceptor.service';
+import { UserGameDetailsComponent } from './user-games/user-game-details/user-game-details.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     SettingsComponent,
     GameSelectionComponent,
     UserGameAddComponent,
+    UserGameDetailsComponent,
 
   ],
   imports: [

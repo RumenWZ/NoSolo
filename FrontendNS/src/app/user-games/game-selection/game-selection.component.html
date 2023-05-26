@@ -5,20 +5,18 @@
 
       <ul class="p-0 game-sidebar">
         <li  class="game-sidebar-item">
-          <i (click)="addGameCardEnabled = true" class='add-btn bx bx-plus'></i>
+          <i (click)="onAddGame()" class='add-btn bx bx-plus'></i>
         </li>
-        <li class="game-sidebar-item" (click)="onMyGame(game.gameId)" *ngFor="let game of userGameList">
+        <li class="game-sidebar-item" (click)="onMyGame(game)" *ngFor="let game of userGameList">
           <img class="game-sidebar-image" src="{{game.gameImageUrl}}" alt="">
         </li>
 
       </ul>
-      <div *ngIf="addGameCardEnabled" class="add-game">
-      <p class="add-game-header">Add game</p>
-      <div  class="add-game-card card">
-        <div class="card-body">
+      <div *ngIf="addGameCardEnabled" class="component-section">
           <app-user-game-add></app-user-game-add>
-        </div>
       </div>
+      <div *ngIf="userGameDetailsEnabled" class="component-section">
+          <app-user-game-details [game]="selectedGame"></app-user-game-details>
       </div>
     </div>
 

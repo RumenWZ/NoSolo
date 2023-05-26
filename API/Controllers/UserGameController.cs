@@ -48,7 +48,7 @@ namespace API.Controllers
             {
                 return BadRequest("User can not be found");
             }
-            var userGameList = await uow.UserGameRepository.GetUserGameListById(user.Id);
+            var userGameList = await uow.UserGameRepository.GetUserGameListByIdAsync(user.Id);
             var gameIds = userGameList.Select(ug => ug.GameId).ToList();
             var games = await uow.GameRepository.GetGamesByIds(gameIds);
 
@@ -69,6 +69,38 @@ namespace API.Controllers
 
             return Ok(userGameDTOs);
         }
-        
+
+        [HttpGet("get-user-game/{username}/{id}")]
+        public async Task<IActionResult> GetUserGame(string username, int id)
+        {
+            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest("User can not be found");
+            }
+
+            var userGame = await uow.UserGameRepository.GetUserGameByIdAsync(id);
+            if (userGame == null || userGame.UserId != user.Id)
+            {
+                return BadRequest("User game not found");
+            }
+
+            var game = await uow.GameRepository.GetByIdAsync(userGame.GameId);
+            if (game == null)
+            {
+                return BadRequest("Game not found");
+            }
+
+            var userGameDTO = new UserGameDTO
+            {
+                GameId = game.Id,
+                GameName = game.Name,
+                GameImageUrl = game.ImageUrl,
+                UserDescription = userGame.Description
+            };
+
+            return Ok(userGameDTO);
+        }
+
     }
 }

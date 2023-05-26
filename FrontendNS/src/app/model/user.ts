@@ -15,3 +15,10 @@ export interface UserGame {
   gameId: number,
   description: string
 }
+
+export interface UserGameDTO {
+  gameId: number,
+  gameName: string,
+  gameImageUrl: string,
+  userDescription: string,
+}

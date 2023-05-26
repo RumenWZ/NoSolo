@@ -80,16 +80,9 @@
   cursor: pointer;
 }
 
-.add-game {
+.component-section {
   width: 100%;
   margin: 10px;
-}
-
-.add-game-card {
-  min-height: 300px;
-  max-height: 450px;
-  background-color: var(--main-color);
-  border: 1px solid #eaeaea;
 }
 
 .add-game-header {
