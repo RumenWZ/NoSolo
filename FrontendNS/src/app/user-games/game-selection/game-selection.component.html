@@ -13,10 +13,10 @@
 
       </ul>
       <div *ngIf="addGameCardEnabled" class="component-section">
-          <app-user-game-add></app-user-game-add>
+          <app-user-game-add (gameAdded)="updateGameList()"></app-user-game-add>
       </div>
       <div *ngIf="userGameDetailsEnabled" class="component-section">
-          <app-user-game-details [game]="selectedGame"></app-user-game-details>
+          <app-user-game-details [game]="selectedGame" (gameDeleted)="updateGameList()"></app-user-game-details>
       </div>
     </div>
 

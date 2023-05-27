@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { UserGame, UserGameDTO } from 'src/app/model/user';
-import { UserService } from 'src/app/services/user.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { UserGameDTO } from 'src/app/model/user-game';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { UserGameService } from 'src/app/services/user-game.service';
+
 
 @Component({
   selector: 'app-user-game-details',
@@ -9,15 +11,27 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserGameDetailsComponent {
   @Input() game: UserGameDTO;
+  @Output() gameDeleted: EventEmitter<void> = new EventEmitter<void>();
+
   username = localStorage.getItem('userName');
   userDescription: string;
   newDescription: string;
 
   constructor(
-    private user: UserService
+    private usrGame: UserGameService,
+    private alertify: AlertifyService
   ) {}
 
-
+  onDelete() {
+    this.usrGame.deleteUserGame(this.game.userGameId).subscribe((response: any) => {
+      if (response === 201) {
+        this.alertify.success(`${this.game.gameName} deleted from your games list`);
+        this.gameDeleted.emit();
+      }
+    }, error => {
+      this.alertify.error(error.message);
+    });
+  }
 
   ngOnInit() {
     console.log(this.game);

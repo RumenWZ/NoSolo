@@ -59,6 +59,7 @@ namespace API.Controllers
                 var userGame = userGameList.FirstOrDefault(ug => ug.GameId == game.Id);
                 var userGameDTO = new UserGameDTO
                 {
+                    UserGameId = userGame.Id,
                     GameId = game.Id,
                     GameName = game.Name,
                     GameImageUrl = game.ImageUrl,
@@ -71,7 +72,7 @@ namespace API.Controllers
         }
 
         [HttpGet("get-user-game/{username}/{id}")]
-        public async Task<IActionResult> GetUserGame(string username, int id)
+        public async Task<IActionResult> GetUserGame(string username, int gameId)
         {
             var user = await uow.UserRepository.GetByUserNameAsync(username);
             if (user == null)
@@ -79,7 +80,7 @@ namespace API.Controllers
                 return BadRequest("User can not be found");
             }
 
-            var userGame = await uow.UserGameRepository.GetUserGameByIdAsync(id);
+            var userGame = await uow.UserGameRepository.GetUserGameByGameIdAsync(gameId);
             if (userGame == null || userGame.UserId != user.Id)
             {
                 return BadRequest("User game not found");
@@ -93,6 +94,7 @@ namespace API.Controllers
 
             var userGameDTO = new UserGameDTO
             {
+                UserGameId = userGame.Id,
                 GameId = game.Id,
                 GameName = game.Name,
                 GameImageUrl = game.ImageUrl,
@@ -100,6 +102,14 @@ namespace API.Controllers
             };
 
             return Ok(userGameDTO);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await uow.UserGameRepository.DeleteUserGame(id);
+            await uow.SaveAsync();
+            return Ok(201);
         }
 
     }

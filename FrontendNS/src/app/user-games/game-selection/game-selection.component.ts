@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Game } from 'src/app/model/game';
-import { User, UserGame, UserGameDTO } from 'src/app/model/user';
+import { UserGameDTO } from 'src/app/model/user-game';
 import { GameService } from 'src/app/services/game.service';
+import { UserGameService } from 'src/app/services/user-game.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -20,7 +20,8 @@ export class GameSelectionComponent {
 
   constructor(
     private gameService: GameService,
-    private user: UserService
+    private user: UserService,
+    private usrGame: UserGameService
   ) {}
 
   onAddGame() {
@@ -34,9 +35,14 @@ export class GameSelectionComponent {
     this.selectedGame = game;
   }
 
-  ngOnInit() {
-    this.user.getUserGames(this.username).subscribe((response: any) => {
+  updateGameList() {
+    this.usrGame.getUserGames(this.username).subscribe((response: any) => {
       this.userGameList = response;
-    })
+    });
+    this.userGameDetailsEnabled = true ? false : true;
+  }
+
+  ngOnInit() {
+    this.updateGameList();
   }
 }

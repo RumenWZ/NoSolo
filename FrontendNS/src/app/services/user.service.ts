@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as alertify from 'alertifyjs';
-import { User, UserGame } from '../model/user';
+import { User } from '../model/user';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -31,20 +31,8 @@ export class UserService {
     return localStorage.getItem('userName');
   }
 
-  addUserGame(userGame: UserGame) {
-    return this.http.post(this.baseUrl + '/usergame/add', userGame);
-  }
-
   getUserByUsername(username: string) {
     return this.http.get(this.baseUrl + '/account/get-user-by-username/' + username);
-  }
-
-  getUserGames(username: string) {
-    return this.http.get(this.baseUrl + '/usergame/get-user-games/' + username);
-  }
-
-  getUserGame(username: string, gameId: number) {
-    return this.http.get(`${this.baseUrl}/usergame/get-user-game/${username}/${gameId}`);
   }
 
 

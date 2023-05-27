@@ -7,7 +7,9 @@ namespace API.Interfaces
         void Add(int userId, int gameId, string description);
         Task<IEnumerable<UserGame>> GetUserGameListByIdAsync(int userId);
 
-        Task<UserGame> GetUserGameByIdAsync(int userId);
+        Task<UserGame> GetUserGameByGameIdAsync(int gameId);
+
+        Task DeleteUserGame(int Id);
 
     }
 }

@@ -10,7 +10,7 @@
         <textarea class="description-field" name="description" [(ngModel)]="newDescription" [value]="game.userDescription" ></textarea>
       </div>
       <div class="button-wrapper">
-        <button class="button delete-btn">DELETE</button>
+        <button (click)="onDelete()" class="button delete-btn">DELETE</button>
         <button class="button update-btn">UPDATE</button>
       </div>
     </div>

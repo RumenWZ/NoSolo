@@ -10,15 +10,4 @@ export interface UserForLogin {
   token: string;
 }
 
-export interface UserGame {
-  userId: number,
-  gameId: number,
-  description: string
-}
 
-export interface UserGameDTO {
-  gameId: number,
-  gameName: string,
-  gameImageUrl: string,
-  userDescription: string,
-}

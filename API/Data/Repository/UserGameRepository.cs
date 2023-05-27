@@ -1,6 +1,7 @@
 ﻿using API.Interfaces;
 using API.Migrations;
 using API.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
@@ -23,7 +24,21 @@ namespace API.Data.Repository
             dc.UserGames.Add(userGame);
         }
 
-        public async Task<UserGame> GetUserGameByIdAsync(int gameId)
+        public async Task DeleteUserGame(int Id)
+        {
+            var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.Id == Id);
+            if (userGame != null)
+            {
+                dc.UserGames.Remove(userGame);
+            }
+            else
+            {
+                // API error
+            }
+        }
+
+
+        public async Task<UserGame> GetUserGameByGameIdAsync(int gameId)
         {
             var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.GameId == gameId);
             return userGame;
