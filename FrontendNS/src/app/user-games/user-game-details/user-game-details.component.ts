@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { UserGameDTO } from 'src/app/model/user-game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserGameService } from 'src/app/services/user-game.service';
@@ -9,7 +9,7 @@ import { UserGameService } from 'src/app/services/user-game.service';
   templateUrl: './user-game-details.component.html',
   styleUrls: ['./user-game-details.component.css']
 })
-export class UserGameDetailsComponent {
+export class UserGameDetailsComponent implements OnChanges {
   @Input() game: UserGameDTO;
   @Output() gameDeleted: EventEmitter<void> = new EventEmitter<void>();
 
@@ -22,6 +22,8 @@ export class UserGameDetailsComponent {
     private alertify: AlertifyService
   ) {}
 
+
+
   onDelete() {
     this.usrGame.deleteUserGame(this.game.userGameId).subscribe((response: any) => {
       if (response === 201) {
@@ -33,12 +35,17 @@ export class UserGameDetailsComponent {
     });
   }
 
+  onUpdate() {
+    //...
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['game'] && changes['game'].currentValue) {
+      this.userDescription = this.game.userDescription;
+    }
+  }
+
   ngOnInit() {
-    console.log(this.game);
     this.userDescription = this.game.userDescription;
-    // this.user.getUserGame(this.username, this.gameSelected.id).subscribe((response: any)=> {
-    //   this.game = response;
-    //   console.log(response);
-    // });
   }
 }

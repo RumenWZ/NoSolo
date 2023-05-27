@@ -79,6 +79,7 @@ import { UserService } from 'src/app/services/user.service';
         })
       ).subscribe(() => {
         this.alertify.success(`${this.selectedGame.name} has been added to your games list`);
+        this.userGameList.push(this.userGame);
         this.selectedGame = undefined;
         gameForm.resetForm();
         this.gameAdded.emit();

@@ -7,11 +7,11 @@
       </div>
       <div class="description-wrapper">
         <label>Your Description</label>
-        <textarea class="description-field" name="description" [(ngModel)]="newDescription" [value]="game.userDescription" ></textarea>
+        <textarea class="description-field" name="description" [(ngModel)]="userDescription" ></textarea>
       </div>
       <div class="button-wrapper">
         <button (click)="onDelete()" class="button delete-btn">DELETE</button>
-        <button class="button update-btn">UPDATE</button>
+        <button (click)="onUpdate()" class="button update-btn">UPDATE</button>
       </div>
     </div>
   </div>
