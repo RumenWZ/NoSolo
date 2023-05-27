@@ -38,16 +38,26 @@ namespace API.Data.Repository
         }
 
 
-        public async Task<UserGame> GetUserGameByGameIdAsync(int gameId)
+        public async Task<UserGame> GetUserGameByIdAsync(int id)
         {
-            var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.GameId == gameId);
+            var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.Id == id);
             return userGame;
         }
 
-        public async Task<IEnumerable<UserGame>> GetUserGameListByIdAsync(int userId)
+        public async Task<IEnumerable<UserGame>> GetUserGameListByUserIdAsync(int userId)
         {
             var userGameList = await dc.UserGames.Where(u => u.UserId == userId).ToListAsync();
             return userGameList;
+        }
+
+        public async Task<UserGame> UpdateUserGame(int id, string description)
+        {
+            var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.Id == id);
+            if (userGame != null)
+            {
+                userGame.Description = description;
+            }
+            return userGame;
         }
     }
 }

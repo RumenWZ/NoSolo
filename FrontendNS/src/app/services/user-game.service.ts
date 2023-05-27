@@ -23,8 +23,8 @@ export class UserGameService {
     return this.http.get(this.baseUrl + '/usergame/get-user-games/' + username);
   }
 
-  getUserGame(username: string, gameId: number) {
-    return this.http.get(`${this.baseUrl}/usergame/get-user-game/${username}/${gameId}`);
+  getUserGame(id: number) {
+    return this.http.get(`${this.baseUrl}/usergame/get-user-game/${id}`);
   }
 
   deleteUserGame(id: number) {
