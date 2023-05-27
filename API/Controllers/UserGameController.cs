@@ -5,6 +5,7 @@ using API.Models;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers
 {
@@ -102,9 +103,39 @@ namespace API.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await uow.UserGameRepository.DeleteUserGame(id);
+            await uow.UserGameRepository.DeleteUserGameAsync(id);
             await uow.SaveAsync();
             return Ok(201);
+        }
+
+        [HttpPatch("update/{id}")]
+        public async Task<IActionResult> Update(int id, string description)
+        {
+            if (description.IsNullOrEmpty())
+            {
+                throw new Exception("Description field can not be empty");
+            }
+
+            var userGame = await uow.UserGameRepository.GetUserGameByIdAsync(id);
+            if (userGame == null)
+            {
+                throw new Exception("No user game with that id exists in the database.");
+            }
+            await uow.UserGameRepository.UpdateUserGame(id, description);
+            await uow.SaveAsync();
+
+            var game = await uow.GameRepository.GetByIdAsync(userGame.GameId);
+
+            var userGameDTO = new UserGameDTO
+            {
+                UserGameId = userGame.Id,
+                GameId = game.Id,
+                GameName = game.Name,
+                GameImageUrl = game.ImageUrl,
+                UserDescription = userGame.Description
+            };
+
+            return Ok(userGameDTO);
         }
 
     }

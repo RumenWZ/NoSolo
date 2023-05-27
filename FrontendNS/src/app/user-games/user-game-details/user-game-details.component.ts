@@ -15,7 +15,6 @@ export class UserGameDetailsComponent implements OnChanges {
 
   username = localStorage.getItem('userName');
   userDescription: string;
-  newDescription: string;
 
   constructor(
     private usrGame: UserGameService,
@@ -36,7 +35,13 @@ export class UserGameDetailsComponent implements OnChanges {
   }
 
   onUpdate() {
-    //...
+    this.usrGame.updateUserGame(this.game.userGameId, this.userDescription).subscribe((response: any) => {
+      if (this.userDescription == response.userDescription) {
+        this.alertify.success(`Successfully updated your description for ${this.game.gameName}`)
+      }
+    }, error => {
+      this.alertify.error(error.error);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

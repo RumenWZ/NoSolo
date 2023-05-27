@@ -24,7 +24,7 @@ namespace API.Data.Repository
             dc.UserGames.Add(userGame);
         }
 
-        public async Task DeleteUserGame(int Id)
+        public async Task DeleteUserGameAsync(int Id)
         {
             var userGame = await dc.UserGames.FirstOrDefaultAsync(x => x.Id == Id);
             if (userGame != null)

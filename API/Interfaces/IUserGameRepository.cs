@@ -9,7 +9,7 @@ namespace API.Interfaces
 
         Task<UserGame> GetUserGameByIdAsync(int id);
 
-        Task DeleteUserGame(int Id);
+        Task DeleteUserGameAsync(int Id);
 
         Task<UserGame> UpdateUserGame(int id, string description);
 
