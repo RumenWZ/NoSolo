@@ -10,4 +10,5 @@ export interface UserGameDTO {
   gameName: string,
   gameImageUrl: string,
   userDescription: string,
+  userGameAddedOn: Date
 }

@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UserGameDTO } from 'src/app/model/user-game';
-import { GameService } from 'src/app/services/game.service';
 import { UserGameService } from 'src/app/services/user-game.service';
-import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-game-selection',
@@ -19,8 +18,6 @@ export class GameSelectionComponent {
 
 
   constructor(
-    private gameService: GameService,
-    private user: UserService,
     private usrGame: UserGameService
   ) {}
 

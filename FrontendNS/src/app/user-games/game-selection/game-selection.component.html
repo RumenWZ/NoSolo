@@ -7,7 +7,7 @@
         <li  class="game-sidebar-item">
           <i (click)="onAddGame()" class='add-btn bx bx-plus'></i>
         </li>
-        <li class="game-sidebar-item" (click)="onMyGame(game)" *ngFor="let game of userGameList">
+        <li class="game-sidebar-item" (click)="onMyGame(game)" *ngFor="let game of userGameList | sort: 'descending' :'userGameAddedOn'">
           <img class="game-sidebar-image" src="{{game.gameImageUrl}}" alt="">
         </li>
 
