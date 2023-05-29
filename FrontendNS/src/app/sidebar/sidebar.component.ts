@@ -14,6 +14,7 @@ export class SidebarComponent {
   isOpen = false;
   sidebarData = sidebarMenuEntries;
   sidebarDataAdmin = sidebarMenuEntriesAdmin;
+  offcanvas: Element;
 
   constructor(
     private user: UserService,
@@ -29,12 +30,13 @@ export class SidebarComponent {
 
   onOffcanvasHidden() {
     this.isOpen = false;
+
   }
 
   onCloseButton() {
     setTimeout(() => {
       this.onOffcanvasHidden();
-    }, 250)
+    }, 250);
   }
 
   onBurgermenuClick() {
@@ -45,7 +47,7 @@ export class SidebarComponent {
     const offcanvasElement = document.querySelector('.offcanvas');
     const backdropElement = document.querySelector('.offcanvas-backdrop');
     offcanvasElement.classList.remove();
-    backdropElement.parentNode.removeChild(backdropElement);
+    offcanvasElement.parentNode.removeChild(backdropElement);
     this.isOpen = false;
   }
 
@@ -82,5 +84,9 @@ export class SidebarComponent {
         console.log('Unknown function');
         break;
     }
+  }
+  ngOnInit() {
+    this.offcanvas = document.getElementById('offcanvasRight');
+    console.log(this.offcanvas);
   }
 }

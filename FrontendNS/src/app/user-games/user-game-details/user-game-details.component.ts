@@ -12,6 +12,7 @@ import { UserGameService } from 'src/app/services/user-game.service';
 export class UserGameDetailsComponent implements OnChanges {
   @Input() game: UserGameDTO;
   @Output() gameDeleted: EventEmitter<void> = new EventEmitter<void>();
+  @Output() gameUpdated: EventEmitter<void> = new EventEmitter<void>();
 
   username = localStorage.getItem('userName');
   userDescription: string;
@@ -24,6 +25,8 @@ export class UserGameDetailsComponent implements OnChanges {
 
 
   onDelete() {
+    // Should implement <dialog> confirmation later
+
     this.usrGame.deleteUserGame(this.game.userGameId).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success(`${this.game.gameName} deleted from your games list`);
@@ -37,7 +40,8 @@ export class UserGameDetailsComponent implements OnChanges {
   onUpdate() {
     this.usrGame.updateUserGame(this.game.userGameId, this.userDescription).subscribe((response: any) => {
       if (this.userDescription == response.userDescription) {
-        this.alertify.success(`Successfully updated your description for ${this.game.gameName}`)
+        this.alertify.success(`Successfully updated your description for ${this.game.gameName}`);
+        this.gameUpdated.emit();
       }
     }, error => {
       this.alertify.error(error.error);

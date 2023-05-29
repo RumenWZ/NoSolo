@@ -45,6 +45,13 @@
   max-height: 10rem;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin-top: 1rem;
+}
+
 .button {
   font-weight: 700;
   background-color: var(--main-color);
@@ -69,3 +76,4 @@
 .delete-btn:hover, .update-btn:hover {
   background-color: rgba(255, 217, 217, 0.2);
 }
+

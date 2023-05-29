@@ -35,11 +35,15 @@ export class GameSelectionComponent {
     this.selectedGame = game;
   }
 
-  updateGameList() {
+
+  updateGameList(afterOperation?: string) {
     this.usrGame.getUserGames(this.username).subscribe((response: any) => {
       this.userGameList = response;
     });
-    this.userGameDetailsEnabled = true ? false : true;
+
+    if (afterOperation === 'delete') {
+      this.userGameDetailsEnabled = false;
+    }
   }
 
   ngOnInit() {

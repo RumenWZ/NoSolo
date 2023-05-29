@@ -19,6 +19,8 @@
                   <label>{{selectedGame.name.toUpperCase()}}</label>
                   <i class="clear-button bx bx-x" (click)="clearSelectedGame()"></i>
                 </div>
+
+                
                 <div class="description-wrapper">
                   <label>Game Description</label>
                   <textarea class="description-field" required [(ngModel)]="gameDescription" name="description" placeholder={{gameDescriptionPlaceholder}}></textarea>
