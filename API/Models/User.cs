@@ -14,7 +14,7 @@ namespace API.Models
         [Required]
         public byte[] PasswordKey { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-
+        public string ProfileImageUrl { get; set; } = String.Empty;
 
     }
 }

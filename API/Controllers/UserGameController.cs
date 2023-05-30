@@ -64,7 +64,8 @@ namespace API.Controllers
                     GameId = game.Id,
                     GameName = game.Name,
                     GameImageUrl = game.ImageUrl,
-                    UserDescription = userGame.Description
+                    UserDescription = userGame.Description,
+                    AddedOn = userGame.AddedOn
                 };
                 userGameDTOs.Add(userGameDTO);
             }
@@ -94,7 +95,8 @@ namespace API.Controllers
                 GameId = game.Id,
                 GameName = game.Name,
                 GameImageUrl = game.ImageUrl,
-                UserDescription = userGame.Description
+                UserDescription = userGame.Description,
+                AddedOn = userGame.AddedOn
             };
 
             return Ok(userGameDTO);
@@ -132,11 +134,27 @@ namespace API.Controllers
                 GameId = game.Id,
                 GameName = game.Name,
                 GameImageUrl = game.ImageUrl,
-                UserDescription = userGame.Description
+                UserDescription = userGame.Description,
+                AddedOn = userGame.AddedOn
             };
 
             return Ok(userGameDTO);
         }
 
+        public static UserGameDTO CreateUserGameDTO(Game game, UserGame userGame)
+        {
+            var userGameDTO = new UserGameDTO
+            {
+                UserGameId = userGame.Id,
+                GameId = game.Id,
+                GameName = game.Name,
+                GameImageUrl = game.ImageUrl,
+                UserDescription = userGame.Description,
+                AddedOn = userGame.AddedOn
+            };
+
+            return userGameDTO;
+
+        }
     }
 }

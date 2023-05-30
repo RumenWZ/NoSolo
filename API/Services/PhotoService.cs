@@ -33,5 +33,24 @@ namespace API.Services
             } 
             return uploadResult;
         }
+
+        public async Task<DeletionResult> DeletePhotoAsync(string imageUrl)
+        {
+            string publicId = GetPublicIdFromImageUrl(imageUrl);
+
+            var deletionParams = new DeletionParams(publicId);
+
+            DeletionResult deletionResult = await cloudinary.DestroyAsync(deletionParams);
+
+            return deletionResult;
+        }
+
+        private string GetPublicIdFromImageUrl(string imageUrl)
+        {
+            Uri uri = new Uri(imageUrl);
+            string publicId = Path.GetFileNameWithoutExtension(uri.AbsolutePath);
+            
+            return publicId;
+        }
     }
 }

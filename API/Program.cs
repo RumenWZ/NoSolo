@@ -53,6 +53,7 @@ if (env.IsDevelopment())
 }
 app.ConfigureExceptionHandler(env);
 
+//Don't forget to properly configure Cors later
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseHttpsRedirection();

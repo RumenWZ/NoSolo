@@ -7,6 +7,7 @@
         public string GameName { get; set; }
         public string GameImageUrl { get; set; }
         public string UserDescription { get; set; }
+        public DateTime AddedOn { get; set; }
 
     }
 }
