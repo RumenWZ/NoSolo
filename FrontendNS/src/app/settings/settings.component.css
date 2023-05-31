@@ -1,0 +1,37 @@
+.settings {
+  background-color: var(--main-color);
+  width: 30rem;
+  margin: 5rem auto;
+  height: 55rem;
+}
+
+.user-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.user-info-wrapper img {
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+  margin-top: 1.5rem;
+}
+
+.username-label {
+  color: var(--light-grey-text);
+  font-size: 1.5rem;
+}
+
+
+.upload-label {
+  display: inline-block;
+  color: #586af4;
+  cursor: pointer;
+}
+
+.upload-label:hover {
+  text-decoration: underline
+}

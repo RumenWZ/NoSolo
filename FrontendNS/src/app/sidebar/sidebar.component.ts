@@ -70,6 +70,11 @@ export class SidebarComponent {
     this.fullyCloseSideBar();
   }
 
+  onSettings() {
+    this.router.navigate(['/settings']);
+    this.fullyCloseSideBar();
+  }
+
   executeFunction(functionName: string) {
     switch (functionName) {
       case 'onLogout': this.onLogout();
@@ -79,6 +84,8 @@ export class SidebarComponent {
       case 'onGameAdd': this.onGameAdd();
         break;
       case 'onGameList': this.onGamesList();
+        break;
+      case 'onSettings': this.onSettings();
         break;
       default:
         console.log('Unknown function');

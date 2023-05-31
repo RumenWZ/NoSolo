@@ -31,7 +31,8 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'add-game', component: GameAddComponent},
   {path: 'game-list', component: GameListComponent},
-  {path: 'game-selection', component: GameSelectionComponent}
+  {path: 'game-selection', component: GameSelectionComponent},
+  {path: 'settings', component: SettingsComponent}
 ];
 
 @NgModule({

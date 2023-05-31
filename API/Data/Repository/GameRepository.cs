@@ -12,7 +12,7 @@ namespace API.Data.Repository
         {
 
             this.dc = dc;
-
+            
         }
         public void Add(string name, string imageUrl)
         {
@@ -23,11 +23,12 @@ namespace API.Data.Repository
             dc.Games.Add(game);
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             var game = dc.Games.FirstOrDefault(x => x.Id == id);
             if (game != null)
             {
+                //await photoService.DeletePhotoAsync(game.ImageUrl);
                 dc.Games.Remove(game);
             } else
             {

@@ -15,6 +15,7 @@ namespace API.Data.Repository
         public UserRepository(DataContext dc)
         {
             this.dc = dc;
+
         }
 
         public async Task<User> Authenticate(string username, string password)

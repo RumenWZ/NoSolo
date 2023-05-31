@@ -12,7 +12,7 @@ export const sidebarMenuEntries = [
   {
     'label': 'Settings',
     'icon': 'bx bxs-cog',
-    'functionName': 'onDashboard',
+    'functionName': 'onSettings',
   },
   {
     'label': 'Friends',

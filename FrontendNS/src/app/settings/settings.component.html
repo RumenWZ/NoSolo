@@ -1,1 +1,8 @@
-<p>settings works!</p>
+<div class="settings">
+  <div class="user-info-wrapper">
+    <img [src]="profileImageUrl">
+    <label class="username-label">{{username}}</label>
+    <label for="upload" class="upload-label">Upload photo</label>
+    <input type="file" id="upload" style="display: none;">
+  </div>
+</div>
