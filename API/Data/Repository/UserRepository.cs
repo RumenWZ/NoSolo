@@ -70,6 +70,7 @@ namespace API.Data.Repository
             dc.Users.Add(user);
         }
 
+
         public async Task<bool> UserAlreadyExists(string username)
         {
             return await dc.Users.AnyAsync(x => x.Username == username);

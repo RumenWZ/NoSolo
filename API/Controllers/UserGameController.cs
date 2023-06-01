@@ -141,6 +141,8 @@ namespace API.Controllers
             return Ok(userGameDTO);
         }
 
+        
+
         public static UserGameDTO CreateUserGameDTO(Game game, UserGame userGame)
         {
             var userGameDTO = new UserGameDTO

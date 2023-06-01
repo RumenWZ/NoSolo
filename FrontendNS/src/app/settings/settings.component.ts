@@ -14,6 +14,10 @@ export class SettingsComponent {
 
   constructor(private userService: UserService) {}
 
+  getImage(event: any) {
+    console.log(event);
+  }
+
   ngOnInit() {
     this.userService.getUserByUsername(this.username).subscribe((response: any) => {
       console.log(response);

@@ -18,13 +18,17 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IConfiguration configuration;
+        private readonly IPhotoService photoService;
+
         public AccountController(
             IUnitOfWork uow,
-            IConfiguration config
+            IConfiguration config,
+            IPhotoService photoService
             )
         {
             this.uow = uow;
             this.configuration = config;
+            this.photoService = photoService;
         }
 
         [HttpPost("login")]
@@ -80,6 +84,27 @@ namespace API.Controllers
                 return BadRequest("No such user exists");
             }
             return Ok(user);
+        }
+
+        [HttpPatch("update-photo/{username}")]
+        public async Task<IActionResult> UpdateUserPhoto(string username, IFormFile photo)
+        {
+            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user == null)
+            {
+                throw new Exception("User does not exist");
+            }
+
+            var cloudinaryResult = await photoService.UploadPhotoAsync(photo);
+            if (cloudinaryResult == null)
+            {
+                throw new Exception("Some error occured while uploading photo");
+            }
+
+            user.ProfileImageUrl = cloudinaryResult.SecureUrl.ToString();
+            await uow.SaveAsync();
+
+            return Ok();
         }
 
         private string CreateJWT(User user)
