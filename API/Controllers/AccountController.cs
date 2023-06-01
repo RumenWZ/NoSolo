@@ -87,12 +87,19 @@ namespace API.Controllers
         }
 
         [HttpPatch("update-photo/{username}")]
-        public async Task<IActionResult> UpdateUserPhoto(string username, IFormFile photo)
+        public async Task<IActionResult> UpdateUserPhoto(string username, [FromForm] UpdateUserPhotoDTO updateRequest)
         {
             var user = await uow.UserRepository.GetByUserNameAsync(username);
+            var photo = updateRequest.Image;
+
             if (user == null)
             {
                 throw new Exception("User does not exist");
+            }
+
+            if (user.ProfileImageUrl != "")
+            {
+                var deleteResponse = await photoService.DeletePhotoAsync(user.ProfileImageUrl);
             }
 
             var cloudinaryResult = await photoService.UploadPhotoAsync(photo);
@@ -104,7 +111,7 @@ namespace API.Controllers
             user.ProfileImageUrl = cloudinaryResult.SecureUrl.ToString();
             await uow.SaveAsync();
 
-            return Ok();
+            return Ok(201);
         }
 
         private string CreateJWT(User user)

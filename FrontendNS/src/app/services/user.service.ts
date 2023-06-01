@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = 'https://localhost:7104/api';
+  baseUrl = 'https://localhost:7104/api/account';
   username: string;
 
   constructor(
@@ -20,11 +20,11 @@ export class UserService {
   ) { }
 
   addUser(user: User) {
-    return this.http.post(this.baseUrl + '/account/register', user);
+    return this.http.post(this.baseUrl + '/register', user);
   }
 
   authUser(user: User) {
-    return this.http.post(this.baseUrl + '/account/login', user);
+    return this.http.post(this.baseUrl + '/login', user);
   }
 
   getUsername() {
@@ -32,9 +32,12 @@ export class UserService {
   }
 
   getUserByUsername(username: string) {
-    return this.http.get(this.baseUrl + '/account/get-user-by-username/' + username);
+    return this.http.get(this.baseUrl + '/get-user-by-username/' + username);
   }
 
+  updateUserPhoto(username: string, photo: FormData) {
+    return this.http.patch(`${this.baseUrl}/update-photo/${username}`, photo);
+  }
 
   logoutUser() {
     localStorage.removeItem('token');

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../model/user';
+import { HttpHeaders } from '@angular/common/http';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,12 +12,40 @@ import { User } from '../model/user';
 export class SettingsComponent {
   username = localStorage.getItem('userName');
   user: User;
-  profileImageUrl = '/assets/images/default-user.png';
+  image: File;
+  profileImageUrl : string = '/assets/images/default-user.png';
+  changes = {};
+  photoChanged: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private alertify: AlertifyService
+  ) {}
 
   getImage(event: any) {
+    this.image = event.target.files[0];
     console.log(event);
+    const reader = new FileReader();
+    reader.onload = (e: any) => {this.profileImageUrl = e.target.result;};
+    reader.readAsDataURL(this.image);
+    this.photoChanged = true;
+  }
+
+  // Test() {
+  //   console.log(this.profileImageUrl);
+  // }
+
+  onSaveChanges() {
+    if(this.photoChanged) {
+      const formData = new FormData();
+      formData.append('image', this.image);
+      this.userService.updateUserPhoto(this.username, formData).subscribe((response: any) => {
+        if (response == 201) {
+          this.alertify.success('Changes saved successfully');
+        }
+      })
+    }
+
   }
 
   ngOnInit() {
@@ -23,7 +53,7 @@ export class SettingsComponent {
       console.log(response);
       this.user = response;
       if (response.profileImageUrl !== '') {
-        this.profileImageUrl == response.profileImageUrl;
+        this.profileImageUrl = response.profileImageUrl;
       }
     });
   }

@@ -2,7 +2,9 @@
   <div class="user-info-wrapper">
     <img [src]="profileImageUrl">
     <label class="username-label">{{username}}</label>
-    <label for="upload" class="upload-label" (change)="getImage($event)">Upload photo</label>
-    <input type="file" id="upload" style="display: none;">
+    <label for="upload" class="upload-label">Upload photo</label>
+    <input type="file" id="upload" (change)="getImage($event)" style="display: none;">
   </div>
+
+  <button [disabled]="!photoChanged" class="save-button" (click)="onSaveChanges()">Save Changes</button>
 </div>
