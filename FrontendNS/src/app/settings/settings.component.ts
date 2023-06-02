@@ -23,12 +23,18 @@ export class SettingsComponent {
   ) {}
 
   getImage(event: any) {
-    this.image = event.target.files[0];
-    console.log(event);
-    const reader = new FileReader();
-    reader.onload = (e: any) => {this.profileImageUrl = e.target.result;};
-    reader.readAsDataURL(this.image);
-    this.photoChanged = true;
+    const file = event.target.files[0];
+    const allowedFormats = ['image/jpeg', 'image/png'];
+
+    if (allowedFormats.includes(file.type)) {
+      this.image = file;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {this.profileImageUrl = e.target.result;};
+      reader.readAsDataURL(this.image);
+      this.photoChanged = true;
+    } else {
+      this.alertify.error('Invalid file format. Only JPEG and PNG files are allowed.');
+    }
   }
 
   // Test() {
@@ -50,7 +56,6 @@ export class SettingsComponent {
 
   ngOnInit() {
     this.userService.getUserByUsername(this.username).subscribe((response: any) => {
-      console.log(response);
       this.user = response;
       if (response.profileImageUrl !== '') {
         this.profileImageUrl = response.profileImageUrl;

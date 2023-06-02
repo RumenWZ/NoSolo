@@ -53,6 +53,13 @@ namespace API.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var game = await uow.GameRepository.GetByIdAsync(id);
+            if (game == null)
+            {
+                return BadRequest("Game does not exist");
+            }
+            await photoService.DeletePhotoAsync(game.ImageUrl);
+
             uow.GameRepository.Delete(id);
             await uow.SaveAsync();
             return Ok(id);
