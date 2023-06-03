@@ -14,6 +14,7 @@ export class GameAddComponent {
   userSubmitted: boolean;
   image: File;
   previewImage: string | ArrayBuffer
+  validImageSelected: boolean = false;
 
   constructor(
     private gameService: GameService,
@@ -22,20 +23,33 @@ export class GameAddComponent {
   ) {}
 
   getImage(event: any) {
-    this.image = event.target.files[0];
-    this.ng2ImgMax.resizeImage(this.image, 150, 150).subscribe(
-      result => {
-        this.image = new File([result], result.name);
-        const reader = new FileReader();
-        reader.readAsDataURL(this.image);
-        reader.onload = () => {
-          this.previewImage = reader.result;
-        };
-      },
-      error => {
-        console.log('An error occured: ', error);
-      }
-    );
+    const file = event.target.files[0];
+    const allowedFormats = ['image/jpeg', 'image/png'];
+
+    if (allowedFormats.includes(file.type)) {
+      this.image = file;
+
+      this.ng2ImgMax.resizeImage(this.image, 150, 150).subscribe(
+        result => {
+          const reader = new FileReader();
+          reader.readAsDataURL(this.image);
+          reader.onload = () => {
+            this.previewImage = reader.result;
+          };
+          this.validImageSelected = true;
+        },
+        error => {
+          console.log('An error occured: ', error);
+        }
+      );
+    } else {
+      this.alertify.error('Invalid file format. Only JPEG and PNG files are allowed.');
+      const fileInput = event.target;
+      fileInput.value = null;
+      this.previewImage = undefined;
+      this.validImageSelected = false;
+    }
+
   }
 
   onSubmit(gameForm: NgForm) {
