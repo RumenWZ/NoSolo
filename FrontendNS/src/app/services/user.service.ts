@@ -39,6 +39,20 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/update-photo/${username}`, photo);
   }
 
+  updateDisplayName(username: string, displayName:string) {
+    return this.http.patch(`${this.baseUrl}/update-display-name/${username}?displayName=${displayName}`, null);
+  }
+
+  updateDiscordUsername(username: string, discordUsername:string) {
+    const encodedUsername = encodeURIComponent(username);
+    const encodedDiscordUsername = encodeURIComponent(discordUsername);
+    return this.http.patch(`${this.baseUrl}/update-discord-username/${encodedUsername}?discordUsername=${encodedDiscordUsername}`, null);
+  }
+
+  updateSummary(username: string, summary:string) {
+    return this.http.patch(`${this.baseUrl}/update-summary/${username}?summary=${summary}`, null);
+  }
+
   logoutUser() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');

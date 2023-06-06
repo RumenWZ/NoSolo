@@ -66,10 +66,10 @@ namespace API.Data.Repository
             user.Password = passwordHash;
             user.PasswordKey = passwordKey;
             user.CreatedOn = DateTime.Now;
+            user.DisplayName = user.Username;
 
             dc.Users.Add(user);
         }
-
 
         public async Task<bool> UserAlreadyExists(string username)
         {

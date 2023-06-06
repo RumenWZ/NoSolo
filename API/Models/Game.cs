@@ -9,5 +9,6 @@ namespace API.Models
         public string Name { get; set; }
         [Required]
         public string ImageUrl { get; set; }
+
     }
 }

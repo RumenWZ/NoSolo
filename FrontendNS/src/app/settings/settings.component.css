@@ -3,7 +3,7 @@
   background-color: var(--main-color);
   width: 30rem;
   margin: 5rem auto;
-  height: 55rem;
+  height: 48rem;
 }
 
 .user-info-wrapper {
@@ -65,4 +65,29 @@
 .save-button:disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.user-info-inputs {
+  margin-top: 1rem;
+  width: 88%;
+
+}
+
+.user-info-inputs label {
+  color: var(--light-grey-text);
+}
+
+.user-info-inputs-element {
+  margin-top: 2rem;
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 5px;
+  height: 2.5rem;
+}
+
+#summary {
+  min-height: 8rem;
+  max-height: 9.5rem;
 }

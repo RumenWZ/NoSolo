@@ -25,7 +25,7 @@ namespace API.Data.Repository
 
         public async void Delete(int id)
         {
-            var game = dc.Games.FirstOrDefault(x => x.Id == id);
+            var game = await dc.Games.FirstOrDefaultAsync(x => x.Id == id);
             if (game != null)
             {
                 //await photoService.DeletePhotoAsync(game.ImageUrl);

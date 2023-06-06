@@ -13,8 +13,13 @@ namespace API.Models
         public byte[] Password { get; set; }
         [Required]
         public byte[] PasswordKey { get; set; }
+        [Required]
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public string ProfileImageUrl { get; set; } = String.Empty;
+        public string DisplayName { get; set; } = String.Empty;
+        public string DiscordUsername { get; set; } = String.Empty;
+        public string Summary { get; set; } = String.Empty;
+
 
     }
 }

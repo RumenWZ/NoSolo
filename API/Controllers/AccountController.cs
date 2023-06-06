@@ -83,7 +83,8 @@ namespace API.Controllers
             {
                 return BadRequest("No such user exists");
             }
-            return Ok(user);
+            var userDTO = CreateUserDTO(user);
+            return Ok(userDTO);
         }
 
         [HttpPatch("update-photo/{username}")]
@@ -99,7 +100,7 @@ namespace API.Controllers
 
             if (user.ProfileImageUrl != "")
             {
-                var deleteResponse = await photoService.DeletePhotoAsync(user.ProfileImageUrl);
+                await photoService.DeletePhotoAsync(user.ProfileImageUrl);
             }
 
             var cloudinaryResult = await photoService.UploadPhotoAsync(photo);
@@ -114,6 +115,50 @@ namespace API.Controllers
             return Ok(201);
         }
 
+        [HttpPatch("update-display-name/{username}")]
+        public async Task<IActionResult> UpdateDisplayName(string username, string displayName)
+        {
+            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+            user.DisplayName = displayName;
+            await uow.SaveAsync();
+
+            return Ok(201);
+        }
+
+        [HttpPatch("update-discord-username/{username}")]
+        public async Task<IActionResult> UpdateDiscordUsername(string username, string discordUsername)
+        {
+            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+            user.DiscordUsername = discordUsername;
+            await uow.SaveAsync();
+
+            return Ok(201);
+        }
+
+        [HttpPatch("update-summary/{username}")]
+        public async Task<IActionResult> UpdateSummary(string username, string summary)
+        {
+            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+            user.Summary = summary;
+            await uow.SaveAsync();
+
+            return Ok(201);
+        }
+
+
+        //*********************************************
         private string CreateJWT(User user)
         {
             var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
@@ -140,6 +185,26 @@ namespace API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
         
+        
+        private UserDTO CreateUserDTO(User user)
+        {
+            var userDTO = new UserDTO()
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                CreatedOn = user.CreatedOn,
+                ProfileImageUrl = user.ProfileImageUrl,
+                DisplayName = user.DisplayName,
+                DiscordUsername = user.DiscordUsername,
+                Summary = user.Summary
+
+            };
+            return userDTO;
+        }
+
+
     }
 }

@@ -29,7 +29,7 @@ export class GameAddComponent {
     if (allowedFormats.includes(file.type)) {
       this.image = file;
 
-      this.ng2ImgMax.resizeImage(this.image, 150, 150).subscribe(
+      this.ng2ImgMax.resizeImage(this.image, 400, 400).subscribe(
         result => {
           const reader = new FileReader();
           reader.readAsDataURL(this.image);

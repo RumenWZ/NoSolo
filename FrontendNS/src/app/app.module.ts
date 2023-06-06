@@ -26,6 +26,7 @@ import { AlertifyService } from './services/alertify.service';
 import { HttpErrorInterceptorService } from './services/error-interceptor.service';
 import { UserGameDetailsComponent } from './user-games/user-game-details/user-game-details.component';
 
+
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: [
     {

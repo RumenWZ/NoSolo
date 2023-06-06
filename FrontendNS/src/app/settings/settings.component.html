@@ -1,10 +1,24 @@
 <div class="settings">
   <div class="user-info-wrapper">
     <img [src]="profileImageUrl">
-    <label class="username-label">{{username}}</label>
+    <label class="username-label">{{initialDisplayName}}</label>
     <label for="upload" class="upload-label">Upload photo</label>
     <input type="file" id="upload" (change)="getImage($event)" style="display: none;">
+    <div class="user-info-inputs">
+      <div class="user-info-inputs-element">
+        <label for="display-name">Display Name</label>
+        <input class="input-field" id="display-name" type="text" [(ngModel)]="displayName"  placeholder="Enter your display name...">
+      </div>
+      <div class="user-info-inputs-element">
+        <label for="discord-username">Discord Username</label>
+        <input class="input-field" id="discord-username" type="text" [(ngModel)]="discordUsername" placeholder="Example#8309">
+      </div>
+      <div class="user-info-inputs-element">
+        <label for="discord-username">Summary</label>
+        <textarea class="input-field" id="summary" type="text" [(ngModel)]="summary" placeholder="Describe yourself..."></textarea>
+      </div>
+    </div>
   </div>
-
-  <button [disabled]="!photoChanged" class="save-button" (click)="onSaveChanges()">Save Changes</button>
+  <button class="save-button" (click)="onSaveChanges()">Save Changes</button>
+  <!-- <button (click)="Test()">test</button> -->
 </div>
