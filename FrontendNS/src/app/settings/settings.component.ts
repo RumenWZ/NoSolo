@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { User } from '../model/user';
-import { HttpHeaders } from '@angular/common/http';
 import { AlertifyService } from '../services/alertify.service';
-import { Location } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -18,18 +17,19 @@ export class SettingsComponent {
   profileImageUrl : string = '/assets/images/default-user.png';
   changes = {};
   photoChanged: boolean = false;
-  displayName: string;
+
   initialDisplayName: string;
-  discordUsername: string;
   initialDiscordUsername: string;
-  summary: string;
   initialSummary: string;
+
+  formModified: boolean = false;
+  discordUsernameModified: boolean = false;
 
   constructor(
     private userService: UserService,
-    private alertify: AlertifyService,
-    private location: Location
-  ) {}
+    private alertify: AlertifyService
+
+    ) {}
 
   getImage(event: any) {
     const file = event.target.files[0];
@@ -47,25 +47,30 @@ export class SettingsComponent {
   }
 
   // Test() {
-  //   console.log(this.displayName);
+  //   console.log(this.discordUsernameModified);
   // }
 
-  onSaveChanges() {
+  onSaveChanges(userSettingsForm: NgForm) {
+    if (!userSettingsForm.valid) {
+      return this.alertify.warning('Invalid input. Please review your entries');
+    }
+    var displayName = userSettingsForm.form.value.displayName;
+    var discordUsername = userSettingsForm.form.value.discordUsername;
+    var summary = userSettingsForm.form.value.summary;
+
+    console.log(userSettingsForm);
     if(this.photoChanged) {
       this.updateUserPhoto();
     }
-    if (this.initialDisplayName != this.displayName) {
-      this.updateDisplayName();
+    if (displayName != this.initialDisplayName && displayName != '') {
+      this.updateDisplayName(displayName);
     }
-    if (this.initialDiscordUsername != this.discordUsername) {
-      this.updateDiscordUsername();
+    if (discordUsername != this.initialDiscordUsername && this.discordUsernameModified) {
+      this.updateDiscordUsername(discordUsername);
     }
-    if (this.initialSummary != this.summary) {
-      this.updateSummary();
+    if (summary != this.initialSummary && summary != '') {
+      this.updateSummary(summary);
     }
-    this.location.go(this.location.path());
-    location.reload();
-
   }
 
   private updateUserPhoto() {
@@ -73,49 +78,59 @@ export class SettingsComponent {
     formData.append('image', this.image);
     this.userService.updateUserPhoto(this.username, formData).subscribe((response: any) => {
       if (response === 201) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.profileImageUrl = e.target.result;
+        };
+        reader.readAsDataURL(this.image);
         this.alertify.success('Changes saved successfully');
       }
     });
   }
 
-  private updateDisplayName() {
-    this.userService.updateDisplayName(this.username, this.displayName).subscribe((response: any) => {
+  private updateDisplayName(displayName: string) {
+    this.userService.updateDisplayName(this.username, displayName).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated display name');
       }
     });
   }
 
-  private updateDiscordUsername() {
-    this.userService.updateDiscordUsername(this.username, this.discordUsername).subscribe((response: any) => {
+  private updateDiscordUsername(discordUsername: string) {
+    this.userService.updateDiscordUsername(this.username, discordUsername).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated discord username');
       }
     });
   }
 
-  private updateSummary() {
-    this.userService.updateSummary(this.username, this.summary).subscribe((response: any) => {
+  private updateSummary(summary: string) {
+    this.userService.updateSummary(this.username, summary).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated summary');
       }
     });
   }
 
-  ngOnInit() {
+  onFormChange() {
+    this.formModified = true;
+  }
+
+  updateUserDetails() {
     this.userService.getUserByUsername(this.username).subscribe((response: any) => {
       console.log(response);
       this.user = response;
-      this.displayName = response.displayName;
-      this.initialDisplayName = this.displayName;
-      this.discordUsername = response.discordUsername;
-      this.initialDiscordUsername = this.discordUsername;
-      this.summary = response.summary;
-      this.initialSummary = this.summary;
+      this.initialDisplayName = response.displayName;
+      this.initialDiscordUsername = response.discordUsername;
+      this.initialSummary = response.summary;
+
       if (response.profileImageUrl !== '') {
         this.profileImageUrl = response.profileImageUrl;
       }
     });
+  }
 
+  ngOnInit() {
+    this.updateUserDetails();
   }
 }

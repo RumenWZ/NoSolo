@@ -130,14 +130,21 @@ namespace API.Controllers
         }
 
         [HttpPatch("update-discord-username/{username}")]
-        public async Task<IActionResult> UpdateDiscordUsername(string username, string discordUsername)
+        public async Task<IActionResult> UpdateDiscordUsername(string username, string? discordUsername = null)
         {
             var user = await uow.UserRepository.GetByUserNameAsync(username);
             if (user == null)
             {
                 return BadRequest("User could not be found");
             }
-            user.DiscordUsername = discordUsername;
+            if (!string.IsNullOrEmpty(discordUsername))
+            {
+                user.DiscordUsername = discordUsername;
+            } else
+            {
+                user.DiscordUsername = string.Empty;
+            }
+            
             await uow.SaveAsync();
 
             return Ok(201);
