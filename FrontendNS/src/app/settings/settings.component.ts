@@ -3,7 +3,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../model/user';
 import { AlertifyService } from '../services/alertify.service';
 import { NgForm } from '@angular/forms';
-
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +27,8 @@ export class SettingsComponent {
 
   constructor(
     private userService: UserService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private matDialog: MatDialog
 
     ) {}
 
@@ -58,6 +59,16 @@ export class SettingsComponent {
     var discordUsername = userSettingsForm.form.value.discordUsername;
     var summary = userSettingsForm.form.value.summary;
 
+    console.log(displayName === this.initialDisplayName);
+    console.log(discordUsername === this.initialDiscordUsername);
+    console.log(summary === this.initialSummary);
+    console.log(this.photoChanged);
+
+    if ((displayName === this.initialDisplayName) && (discordUsername === this.initialDiscordUsername)
+    && (summary === this.initialSummary) && !this.photoChanged) {
+      return this.alertify.warning('No changes to be made');
+    }
+
     console.log(userSettingsForm);
     if(this.photoChanged) {
       this.updateUserPhoto();
@@ -84,6 +95,7 @@ export class SettingsComponent {
         };
         reader.readAsDataURL(this.image);
         this.alertify.success('Changes saved successfully');
+        this.photoChanged = false;
       }
     });
   }
@@ -92,6 +104,8 @@ export class SettingsComponent {
     this.userService.updateDisplayName(this.username, displayName).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated display name');
+        this.initialDisplayName = displayName;
+        this.formModified = false;
       }
     });
   }
@@ -100,6 +114,8 @@ export class SettingsComponent {
     this.userService.updateDiscordUsername(this.username, discordUsername).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated discord username');
+        this.initialDiscordUsername = discordUsername;
+        this.discordUsernameModified = false;
       }
     });
   }
@@ -108,6 +124,8 @@ export class SettingsComponent {
     this.userService.updateSummary(this.username, summary).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated summary');
+        this.initialSummary = summary;
+        this.formModified = false;
       }
     });
   }

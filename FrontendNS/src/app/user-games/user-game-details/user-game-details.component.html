@@ -10,9 +10,14 @@
         <textarea class="description-field" name="description" [(ngModel)]="userDescription" ></textarea>
       </div>
       <div class="button-wrapper">
-        <button (click)="onDelete()" class="button delete-btn">DELETE</button>
+        <button (click)="confirmDelete()" class="button delete-btn">DELETE</button>
         <button (click)="onUpdate()" class="button update-btn">UPDATE</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<dialog class="modal" id="modal">
+  Test
+</dialog>

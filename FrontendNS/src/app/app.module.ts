@@ -26,6 +26,13 @@ import { AlertifyService } from './services/alertify.service';
 import { HttpErrorInterceptorService } from './services/error-interceptor.service';
 import { UserGameDetailsComponent } from './user-games/user-game-details/user-game-details.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { ConfirmDialogComponent } from './settings/confirm-dialog/confirm-dialog.component';
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -51,6 +58,7 @@ const appRoutes: Routes = [
     GameSelectionComponent,
     UserGameAddComponent,
     UserGameDetailsComponent,
+    ConfirmDialogComponent,
 
   ],
   imports: [
@@ -61,7 +69,11 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
+    MatDialogModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule
   ],
   providers: [
     {

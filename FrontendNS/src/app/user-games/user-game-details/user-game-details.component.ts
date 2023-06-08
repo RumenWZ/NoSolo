@@ -37,6 +37,12 @@ export class UserGameDetailsComponent implements OnChanges {
     });
   }
 
+  confirmDelete() {
+    var modal = document.querySelector('#modal');
+    
+    console.log(modal);
+  }
+
   onUpdate() {
     this.usrGame.updateUserGame(this.game.userGameId, this.userDescription).subscribe((response: any) => {
       if (this.userDescription == response.userDescription) {

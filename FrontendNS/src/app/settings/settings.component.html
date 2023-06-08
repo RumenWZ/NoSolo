@@ -14,7 +14,7 @@
           <label for="discord-username">Discord Username</label>
           <input class="input-field" id="discord-username" type="text" (ngModelChange)="discordUsernameModified = true" ngModel name="discordUsername" [value]="initialDiscordUsername" placeholder="Example#8309" pattern="[a-zA-Z]{2,32}#[0-9]{4}">
           <div *ngIf="userSettingsForm.controls['discordUsername']?.invalid && (userSettingsForm.controls['discordUsername'].dirty || userSettingsForm.controls['discordUsername'].touched)"
-          class="error-block">Invalid Discord username format. Please input a valid Discord Username: Example#8309</div>
+          class="error-block">Invalid Discord username format. Please input a valid discord Username: Example#8309</div>
         </div>
         <div class="user-info-inputs-element">
           <label for="discord-username">Summary</label>
