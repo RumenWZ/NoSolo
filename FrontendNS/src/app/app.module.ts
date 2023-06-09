@@ -12,7 +12,6 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { GameAddComponent } from './game/game-add/game-add.component';
 import { GameListComponent } from './game/game-list/game-list.component';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -25,13 +24,9 @@ import { GameService } from './services/game.service';
 import { AlertifyService } from './services/alertify.service';
 import { HttpErrorInterceptorService } from './services/error-interceptor.service';
 import { UserGameDetailsComponent } from './user-games/user-game-details/user-game-details.component';
-
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { ConfirmDialogComponent } from './settings/confirm-dialog/confirm-dialog.component';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { MaterialModule } from './material/material.module';
+import { SidenavService } from './services/sidenav.service';
 
 
 const appRoutes: Routes = [
@@ -49,7 +44,6 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    SidebarComponent,
     GameAddComponent,
     GameListComponent,
     FilterPipe,
@@ -58,7 +52,7 @@ const appRoutes: Routes = [
     GameSelectionComponent,
     UserGameAddComponent,
     UserGameDetailsComponent,
-    ConfirmDialogComponent,
+    ConfirmDeleteComponent,
 
   ],
   imports: [
@@ -69,11 +63,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatIconModule
+    MaterialModule
   ],
   providers: [
     {
@@ -83,7 +73,8 @@ const appRoutes: Routes = [
     },
     UserService,
     GameService,
-    AlertifyService
+    AlertifyService,
+    SidenavService
   ],
   bootstrap: [AppComponent]
 })

@@ -14,12 +14,14 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px; 
+  width: 10px;
+  
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #c9c9c9;
   border-radius: 5px;
+
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -27,7 +27,7 @@ import { UserService } from 'src/app/services/user.service';
     selectedGame: Game = null;
     userGameDescription = '';
     gameDescriptionPlaceholder =
-    `Describe your playstyle (casual/ranked) and what you are looking for in other players. Share your relevant experience in the game.\n\nThis information will be displayed to other players.`;
+    `Describe your playstyle (casual/ranked) and what you are looking for in other players that play this game. Share your relevant experience in the game.\n\nThis information will be displayed to other players.`;
 
     constructor(
       private gameService: GameService,

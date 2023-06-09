@@ -1,3 +1,19 @@
+@keyframes glowing {
+  0% {
+    text-shadow: 0 0 5px #fff;
+  }
+  50% {
+    text-shadow: 0 0 20px #00e6e6;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff;
+  }
+}
+
+* {
+  font-family: "poppins", sans-serif;
+}
+
 .navbar {
   background-color: var(--main-color);
   position: fixed;
@@ -23,5 +39,24 @@
   display: flex;
   align-items: center;
   margin-bottom: 0;
-  margin-right: 65px;
+  margin-right: 0.7rem;
+}
+
+.glowing-text {
+  animation: glowing 1.5s infinite;
+}
+
+.your-games {
+  background: #cf26ff;
+  border-radius: 1rem;
+  font-size: 0.90rem;
+  color: white;
+  font-weight: 500;
+}
+
+.sidebar-open-btn {
+  z-index: 9999;
+  font-size: 40px;
+  margin-right: 0.525rem;
+  cursor: pointer;
 }

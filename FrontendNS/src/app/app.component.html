@@ -1,6 +1,34 @@
-<app-navbar></app-navbar>
-<app-sidebar></app-sidebar>
-<div class="container" style="margin-top: 60px;">
-  <router-outlet></router-outlet>
-</div>
+<mat-sidenav-container (backdropClick)="toggleSidenav()">
+  <mat-sidenav position="end" [opened]="isSidenavOpen">
+    <div class="sidenav-header">
+      <h5 class="sidenav-title" id="offcanvasRightLabel">Account Settings</h5>
+      <i class='bx bx-x close-btn' style='color:#e4e0e0'  data-bs-dismiss="offcanvas" (click)="toggleSidenav()"></i>
+    </div>
+    <div class="sidenav-body">
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of sidebarData" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
+        <i class="{{item.icon}} icon"></i>
+        <a class="label">{{item.label}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="sidenav-header" style="border-top: 1px #9a999b solid;">
+    <h5 class="sidenav-title" id="offcanvasRightLabel">Admin/Staff Options</h5>
+  </div>
+  <div class="sidenav-body">
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of sidebarDataAdmin" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
+        <i class="{{item.icon}} icon"></i>
+        <a class="label">{{item.label}}</a>
+      </li>
+    </ul>
+  </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-navbar></app-navbar>
+    <div class="container" style="margin-top: 60px; ">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
 
+</mat-sidenav-container>

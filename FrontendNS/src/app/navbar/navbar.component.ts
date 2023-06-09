@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { SidenavService } from '../services/sidenav.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +9,21 @@ import { UserService } from '../services/user.service';
 })
 export class NavbarComponent {
   username: string;
-
   constructor(
-    private user: UserService
+    private user: UserService,
+    private sidenavService: SidenavService
   ) {}
+
+  toggleSidenav() {
+    this.sidenavService.toggleSidenav();
+  }
+
+  test() {
+    this.sidenavService.isSidenavOpen.subscribe((isOpen: boolean) => {
+      console.log(isOpen);
+    });
+
+  }
 
   loggedIn() {
     this.username = this.user.getUsername();
@@ -21,7 +33,7 @@ export class NavbarComponent {
   onLogout() {
     this.user.logoutUser();
   }
-  
+
   ngOnInit() {
 
   }

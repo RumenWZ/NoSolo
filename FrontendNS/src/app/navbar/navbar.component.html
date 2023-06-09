@@ -25,7 +25,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="game-selection">Your Games</a>
+        <a class="nav-link your-games" routerLink="game-selection">Your Games</a>
       </li>
     </ul>
   </div>
@@ -35,4 +35,5 @@
     <li *ngIf="!loggedIn()" class="navbar-acc-item" routerLink="/register"><a>Register</a></li>
     <p *ngIf="loggedIn()" class="welcome">Welcome {{username}}</p>
   </ul>
+  <i *ngIf="loggedIn()" class='bx bx-menu sidebar-open-btn' style='color:#eaeaea' (click)="toggleSidenav()"></i>
 </nav>

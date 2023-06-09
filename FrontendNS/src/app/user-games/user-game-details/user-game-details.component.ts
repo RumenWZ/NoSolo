@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.component';
 import { UserGameDTO } from 'src/app/model/user-game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserGameService } from 'src/app/services/user-game.service';
@@ -19,7 +21,8 @@ export class UserGameDetailsComponent implements OnChanges {
 
   constructor(
     private usrGame: UserGameService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private matDialog: MatDialog
   ) {}
 
 
@@ -38,9 +41,9 @@ export class UserGameDetailsComponent implements OnChanges {
   }
 
   confirmDelete() {
-    var modal = document.querySelector('#modal');
-    
-    console.log(modal);
+    this.matDialog.open(ConfirmDeleteComponent, {
+      width: '350px',
+    })
   }
 
   onUpdate() {
