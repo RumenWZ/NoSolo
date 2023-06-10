@@ -1,0 +1,10 @@
+<mat-dialog-content>
+  <i class='bx bx-x close-btn' (click)="onCancel()"></i>
+  <div class="header"><h2>Confirm Delete</h2></div>
+  <p>Are you sure you want to <span class="delete-span">DELETE</span> {{ itemName }} from your games list?</p>
+  <div class="button-wrapper">
+    <button (click)="onDelete()" class="button delete-button">Delete</button>
+    <button (click)="onCancel()" class="button cancel-button">Cancel</button>
+  </div>
+</mat-dialog-content>
+

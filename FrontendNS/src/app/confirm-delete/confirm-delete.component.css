@@ -1,0 +1,46 @@
+* {
+  font-family: "poppins", sans-serif;
+  color: var(--light-grey-text);
+}
+
+mat-dialog-content {
+  background-color: var(--main-color);
+  padding: 0;
+  position: relative;
+}
+
+.delete-button{
+  background-color: red;
+  color: white;
+}
+
+.cancel-button {
+  background-color: var(#ffffff);
+  color: white;
+}
+
+.delete-span {
+  color: red;
+  font-weight: 700;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn{
+  font-size: 40px;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  position: absolute;
+  margin-top: 0.7rem;
+  margin-right: 0.7rem;
+}

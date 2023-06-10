@@ -42,6 +42,11 @@ export class SidenavComponent {
     this.toggleSidenav();
   }
 
+  onFriends() {
+    this.router.navigate(['/friends']);
+    this.toggleSidenav();
+  }
+
   onLogout() {
     this.user.logoutUser();
     this.toggleSidenav();
@@ -58,6 +63,8 @@ export class SidenavComponent {
       case 'onGameList': this.onGamesList();
         break;
       case 'onSettings': this.onSettings();
+        break;
+      case 'onFriends': this.onFriends();
         break;
       default:
         console.log('Unknown function');

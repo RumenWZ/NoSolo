@@ -17,7 +17,7 @@ export const sidebarMenuEntries = [
   {
     'label': 'Friends',
     'icon': 'bx bxs-contact',
-    'functionName': 'onDashboard',
+    'functionName': 'onFriends',
   }
 ]
 

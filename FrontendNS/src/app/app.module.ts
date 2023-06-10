@@ -28,6 +28,7 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
 import { MaterialModule } from './material/material.module';
 import { SidenavService } from './services/sidenav.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { FriendsPageComponent } from './friends/friends-page/friends-page.component';
 
 
 const appRoutes: Routes = [
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
   {path: 'add-game', component: GameAddComponent},
   {path: 'game-list', component: GameListComponent},
   {path: 'game-selection', component: GameSelectionComponent},
-  {path: 'settings', component: SettingsComponent}
+  {path: 'settings', component: SettingsComponent},
+  {path: 'friends', component: FriendsPageComponent},
 ];
 
 @NgModule({
@@ -55,6 +57,7 @@ const appRoutes: Routes = [
     UserGameDetailsComponent,
     ConfirmDeleteComponent,
     SidenavComponent,
+    FriendsPageComponent,
 
   ],
   imports: [
