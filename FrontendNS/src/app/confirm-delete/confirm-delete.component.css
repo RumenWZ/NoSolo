@@ -9,16 +9,6 @@ mat-dialog-content {
   position: relative;
 }
 
-.delete-button{
-  background-color: red;
-  color: white;
-}
-
-.cancel-button {
-  background-color: var(#ffffff);
-  color: white;
-}
-
 .delete-span {
   color: red;
   font-weight: 700;
@@ -44,3 +34,30 @@ mat-dialog-content {
   margin-top: 0.7rem;
   margin-right: 0.7rem;
 }
+
+.delete-button, .cancel-button {
+  height: 2rem;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  transition: 1 ease;
+}
+
+.delete-button {
+  background-color: #c90606;
+}
+
+.cancel-button {
+  background-color: #9b9b9b ;
+  margin-right: 0.5rem;
+}
+
+.delete-button:hover {
+  background-color: #ff3333;
+}
+
+.cancel-button:hover {
+  background-color: #bcbcbc;
+}
+

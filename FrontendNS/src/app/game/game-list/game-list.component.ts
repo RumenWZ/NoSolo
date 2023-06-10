@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs';
+import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.component';
 import { Game } from 'src/app/model/game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
@@ -18,11 +20,25 @@ export class GameListComponent {
 
   constructor(
     private gameService: GameService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private matDialog: MatDialog
   ) {}
 
   confirmDeleteGame(game: Game) {
     this.gamePendingDeletion = game;
+    const dialogRef = this.matDialog.open(ConfirmDeleteComponent, {
+      width: '500px',
+      data: { itemName: this.gamePendingDeletion.name }
+    });
+
+    dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
+      console.log('delete');
+      //this.deleteGame();
+    });
+
+    dialogRef.componentInstance.deleteCancelled.subscribe(() => {
+      dialogRef.close();
+    });
   }
 
   deleteGame(){

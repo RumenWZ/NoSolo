@@ -28,8 +28,6 @@ export class UserGameDetailsComponent implements OnChanges {
 
 
   onDelete() {
-    // Should implement <dialog> confirmation later
-
     this.usrGame.deleteUserGame(this.game.userGameId).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success(`${this.game.gameName} deleted from your games list`);
@@ -43,12 +41,12 @@ export class UserGameDetailsComponent implements OnChanges {
   confirmDelete() {
     const dialogRef = this.matDialog.open(ConfirmDeleteComponent, {
       width: '500px',
-      data: {itemName: this.game.gameName},
-      panelClass: 'custom-dialog-container'
+      data: {itemName: this.game.gameName}
     })
 
     dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
-      console.log('confirmed delete');
+      this.onDelete();
+      dialogRef.close();
     });
 
     dialogRef.componentInstance.deleteCancelled.subscribe(() => {

@@ -17,7 +17,7 @@
                 <li *ngFor="let game of gamesList | filter: filterString |sort: gameListSortOrder : 'name'" class="game-list-item">
                   <img class="game-image" src="{{game.imageUrl}}">
                   <label class="game-label">{{game.name}}</label>
-                  <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
+                  <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)"></i>
                 </li>
               </ul>
               <p *ngIf="getGamesErrorMessage" class="error-block">{{getGamesErrorMessage}}</p>
@@ -28,21 +28,3 @@
     </div>
   </div>
 </section>
-
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="confirmDeleteModalLabel">WARNING</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-title">Are you sure you want to permanently <span style="color:red;">DELETE</span> "{{gamePendingDeletion?.name}}" from the database?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteGame()">Yes</button>
-      </div>
-    </div>
-  </div>
-</div>
