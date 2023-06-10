@@ -27,6 +27,7 @@ import { UserGameDetailsComponent } from './user-games/user-game-details/user-ga
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import { MaterialModule } from './material/material.module';
 import { SidenavService } from './services/sidenav.service';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 const appRoutes: Routes = [
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
     UserGameAddComponent,
     UserGameDetailsComponent,
     ConfirmDeleteComponent,
+    SidenavComponent,
 
   ],
   imports: [
