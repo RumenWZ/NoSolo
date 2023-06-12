@@ -1,0 +1,9 @@
+<div class="friends-list-wrapper">
+  <span class="direct-messages">Direct messages</span>
+  <ul class="friends-list">
+    <li *ngFor="let user of friendsList">
+      <img [src]="user.profilePictureUrl">
+      <span>{{user.username}}</span>
+    </li>
+  </ul>
+</div>

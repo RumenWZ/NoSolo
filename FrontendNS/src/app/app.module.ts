@@ -30,6 +30,8 @@ import { SidenavService } from './services/sidenav.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { FriendsPageComponent } from './friends/friends-page/friends-page.component';
 import { FriendsPageSidenavComponent } from './friends/friends-page-sidenav/friends-page-sidenav.component';
+import { FriendsChatComponent } from './friends/friends-chat/friends-chat.component';
+import { FriendsListComponent } from './friends/friends-list/friends-list.component';
 
 
 const appRoutes: Routes = [
@@ -60,6 +62,8 @@ const appRoutes: Routes = [
     SidenavComponent,
     FriendsPageComponent,
     FriendsPageSidenavComponent,
+    FriendsChatComponent,
+    FriendsListComponent,
 
   ],
   imports: [

@@ -7,15 +7,7 @@
   <mat-sidenav-content>
 
     <div class="friends-container">
-      <div *ngIf="!isSmallScreen" class="friends-list-wrapper">
-        <span class="direct-messages">Direct messages</span>
-        <ul class="friends-list">
-          <li *ngFor="let user of friendsList">
-            <img [src]="user.profilePictureUrl">
-            <span>{{user.username}}</span>
-          </li>
-        </ul>
-      </div>
+      <app-friends-list *ngIf="!isSmallScreen"></app-friends-list>
       <div class="main-body">
         <div class="header-navbar">
           <i class='bx bx-menu sidenav-open-btn' style='color:#eaeaea' (click)="toggleSidenav()"></i>

@@ -7,5 +7,5 @@ import { friendsList } from '../friends-page/friendsListObjectsForTesting';
   styleUrls: ['./friends-page-sidenav.component.css']
 })
 export class FriendsPageSidenavComponent {
-  friendsList = friendsList;
+  
 }
