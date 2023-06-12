@@ -1,0 +1,39 @@
+.friends-list-wrapper {
+  min-width: 15rem;
+  padding: 0.6rem;
+  border-right: 1px solid gray;
+}
+
+.direct-messages {
+  font-weight: 500;
+}
+
+.friends-list {
+  list-style: none;
+  padding: 0;
+}
+
+.friends-list li {
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+
+.friends-list li:hover {
+  background-color: #545454;
+}
+
+.friends-list img {
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.friends-list span {
+  margin-left: 0.3rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+}

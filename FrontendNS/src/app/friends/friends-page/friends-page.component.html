@@ -1,15 +1,40 @@
-<div class="friends-container">
-  <div *ngIf="!isSmallScreen" class="friends-list">
-    friends
-  </div>
-  <div class="main-body">
-    <div class="header-navbar">
-      navbar
-    </div>
-    <div class="main-content">
-      main content
-    </div>
-  </div>
 
+<div class="container">
+<mat-sidenav-container>
+  <mat-sidenav [opened]="isSidenavOpen">
+    <app-friends-page-sidenav></app-friends-page-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <div class="friends-container">
+      <div *ngIf="!isSmallScreen" class="friends-list-wrapper">
+        <span class="direct-messages">Direct messages</span>
+        <ul class="friends-list">
+          <li *ngFor="let user of friendsList">
+            <img [src]="user.profilePictureUrl">
+            <span>{{user.username}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="main-body">
+        <div class="header-navbar">
+          <i class='bx bx-menu sidenav-open-btn' style='color:#eaeaea' (click)="toggleSidenav()"></i>
+          <div *ngIf="!isSmallScreen">
+            <label>Friends</label>
+            <button>Online</button>
+            <button>All</button>
+            <button>Pending</button>
+            <button>Blocked</button>
+            <button style="background-color: #51e25b;">Add Friend</button>
+          </div>
+        </div>
+        <div class="main-content">
+          main content
+        </div>
+      </div>
+
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
 </div>
-

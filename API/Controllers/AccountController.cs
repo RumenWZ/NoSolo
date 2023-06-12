@@ -137,7 +137,7 @@ namespace API.Controllers
             {
                 return BadRequest("User could not be found");
             }
-            if (!string.IsNullOrEmpty(discordUsername))
+                if (!string.IsNullOrEmpty(discordUsername))
             {
                 user.DiscordUsername = discordUsername;
             } else

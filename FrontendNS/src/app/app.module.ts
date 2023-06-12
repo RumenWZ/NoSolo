@@ -29,6 +29,7 @@ import { MaterialModule } from './material/material.module';
 import { SidenavService } from './services/sidenav.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { FriendsPageComponent } from './friends/friends-page/friends-page.component';
+import { FriendsPageSidenavComponent } from './friends/friends-page-sidenav/friends-page-sidenav.component';
 
 
 const appRoutes: Routes = [
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     ConfirmDeleteComponent,
     SidenavComponent,
     FriendsPageComponent,
+    FriendsPageSidenavComponent,
 
   ],
   imports: [

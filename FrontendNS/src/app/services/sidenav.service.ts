@@ -5,14 +5,24 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SidenavService {
-  private _isSidenavOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _isMainSidenavOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _isFriendsSidenavOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  get isSidenavOpen(): BehaviorSubject<boolean> {
-    return this._isSidenavOpen;
+  get isMainSidenavOpen(): BehaviorSubject<boolean> {
+    return this._isMainSidenavOpen;
   }
 
-  toggleSidenav(): void {
-    this._isSidenavOpen.next(!this._isSidenavOpen.value);
+  get isFriendsSidenavOpen(): BehaviorSubject<boolean> {
+    return this._isFriendsSidenavOpen;
   }
+
+  toggleMainSidenav(): void {
+    this._isMainSidenavOpen.next(!this._isMainSidenavOpen.value);
+  }
+
+  toggleFriendsSidenav(): void {
+    this._isFriendsSidenavOpen.next(!this._isFriendsSidenavOpen.value);
+  }
+
 
 }

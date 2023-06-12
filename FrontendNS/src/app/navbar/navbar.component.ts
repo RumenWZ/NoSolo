@@ -15,11 +15,11 @@ export class NavbarComponent {
   ) {}
 
   toggleSidenav() {
-    this.sidenavService.toggleSidenav();
+    this.sidenavService.toggleMainSidenav();
   }
 
   test() {
-    this.sidenavService.isSidenavOpen.subscribe((isOpen: boolean) => {
+    this.sidenavService.isMainSidenavOpen.subscribe((isOpen: boolean) => {
       console.log(isOpen);
     });
 

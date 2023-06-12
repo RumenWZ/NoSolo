@@ -16,11 +16,11 @@ export class AppComponent {
   ) {}
 
   toggleSidenav() {
-    this.sidenavService.toggleSidenav();
+    this.sidenavService.toggleMainSidenav();
   }
 
   ngOnInit() {
-    this.sidenavService.isSidenavOpen.subscribe((isOpen: boolean) => {
+    this.sidenavService.isMainSidenavOpen.subscribe((isOpen: boolean) => {
       this.isSidenavOpen = isOpen;
     });
   }

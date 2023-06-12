@@ -20,7 +20,7 @@ export class SidenavComponent {
   ) {}
 
   toggleSidenav() {
-    this.sidenavService.toggleSidenav();
+    this.sidenavService.toggleMainSidenav();
   }
 
   onDashboard() {
