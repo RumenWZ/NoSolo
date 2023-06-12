@@ -23,19 +23,6 @@ namespace API.Data.Repository
             dc.Games.Add(game);
         }
 
-        public async void Delete(int id)
-        {
-            var game = await dc.Games.FirstOrDefaultAsync(x => x.Id == id);
-            if (game != null)
-            {
-                //await photoService.DeletePhotoAsync(game.ImageUrl);
-                dc.Games.Remove(game);
-            } else
-            {
-                // add API error here later
-            }
-        }
-
         public Task<IEnumerable<Game>> GetAllAsync()
         {
             return Task.FromResult<IEnumerable<Game>>(dc.Games);
@@ -51,6 +38,20 @@ namespace API.Data.Repository
         {
             var games = await dc.Games.Where(g => ids.Contains(g.Id)).ToListAsync();
             return games.ToList();
+        }
+
+        public async Task Delete(int id)
+        {
+            var game = await dc.Games.FirstOrDefaultAsync(x => x.Id == id);
+            if (game != null)
+            {
+                dc.Games.Remove(game);
+                await dc.SaveChangesAsync();
+            }
+            else
+            {
+                // Add API error handling here later
+            }
         }
     }
 }

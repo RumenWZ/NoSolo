@@ -1,6 +1,6 @@
 
 <div class="container">
-<mat-sidenav-container>
+<mat-sidenav-container (backdropClick)="toggleSidenav()">
   <mat-sidenav [opened]="isSidenavOpen">
     <app-friends-page-sidenav></app-friends-page-sidenav>
   </mat-sidenav>
@@ -23,7 +23,7 @@
             <label>Friends</label>
             <button>Online</button>
             <button>All</button>
-            <button>Pending</button>
+            <button matBadge="3" matBadgeColor="warn" matBadgeSize="small">Pending</button>
             <button>Blocked</button>
             <button style="background-color: #51e25b;">Add Friend</button>
           </div>

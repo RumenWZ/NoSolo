@@ -24,8 +24,8 @@ mat-sidenav {
 
 .sidenav-open-btn {
   font-size: 2rem;
-  margin: 8px 10px 0 0;
   cursor: pointer;
+  margin-left: 0.3rem;
 }
 
 .friends-container {

@@ -32,8 +32,10 @@ export class GameListComponent {
     });
 
     dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
-      console.log('delete');
-      //this.deleteGame();
+      console.log(this.gamePendingDeletion);
+      console.log(game);
+      this.deleteGame();
+      dialogRef.close();
     });
 
     dialogRef.componentInstance.deleteCancelled.subscribe(() => {
@@ -42,9 +44,11 @@ export class GameListComponent {
   }
 
   deleteGame(){
-    this.gameService.deleteGame(this.gamePendingDeletion.id).subscribe(() => {
-      this.alertify.success(this.gamePendingDeletion.name + " successfully deleted from database");
-      this.getGamesList();
+    this.gameService.deleteGame(this.gamePendingDeletion.id).subscribe((response: any) => {
+      if (response == 201) {
+        this.alertify.success(this.gamePendingDeletion.name + " successfully deleted from database");
+        this.getGamesList();
+      }
     }, error => {
       this.alertify.error(error.error);
     })

@@ -60,9 +60,9 @@ namespace API.Controllers
             }
             await photoService.DeletePhotoAsync(game.ImageUrl);
 
-            uow.GameRepository.Delete(id);
+            await uow.GameRepository.Delete(id);
             await uow.SaveAsync();
-            return Ok(id);
+            return Ok(201);
         }
 
         [HttpGet("getall")]

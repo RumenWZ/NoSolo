@@ -1,7 +1,7 @@
 .settings {
   position: relative;
   background-color: var(--main-color);
-  width: 30rem;
+  max-width: 30rem;
   margin: 5rem auto;
   height: 48rem;
 }
