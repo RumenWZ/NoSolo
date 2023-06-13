@@ -1,6 +1,4 @@
-import { Component, HostListener } from '@angular/core';
-import { friendsList } from './friendsListObjectsForTesting';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { SidenavService } from 'src/app/services/sidenav.service';
 
 @Component({
@@ -11,7 +9,8 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 export class FriendsPageComponent {
   isSmallScreen: boolean;
   isSidenavOpen: boolean = false;
-  friendsList = friendsList;
+  friendsChatEnabled = false;
+  currentChatUser: any = undefined;
 
   constructor(
     private sidenavService: SidenavService

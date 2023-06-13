@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { friendsList } from '../friends-page/friendsListObjectsForTesting';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { friendsList } from '../friendsListObjectsForTesting';
 
 @Component({
   selector: 'app-friends-list',
@@ -8,4 +8,20 @@ import { friendsList } from '../friends-page/friendsListObjectsForTesting';
 })
 export class FriendsListComponent {
   friendsList = friendsList;
+  @Output() friendsChatEnabled = new EventEmitter<boolean>();
+  @Output() currentChatUser = new EventEmitter<any>();
+
+  constructor(
+
+  ) {}
+
+  onFriendClick(user: any) {
+    this.friendsChatEnabled.emit(true);
+    this.currentChatUser.emit(user);
+    console.log('test');
+  }
+
+  ngOnInit() {
+
+  }
 }

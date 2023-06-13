@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { friendsList } from '../friends-page/friendsListObjectsForTesting';
 
 @Component({
   selector: 'app-friends-page-sidenav',
@@ -7,5 +6,5 @@ import { friendsList } from '../friends-page/friendsListObjectsForTesting';
   styleUrls: ['./friends-page-sidenav.component.css']
 })
 export class FriendsPageSidenavComponent {
-  
+
 }
