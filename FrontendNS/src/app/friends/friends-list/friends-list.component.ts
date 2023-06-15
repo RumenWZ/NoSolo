@@ -18,7 +18,6 @@ export class FriendsListComponent {
   onFriendClick(user: any) {
     this.friendsChatEnabled.emit(true);
     this.currentChatUser.emit(user);
-    console.log('test');
   }
 
   ngOnInit() {

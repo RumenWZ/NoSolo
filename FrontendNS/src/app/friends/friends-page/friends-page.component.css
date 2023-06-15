@@ -3,6 +3,15 @@
   color: var(--light-grey-text);
 }
 
+:host ::ng-deep ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+:host ::ng-deep ::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
 .container {
   display: flex;
   width: 100%;
@@ -52,7 +61,7 @@ mat-sidenav {
   display: flex;
   align-items: center;
   border-bottom: 1px gray solid;
-  
+
 }
 
 .header-navbar  button{
@@ -73,6 +82,7 @@ mat-sidenav {
 
 .main-content {
   width: 100%;
+  height: 100%;
 }
 
 .friends-list {
