@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { User } from 'src/app/model/user';
+import { chatMessages } from './chatMessagesForTesting';
 
 @Component({
   selector: 'app-friends-chat',
@@ -10,6 +11,7 @@ export class FriendsChatComponent implements OnChanges{
   friendsChatEnabled: boolean = true;
   @Input() chatUser: any;
   messageFieldPlaceholder: string;
+  chatMessages = chatMessages;
 
   ngOnInit() {
     this.messageFieldPlaceholder = `Message ${this.chatUser.username}`;
