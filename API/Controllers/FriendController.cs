@@ -35,5 +35,19 @@ namespace API.Controllers
 
             return Ok(201);
         }
+
+
+
+        [HttpGet("get-my-friend-requests")]
+        public async Task<IActionResult> GetAllIncomingFriendRequests(string token)
+        {
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+
+            return Ok(user);
+        }
     }
 }

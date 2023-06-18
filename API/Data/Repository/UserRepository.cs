@@ -1,4 +1,6 @@
-﻿using API.Interfaces;
+﻿using API.DTOs;
+using API.Interfaces;
+using API.Migrations;
 using API.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -36,6 +38,23 @@ namespace API.Data.Repository
             }
         
             return user;
+        }
+
+        public UserDTO CreateUserDTO(User user)
+        {
+            var userDTO = new UserDTO()
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                CreatedOn = user.CreatedOn,
+                ProfileImageUrl = user.ProfileImageUrl,
+                DisplayName = user.DisplayName,
+                DiscordUsername = user.DiscordUsername,
+                Summary = user.Summary
+
+            };
+            return userDTO;
         }
 
         public async Task<User> GetByIdAsync(int userId)

@@ -83,7 +83,7 @@ namespace API.Controllers
             {
                 return BadRequest("User could not be found");
             }
-            var userDTO = CreateUserDTO(user);
+            var userDTO = uow.UserRepository.CreateUserDTO(user);
             return Ok(userDTO);
         }
 
@@ -95,7 +95,7 @@ namespace API.Controllers
             {
                 return BadRequest("No such user exists");
             }
-            var userDTO = CreateUserDTO(user);
+            var userDTO = uow.UserRepository.CreateUserDTO(user);
             return Ok(userDTO);
         }
 
@@ -204,26 +204,6 @@ namespace API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
-        
-        
-        private UserDTO CreateUserDTO(User user)
-        {
-            var userDTO = new UserDTO()
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                CreatedOn = user.CreatedOn,
-                ProfileImageUrl = user.ProfileImageUrl,
-                DisplayName = user.DisplayName,
-                DiscordUsername = user.DiscordUsername,
-                Summary = user.Summary
-
-            };
-            return userDTO;
-        }
-
 
     }
 }

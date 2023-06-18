@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DTOs;
+using API.Models;
 
 namespace API.Interfaces
 {
@@ -10,5 +11,6 @@ namespace API.Interfaces
         Task<User> GetByIdAsync(int userId);
         Task<User> GetByUserNameAsync(string username);
         Task<User> GetUserByTokenAsync(string token);
+        UserDTO CreateUserDTO(User User);
     }   
 }
