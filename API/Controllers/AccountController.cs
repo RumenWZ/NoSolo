@@ -75,6 +75,18 @@ namespace API.Controllers
             return Ok(user);
         }
 
+        [HttpGet("get-user-by-token/{token}")]
+        public async Task<IActionResult> FindUserByToken(string token)
+        {
+            var user = await uow.UserRepository.GetUserByToken(token);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+            var userDTO = CreateUserDTO(user);
+            return Ok(userDTO);
+        }
+
         [HttpGet("get-user-by-username/{username}")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {

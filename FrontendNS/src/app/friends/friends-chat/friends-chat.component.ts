@@ -13,6 +13,11 @@ export class FriendsChatComponent implements OnChanges{
   messageFieldPlaceholder: string;
   chatMessages = chatMessages;
 
+
+  chatMessagesProcessor() {
+    
+  }
+
   ngOnInit() {
     this.messageFieldPlaceholder = `Message ${this.chatUser.username}`;
   }

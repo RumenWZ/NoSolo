@@ -22,6 +22,39 @@ namespace API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("API.Models.Friend", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FriendsSince")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RequestedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("User1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User2Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User1Id");
+
+                    b.HasIndex("User2Id");
+
+                    b.ToTable("Friends");
+                });
+
             modelBuilder.Entity("API.Models.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -119,6 +152,25 @@ namespace API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserGames");
+                });
+
+            modelBuilder.Entity("API.Models.Friend", b =>
+                {
+                    b.HasOne("API.Models.User", "User1")
+                        .WithMany()
+                        .HasForeignKey("User1Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.User", "User2")
+                        .WithMany()
+                        .HasForeignKey("User2Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User1");
+
+                    b.Navigation("User2");
                 });
 
             modelBuilder.Entity("API.Models.UserGame", b =>

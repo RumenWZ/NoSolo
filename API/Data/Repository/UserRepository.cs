@@ -1,8 +1,12 @@
 ﻿using API.Interfaces;
 using API.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -48,6 +52,42 @@ namespace API.Data.Repository
                 return null;
             }
             return user;
+        }
+
+        public async Task<User> GetUserByToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+
+            try
+            {
+                SecurityToken validatedToken;
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+
+                var userIdString = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (int.TryParse(userIdString, out int userId))
+                {
+                    var user = await dc.Users.FindAsync(userId);
+
+                    return user;
+                } else
+                {
+                    // some error
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public void Register(string username, string email, string password)
