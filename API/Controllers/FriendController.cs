@@ -46,8 +46,8 @@ namespace API.Controllers
             {
                 return BadRequest("User could not be found");
             }
-
-            return Ok(user);
+            var friendRequests = await uow.FriendsRepository.GetUserIncomingFriendRequestsAsync(user.Id);
+            return Ok(friendRequests);
         }
     }
 }

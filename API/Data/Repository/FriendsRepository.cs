@@ -1,5 +1,6 @@
 ﻿using API.Interfaces;
 using API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
 {
@@ -11,6 +12,14 @@ namespace API.Data.Repository
         {
             this.dc = dc;
         }
+
+        public async Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId)
+        {
+            var friendRequests = await dc.Friends.Where(u => u.User2Id == userId).ToListAsync();
+
+            return friendRequests;
+        }
+
         public void SendFriendRequest(int senderId, int receiverId)
         {
             Friend friend = new Friend();
