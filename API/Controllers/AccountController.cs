@@ -78,7 +78,7 @@ namespace API.Controllers
         [HttpGet("get-user-by-token/{token}")]
         public async Task<IActionResult> FindUserByToken(string token)
         {
-            var user = await uow.UserRepository.GetUserByToken(token);
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
                 return BadRequest("User could not be found");

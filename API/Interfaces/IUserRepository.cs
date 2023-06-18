@@ -9,6 +9,6 @@ namespace API.Interfaces
         Task<bool> UserAlreadyExists(string username);
         Task<User> GetByIdAsync(int userId);
         Task<User> GetByUserNameAsync(string username);
-        Task<User> GetUserByToken(string token);
+        Task<User> GetUserByTokenAsync(string token);
     }   
 }

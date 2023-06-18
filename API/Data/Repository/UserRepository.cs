@@ -54,7 +54,7 @@ namespace API.Data.Repository
             return user;
         }
 
-        public async Task<User> GetUserByToken(string token)
+        public async Task<User> GetUserByTokenAsync(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
