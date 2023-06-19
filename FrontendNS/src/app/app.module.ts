@@ -32,6 +32,7 @@ import { FriendsPageComponent } from './friends/friends-page/friends-page.compon
 import { FriendsPageSidenavComponent } from './friends/friends-page-sidenav/friends-page-sidenav.component';
 import { FriendsChatComponent } from './friends/friends-chat/friends-chat.component';
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
+import { ViewProfileComponent } from './user/view-profile/view-profile.component';
 
 
 const appRoutes: Routes = [
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   {path: 'game-selection', component: GameSelectionComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'friends', component: FriendsPageComponent},
+  {path: 'view-profile/:username', component: ViewProfileComponent}
 ];
 
 @NgModule({
@@ -64,6 +66,7 @@ const appRoutes: Routes = [
     FriendsPageSidenavComponent,
     FriendsChatComponent,
     FriendsListComponent,
+    ViewProfileComponent,
 
   ],
   imports: [

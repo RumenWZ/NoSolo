@@ -14,6 +14,7 @@ export class SettingsComponent {
   username = localStorage.getItem('userName');
   user: User;
   image: File;
+  // profileImageUrl : string;
   profileImageUrl : string = '/assets/images/default-user.png';
   changes = {};
   photoChanged: boolean = false;

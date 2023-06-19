@@ -86,3 +86,32 @@
 .sidenav-body {
   padding: 10px;
 }
+
+.user-info-bottom {
+  position: absolute;
+  bottom: 0;
+  background-color: #262b30;
+  height: 4rem;
+  width: 100%;
+  border-top: 1px solid grey;
+  display: flex;
+  align-items: center;
+}
+
+.user-info-bottom img {
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 0.5rem;
+
+}
+
+.user-info-bottom span{
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  font-family: "poppins", sans-serif;
+  font-weight: 500;
+  padding-left: 0.7rem;
+}
+
+

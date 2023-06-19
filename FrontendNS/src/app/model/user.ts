@@ -10,4 +10,13 @@ export interface UserForLogin {
   token: string;
 }
 
-
+export interface UserDTO {
+  id: number,
+  username: string,
+  email: string,
+  createdOn: Date,
+  profileImageUrl: string,
+  displayName: string,
+  discordUsername: string,
+  summary: string
+}

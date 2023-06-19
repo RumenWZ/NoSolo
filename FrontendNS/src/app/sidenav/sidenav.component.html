@@ -21,3 +21,7 @@
   </li>
 </ul>
 </div>
+<div class="user-info-bottom">
+  <img [src]="user?.profileImageUrl" (click)="onProfileImage()">
+  <span>{{user?.username}}</span>
+</div>

@@ -1,0 +1,12 @@
+.view-profile-container {
+  max-width: 40rem;
+  display: flex;
+  margin: 0 auto;
+}
+
+.view-profile {
+  background-color: var(--main-color);
+  min-height: 50rem;
+  width: 100%;
+  margin: 0 auto;
+}

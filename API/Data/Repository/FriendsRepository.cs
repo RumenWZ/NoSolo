@@ -15,7 +15,7 @@ namespace API.Data.Repository
 
         public async Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId)
         {
-            var friendRequests = await dc.Friends.Where(u => u.User2Id == userId).ToListAsync();
+            var friendRequests = await dc.Friends.Where(f => f.User2Id == userId && f.Status == "pending").ToListAsync();
 
             return friendRequests;
         }

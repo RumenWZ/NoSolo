@@ -17,17 +17,14 @@ namespace API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUnitOfWork uow;
-        private readonly IConfiguration configuration;
         private readonly IPhotoService photoService;
 
         public AccountController(
             IUnitOfWork uow,
-            IConfiguration config,
             IPhotoService photoService
             )
         {
             this.uow = uow;
-            this.configuration = config;
             this.photoService = photoService;
         }
 
