@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as alertify from 'alertifyjs';
 import { User, UserDTO } from '../model/user';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';

@@ -68,6 +68,7 @@ const appRoutes: Routes = [
     FriendsListComponent,
     ViewProfileComponent,
 
+
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+
   ],
   providers: [
     {

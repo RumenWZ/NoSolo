@@ -24,6 +24,7 @@
     "bootstrap": "^5.2.3",
     "ng2-img-max": "^2.2.9",
     "ngx-bootstrap": "^10.2.0",
+    "ngx-store": "^3.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

@@ -12,11 +12,16 @@ export class ViewProfileComponent {
   username: string;
   token: string;
   user: UserDTO;
+  isMyOwnProfile: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService) {
     this.token = localStorage.getItem('token');
+  }
+
+  onSendFriendRequest() {
+
   }
 
   ngOnInit() {
@@ -25,13 +30,17 @@ export class ViewProfileComponent {
     const cachedUser = this.userService.getCachedUser();
 
     if (cachedUser) {
+      console.log('no need for API call');
       this.user = cachedUser;
     } else {
       this.userService.getUserByToken(this.token).subscribe(
         (response: UserDTO) => {
           this.user = response;
+          this.isMyOwnProfile = this.username === this.user.username ? true : false;
         }
       );
     }
+
+
   }
 }

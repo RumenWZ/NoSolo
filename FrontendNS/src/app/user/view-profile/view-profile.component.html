@@ -1,6 +1,25 @@
 <div class="view-profile-container">
   <div class="view-profile">
-    Lorem ipsum dolor sit amet.
-    <img [src]="user?.profileImageUrl">
+    <div class="profile-header">
+      <div class="profile-header-content">
+        <img [src]="user?.profileImageUrl">
+        <div class="user-details">
+          <div class="persona-name">
+            <span>{{user?.displayName}}</span>
+          </div>
+          <div class="user-summary">
+            <span>{{user?.summary}}</span>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <span *ngIf="isMyOwnProfile">Edit</span>
+          <span (click)="onSendFriendRequest()">Send Friend Request</span>
+        </div>
+      </div>
+
+    </div>
+
+
   </div>
 </div>
