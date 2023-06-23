@@ -1,7 +1,7 @@
 <div class="view-profile-container">
   <div class="view-profile">
     <div class="profile-header">
-      <div class="profile-header-content">
+      <div *ngIf="isValidUsername" class="profile-header-content">
         <img [src]="user?.profileImageUrl">
         <div class="user-details">
           <div class="persona-name">
@@ -11,7 +11,6 @@
             <p>{{user?.summary}}</p>
           </div>
         </div>
-
         <div class="navigation">
           <span *ngIf="isMyOwnProfile">Edit</span>
           <span (click)="onSendFriendRequest()">Send Friend Request</span>
@@ -19,7 +18,9 @@
       </div>
 
     </div>
-
+    <div class="invalid-user" *ngIf="!isValidUsername">
+      <h2>INVALID USERNAME</h2>
+    </div>
 
   </div>
 </div>
