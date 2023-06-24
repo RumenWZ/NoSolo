@@ -16,11 +16,21 @@
           <span (click)="onSendFriendRequest()">Send Friend Request</span>
         </div>
       </div>
+      <div class="discord-link">
+        <div class="discord-image-container" (click)="toggleDiscordUsername()">
+          <img class="discord-logo" src="/assets/images/discord-logo.png">
+        </div>
+        <div class="discord-username-wrapper">
+          <div class="discord-username animate drawer" [ngClass]="{'inactive': !showDiscordUsername}">
+            <input class="animate" type="text" [ngClass]="{'hidden': showDiscordUsername}" [value]="user?.discordUsername" placeholder="Discord Username" readonly>
+          </div>
+        </div>
 
+      </div>
     </div>
-    <div class="invalid-user" *ngIf="!isValidUsername">
+    <div class="invalid-user" *ngIf="isValidUsername === false">
       <h2>INVALID USERNAME</h2>
     </div>
-
+    <!-- <button (click)="test()">test</button> -->
   </div>
 </div>

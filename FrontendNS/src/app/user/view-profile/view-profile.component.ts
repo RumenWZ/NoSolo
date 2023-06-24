@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDTO } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
@@ -8,13 +8,16 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './view-profile.component.html',
   styleUrls: ['./view-profile.component.css']
 })
-export class ViewProfileComponent {
+export class ViewProfileComponent implements OnChanges {
   username: string;
   token: string;
   user: UserDTO;
   isMyOwnProfile: boolean;
   myUsername: string;
   isValidUsername: boolean;
+  showDiscordUsername: boolean = false;
+  @Input() needToUpdateDetails: boolean;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -28,9 +31,7 @@ export class ViewProfileComponent {
 
   }
 
-  ngOnInit() {
-    this.username = this.route.snapshot.paramMap.get('username');
-    
+  getUserDetails() {
     this.userService.getUserByUsername(this.username).subscribe((response: any) => {
       if (response.error) {
         this.isValidUsername = false;
@@ -42,8 +43,22 @@ export class ViewProfileComponent {
         this.isMyOwnProfile = this.username == this.myUsername ? true : false;
       }
       }
-
-
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['username'] && !changes['username'].firstChange) {
+      this.getUserDetails();
+    }
+  }
+
+  toggleDiscordUsername() {
+    this.showDiscordUsername = !this.showDiscordUsername;
+  }
+
+  ngOnInit() {
+    this.username = this.route.snapshot.paramMap.get('username');
+
+    this.getUserDetails();
   }
 }
