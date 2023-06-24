@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { of, switchMap, tap } from 'rxjs';
+import { Friend } from 'src/app/model/friend';
 import { UserDTO } from 'src/app/model/user';
+import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,13 +18,15 @@ export class ViewProfileComponent implements OnChanges {
   isMyOwnProfile: boolean;
   myUsername: string;
   isValidUsername: boolean;
-  showDiscordUsername: boolean = false;
+  showDiscordUsername: boolean;
   @Input() needToUpdateDetails: boolean;
   areFriends: boolean;
+  sentFriendRequest: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private friend: FriendService
     ) {
     this.token = localStorage.getItem('token');
     this.myUsername = localStorage.getItem('userName');
@@ -31,6 +36,7 @@ export class ViewProfileComponent implements OnChanges {
 
   }
 
+
   getUserDetails() {
     this.userService.getUserByUsername(this.username).subscribe((response: any) => {
       if (response.error) {
@@ -38,12 +44,22 @@ export class ViewProfileComponent implements OnChanges {
       } else {
         this.isValidUsername = true;
         this.user = response;
-      if (response.profileImageUrl == '') {
-        this.user.profileImageUrl = '/assets/images/default-user.png';
+        if (response.profileImageUrl === '') {
+          this.user.profileImageUrl = '/assets/images/default-user.png';
+        }
+        this.isMyOwnProfile = this.username === this.myUsername;
       }
-      this.isMyOwnProfile = this.username == this.myUsername ? true : false;
+
+      if (!this.isMyOwnProfile) {
+        this.friend.getFriendship(this.token, this.username).subscribe((response: Friend) => {
+          console.log(response);
+          console.log(response.user2Id, this.user.id);
+          if (response.status === 'pending' && response.user2Id !== this.user.id) {
+            this.sentFriendRequest = true;
+          }
+        });
       }
-    })
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,5 +80,6 @@ export class ViewProfileComponent implements OnChanges {
     this.username = this.route.snapshot.paramMap.get('username');
 
     this.getUserDetails();
+
   }
 }

@@ -49,8 +49,6 @@
   -webkit-box-orient: vertical;
 }
 
-
-
 .navigation {
   display: flex;
   align-items: center;
@@ -128,7 +126,7 @@
 }
 
 .discord-username input::placeholder {
-  color: #ff0000; 
+  color: #ff0000;
 }
 
 .animate {
@@ -142,7 +140,7 @@
 }
 
 .drawer.inactive {
-  left: -250px;
+  left: -200px;
 }
 
 .discord-username-wrapper {
@@ -151,3 +149,44 @@
   margin-left: -4px;
 }
 
+.spin-clockwise {
+  animation: spinClockwise 0.5s linear forwards;
+}
+
+.spin-counter-clockwise {
+  animation: spinCounterClockwise 0.5s linear forwards;
+}
+
+@keyframes spinClockwise {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinCounterClockwise {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

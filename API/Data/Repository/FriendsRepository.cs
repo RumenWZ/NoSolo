@@ -1,4 +1,6 @@
-﻿using API.Interfaces;
+﻿using API.DTOs;
+using API.Interfaces;
+using API.Migrations;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,20 @@ namespace API.Data.Repository
         public FriendsRepository(DataContext dc)
         {
             this.dc = dc;
+        }
+
+        public FriendshipResponseDTO CreateFriendshipDTO(Friend friendship)
+        {
+            var friendshipDTO = new FriendshipResponseDTO()
+            {
+                Id = friendship.Id,
+                User1Id = friendship.User1Id,
+                User2Id = friendship.User2Id,
+                Status  = friendship.Status,
+                FriendsSince = friendship.FriendsSince,
+                RequestedOn = friendship.RequestedOn,
+            };
+            return friendshipDTO;
         }
 
         public async Task<Friend> GetFriendshipAsync(int user1Id, int user2Id)

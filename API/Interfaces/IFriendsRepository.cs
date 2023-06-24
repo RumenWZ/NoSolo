@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DTOs;
+using API.Models;
 
 namespace API.Interfaces
 {
@@ -7,5 +8,6 @@ namespace API.Interfaces
         void SendFriendRequest(int senderId,  int receiverId);
         Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId);
         Task<Friend> GetFriendshipAsync(int user1Id, int user2Id);
+        FriendshipResponseDTO CreateFriendshipDTO(Friend friendship);
     }
 }

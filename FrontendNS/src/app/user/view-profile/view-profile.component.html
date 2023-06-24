@@ -13,17 +13,21 @@
         </div>
         <div class="navigation">
           <span *ngIf="isMyOwnProfile" routerLink="/settings">Edit</span>
-          <span *ngIf="!isMyOwnProfile" (click)="onSendFriendRequest()">Send Friend Request</span>
+          <span *ngIf="!sentFriendRequest" (click)="onSendFriendRequest()">Send Friend Request</span>
+          <span *ngIf="sentFriendRequest">Cancel Friend Request</span>
           <span *ngIf="!isMyOwnProfile" routerLink="/friends">Message</span>
         </div>
       </div>
       <div class="discord-link">
-        <div class="discord-image-container" (click)="toggleDiscordUsername()">
-          <img class="discord-logo" src="/assets/images/discord-logo.png">
+        <div class="discord-image-container" [ngClass]="{'pulse': !showDiscordUsername }" (click)="toggleDiscordUsername()">
+          <img class="discord-logo rotate" [ngClass]="{
+            'spin-clockwise': showDiscordUsername,
+            'spin-counter-clockwise': showDiscordUsername == false
+          }" src="/assets/images/discord-logo.png">
         </div>
         <div class="discord-username-wrapper">
           <div class="discord-username animate drawer" [ngClass]="{'inactive': !showDiscordUsername}">
-            <input class="animate" type="text" [ngClass]="{'hidden': showDiscordUsername}" [value]="user?.discordUsername" placeholder="No discord provided" readonly>
+            <input class="animate" type="text" [value]="user?.discordUsername"  placeholder="No discord provided" readonly>
           </div>
         </div>
 

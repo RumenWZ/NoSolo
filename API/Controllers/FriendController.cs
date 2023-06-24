@@ -50,7 +50,7 @@ namespace API.Controllers
             return Ok(friendRequests);
         }
 
-        [HttpGet("get-friendship")]
+        [HttpGet("get-friendship/{token}/{username}")]
         public async Task<IActionResult> GetFriendship(string token, string username)
         {
             var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
@@ -69,7 +69,9 @@ namespace API.Controllers
                 return BadRequest("These users have never contacted each other");
             }
 
-            return Ok(friendship);
+            var friendshipDTO = uow.FriendsRepository.CreateFriendshipDTO(friendship);
+
+            return Ok(friendshipDTO);
         }
     }
 }
