@@ -12,8 +12,9 @@
           </div>
         </div>
         <div class="navigation">
-          <span *ngIf="isMyOwnProfile">Edit</span>
-          <span (click)="onSendFriendRequest()">Send Friend Request</span>
+          <span *ngIf="isMyOwnProfile" routerLink="/settings">Edit</span>
+          <span *ngIf="!isMyOwnProfile" (click)="onSendFriendRequest()">Send Friend Request</span>
+          <span *ngIf="!isMyOwnProfile" routerLink="/friends">Message</span>
         </div>
       </div>
       <div class="discord-link">
@@ -22,7 +23,7 @@
         </div>
         <div class="discord-username-wrapper">
           <div class="discord-username animate drawer" [ngClass]="{'inactive': !showDiscordUsername}">
-            <input class="animate" type="text" [ngClass]="{'hidden': showDiscordUsername}" [value]="user?.discordUsername" placeholder="Discord Username" readonly>
+            <input class="animate" type="text" [ngClass]="{'hidden': showDiscordUsername}" [value]="user?.discordUsername" placeholder="No discord provided" readonly>
           </div>
         </div>
 

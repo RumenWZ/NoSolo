@@ -6,6 +6,6 @@ namespace API.Interfaces
     {
         void SendFriendRequest(int senderId,  int receiverId);
         Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId);
-
+        Task<Friend> GetFriendshipAsync(int user1Id, int user2Id);
     }
 }

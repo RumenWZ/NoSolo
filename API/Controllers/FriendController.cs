@@ -49,5 +49,27 @@ namespace API.Controllers
             var friendRequests = await uow.FriendsRepository.GetUserIncomingFriendRequestsAsync(user.Id);
             return Ok(friendRequests);
         }
+
+        [HttpGet("get-friendship")]
+        public async Task<IActionResult> GetFriendship(string token, string username)
+        {
+            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user1 == null)
+            {
+                return BadRequest("No user was found corresponding with the token");
+            }
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user2 == null)
+            {
+                return BadRequest("No user was found with this username");
+            }
+            var friendship = await uow.FriendsRepository.GetFriendshipAsync(user1.Id, user2.Id);
+            if (friendship == null)
+            {
+                return BadRequest("These users have never contacted each other");
+            }
+
+            return Ok(friendship);
+        }
     }
 }

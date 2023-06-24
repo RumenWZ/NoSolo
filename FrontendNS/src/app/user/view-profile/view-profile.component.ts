@@ -17,7 +17,7 @@ export class ViewProfileComponent implements OnChanges {
   isValidUsername: boolean;
   showDiscordUsername: boolean = false;
   @Input() needToUpdateDetails: boolean;
-
+  areFriends: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,8 +40,8 @@ export class ViewProfileComponent implements OnChanges {
         this.user = response;
       if (response.profileImageUrl == '') {
         this.user.profileImageUrl = '/assets/images/default-user.png';
-        this.isMyOwnProfile = this.username == this.myUsername ? true : false;
       }
+      this.isMyOwnProfile = this.username == this.myUsername ? true : false;
       }
     })
   }
@@ -54,6 +54,10 @@ export class ViewProfileComponent implements OnChanges {
 
   toggleDiscordUsername() {
     this.showDiscordUsername = !this.showDiscordUsername;
+  }
+
+  test() {
+    console.log(this.isMyOwnProfile);
   }
 
   ngOnInit() {

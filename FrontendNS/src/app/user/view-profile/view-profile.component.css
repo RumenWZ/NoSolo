@@ -127,6 +127,9 @@
   background-color: #5c6268;
 }
 
+.discord-username input::placeholder {
+  color: #ff0000; 
+}
 
 .animate {
   transition: all 0.3s ease-in-out;
@@ -147,3 +150,4 @@
   overflow: hidden;
   margin-left: -4px;
 }
+

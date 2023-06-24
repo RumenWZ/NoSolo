@@ -13,6 +13,14 @@ namespace API.Data.Repository
             this.dc = dc;
         }
 
+        public async Task<Friend> GetFriendshipAsync(int user1Id, int user2Id)
+        {
+            var friendship = await dc.Friends.FirstOrDefaultAsync(x => (x.User1Id == user1Id && x.User2Id == user2Id)
+            || (x.User1Id == user2Id && x.User2Id == user1Id));
+            return friendship;
+              
+        }
+
         public async Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId)
         {
             var friendRequests = await dc.Friends.Where(f => f.User2Id == userId && f.Status == "pending").ToListAsync();
