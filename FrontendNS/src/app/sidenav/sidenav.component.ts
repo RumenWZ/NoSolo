@@ -71,14 +71,13 @@ export class SidenavComponent{
   getUserDetails() {
     this.token = localStorage.getItem('token');
     this.cachedUserDetails = localStorage.getItem('user');
+
     if (this.cachedUserDetails) {
       this.user = JSON.parse(this.cachedUserDetails);
-    } else {
-      this.alertify.error('Some error occured when retreiving the user details');
-    }
-    if (this.user.profileImageUrl == '') {
-      this.user.profileImageUrl = '/assets/images/default-user.png';
-    }
+      if (this.user.profileImageUrl == '') {
+        this.user.profileImageUrl = '/assets/images/default-user.png';
+      }
+    } 
   }
 
   ngOnInit() {

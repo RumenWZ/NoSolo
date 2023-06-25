@@ -11,17 +11,18 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './view-profile.component.html',
   styleUrls: ['./view-profile.component.css']
 })
-export class ViewProfileComponent implements OnChanges {
-  username: string;
+export class ViewProfileComponent {
+  parameterUsername: string;
   token: string;
   user: UserDTO;
   isMyOwnProfile: boolean;
   myUsername: string;
   isValidUsername: boolean;
   showDiscordUsername: boolean;
-  @Input() needToUpdateDetails: boolean;
   areFriends: boolean;
   sentFriendRequest: boolean;
+  loggedInUser: UserDTO;
+  cachedUserDetails: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +30,7 @@ export class ViewProfileComponent implements OnChanges {
     private friend: FriendService
     ) {
     this.token = localStorage.getItem('token');
-    this.myUsername = localStorage.getItem('userName');
+    this.cachedUserDetails = localStorage.getItem('user');
   }
 
   onSendFriendRequest() {
@@ -38,35 +39,53 @@ export class ViewProfileComponent implements OnChanges {
 
 
   getUserDetails() {
-    this.userService.getUserByUsername(this.username).subscribe((response: any) => {
-      if (response.error) {
-        this.isValidUsername = false;
+    if (this.cachedUserDetails) {
+      this.loggedInUser = JSON.parse(this.cachedUserDetails);
+
+      if (this.loggedInUser.username != this.parameterUsername) {
+        this.isMyOwnProfile = false;
+
+        this.userService.getUserByUsername(this.parameterUsername).subscribe((response: any) => {
+          if (response.error) {
+            this.isValidUsername = false;
+          } else {
+            this.isValidUsername = true;
+            this.user = response;
+            if (response.profileImageUrl === '') {
+              this.user.profileImageUrl = '/assets/images/default-user.png';
+            }
+
+          }
+
+          this.friend.getFriendship(this.token, this.parameterUsername).subscribe((response: Friend) => {
+            console.log(response);
+            console.log(response.user2Id, this.user.id);
+            if (response.status === 'pending' && response.user2Id !== this.user.id) {
+              this.sentFriendRequest = true;
+            }
+          });
+
+        });
       } else {
         this.isValidUsername = true;
-        this.user = response;
-        if (response.profileImageUrl === '') {
-          this.user.profileImageUrl = '/assets/images/default-user.png';
-        }
-        this.isMyOwnProfile = this.username === this.myUsername;
+        this.user = this.loggedInUser;
+        this.isMyOwnProfile = true;
       }
-
-      if (!this.isMyOwnProfile) {
-        this.friend.getFriendship(this.token, this.username).subscribe((response: Friend) => {
-          console.log(response);
-          console.log(response.user2Id, this.user.id);
-          if (response.status === 'pending' && response.user2Id !== this.user.id) {
-            this.sentFriendRequest = true;
+    } else {
+      this.userService.getUserByUsername(this.parameterUsername).subscribe((response: any) => {
+        if (response.error) {
+          this.isValidUsername = false;
+        } else {
+          this.isValidUsername = true;
+          this.user = response;
+          if (response.profileImageUrl === '') {
+            this.user.profileImageUrl = '/assets/images/default-user.png';
           }
-        });
-      }
-    });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['username'] && !changes['username'].firstChange) {
-      this.getUserDetails();
+        }
+      });
     }
   }
+
 
   toggleDiscordUsername() {
     this.showDiscordUsername = !this.showDiscordUsername;
@@ -77,7 +96,7 @@ export class ViewProfileComponent implements OnChanges {
   }
 
   ngOnInit() {
-    this.username = this.route.snapshot.paramMap.get('username');
+    this.parameterUsername = this.route.snapshot.paramMap.get('username');
 
     this.getUserDetails();
 
