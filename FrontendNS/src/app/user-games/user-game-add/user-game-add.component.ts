@@ -28,6 +28,7 @@ import { UserService } from 'src/app/services/user.service';
     userGameDescription = '';
     gameDescriptionPlaceholder =
     `Describe your playstyle (casual/ranked) and what you are looking for in other players that play this game. Share your relevant experience in the game.\n\nThis information will be displayed to other players.`;
+    cachedUser: string;
 
     constructor(
       private gameService: GameService,
@@ -35,7 +36,9 @@ import { UserService } from 'src/app/services/user.service';
       private alertify: AlertifyService,
       private location: Location,
       private usrGame: UserGameService
-      ) {}
+      ) {
+        this.cachedUser = localStorage.getItem('user');
+      }
 
     showDropdownList() {
       this.isDropdownVisible = true;
@@ -87,13 +90,16 @@ import { UserService } from 'src/app/services/user.service';
     }
 
     ngOnInit() {
-      this.clearInput();
-      this.isDropdownVisible = false;
-      this.gameService.getGamesList().subscribe((response: any) => {
-        this.gameList = response;
-      })
-      this.usrGame.getUserGames(this.username).subscribe((response: any) => {
-        this.userGameList = response;
-      })
+      if (this.cachedUser) {
+        this.clearInput();
+        this.isDropdownVisible = false;
+        this.gameService.getGamesList().subscribe((response: any) => {
+          this.gameList = response;
+        })
+        this.usrGame.getUserGames(this.username).subscribe((response: any) => {
+          this.userGameList = response;
+        })
+      }
+
     }
   }

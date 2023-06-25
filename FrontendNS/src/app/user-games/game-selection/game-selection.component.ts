@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserDTO } from 'src/app/model/user';
 import { UserGameDTO } from 'src/app/model/user-game';
 import { UserGameService } from 'src/app/services/user-game.service';
 
@@ -10,6 +12,7 @@ import { UserGameService } from 'src/app/services/user-game.service';
 })
 export class GameSelectionComponent {
   selectedGame: UserGameDTO = undefined;
+  cachedUserData: string;
 
   userGameList: any[];
   addGameCardEnabled: boolean = true;
@@ -18,8 +21,11 @@ export class GameSelectionComponent {
 
 
   constructor(
-    private usrGame: UserGameService
-  ) {}
+    private usrGame: UserGameService,
+    private router: Router
+  ) {
+    this.cachedUserData = localStorage.getItem('user');
+  }
 
   onAddGame() {
     this.addGameCardEnabled = true;
@@ -44,6 +50,11 @@ export class GameSelectionComponent {
   }
 
   ngOnInit() {
-    this.updateGameList();
+    if (!this.cachedUserData) {
+      this.router.navigate(['/login']);
+    } else {
+      this.updateGameList();
+    }
+
   }
 }
