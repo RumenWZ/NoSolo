@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserDTO } from 'src/app/model/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
+import { SidenavService } from 'src/app/services/sidenav.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginComponent {
     private alertify: AlertifyService,
     private userService: UserService,
     private router: Router,
+    private sidenav: SidenavService
   ) {}
 
   onLogin(form: NgForm) {
@@ -28,14 +30,14 @@ export class LoginComponent {
         const user = response;
         localStorage.setItem('token', user.token);
         localStorage.setItem('userName', user.username);
+
         this.router.navigate(['/']);
         this.alertify.success("Login Successful");
 
         this.userService.getUserByToken(user.token).subscribe(
           (userDTO: UserDTO) => {
             localStorage.setItem('user', JSON.stringify(userDTO));
-            console.log(userDTO);
-            this.router.navigate(['/']);
+            this.sidenav.updateUserDetails();
           },
           (error) => {
             console.log('Error fetching user details:', error);

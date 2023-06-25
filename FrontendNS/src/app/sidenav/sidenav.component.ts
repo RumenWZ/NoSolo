@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { sidebarMenuEntries, sidebarMenuEntriesAdmin } from './sidebarMenuEntries';
 import { UserDTO } from '../model/user';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,14 +15,19 @@ export class SidenavComponent{
   sidebarData = sidebarMenuEntries;
   sidebarDataAdmin = sidebarMenuEntriesAdmin;
   user: UserDTO;
+  cachedUserDetails: any;
   token: string;
 
   constructor (
     private sidenavService: SidenavService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private alertify: AlertifyService
   ) {
-    this.token = localStorage.getItem('token');
+
+    this.sidenavService.userDetailsUpdated$.subscribe(() => {
+      this.getUserDetails();
+    });
   }
 
   toggleSidenav() {
@@ -63,21 +69,16 @@ export class SidenavComponent{
   }
 
   getUserDetails() {
-    // const cachedUser = this.userService.getCachedUser();
-
-    // if (cachedUser) {
-    //   this.user = cachedUser;
-    //   console.log('yea')
-    // } else {
-    //   this.userService.getUserByToken(this.token).subscribe(
-    //     (response: UserDTO) => {
-    //       this.user = response;
-    //       if (response.profileImageUrl == '') {
-    //         this.user.profileImageUrl = '/assets/images/default-user.png';
-    //       }
-    //     }
-    //   );
-    // }
+    this.token = localStorage.getItem('token');
+    this.cachedUserDetails = localStorage.getItem('user');
+    if (this.cachedUserDetails) {
+      this.user = JSON.parse(this.cachedUserDetails);
+    } else {
+      this.alertify.error('Some error occured when retreiving the user details');
+    }
+    if (this.user.profileImageUrl == '') {
+      this.user.profileImageUrl = '/assets/images/default-user.png';
+    }
   }
 
   ngOnInit() {
