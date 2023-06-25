@@ -30,6 +30,17 @@ export class LoginComponent {
         localStorage.setItem('userName', user.username);
         this.router.navigate(['/']);
         this.alertify.success("Login Successful");
+
+        this.userService.getUserByToken(user.token).subscribe(
+          (userDTO: UserDTO) => {
+            localStorage.setItem('user', JSON.stringify(userDTO));
+            console.log(userDTO);
+            this.router.navigate(['/']);
+          },
+          (error) => {
+            console.log('Error fetching user details:', error);
+          }
+        );
       }
     );
   }

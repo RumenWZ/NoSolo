@@ -11,7 +11,6 @@ import { Observable, Subject, of, tap } from 'rxjs';
 export class UserService {
   baseUrl = 'https://localhost:7104/api/account';
   username: string;
-  private cachedUser: UserDTO;
 
   constructor(
     private http: HttpClient,
@@ -27,7 +26,6 @@ export class UserService {
     return this.http.post(this.baseUrl + '/login', user).pipe(
       tap((response: any) => {
         const token = response.token;
-        this.cachedUser = null;
         this.getUserByToken(token).subscribe();
       })
     );
@@ -38,20 +36,7 @@ export class UserService {
   }
 
   getUserByToken(token: string): Observable<UserDTO> {
-    if (this.cachedUser) {
-      return of(this.cachedUser);
-    } else {
-      return this.http.get<UserDTO>(this.baseUrl + '/get-user-by-token/' + token)
-        .pipe(
-          tap(user => {
-            this.cachedUser = user;
-          })
-        );
-    }
-  }
-
-  getCachedUser(): UserDTO {
-    return this.cachedUser;
+    return this.http.get<UserDTO>(this.baseUrl + '/get-user-by-token/' + token);
   }
 
   getUserByUsername(username: string) {
@@ -79,7 +64,8 @@ export class UserService {
   logoutUser() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
-    this.cachedUser = null;
+    localStorage.removeItem('user');
+
     this.router.navigate(['/']);
     this.alertify.success("You have logged out.");
   }

@@ -63,21 +63,21 @@ export class SidenavComponent{
   }
 
   getUserDetails() {
-    const cachedUser = this.userService.getCachedUser();
+    // const cachedUser = this.userService.getCachedUser();
 
-    if (cachedUser) {
-      this.user = cachedUser;
-      console.log('yea')
-    } else {
-      this.userService.getUserByToken(this.token).subscribe(
-        (response: UserDTO) => {
-          this.user = response;
-          if (response.profileImageUrl == '') {
-            this.user.profileImageUrl = '/assets/images/default-user.png';
-          }
-        }
-      );
-    }
+    // if (cachedUser) {
+    //   this.user = cachedUser;
+    //   console.log('yea')
+    // } else {
+    //   this.userService.getUserByToken(this.token).subscribe(
+    //     (response: UserDTO) => {
+    //       this.user = response;
+    //       if (response.profileImageUrl == '') {
+    //         this.user.profileImageUrl = '/assets/images/default-user.png';
+    //       }
+    //     }
+    //   );
+    // }
   }
 
   ngOnInit() {
