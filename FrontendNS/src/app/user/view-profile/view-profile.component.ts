@@ -37,6 +37,15 @@ export class ViewProfileComponent {
 
   }
 
+  assignDefaultValues(value: any) {
+    if (value.profileImageUrl === '') {
+      this.user.profileImageUrl = '/assets/images/default-user.png';
+    }
+    if (value.summary == '') {
+      this.user.summary = 'No information given.'
+    }
+  }
+
 
   getUserDetails() {
     if (this.cachedUserDetails) {
@@ -51,9 +60,7 @@ export class ViewProfileComponent {
           } else {
             this.isValidUsername = true;
             this.user = response;
-            if (response.profileImageUrl === '') {
-              this.user.profileImageUrl = '/assets/images/default-user.png';
-            }
+            this.assignDefaultValues(response);
 
           }
 
@@ -69,6 +76,7 @@ export class ViewProfileComponent {
       } else {
         this.isValidUsername = true;
         this.user = this.loggedInUser;
+        this.assignDefaultValues(this.user);
         this.isMyOwnProfile = true;
       }
     } else {

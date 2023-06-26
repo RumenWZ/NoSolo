@@ -22,11 +22,11 @@ export class UserService {
     return this.http.post(this.baseUrl + '/register', user);
   }
 
-  authUser(user: User) {
+  authUser(user: any){
     return this.http.post(this.baseUrl + '/login', user).pipe(
       tap((response: any) => {
         const token = response.token;
-        this.getUserByToken(token).subscribe();
+        return this.getUserByToken(token).subscribe();
       })
     );
   }
