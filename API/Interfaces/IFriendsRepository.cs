@@ -9,5 +9,6 @@ namespace API.Interfaces
         Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId);
         Task<Friend> GetFriendshipAsync(int user1Id, int user2Id);
         FriendshipResponseDTO CreateFriendshipDTO(Friend friendship);
+        Task Delete(int friendId);
     }
 }

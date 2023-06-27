@@ -29,6 +29,16 @@ namespace API.Data.Repository
             return friendshipDTO;
         }
 
+        public async Task Delete(int friendId)
+        {
+            var friendship = await dc.Friends.FirstOrDefaultAsync(x => x.Id == friendId);
+            if (friendship != null)
+            {
+                dc.Friends.Remove(friendship);
+                await dc.SaveChangesAsync();
+            }
+        }
+
         public async Task<Friend> GetFriendshipAsync(int user1Id, int user2Id)
         {
             var friendship = await dc.Friends.FirstOrDefaultAsync(x => (x.User1Id == user1Id && x.User2Id == user2Id)

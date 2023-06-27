@@ -73,5 +73,61 @@ namespace API.Controllers
 
             return Ok(friendshipDTO);
         }
+
+        [HttpPatch("accept-friend-request/{token}/{username}")]
+        public async Task<IActionResult> AcceptFriendRequest(string token, string username)
+        {
+            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user1 == null)
+            {
+                return BadRequest("No user was found corresponding with the token");
+            }
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user2 == null)
+            {
+                return BadRequest("No user was found with this username");
+            }
+            var friendship = await uow.FriendsRepository.GetFriendshipAsync(user1.Id, user2.Id);
+            if (friendship == null)
+            {
+                return BadRequest("These users have never contacted each other");
+            }
+            if (friendship.Status != "pending")
+            {
+                return BadRequest("The friendship status isn't pending");
+            }
+            friendship.Status = "accepeted";
+            await uow.SaveAsync();
+
+            return Ok(201);
+        }
+
+        [HttpDelete("delete-friendship/{token}/{username}")]
+        public async Task<IActionResult> DeleteFriendship(string token, string username)
+        {
+            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user1 == null)
+            {
+                return BadRequest("No user was found corresponding with the token");
+            }
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user2 == null)
+            {
+                return BadRequest("No user was found with this username");
+            }
+            var friendship = await uow.FriendsRepository.GetFriendshipAsync(user1.Id, user2.Id);
+            if (friendship == null)
+            {
+                return BadRequest("These users have never contacted each other");
+            }
+            if(friendship.Status != "accepted")
+            {
+                return BadRequest("These users are not friends");
+            }
+            await uow.FriendsRepository.Delete(friendship.Id);
+            await uow.SaveAsync();
+
+            return Ok(201);
+        }
     }
 }

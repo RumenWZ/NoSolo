@@ -14,4 +14,12 @@ export class FriendService {
   getFriendship(token: string, username: string): Observable<Friend> {
     return this.http.get<Friend>(`${this.baseUrl}/get-friendship/${token}/${username}`);
   }
+
+  acceptFriendRequest(token:string, username: string) {
+    return this.http.patch(`${this.baseUrl}/accept-friend-request/${token}/${username}`, null);
+  }
+
+  removeFriend(token:string, username: string) {
+    return this.http.delete(`${this.baseUrl}/delete-friendship/${token}/${username}`);
+  }
 }

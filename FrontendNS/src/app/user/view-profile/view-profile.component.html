@@ -13,9 +13,11 @@
         </div>
         <div class="navigation">
           <span *ngIf="isMyOwnProfile" routerLink="/settings">Edit</span>
-          <span *ngIf="!sentFriendRequest && !isMyOwnProfile && loggedInUser" (click)="onSendFriendRequest()">Send Friend Request</span>
-          <span *ngIf="sentFriendRequest">Cancel Friend Request</span>
-          <span *ngIf="!isMyOwnProfile && loggedInUser" routerLink="/friends">Message</span>
+          <span *ngIf="!sentFriendRequest && !isMyOwnProfile && loggedInUser && !receivedFriendRequest && !areFriends" (click)="onSendFriendRequest()">Send Friend Request</span>
+          <span style="background-color: red;" *ngIf="sentFriendRequest">Cancel Friend Request</span>
+          <span *ngIf="receivedFriendRequest" (click)="onAcceptFriendRequest()">Accept Friend Request</span>
+          <span *ngIf="areFriends" (click)="onRemoveFriend()">Unfriend</span>
+          <span *ngIf="areFriends" routerLink="/friends">Message</span>
         </div>
       </div>
       <div class="discord-link">
