@@ -13,11 +13,6 @@ export const sidebarMenuEntries = [
     'label': 'Settings',
     'icon': 'bx bxs-cog',
     'functionName': 'onSettings',
-  },
-  {
-    'label': 'Friends',
-    'icon': 'bx bxs-contact',
-    'functionName': 'onFriends',
   }
 ]
 

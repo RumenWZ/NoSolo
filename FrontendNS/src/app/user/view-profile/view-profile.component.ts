@@ -38,7 +38,21 @@ export class ViewProfileComponent {
   }
 
   onSendFriendRequest() {
+    this.friend.sendFriendRequest(this.token, this.user.username).subscribe((response: any) => {
+      if (response == 201) {
+        this.alertify.success('Sent friend request');
+        this.sentFriendRequest = true;
+      }
+    })
+  }
 
+  onCancelFriendRequest() {
+    this.friend.removeFriend(this.token, this.user.username).subscribe((response: any) => {
+      if (response == 201) {
+        this.areFriends = false;
+        this.sentFriendRequest = false;
+      }
+    })
   }
 
   onAcceptFriendRequest() {
@@ -52,6 +66,12 @@ export class ViewProfileComponent {
   }
 
   onRemoveFriend() {
+    this.friend.removeFriend(this.token, this.user.username).subscribe((response: any) => {
+      if (response == 201) {
+        this.alertify.warning(`${this.user.displayName} has been removed from your friends list`);
+        this.areFriends = false;
+      }
+    })
 
   }
 
@@ -83,13 +103,16 @@ export class ViewProfileComponent {
           }
 
           this.friend.getFriendship(this.token, this.parameterUsername).subscribe((response: Friend) => {
-            this.friendStatus = response;
-            if (response.status === 'pending' && response.user1Id == this.user.id) {
-              this.receivedFriendRequest = true;
-            } else if (response.status === 'pending' && response.user2Id == this.user.id){
-              this.sentFriendRequest = true;
-            } else if (response.status = 'accepted') {
-              this.areFriends = true;
+            if (response != null) {
+              this.friendStatus = response;
+              console.log(response);
+              if (response.status === 'pending' && response.user1Id == this.user.id) {
+                this.receivedFriendRequest = true;
+              } else if (response.status === 'pending' && response.user2Id == this.user.id){
+                this.sentFriendRequest = true;
+              } else if (response.status = 'accepted') {
+                this.areFriends = true;
+            }
             }
           });
 

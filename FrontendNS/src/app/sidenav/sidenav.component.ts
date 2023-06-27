@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import { sidebarMenuEntries, sidebarMenuEntriesAdmin } from './sidebarMenuEntries';
 import { UserDTO } from '../model/user';
 import { AlertifyService } from '../services/alertify.service';
+import { FriendService } from '../services/friend.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,12 +18,14 @@ export class SidenavComponent{
   user: UserDTO;
   cachedUserDetails: any;
   token: string;
+  friendRequests: number;
 
   constructor (
     private sidenavService: SidenavService,
     private router: Router,
     private userService: UserService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private friend: FriendService
   ) {
 
     this.sidenavService.userDetailsUpdated$.subscribe(() => {
@@ -77,11 +80,18 @@ export class SidenavComponent{
       if (this.user.profileImageUrl == '') {
         this.user.profileImageUrl = '/assets/images/default-user.png';
       }
-    } 
+    }
+
+    this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
+      this.friendRequests = response.length;
+      console.log(this.friendRequests);
+    })
   }
 
   ngOnInit() {
     this.getUserDetails();
+
+
   }
 
 

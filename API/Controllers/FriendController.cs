@@ -16,15 +16,15 @@ namespace API.Controllers
             this.uow = uow;
         }
 
-        [HttpPost("send-friend-request")]
-        public async Task<IActionResult> SendFriendRequest(string senderUserToken, string receiverUsername)
+        [HttpPost("send-friend-request/{token}/{username}")]
+        public async Task<IActionResult> SendFriendRequest(string token, string username)
         {
-            var sender = await uow.UserRepository.GetUserByTokenAsync(senderUserToken);
+            var sender = await uow.UserRepository.GetUserByTokenAsync(token);
             if (sender == null)
             {
                 return BadRequest("No user was found corresponding with the token");
             }
-            var receiver = await uow.UserRepository.GetByUserNameAsync(receiverUsername);
+            var receiver = await uow.UserRepository.GetByUserNameAsync(username);
             if (receiver == null)
             {
                 return BadRequest("The receiving user could not be found");
@@ -38,7 +38,7 @@ namespace API.Controllers
 
 
 
-        [HttpGet("get-my-friend-requests")]
+        [HttpGet("get-my-friend-requests/{token}")]
         public async Task<IActionResult> GetAllIncomingFriendRequests(string token)
         {
             var user = await uow.UserRepository.GetUserByTokenAsync(token);
@@ -66,7 +66,7 @@ namespace API.Controllers
             var friendship = await uow.FriendsRepository.GetFriendshipAsync(user1.Id, user2.Id);
             if (friendship == null)
             {
-                return BadRequest("These users have never contacted each other");
+                return Ok(null);
             }
 
             var friendshipDTO = uow.FriendsRepository.CreateFriendshipDTO(friendship);
@@ -96,7 +96,9 @@ namespace API.Controllers
             {
                 return BadRequest("The friendship status isn't pending");
             }
-            friendship.Status = "accepeted";
+
+            friendship.Status = "accepted";
+            friendship.FriendsSince = DateTime.Now;
             await uow.SaveAsync();
 
             return Ok(201);
@@ -120,10 +122,7 @@ namespace API.Controllers
             {
                 return BadRequest("These users have never contacted each other");
             }
-            if(friendship.Status != "accepted")
-            {
-                return BadRequest("These users are not friends");
-            }
+
             await uow.FriendsRepository.Delete(friendship.Id);
             await uow.SaveAsync();
 
