@@ -1,5 +1,6 @@
 using API.Data;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using API.Middlewares;
 using API.Services;
@@ -20,8 +21,10 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
 // Don't forget to change CORS later!!
 builder.Services.AddCors();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));

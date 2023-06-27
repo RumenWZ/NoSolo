@@ -2,6 +2,7 @@
 using API.Interfaces;
 using API.Migrations;
 using API.Models;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
@@ -10,7 +11,9 @@ namespace API.Data.Repository
     {
         private readonly DataContext dc;
 
-        public FriendsRepository(DataContext dc)
+        public FriendsRepository(
+            DataContext dc
+            )
         {
             this.dc = dc;
         }
@@ -47,9 +50,12 @@ namespace API.Data.Repository
               
         }
 
-        public async Task<IEnumerable<Friend>> GetUserIncomingFriendRequestsAsync(int userId)
+        public async Task<IEnumerable<User>> GetUserIncomingFriendRequestsAsync(int userId)
         {
-            var friendRequests = await dc.Friends.Where(f => f.User2Id == userId && f.Status == "pending").ToListAsync();
+            var friendRequests = await dc.Friends.Where(f => f.User2Id == userId && f.Status == "pending")
+                .Select(f => f.User1)
+                .ToListAsync();
+
 
             return friendRequests;
         }

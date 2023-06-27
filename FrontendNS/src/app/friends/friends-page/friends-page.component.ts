@@ -9,7 +9,8 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 export class FriendsPageComponent {
   isSmallScreen: boolean;
   isSidenavOpen: boolean = false;
-  friendsChatEnabled = false;
+  friendsChatOpen = false;
+  friendsIncomingRequestsOpen: boolean = false;
   currentChatUser: any = undefined;
 
   constructor(
@@ -20,6 +21,13 @@ export class FriendsPageComponent {
 
   toggleSidenav() {
     this.sidenavService.toggleFriendsSidenav();
+  }
+
+  onPendingRequests() {
+    this.friendsIncomingRequestsOpen = true;
+
+    this.friendsChatOpen = false;
+
   }
 
   ngOnInit() {

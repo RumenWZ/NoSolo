@@ -1,4 +1,6 @@
-﻿using API.Interfaces;
+﻿using API.DTOs;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +11,15 @@ namespace API.Controllers
     public class FriendController : ControllerBase
     {
         private readonly IUnitOfWork uow;
+        private readonly IMapper mapper;
 
         public FriendController(
-            IUnitOfWork uow)
+            IUnitOfWork uow,
+            IMapper mapper
+            )
         {
             this.uow = uow;
+            this.mapper = mapper;
         }
 
         [HttpPost("send-friend-request/{token}/{username}")]
@@ -47,7 +53,9 @@ namespace API.Controllers
                 return BadRequest("User could not be found");
             }
             var friendRequests = await uow.FriendsRepository.GetUserIncomingFriendRequestsAsync(user.Id);
-            return Ok(friendRequests);
+            var friendRequestDTOs = mapper.Map<IEnumerable<UserDTO>>(friendRequests);
+
+            return Ok(friendRequestDTOs);
         }
 
         [HttpGet("get-friendship/{token}/{username}")]

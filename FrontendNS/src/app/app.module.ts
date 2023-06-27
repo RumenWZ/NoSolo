@@ -33,6 +33,7 @@ import { FriendsPageSidenavComponent } from './friends/friends-page-sidenav/frie
 import { FriendsChatComponent } from './friends/friends-chat/friends-chat.component';
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
 import { ViewProfileComponent } from './user/view-profile/view-profile.component';
+import { FriendsIncomingRequestsComponent } from './friends/friends-incoming-requests/friends-incoming-requests.component';
 
 
 const appRoutes: Routes = [
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
     FriendsChatComponent,
     FriendsListComponent,
     ViewProfileComponent,
+    FriendsIncomingRequestsComponent,
 
 
   ],

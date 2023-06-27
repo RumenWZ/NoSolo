@@ -7,7 +7,7 @@
   <mat-sidenav-content>
 
     <div class="friends-container">
-      <app-friends-list (friendsChatEnabled)="friendsChatEnabled = $event" (currentChatUser)="currentChatUser = $event" *ngIf="!isSmallScreen"></app-friends-list>
+      <app-friends-list (friendsChatEnabled)="friendsChatOpen = $event" (currentChatUser)="currentChatUser = $event" *ngIf="!isSmallScreen"></app-friends-list>
       <div class="main-body">
         <div class="header-navbar">
           <i class='bx bx-menu sidenav-open-btn' style='color:#eaeaea' (click)="toggleSidenav()"></i>
@@ -15,13 +15,14 @@
             <label>Friends</label>
             <button>Online</button>
             <button>All</button>
-            <button matBadge="3" matBadgeColor="warn" matBadgeSize="small">Pending</button>
+            <button matBadge="3" matBadgeColor="warn" matBadgeSize="small" (click)="onPendingRequests()">Pending</button>
             <button>Blocked</button>
             <button style="background-color: #51e25b;">Add Friend</button>
           </div>
         </div>
         <div class="main-content">
-          <app-friends-chat [chatUser]="currentChatUser" *ngIf="friendsChatEnabled"></app-friends-chat>
+          <app-friends-chat [chatUser]="currentChatUser" *ngIf="friendsChatOpen"></app-friends-chat>
+          <app-friends-incoming-requests *ngIf="friendsIncomingRequestsOpen"></app-friends-incoming-requests>
         </div>
       </div>
 
