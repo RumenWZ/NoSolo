@@ -10,10 +10,14 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 export class FriendsPageComponent {
   isSmallScreen: boolean;
   isSidenavOpen: boolean = false;
+
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
+  friendsAllOpen: boolean;
+
   currentChatUser: any = undefined;
   friendInvitesCount: number;
+
 
   constructor(
     private sidenavService: SidenavService,
@@ -28,9 +32,30 @@ export class FriendsPageComponent {
 
   onPendingRequests() {
     this.friendsIncomingRequestsOpen = true;
+    this.closeAllOtherComponents('friends-incoming-requests');
 
-    this.friendsChatOpen = false;
+  }
 
+  OnAllFriends() {
+    this.friendsAllOpen = true;
+    this.closeAllOtherComponents('friends-all');
+  }
+
+  closeAllOtherComponents(componentName: string) {
+    switch (componentName) {
+      case 'friends-chat':
+        this.friendsIncomingRequestsOpen = false;
+        this.friendsAllOpen = false;
+        break;
+      case 'friends-incoming-requests':
+        this.friendsChatOpen = false;
+        this.friendsAllOpen = false;
+        break;
+      case 'friends-all':
+        this.friendsChatOpen = false;
+        this.friendsIncomingRequestsOpen = false;
+        break;
+    }
   }
 
   ngOnInit() {

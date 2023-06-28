@@ -24,7 +24,6 @@ export class SidenavComponent{
     private sidenavService: SidenavService,
     private router: Router,
     private userService: UserService,
-    private alertify: AlertifyService,
     private friend: FriendService
   ) {
 
@@ -84,7 +83,6 @@ export class SidenavComponent{
 
     this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
       this.friendRequests = response.length;
-      console.log(this.friendRequests);
     })
   }
 

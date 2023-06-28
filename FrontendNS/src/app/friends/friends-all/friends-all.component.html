@@ -1,0 +1,18 @@
+<div class="friends-list-wrapper">
+  <span class="direct-messages">Friends</span>
+  <ul class="friends-list">
+    <li *ngFor="let user of friendsList" class="friends-list-item">
+      <img [src]="user.profileImageUrl">
+      <span>{{user.username}}</span>
+      <div class="action-wrapper">
+        <div class="button chat">
+          <i class='bx bxs-message icon'></i>
+        </div>
+        <div class="button remove">
+          <i class='bx bx-x icon'></i>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</div>

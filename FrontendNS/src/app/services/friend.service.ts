@@ -30,4 +30,8 @@ export class FriendService {
   getIncomingFriendRequests(token: string) {
     return this.http.get(`${this.baseUrl}/get-my-friend-requests/${token}`);
   }
+
+  getAllFriendsOfUser(token: string) {
+    return this.http.get(`${this.baseUrl}/get-all-my-friends/${token}`);
+  }
 }

@@ -34,6 +34,7 @@ import { FriendsChatComponent } from './friends/friends-chat/friends-chat.compon
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
 import { ViewProfileComponent } from './user/view-profile/view-profile.component';
 import { FriendsIncomingRequestsComponent } from './friends/friends-incoming-requests/friends-incoming-requests.component';
+import { FriendsAllComponent } from './friends/friends-all/friends-all.component';
 
 
 const appRoutes: Routes = [
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     FriendsListComponent,
     ViewProfileComponent,
     FriendsIncomingRequestsComponent,
+    FriendsAllComponent,
 
 
   ],

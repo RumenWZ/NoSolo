@@ -58,6 +58,21 @@ namespace API.Controllers
             return Ok(friendRequestDTOs);
         }
 
+        [HttpGet("get-all-my-friends/{token}")]
+        public async Task<IActionResult> GetAllMyFriends(string token)
+        {
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user == null)
+            {
+                return BadRequest("User could not be found");
+            }
+            var myFriends = await uow.FriendsRepository.GetAllFriendsOfUserAsync(user.Id);
+            var myFriendsDTOs = mapper.Map<IEnumerable<UserDTO>>(myFriends);
+
+            return Ok(myFriendsDTOs);
+        }
+
+
         [HttpGet("get-friendship/{token}/{username}")]
         public async Task<IActionResult> GetFriendship(string token, string username)
         {

@@ -1,0 +1,40 @@
+@import '/src/app/friends/friends-list/friends-list.component.css';
+
+.friends-list-item {
+  position: relative;
+}
+
+.action-wrapper {
+  position: absolute;
+  right: 0;
+  display: flex;
+}
+
+.action-wrapper .button {
+  background-color: #353c42;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0.25rem;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.chat i {
+  font-size: 1.2rem;
+}
+
+.chat:hover {
+  color: #8d8e8d;
+}
+
+.remove:hover {
+  color: red;
+}
+

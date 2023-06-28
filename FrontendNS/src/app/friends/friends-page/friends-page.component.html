@@ -14,7 +14,7 @@
           <div *ngIf="!isSmallScreen">
             <label>Friends</label>
             <button>Online</button>
-            <button>All</button>
+            <button (click)="OnAllFriends()">All</button>
             <button [matBadge]="friendInvitesCount" [matBadgeHidden]="!friendInvitesCount" matBadgeColor="warn" matBadgeSize="small" (click)="onPendingRequests()">Pending</button>
             <button>Blocked</button>
             <button style="background-color: #51e25b;">Add Friend</button>
@@ -23,6 +23,7 @@
         <div class="main-content">
           <app-friends-chat [chatUser]="currentChatUser" *ngIf="friendsChatOpen"></app-friends-chat>
           <app-friends-incoming-requests *ngIf="friendsIncomingRequestsOpen"></app-friends-incoming-requests>
+          <app-friends-all *ngIf="friendsAllOpen"></app-friends-all>
         </div>
       </div>
 

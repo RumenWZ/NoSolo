@@ -34,10 +34,6 @@ export class FriendsIncomingRequestsComponent {
     });
   }
 
-  test() {
-
-  }
-
   onUserClick (user: UserDTO) {
     this.router.navigate([`/view-profile/${user.username}`]);
   }
@@ -54,7 +50,14 @@ export class FriendsIncomingRequestsComponent {
   }
 
   onDenyFriendRequest(event: Event, user: UserDTO) {
-
+    event.stopPropagation();
+    this.friend.removeFriend(this.token, user.username).subscribe((response: any) => {
+      if (response == 201) {
+        this.incomingFriendRequests = this.incomingFriendRequests.filter((incomingUser: UserDTO) => {
+          return incomingUser.username !== user.username;
+        });
+      }
+    })
   }
 
   ngOnInit() {
