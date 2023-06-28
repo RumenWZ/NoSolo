@@ -1,4 +1,5 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FriendService } from 'src/app/services/friend.service';
 import { SidenavService } from 'src/app/services/sidenav.service';
 
 @Component({
@@ -12,9 +13,11 @@ export class FriendsPageComponent {
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
   currentChatUser: any = undefined;
+  friendInvitesCount: number;
 
   constructor(
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
+    private friend: FriendService
   ) {
     this.isSmallScreen = window.innerWidth < 768;
   }
@@ -31,8 +34,14 @@ export class FriendsPageComponent {
   }
 
   ngOnInit() {
+
+
     this.sidenavService.isFriendsSidenavOpen.subscribe((isOpen: boolean) => {
       this.isSidenavOpen = isOpen;
+    });
+
+    this.friend.getIncomingFriendRequests(localStorage.getItem('token')).subscribe((response: any) => {
+      this.friendInvitesCount = response.length;
     });
   }
 

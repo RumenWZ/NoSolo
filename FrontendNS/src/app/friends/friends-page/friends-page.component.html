@@ -15,7 +15,7 @@
             <label>Friends</label>
             <button>Online</button>
             <button>All</button>
-            <button matBadge="3" matBadgeColor="warn" matBadgeSize="small" (click)="onPendingRequests()">Pending</button>
+            <button [matBadge]="friendInvitesCount" [matBadgeHidden]="!friendInvitesCount" matBadgeColor="warn" matBadgeSize="small" (click)="onPendingRequests()">Pending</button>
             <button>Blocked</button>
             <button style="background-color: #51e25b;">Add Friend</button>
           </div>

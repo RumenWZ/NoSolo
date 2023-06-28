@@ -1,9 +1,21 @@
 <div class="friends-list-wrapper">
-  <span class="direct-messages">Direct messages</span>
   <ul class="friends-list">
-    <li *ngFor="let user of incomingFriendRequests">
-      <img [src]="user.profilePictureUrl">
+    <li class="friends-list-item" *ngFor="let user of incomingFriendRequests" (click)="onUserClick(user)">
+      <img [src]="user.profileImageUrl">
       <span>{{user.username}}</span>
+      <div class="action-wrapper">
+        <div class="button confirm" (click)="onAcceptFriendRequest($event, user)">
+          <i class='bx bx-check icon'></i>
+        </div>
+        <div class="button deny" (click)="onDenyFriendRequest($event, user)">
+          <i class='bx bx-x icon' ></i>
+        </div>
+      </div>
+
     </li>
   </ul>
+  <div *ngIf="incomingFriendRequests.length < 1">
+    <span>You currently do not have any friend requests.</span>
+  </div>
 </div>
+
