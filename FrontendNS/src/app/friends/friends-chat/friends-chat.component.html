@@ -1,7 +1,7 @@
 <div class="chat-container">
   <div class="chat-header">
     <img [src]="chatUser.profilePictureUrl">
-    <span>{{chatUser.username}}</span>
+    <span>{{chatUser.displayName}}</span>
   </div>
   <div class="chat-box-wrapper">
     <div class="chat-messages">
@@ -9,7 +9,7 @@
         <div class="chat-message-wrapper">
           <img [src]="message.userPhoto">
           <div class="chat-message-header">
-            {{message.username}}
+            {{message.displayName}}
             {{message.messageDate | date:'HH:mm'}}
           </div>
           <div class="message">
@@ -17,6 +17,7 @@
           </div>
         </div>
       </div>
+      <span>{{chatUser.username}}</span>
     </div>
     <div class="chat-field-wrapper">
       <input type="text" class="chat-field" [placeholder]="messageFieldPlaceholder">

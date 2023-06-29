@@ -1,16 +1,26 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Friend } from '../model/friend';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { User, UserDTO } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
   baseUrl = 'https://localhost:7104/api/friend';
+  friendsChatIsOpen: Subject<boolean> = new Subject<boolean>();
+  chattingWithUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
 
   constructor(private http: HttpClient) { }
 
+
+
+  raiseCurrentChatUser(user: UserDTO) {
+    this.chattingWithUser.emit(user);
+  }
+
+  // API Calls
   getFriendship(token: string, username: string): Observable<Friend> {
     return this.http.get<Friend>(`${this.baseUrl}/get-friendship/${token}/${username}`);
   }

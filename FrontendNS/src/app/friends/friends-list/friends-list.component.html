@@ -2,8 +2,8 @@
   <span class="direct-messages">Direct messages</span>
   <ul class="friends-list">
     <li *ngFor="let user of friendsList" (click)="onFriendClick(user)">
-      <img [src]="user.profilePictureUrl">
-      <span>{{user.username}}</span>
+      <img [src]="user.profileImageUrl">
+      <span>{{user.displayName}}</span>
     </li>
   </ul>
 </div>

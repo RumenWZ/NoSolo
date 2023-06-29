@@ -1,4 +1,5 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { UserDTO } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 import { SidenavService } from 'src/app/services/sidenav.service';
 
@@ -10,12 +11,13 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 export class FriendsPageComponent {
   isSmallScreen: boolean;
   isSidenavOpen: boolean = false;
-
+  // @Output() currentChatUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
+  currentChatUser: UserDTO;
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
   friendsAllOpen: boolean;
 
-  currentChatUser: any = undefined;
+
   friendInvitesCount: number;
 
 
@@ -24,6 +26,15 @@ export class FriendsPageComponent {
     private friend: FriendService
   ) {
     this.isSmallScreen = window.innerWidth < 768;
+    this.friend.chattingWithUser.subscribe((value: UserDTO) => {
+      this.currentChatUser = value;
+      this.openChatComponent();
+    });
+  }
+
+  openChatComponent() {
+    this.closeAllOtherComponents('friends-chat');
+    this.friendsChatOpen = true;
   }
 
   toggleSidenav() {
