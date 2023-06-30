@@ -122,7 +122,12 @@ namespace API.Controllers
             user.ProfileImageUrl = cloudinaryResult.SecureUrl.ToString();
             await uow.SaveAsync();
 
-            return Ok(201);
+            var response = new
+            {
+                ProfileImageUrl = user.ProfileImageUrl
+            };
+
+            return Ok(response);
         }
 
         [HttpPatch("update-display-name/{username}")]

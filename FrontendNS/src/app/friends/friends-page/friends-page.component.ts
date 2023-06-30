@@ -11,7 +11,6 @@ import { SidenavService } from 'src/app/services/sidenav.service';
 export class FriendsPageComponent {
   isSmallScreen: boolean;
   isSidenavOpen: boolean = false;
-  // @Output() currentChatUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
   currentChatUser: UserDTO;
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
@@ -70,8 +69,6 @@ export class FriendsPageComponent {
   }
 
   ngOnInit() {
-
-
     this.sidenavService.isFriendsSidenavOpen.subscribe((isOpen: boolean) => {
       this.isSidenavOpen = isOpen;
     });

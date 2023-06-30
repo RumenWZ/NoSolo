@@ -4,6 +4,7 @@ import { User } from '../model/user';
 import { AlertifyService } from '../services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { SidenavService } from '../services/sidenav.service';
 
 @Component({
   selector: 'app-settings',
@@ -14,7 +15,6 @@ export class SettingsComponent {
   username = localStorage.getItem('userName');
   user: User;
   image: File;
-  // profileImageUrl : string;
   profileImageUrl : string = '/assets/images/default-user.png';
   changes = {};
   photoChanged: boolean = false;
@@ -29,7 +29,7 @@ export class SettingsComponent {
   constructor(
     private userService: UserService,
     private alertify: AlertifyService,
-    private matDialog: MatDialog
+    private sidenav: SidenavService
 
     ) {}
 
@@ -48,10 +48,6 @@ export class SettingsComponent {
     }
   }
 
-  // Test() {
-  //   console.log(this.discordUsernameModified);
-  // }
-
   onSaveChanges(userSettingsForm: NgForm) {
     if (!userSettingsForm.valid) {
       return this.alertify.warning('Invalid input. Please review your entries');
@@ -60,17 +56,11 @@ export class SettingsComponent {
     var discordUsername = userSettingsForm.form.value.discordUsername;
     var summary = userSettingsForm.form.value.summary;
 
-    console.log(displayName === this.initialDisplayName);
-    console.log(discordUsername === this.initialDiscordUsername);
-    console.log(summary === this.initialSummary);
-    console.log(this.photoChanged);
-
     if ((displayName === this.initialDisplayName) && (discordUsername === this.initialDiscordUsername)
     && (summary === this.initialSummary) && !this.photoChanged) {
       return this.alertify.warning('No changes to be made');
     }
 
-    console.log(userSettingsForm);
     if(this.photoChanged) {
       this.updateUserPhoto();
     }
@@ -83,19 +73,33 @@ export class SettingsComponent {
     if (summary != this.initialSummary && summary != '') {
       this.updateSummary(summary);
     }
+    this.updateUserDetails();
+
+  }
+
+  updateLocalStorageUserImage(imageUrl: string) {
+    var userString = localStorage.getItem('user');
+    var user = JSON.parse(userString);
+    user.profileImageUrl = imageUrl;
+    var updatedUserString = JSON.stringify(user);
+    localStorage.setItem('user', updatedUserString);
   }
 
   private updateUserPhoto() {
     const formData = new FormData();
     formData.append('image', this.image);
     this.userService.updateUserPhoto(this.username, formData).subscribe((response: any) => {
-      if (response === 201) {
+      if (response) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.profileImageUrl = e.target.result;
         };
         reader.readAsDataURL(this.image);
         this.alertify.success('Changes saved successfully');
+
+        this.updateLocalStorageUserImage(response.profileImageUrl);
+
+        this.sidenav.updateUserDetails();
         this.photoChanged = false;
       }
     });
@@ -137,12 +141,12 @@ export class SettingsComponent {
 
   updateUserDetails() {
     this.userService.getUserByUsername(this.username).subscribe((response: any) => {
-      console.log(response);
       this.user = response;
       this.initialDisplayName = response.displayName;
       this.initialDiscordUsername = response.discordUsername;
       this.initialSummary = response.summary;
 
+      localStorage.setItem('user', JSON.stringify(this.user));
       if (response.profileImageUrl !== '') {
         this.profileImageUrl = response.profileImageUrl;
       }
