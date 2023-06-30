@@ -3,8 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { of, switchMap, tap } from 'rxjs';
 import { Friend } from 'src/app/model/friend';
 import { UserDTO } from 'src/app/model/user';
+import { UserGameDTO } from 'src/app/model/user-game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { FriendService } from 'src/app/services/friend.service';
+import { UserGameService } from 'src/app/services/user-game.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,12 +28,16 @@ export class ViewProfileComponent {
   cachedUserDetails: string;
   friendStatus: any;
   receivedFriendRequest: boolean;
+  userGames: UserGameDTO[];
+  userGameDetailsOpen: boolean = false;
+  userGameSelected: any;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private friend: FriendService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private userGame: UserGameService
     ) {
     this.token = localStorage.getItem('token');
     this.cachedUserDetails = localStorage.getItem('user');
@@ -82,6 +88,13 @@ export class ViewProfileComponent {
     if (value.summary == '') {
       this.user.summary = 'No information given.'
     }
+  }
+
+  getUsersGames() {
+    this.userGame.getUserGames(this.parameterUsername).subscribe((response: any) => {
+      this.userGames = response;
+      console.log(this.userGames);
+    })
   }
 
 
@@ -136,13 +149,13 @@ export class ViewProfileComponent {
     }
   }
 
+  onUserGame(game: any) {
+    this.userGameDetailsOpen = true;
+    this.userGameSelected = game;
+  }
 
   toggleDiscordUsername() {
     this.showDiscordUsername = !this.showDiscordUsername;
-  }
-
-  test() {
-    console.log(this.isMyOwnProfile);
   }
 
   ngOnInit() {
@@ -150,5 +163,6 @@ export class ViewProfileComponent {
 
     this.getUserDetails();
 
+    this.getUsersGames();
   }
 }

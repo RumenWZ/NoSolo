@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserDTO } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 
 @Component({
@@ -19,6 +20,10 @@ export class FriendsAllComponent {
         user.profileImageUrl = '/assets/images/default-user.png';
       }
     }
+  }
+
+  onChatBubble(user: UserDTO) {
+    this.friend.raiseCurrentChatUser(user);
   }
 
   ngOnInit() {

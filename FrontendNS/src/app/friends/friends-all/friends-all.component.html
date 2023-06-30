@@ -5,7 +5,7 @@
       <img [src]="user.profileImageUrl">
       <span>{{user.username}}</span>
       <div class="action-wrapper">
-        <div class="button chat">
+        <div class="button chat" (click)="onChatBubble(user)">
           <i class='bx bxs-message icon'></i>
         </div>
         <div class="button remove">

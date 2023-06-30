@@ -32,11 +32,33 @@
             <input class="animate" type="text" [value]="user?.discordUsername"  placeholder="No discord provided" readonly>
           </div>
         </div>
-
       </div>
-    </div>
+
+      <div class="user-games-section">
+        <h2>User games</h2>
+        <div class="user-games-container">
+          <div class="user-games-item animate" *ngFor="let game of userGames" (click)="onUserGame(game)">
+            <img [src]="game.gameImageUrl">
+          </div>
+        </div>
+        <div *ngIf="userGameDetailsOpen" class="card user-game-details">
+          <div class="card-body">
+            <div class="card-content">
+              <div class="card-header">
+                <img [src]="userGameSelected.gameImageUrl">
+                <span>{{userGameSelected.gameName}}</span>
+              </div>
+              <div class="game-description">
+                <textarea readonly [value]="userGameSelected.userDescription"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     <div class="invalid-user" *ngIf="isValidUsername === false">
       <h2>INVALID USERNAME</h2>
+
     </div>
     <!-- <button (click)="test()">test</button> -->
   </div>
