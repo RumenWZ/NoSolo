@@ -16,6 +16,7 @@ namespace API.Data
         public IGameRepository GameRepository => new GameRepository(dc);
         public IUserGameRepository UserGameRepository => new UserGameRepository(dc);
         public IFriendsRepository FriendsRepository => new FriendsRepository(dc);
+        public IMessageRepository MessageRepository => new MessageRepository(dc);
 
         public async Task<bool> SaveAsync()
         {
