@@ -45,10 +45,11 @@ namespace API.Controllers
             {
                 return BadRequest("These users are not friends");
             }
-            uow.MessageRepository.SendMessage(user1.Id, user2.Id, message);
+            var newMessage = uow.MessageRepository.SendMessage(user1.Id, user2.Id, message);
             await uow.SaveAsync();
+            var newMessageDTO = mapper.Map<MessageDTO>(newMessage);
 
-            return Ok(201);
+            return Ok(newMessageDTO);
         }
 
         [HttpGet("get-messages-between-users/{token}/{username}")]
@@ -68,7 +69,8 @@ namespace API.Controllers
 
             var messages = await uow.MessageRepository.GetMessagesBetweenUsersAsync(user1.Id, user2.Id);
             var messageDTOs = mapper.Map<IEnumerable<MessageDTO>>(messages);
-                
+            
+
             return Ok(messageDTOs);
 
         }

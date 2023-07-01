@@ -5,19 +5,18 @@
   </div>
   <div class="chat-box-wrapper">
     <div class="chat-messages">
-      <div class="" *ngFor="let message of chatMessages | sort: 'ascending' : 'messageDate'">
+      <div class="" *ngFor="let userMessage of chatMessages | sort: 'ascending' : 'timestamp'">
         <div class="chat-message-wrapper">
-          <img [src]="message.userPhoto">
+          <img [src]="userMessage.user1ProfilePictureUrl">
           <div class="chat-message-header">
-            {{message.displayName}}
-            {{message.messageDate | date:'HH:mm'}}
+            {{userMessage.user1DisplayName}}
+            {{userMessage.timestamp | date:'HH:mm'}}
           </div>
           <div class="message">
-            {{message.message}}
+            {{userMessage.messageString}}
           </div>
         </div>
       </div>
-      <span>{{chatUser.username}}</span>
     </div>
     <div class="chat-field-wrapper">
       <input type="text" class="chat-field" [(ngModel)]="chatFieldMessage" [placeholder]="messageFieldPlaceholder" (keyup.enter)="sendMessage()">

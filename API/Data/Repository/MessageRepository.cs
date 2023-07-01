@@ -21,7 +21,7 @@ namespace API.Data.Repository
             return messages;
         }
 
-        public void SendMessage(int senderId, int receiverId, string message)
+        public Message SendMessage(int senderId, int receiverId, string message)
         {
 
             var newMessage = new Message
@@ -33,6 +33,8 @@ namespace API.Data.Repository
             };
 
             dc.Messages.Add(newMessage);
+
+            return newMessage;
 
         }
     }
