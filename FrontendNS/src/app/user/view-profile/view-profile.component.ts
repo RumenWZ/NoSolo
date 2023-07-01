@@ -93,7 +93,6 @@ export class ViewProfileComponent {
   getUsersGames() {
     this.userGame.getUserGames(this.parameterUsername).subscribe((response: any) => {
       this.userGames = response;
-      console.log(this.userGames);
     })
   }
 
@@ -163,6 +162,11 @@ export class ViewProfileComponent {
 
     this.getUserDetails();
 
-    this.getUsersGames();
+    if (this.parameterUsername == this.loggedInUser.username) {
+      this.getUsersGames();
+    } else {
+      
+    }
+
   }
 }

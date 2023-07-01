@@ -36,7 +36,7 @@
 
       <div class="user-games-section">
         <h2>User games</h2>
-        <div class="user-games-container">
+        <div *ngIf="userGames" class="user-games-container">
           <div class="user-games-item animate" *ngFor="let game of userGames" (click)="onUserGame(game)">
             <img [src]="game.gameImageUrl">
           </div>
