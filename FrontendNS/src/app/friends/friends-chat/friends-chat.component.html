@@ -20,7 +20,7 @@
       <span>{{chatUser.username}}</span>
     </div>
     <div class="chat-field-wrapper">
-      <input type="text" class="chat-field" [placeholder]="messageFieldPlaceholder">
+      <input type="text" class="chat-field" [(ngModel)]="chatFieldMessage" [placeholder]="messageFieldPlaceholder" (keyup.enter)="sendMessage()">
     </div>
 
   </div>
