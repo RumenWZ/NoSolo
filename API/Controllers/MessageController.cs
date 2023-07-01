@@ -1,5 +1,7 @@
-﻿using API.Interfaces;
+﻿using API.DTOs;
+using API.Interfaces;
 using API.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +12,15 @@ namespace API.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IUnitOfWork uow;
+        private readonly IMapper mapper;
 
         public MessageController(
-            IUnitOfWork uow
+            IUnitOfWork uow,
+            IMapper mapper
             )
         {
             this.uow = uow;
+            this.mapper = mapper;
         }
 
         [HttpPost("send-message/{token}/{username}/{message}")]
@@ -44,6 +49,28 @@ namespace API.Controllers
             await uow.SaveAsync();
 
             return Ok(201);
+        }
+
+        [HttpGet("get-messages-between-users/{token}/{username}")]
+        public async Task<IActionResult> GetMessagesBetweenUsers(string token, string username)
+        {
+            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user1 == null)
+            {
+                return BadRequest("No user could be linkned to this token");
+            }
+
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
+            if (user2 == null)
+            {
+                return BadRequest("No user exists with this username");
+            }
+
+            var messages = await uow.MessageRepository.GetMessagesBetweenUsersAsync(user1.Id, user2.Id);
+            var messageDTOs = mapper.Map<IEnumerable<MessageDTO>>(messages);
+                
+            return Ok(messageDTOs);
+
         }
     }
 }
