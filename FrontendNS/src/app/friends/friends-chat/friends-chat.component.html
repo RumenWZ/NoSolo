@@ -8,13 +8,19 @@
       <div class="" *ngFor="let userMessage of chatMessages | sort: 'ascending' : 'timestamp'">
         <div class="chat-message-wrapper">
           <img [src]="userMessage.user1ProfilePictureUrl">
-          <div class="chat-message-header">
-            {{userMessage.user1DisplayName}}
-            {{userMessage.timestamp | date:'HH:mm'}}
+          <div class="chat-message">
+            <div class="chat-message-header">
+              <span style="font-weight: 700;">{{userMessage.user1DisplayName}}</span>
+              <span class="chat-date">{{userMessage.timestamp | date:'HH:mm'}}</span>
+              <span class="chat-date">{{userMessage.timestamp | date:'dd/mm/yyyy'}}</span>
+
+
+            </div>
+            <div class="message">
+              {{userMessage.messageString}}
+            </div>
           </div>
-          <div class="message">
-            {{userMessage.messageString}}
-          </div>
+
         </div>
       </div>
     </div>

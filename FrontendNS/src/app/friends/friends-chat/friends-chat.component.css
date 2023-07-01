@@ -52,14 +52,28 @@
 }
 
 .chat-message-wrapper {
-  background-color: blue;
   margin-bottom: 1rem;
   display: flex;
-  
+  flex-direction: row;
 }
 
 .chat-message-wrapper img {
   height: 3rem;
   width: 3rem;
   border-radius: 50%;
+}
+
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+}
+
+.chat-message-header span{
+  margin-right: 0.45rem;
+}
+
+.chat-date {
+  color: #99999e;
+  font-size: 0.7rem;
 }
