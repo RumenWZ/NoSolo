@@ -52,8 +52,8 @@
 .chat-messages {
   padding: 0.5rem;
   overflow-y: auto;
-  padding-bottom: 7rem;
-  
+  margin-bottom: 6.5rem;
+
 }
 
 .chat-message-wrapper {
@@ -81,4 +81,26 @@
 .chat-date {
   color: #99999e;
   font-size: 0.7rem;
+}
+
+.chat-field:focus {
+  outline: none;
+}
+
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #3d3d44;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #bbbbbf;
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background-color: #65656b;
 }
