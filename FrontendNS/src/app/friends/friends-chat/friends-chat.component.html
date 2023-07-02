@@ -4,8 +4,8 @@
     <span>{{chatUser.displayName}}</span>
   </div>
   <div class="chat-box-wrapper">
-    <div class="chat-messages">
-      <div class="" *ngFor="let userMessage of chatMessages | sort: 'ascending' : 'timestamp'">
+    <div class="chat-messages" #chatMessagesContainer>
+      <div *ngFor="let userMessage of chatMessages | sort: 'ascending' : 'timestamp'">
         <div class="chat-message-wrapper">
           <img [src]="userMessage.user1ProfilePictureUrl">
           <div class="chat-message">

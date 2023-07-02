@@ -1,21 +1,21 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { User } from 'src/app/model/user';
-import { chatMessages } from './chatMessagesForTesting';
+import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
 import { Message } from 'src/app/model/message';
+
 
 @Component({
   selector: 'app-friends-chat',
   templateUrl: './friends-chat.component.html',
   styleUrls: ['./friends-chat.component.css']
 })
-export class FriendsChatComponent implements OnChanges{
+export class FriendsChatComponent implements OnChanges {
   friendsChatEnabled: boolean = true;
   @Input() chatUser: any;
   messageFieldPlaceholder: string;
   chatMessages: Message[];
   chatFieldMessage: string;
   token: string;
+  @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
 
   constructor (
     private message: MessageService
@@ -31,6 +31,7 @@ export class FriendsChatComponent implements OnChanges{
     this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
       this.chatFieldMessage = '';
       this.chatMessages.push(response);
+      this.scrollToBottom();
     })
 
   }
@@ -42,14 +43,22 @@ export class FriendsChatComponent implements OnChanges{
       } else {
         this.chatMessages = [response];
       }
+      this.scrollToBottom();
     })
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+    }, 0);
   }
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
 
-    this.getChatMessages()
+    this.getChatMessages();
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -58,4 +67,5 @@ export class FriendsChatComponent implements OnChanges{
       this.getChatMessages();
     }
   }
+
 }
