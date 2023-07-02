@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
 import { Message } from 'src/app/model/message';
 
@@ -8,13 +8,15 @@ import { Message } from 'src/app/model/message';
   templateUrl: './friends-chat.component.html',
   styleUrls: ['./friends-chat.component.css']
 })
-export class FriendsChatComponent implements OnChanges {
+export class FriendsChatComponent implements OnChanges, AfterViewInit {
   friendsChatEnabled: boolean = true;
   @Input() chatUser: any;
   messageFieldPlaceholder: string;
   chatMessages: Message[];
   chatFieldMessage: string;
   token: string;
+
+  @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
 
   constructor (
@@ -53,6 +55,10 @@ export class FriendsChatComponent implements OnChanges {
     }, 0);
   }
 
+  focusOnChatField() {
+    this.chatField.nativeElement.focus();
+  }
+
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
@@ -65,7 +71,12 @@ export class FriendsChatComponent implements OnChanges {
     if (changes['chatUser'] && changes['chatUser'].currentValue) {
       this.messageFieldPlaceholder = `Message ${this.chatUser.username}`;
       this.getChatMessages();
+      this.focusOnChatField()
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.focusOnChatField()
   }
 
 }

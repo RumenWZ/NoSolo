@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="chat-field-wrapper">
-      <input type="text" class="chat-field" [(ngModel)]="chatFieldMessage" [placeholder]="messageFieldPlaceholder" (keyup.enter)="sendMessage()">
+      <input type="text" class="chat-field" [(ngModel)]="chatFieldMessage" [placeholder]="messageFieldPlaceholder" (keyup.enter)="sendMessage()" #chatField>
     </div>
 
   </div>
