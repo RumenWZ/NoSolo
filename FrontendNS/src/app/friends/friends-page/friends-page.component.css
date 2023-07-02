@@ -36,12 +36,11 @@ mat-sidenav {
 }
 
 .friends-container {
-
-  min-height: 40rem;
   background-color: var(--main-color);
   display: flex;
-  flex-grow: 1; /* Add this line */
+  flex-grow: 1;
   overflow: hidden;
+  height: 40rem;
 }
 
 .direct-messages {

@@ -13,13 +13,15 @@ export class FriendsChatComponent implements OnChanges{
   friendsChatEnabled: boolean = true;
   @Input() chatUser: any;
   messageFieldPlaceholder: string;
-  chatMessages: any;
+  chatMessages: Message[];
   chatFieldMessage: string;
   token: string;
 
   constructor (
     private message: MessageService
-  ) {}
+  ) {
+    this.token = localStorage.getItem('token');
+  }
 
   chatMessagesProcessor() {
 
@@ -27,17 +29,19 @@ export class FriendsChatComponent implements OnChanges{
 
   sendMessage() {
     this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
-      if (response == 201) {
-        this.chatFieldMessage = '';
-      }
+      this.chatFieldMessage = '';
+      this.chatMessages.push(response);
     })
 
   }
 
   getChatMessages() {
     this.message.getMessagesForUsers(this.token, this.chatUser.username).subscribe((response: Message) => {
-      this.chatMessages = response;
-      console.log(chatMessages);
+      if (Array.isArray(response)) {
+        this.chatMessages = response;
+      } else {
+        this.chatMessages = [response];
+      }
     })
   }
 
