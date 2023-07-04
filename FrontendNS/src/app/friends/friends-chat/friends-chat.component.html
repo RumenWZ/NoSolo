@@ -11,8 +11,8 @@
           <div class="chat-message">
             <div class="chat-message-header">
               <span style="font-weight: 700;">{{userMessage.user1DisplayName}}</span>
-              <span class="chat-date">{{userMessage.timestamp | date:'dd/mm/yyyy'}}</span>
-              <span class="chat-date">{{userMessage.timestamp | date:'HH:mm'}} {{getTimePeriod(userMessage.timestamp)}}</span>
+              <span class="chat-date">{{getMessageDate(userMessage.timestamp)}}
+                 {{userMessage.timestamp | date:'HH:mm'}} {{getTimePeriod(userMessage.timestamp)}}</span>
             </div>
             <div class="message">
               {{userMessage.messageString}}

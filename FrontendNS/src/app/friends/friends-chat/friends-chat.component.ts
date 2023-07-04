@@ -63,7 +63,37 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     const hour = new Date(timestamp).getHours();
     return hour < 12 ? 'AM' : 'PM';
   }
-  
+
+  getMessageDate(timestamp: string): string {
+    const currentDate = new Date();
+    const messageDate = new Date(timestamp);
+
+    const isToday = this.isSameDate(currentDate, messageDate);
+    const isYesterday = this.isSameDate(this.getPreviousDate(currentDate), messageDate);
+
+    if (isToday) {
+      return 'Today at';
+    } else if (isYesterday) {
+      return 'Yesterday at';
+    } else {
+      return messageDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+  }
+
+  isSameDate(date1: Date, date2: Date): boolean {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  }
+
+  getPreviousDate(date: Date): Date {
+    const previousDate = new Date(date);
+    previousDate.setDate(previousDate.getDate() - 1);
+    return previousDate;
+  }
+
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
