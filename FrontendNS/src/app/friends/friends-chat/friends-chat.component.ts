@@ -26,13 +26,35 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   chatMessagesProcessor() {
+    if (!this.chatMessages || this.chatMessages.length === 0) {
+      return;
+    }
 
+    const processedMessages: Message[] = [];
+    let previousMessage: Message = this.chatMessages[0];
+
+    for (let i = 1; i < this.chatMessages.length; i++) {
+      const currentMessage: Message = this.chatMessages[i];
+
+      if (previousMessage.user1DisplayName === currentMessage.user1DisplayName) {
+        previousMessage.messageString += '\n' + currentMessage.messageString;
+        previousMessage.timestamp = currentMessage.timestamp;
+      } else {
+        processedMessages.push(previousMessage);
+        previousMessage = currentMessage;
+      }
+    }
+
+    processedMessages.push(previousMessage);
+
+    this.chatMessages = processedMessages;
   }
 
   sendMessage() {
     this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
       this.chatFieldMessage = '';
       this.chatMessages.push(response);
+      this.chatMessagesProcessor();
       this.scrollToBottom();
     })
 
@@ -46,6 +68,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
         this.chatMessages = [response];
       }
       this.scrollToBottom();
+      this.chatMessagesProcessor()
     })
   }
 
@@ -76,7 +99,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     } else if (isYesterday) {
       return 'Yesterday at';
     } else {
-      return messageDate.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      return messageDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
     }
   }
 
