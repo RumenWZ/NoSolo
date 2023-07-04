@@ -59,6 +59,11 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     this.chatField.nativeElement.focus();
   }
 
+  getTimePeriod(timestamp: string): string {
+    const hour = new Date(timestamp).getHours();
+    return hour < 12 ? 'AM' : 'PM';
+  }
+  
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;

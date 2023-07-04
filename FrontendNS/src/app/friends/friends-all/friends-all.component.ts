@@ -24,6 +24,7 @@ export class FriendsAllComponent {
 
   onChatBubble(user: UserDTO) {
     this.friend.raiseCurrentChatUser(user);
+  
   }
 
   ngOnInit() {

@@ -73,6 +73,24 @@ namespace API.Controllers
             return Ok(userGameDTOs);
         }
 
+        [HttpGet("get-user-games-for-matching/{username1}/{username2}")]
+        public async Task<IActionResult> GetUserGamesForMatching(string username1, string username2)
+        {
+            var user1 = uow.UserRepository.GetByUserNameAsync(username1);
+            if (user1 == null)
+            {
+                return BadRequest("User 1 doesn't exist");
+            }
+            var user2 = uow.UserRepository.GetByUserNameAsync(username2);
+            if (user2 == null)
+            {
+                return BadRequest("User 2 doesn't exist");
+            }
+
+
+            return Ok();
+        }
+
         [HttpGet("get-user-game/{id}")]
         public async Task<IActionResult> GetUserGameDTO(int id)
         {

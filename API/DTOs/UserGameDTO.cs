@@ -8,6 +8,7 @@
         public string GameImageUrl { get; set; }
         public string UserDescription { get; set; }
         public DateTime AddedOn { get; set; }
+        public bool isMatching { get; set; } = false;
 
     }
 }
