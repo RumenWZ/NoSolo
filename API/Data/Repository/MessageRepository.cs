@@ -29,7 +29,7 @@ namespace API.Data.Repository
                 User1Id = senderId,
                 User2Id = receiverId,
                 MessageString = message,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.Now
             };
 
             dc.Messages.Add(newMessage);

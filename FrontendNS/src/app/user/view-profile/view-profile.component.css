@@ -186,7 +186,6 @@
 .card {
   background-color: var(--main-color);
   border-color: gray;
-  margin-top: 4.5rem;
 }
 .card-header {
 
@@ -206,11 +205,19 @@
   margin-left: 1rem;
 }
 
+.user-game-details-wrapper {
+  margin-top: 3.5rem;
+}
+
 .game-description textarea {
   min-width: 22rem;
   background-color: #2a2e33;
   height: 10rem;
   outline: none;
+}
+
+.matching-notifier {
+  color: #1fc55e;
 }
 
 @keyframes spinClockwise {
@@ -244,5 +251,22 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+.glow-border {
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0% {
+    border: 2px solid rgba(0, 255, 0, 0.7);
+  }
+  50% {
+    border: 2px solid rgba(0, 255, 0, 1);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 1);
+  }
+  100% {
+    border: 2px solid rgba(0, 255, 0, 0.7);
   }
 }

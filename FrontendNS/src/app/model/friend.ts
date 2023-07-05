@@ -4,5 +4,6 @@ export interface Friend {
   user2Id: number,
   status: string,
   friendsSince: Date,
-  requestedOn: Date
+  requestedOn: Date,
 }
+

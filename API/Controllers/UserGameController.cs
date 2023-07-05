@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using API.DTOs;
 using API.Interfaces;
+using API.Migrations;
 using API.Models;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
@@ -76,19 +77,45 @@ namespace API.Controllers
         [HttpGet("get-user-games-for-matching/{username1}/{username2}")]
         public async Task<IActionResult> GetUserGamesForMatching(string username1, string username2)
         {
-            var user1 = uow.UserRepository.GetByUserNameAsync(username1);
+            var user1 = await uow.UserRepository.GetByUserNameAsync(username1);
             if (user1 == null)
             {
                 return BadRequest("User 1 doesn't exist");
             }
-            var user2 = uow.UserRepository.GetByUserNameAsync(username2);
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username2);
             if (user2 == null)
             {
                 return BadRequest("User 2 doesn't exist");
             }
+            var user1UserGameList = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user1.Id);
+            var user1GameIds = user1UserGameList.Select(ug => ug.GameId).ToList();
+            var user1Games = await uow.GameRepository.GetGamesByIds(user1GameIds);
 
+            var user2UserGameList = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user2.Id);
+            var user2GameIds = user2UserGameList.Select(ug => ug.GameId).ToList();
+            var user2Games = await uow.GameRepository.GetGamesByIds(user2GameIds);
 
-            return Ok();
+            var user2UserGameDTOs = new List<UserGameDTO>();
+
+            foreach (var game in user2Games)
+            {
+                var userGame = user2UserGameList.FirstOrDefault(ug => ug.GameId == game.Id);
+                var userGameDTO = new UserGameDTO
+                {
+                    UserGameId = userGame.Id,
+                    GameId = game.Id,
+                    GameName = game.Name,
+                    GameImageUrl = game.ImageUrl,
+                    UserDescription = userGame.Description,
+                    AddedOn = userGame.AddedOn
+                };
+                if (user1Games.Contains(game)) {
+                    userGameDTO.isMatching = true;
+                }
+                user2UserGameDTOs.Add(userGameDTO);
+            }
+
+            return Ok(user2UserGameDTOs);
         }
 
         [HttpGet("get-user-game/{id}")]
@@ -158,7 +185,6 @@ namespace API.Controllers
 
             return Ok(userGameDTO);
         }
-
         
 
         public static UserGameDTO CreateUserGameDTO(Game game, UserGame userGame)

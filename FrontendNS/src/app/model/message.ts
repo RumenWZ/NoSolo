@@ -5,5 +5,6 @@ export interface Message {
   user1ProfilePictureUrl: string,
   user2Id: number,
   messageString: string,
-  timestamp: Date
+  timestamp: Date,
+  formattedTimestamp: string;
 }

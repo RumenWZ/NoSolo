@@ -30,7 +30,7 @@ export class ViewProfileComponent {
   receivedFriendRequest: boolean;
   userGames: UserGameDTO[];
   userGameDetailsOpen: boolean = false;
-  userGameSelected: any;
+  userGameSelected: UserGameDTO;
 
   constructor(
     private route: ActivatedRoute,
@@ -96,6 +96,11 @@ export class ViewProfileComponent {
     })
   }
 
+  getUserGamesWithMatching() {
+    this.userGame.getUserGamesForMatching(this.loggedInUser.username, this.parameterUsername).subscribe((response: any) => {
+      this.userGames = response;
+    })
+  }
 
   getUserDetails() {
     if (this.cachedUserDetails) {
@@ -117,7 +122,6 @@ export class ViewProfileComponent {
           this.friend.getFriendship(this.token, this.parameterUsername).subscribe((response: Friend) => {
             if (response != null) {
               this.friendStatus = response;
-              console.log(response);
               if (response.status === 'pending' && response.user1Id == this.user.id) {
                 this.receivedFriendRequest = true;
               } else if (response.status === 'pending' && response.user2Id == this.user.id){
@@ -165,7 +169,7 @@ export class ViewProfileComponent {
     if (this.parameterUsername == this.loggedInUser.username) {
       this.getUsersGames();
     } else {
-      
+      this.getUserGamesWithMatching();
     }
 
   }

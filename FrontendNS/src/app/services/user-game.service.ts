@@ -35,4 +35,8 @@ export class UserGameService {
     return this.http.patch(`${this.baseUrl}/update/${id}?description=${description}`, null);
   }
 
+  getUserGamesForMatching(username1: string, username2: string) {
+    return this.http.get(`${this.baseUrl}/get-user-games-for-matching/${username1}/${username2}`);
+  }
+
 }

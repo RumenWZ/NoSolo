@@ -38,23 +38,26 @@
         <h2>User games</h2>
         <div *ngIf="userGames" class="user-games-container">
           <div class="user-games-item animate" *ngFor="let game of userGames" (click)="onUserGame(game)">
-            <img [src]="game.gameImageUrl">
+            <img [ngClass]="{'glow-border': game.isMatching}" [src]="game.gameImageUrl">
           </div>
         </div>
-        <div *ngIf="userGameDetailsOpen" class="card user-game-details">
-          <div class="card-body">
-            <div class="card-content">
-              <div class="card-header">
-                <img [src]="userGameSelected.gameImageUrl">
-                <span>{{userGameSelected.gameName}}</span>
-              </div>
-              <div class="game-description">
-                <textarea readonly [value]="userGameSelected.userDescription"></textarea>
+        <div class="user-game-details-wrapper">
+          <span *ngIf="userGameDetailsOpen && userGameSelected.isMatching" class="matching-notifier">You and {{user.displayName}} both play this game</span>
+            <div *ngIf="userGameDetailsOpen" class="card user-game-details">
+              <div class="card-body">
+                <div class="card-content">
+                  <div class="card-header">
+                    <img [src]="userGameSelected.gameImageUrl">
+                    <span>{{userGameSelected.gameName}}</span>
+                  </div>
+                  <div class="game-description">
+                    <textarea readonly [value]="userGameSelected.userDescription"></textarea>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
         </div>
+
       </div>
     <div class="invalid-user" *ngIf="isValidUsername === false">
       <h2>INVALID USERNAME</h2>
