@@ -15,6 +15,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   chatMessages: Message[];
   chatFieldMessage: string;
   token: string;
+  webSocket: WebSocket;
 
   @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
@@ -79,7 +80,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   focusOnChatField() {
-    this.chatField.nativeElement.focus();
+    this.chatField?.nativeElement.focus();
   }
 
   getTimePeriod(timestamp: string): string {
@@ -116,13 +117,27 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     previousDate.setDate(previousDate.getDate() - 1);
     return previousDate;
   }
+  // Websocket Configuration
+  connectWebSocket() {
+    console.log('connectWebSocket called');
+
+    this.webSocket = new WebSocket(`wss://localhost:7104/api/message/ws-messages/${this.token}/${this.chatUser.username}`);
+    this.webSocket.onmessage = (event) => this.handleWebSocketMessage(event);
+  }
+
+  handleWebSocketMessage(event: MessageEvent) {
+    const message = JSON.parse(event.data) as Message;
+    this.chatMessages.push(message);
+    this.chatMessagesProcessor();
+    this.scrollToBottom();
+  }
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
 
     this.getChatMessages();
-
+    this.connectWebSocket();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

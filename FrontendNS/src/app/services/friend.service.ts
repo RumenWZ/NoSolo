@@ -3,6 +3,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Friend } from '../model/friend';
 import { Observable, Subject } from 'rxjs';
 import { User, UserDTO } from '../model/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class FriendService {
   friendsChatIsOpen: Subject<boolean> = new Subject<boolean>();
   chattingWithUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient) { }
 
 
 

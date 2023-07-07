@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of, switchMap, tap } from 'rxjs';
 import { Friend } from 'src/app/model/friend';
 import { UserDTO } from 'src/app/model/user';
@@ -37,7 +37,7 @@ export class ViewProfileComponent {
     private userService: UserService,
     private friend: FriendService,
     private alertify: AlertifyService,
-    private userGame: UserGameService
+    private userGame: UserGameService,
     ) {
     this.token = localStorage.getItem('token');
     this.cachedUserDetails = localStorage.getItem('user');
@@ -100,6 +100,11 @@ export class ViewProfileComponent {
     this.userGame.getUserGamesForMatching(this.loggedInUser.username, this.parameterUsername).subscribe((response: any) => {
       this.userGames = response;
     })
+  }
+
+  onMessageUser() {
+    this.friend.raiseCurrentChatUser(this.user);
+
   }
 
   getUserDetails() {

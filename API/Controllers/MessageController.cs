@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Helpers;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
@@ -73,6 +74,27 @@ namespace API.Controllers
 
             return Ok(messageDTOs);
 
+        }
+
+        [HttpGet("ws-messages/{token}/{username}")]
+        public async Task WebSocketMessages(string token, string username)
+        {
+            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
+
+            if (user1 == null || user2 == null)
+            {
+                return;
+            }
+
+            var friendship = await uow.FriendsRepository.GetFriendshipAsync(user1.Id, user2.Id);
+            if (friendship == null || friendship.Status != "accepted")
+            {
+                return;
+            }
+
+            var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+            await MessageHandler.HandleWebSocketMessages(webSocket, user1.Id, user2.Id, uow, mapper);
         }
     }
 }

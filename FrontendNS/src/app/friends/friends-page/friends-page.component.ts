@@ -49,6 +49,7 @@ export class FriendsPageComponent {
   OnAllFriends() {
     this.friendsAllOpen = true;
     this.closeAllOtherComponents('friends-all');
+
   }
 
   closeAllOtherComponents(componentName: string) {
