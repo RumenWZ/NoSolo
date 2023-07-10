@@ -5,11 +5,8 @@ using API.Interfaces;
 using API.Middlewares;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

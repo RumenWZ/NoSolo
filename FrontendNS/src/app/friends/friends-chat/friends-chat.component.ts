@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
 import { Message } from 'src/app/model/message';
+import Pusher from 'pusher-js';
+import { environment } from 'src/app/environments/environment';
 
 
 @Component({
@@ -16,6 +18,9 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   chatFieldMessage: string;
   token: string;
   webSocket: WebSocket;
+  pusher: Pusher
+  channel: any;
+  environment = environment;
 
   @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
@@ -54,7 +59,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   sendMessage() {
     this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
       this.chatFieldMessage = '';
-      this.chatMessages.push(response);
       this.chatMessagesProcessor();
       this.scrollToBottom();
     })
@@ -68,9 +72,27 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
       } else {
         this.chatMessages = [response];
       }
+
+
+      this.channel.bind('my-event', (data: any) => {
+        const newMessage: Message = {
+          id: data.message.Id,
+          user1Id: data.message.User1Id,
+          user1DisplayName: data.message.User1DisplayName,
+          user1ProfilePictureUrl: data.message.User1ProfilePictureUrl,
+          user2Id: null,
+          messageString: data.message.MessageString,
+          timestamp: new Date(data.message.Timestamp)
+        };
+        this.chatMessages.push(newMessage);
+      });
+
       this.scrollToBottom();
-      this.chatMessagesProcessor()
-    })
+      this.chatMessagesProcessor();
+
+    });
+
+
   }
 
   scrollToBottom() {
@@ -117,27 +139,23 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     previousDate.setDate(previousDate.getDate() - 1);
     return previousDate;
   }
-  // Websocket Configuration
-  connectWebSocket() {
-    console.log('connectWebSocket called');
-
-    this.webSocket = new WebSocket(`wss://localhost:7104/api/message/ws-messages/${this.token}/${this.chatUser.username}`);
-    this.webSocket.onmessage = (event) => this.handleWebSocketMessage(event);
-  }
-
-  handleWebSocketMessage(event: MessageEvent) {
-    const message = JSON.parse(event.data) as Message;
-    this.chatMessages.push(message);
-    this.chatMessagesProcessor();
-    this.scrollToBottom();
-  }
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
 
     this.getChatMessages();
-    this.connectWebSocket();
+
+    this.pusher = new Pusher(this.environment.pusherKey, {
+      cluster: this.environment.pusherCluster
+    });
+
+    this.channel = this.pusher.subscribe('my-channel');
+
+  }
+
+  handleIncomingMessage(message: string) {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
