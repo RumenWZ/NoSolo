@@ -57,6 +57,13 @@ namespace API.Data.Repository
             return userDTO;
         }
 
+        public async Task<IEnumerable<User>> FindUsers(string searchString)
+        {
+            var users = await dc.Users.Where(u => u.Username.Contains(searchString) 
+                || u.DisplayName.Contains(searchString)).ToListAsync();
+            return users;
+        }
+
         public async Task<User> GetByIdAsync(int userId)
         {
             var user = await dc.Users.FindAsync(userId);

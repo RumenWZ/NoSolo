@@ -1,1 +1,18 @@
-<p>friends-add works!</p>
+<div class="container">
+  <div class="header">
+    Search for friends
+  </div>
+  <div class="search-bar-container">
+    <input class="input-field" type="text" [(ngModel)]="searchParameters" placeholder="Enter your friend's profile name" (keyup.enter)="searchUsers()">
+  </div>
+
+  <ul class="users-from-search">
+    <li *ngFor="let user of searchResults" class="user-item">
+      <img [src]="user.profileImageUrl" (click)="onUserClick(user)">
+      <span (click)="onUserClick(user)">{{user.username}}</span>
+      <div class="action-wrapper">
+        ADD AS FRIEND
+      </div>
+    </li>
+  </ul>
+</div>

@@ -19,14 +19,17 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IPhotoService photoService;
+        private readonly IMapper mapper;
 
         public AccountController(
             IUnitOfWork uow,
-            IPhotoService photoService
+            IPhotoService photoService,
+            IMapper mapper
             )
         {
             this.uow = uow;
             this.photoService = photoService;
+            this.mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -83,6 +86,18 @@ namespace API.Controllers
             }
             var userDTO = uow.UserRepository.CreateUserDTO(user);
             return Ok(userDTO);
+        }
+
+        [HttpGet("find-users/{searchString}")]
+        public async Task<IActionResult> FindUsers(string searchString)
+        {
+            var users = await uow.UserRepository.FindUsers(searchString);
+            if (users == null)
+            {
+                return Ok(new {});
+            }
+            var userDTOs = mapper.Map<IEnumerable<UserDTO>>(users);
+            return Ok(userDTOs);
         }
 
         [HttpGet("get-user-by-username/{username}")]

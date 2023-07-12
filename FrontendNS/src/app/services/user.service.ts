@@ -61,6 +61,10 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/update-summary/${username}?summary=${summary}`, null);
   }
 
+  findUsers(searchString: string) {
+    return this.http.get(`${this.baseUrl}/find-users/${searchString}`);
+  }
+
   logoutUser() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');

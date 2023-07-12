@@ -14,8 +14,8 @@ export class FriendsPageComponent {
   currentChatUser: UserDTO;
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
-  friendsAllOpen: boolean = true;
-  friendsAddOpen: boolean;
+  friendsAllOpen: boolean;
+  friendsAddOpen: boolean = true;
   friendInvitesCount: number;
 
   constructor(
