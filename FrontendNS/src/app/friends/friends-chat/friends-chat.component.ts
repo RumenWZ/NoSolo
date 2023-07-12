@@ -73,27 +73,11 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
         this.chatMessages = [response];
       }
 
-
-      this.channel.bind('my-event', (data: any) => {
-        const newMessage: Message = {
-          id: data.message.Id,
-          user1Id: data.message.User1Id,
-          user1DisplayName: data.message.User1DisplayName,
-          user1ProfilePictureUrl: data.message.User1ProfilePictureUrl,
-          user2Id: null,
-          messageString: data.message.MessageString,
-          timestamp: new Date(data.message.Timestamp)
-        };
-        this.chatMessages.push(newMessage);
-      });
-
       this.scrollToBottom();
       this.chatMessagesProcessor();
-
     });
-
-
   }
+
 
   scrollToBottom() {
     setTimeout(() => {
@@ -151,6 +135,22 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     });
 
     this.channel = this.pusher.subscribe('my-channel');
+    this.channel.bind('my-event', (data: any) => {
+      const newMessage: Message = {
+        id: data.message.Id,
+        user1Id: data.message.User1Id,
+        user1DisplayName: data.message.User1DisplayName,
+        user1ProfilePictureUrl: data.message.User1ProfilePictureUrl,
+        user2Id: null,
+        messageString: data.message.MessageString,
+        timestamp: new Date(data.message.Timestamp)
+      };
+      this.chatMessages.push(newMessage);
+      this.scrollToBottom();
+      this.chatMessagesProcessor();
+    });
+
+    this.getChatMessages();
 
   }
 
