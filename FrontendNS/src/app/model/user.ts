@@ -21,7 +21,7 @@ export interface UserDTO {
   summary: string
 }
 
-export interface UserSearchResults {
+export interface UserSearchResult {
   id: number,
   username: string,
   email: string,

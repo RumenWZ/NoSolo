@@ -95,3 +95,15 @@
   font-size: 0.85rem;
   cursor: auto;
 }
+
+.action-wrapper .cancel-request {
+  background-color: #474948;
+  font-size: 0.9rem;
+  padding: 0.15rem;
+  color: #d63633;
+}
+
+.action-wrapper .cancel-request:hover {
+  background-color: #5e635f;
+}
+

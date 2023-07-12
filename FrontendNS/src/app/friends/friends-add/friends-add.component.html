@@ -13,6 +13,7 @@
       <div class="action-wrapper" >
         <span class="add-friend" *ngIf="user.friendStatus == ''" (click)="onAddFriend(user)">ADD AS FRIEND</span>
         <span class="already-friends" *ngIf="user.friendStatus == 'friends'">You are friends</span>
+        <span class="cancel-request" *ngIf="user.friendStatus == 'pending'" (click)="onCancelRequest(user)">CANCEL REQUEST</span>
       </div>
     </li>
   </ul>
