@@ -24,6 +24,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
 
   @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
+  @ViewChild('messageSound') messageSound: ElementRef<HTMLAudioElement>;
 
   constructor (
     private message: MessageService
@@ -148,10 +149,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
       this.chatMessages.push(newMessage);
       this.scrollToBottom();
       this.chatMessagesProcessor();
+      this.messageSound.nativeElement.play();
     });
 
     this.getChatMessages();
-
   }
 
   handleIncomingMessage(message: string) {
