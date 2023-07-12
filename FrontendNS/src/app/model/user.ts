@@ -20,3 +20,15 @@ export interface UserDTO {
   discordUsername: string,
   summary: string
 }
+
+export interface UserSearchResults {
+  id: number,
+  username: string,
+  email: string,
+  createdOn: Date,
+  profileImageUrl: string,
+  displayName: string,
+  discordUsername: string,
+  summary: string,
+  friendStatus: string
+}

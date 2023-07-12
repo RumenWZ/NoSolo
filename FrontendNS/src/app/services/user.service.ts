@@ -61,8 +61,8 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/update-summary/${username}?summary=${summary}`, null);
   }
 
-  findUsers(searchString: string) {
-    return this.http.get(`${this.baseUrl}/find-users/${searchString}`);
+  findUsers(token: string, searchString: string) {
+    return this.http.get(`${this.baseUrl}/find-users/${token}/${searchString}`);
   }
 
   logoutUser() {

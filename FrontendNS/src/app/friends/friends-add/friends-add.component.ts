@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDTO } from 'src/app/model/user';
+import { UserDTO, UserSearchResults } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FriendsAddComponent {
   searchParameters: string;
-  searchResults: UserDTO[];
+  searchResults: UserSearchResults[];
+  userToken: string;
 
   constructor(
     private user: UserService,
@@ -24,6 +25,9 @@ export class FriendsAddComponent {
       if (user.profileImageUrl === '') {
         user.profileImageUrl = '/assets/images/default-user.png';
       }
+      if (user.displayName === '') {
+        user.displayName = user.username;
+      }
     }
   }
 
@@ -32,13 +36,18 @@ export class FriendsAddComponent {
   }
 
   searchUsers() {
-    this.user.findUsers(this.searchParameters).subscribe((response: any) => {
+    this.user.findUsers(this.userToken, this.searchParameters).subscribe((response: any) => {
       this.searchResults = response;
+      console.log(this.searchResults);
       this.assignDefaultValues();
     })
   }
 
-  ngOnInit() {
+  onAddFriend(user: UserDTO) {
 
+  }
+
+  ngOnInit() {
+    this.userToken = localStorage.getItem('token');
   }
 }

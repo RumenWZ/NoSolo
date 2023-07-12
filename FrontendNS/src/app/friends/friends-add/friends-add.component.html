@@ -9,9 +9,10 @@
   <ul class="users-from-search">
     <li *ngFor="let user of searchResults" class="user-item">
       <img [src]="user.profileImageUrl" (click)="onUserClick(user)">
-      <span (click)="onUserClick(user)">{{user.username}}</span>
-      <div class="action-wrapper">
-        ADD AS FRIEND
+      <span (click)="onUserClick(user)">{{user.displayName}}</span>
+      <div class="action-wrapper" >
+        <span class="add-friend" *ngIf="user.friendStatus == ''" (click)="onAddFriend(user)">ADD AS FRIEND</span>
+        <span class="already-friends" *ngIf="user.friendStatus == 'friends'">You are friends</span>
       </div>
     </li>
   </ul>

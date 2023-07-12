@@ -2,7 +2,7 @@
 
 namespace API.DTOs
 {
-    public class UserDTO
+    public class FindUserDTO
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -12,5 +12,6 @@ namespace API.DTOs
         public string DisplayName { get; set; } = String.Empty;
         public string DiscordUsername { get; set; } = String.Empty;
         public string Summary { get; set; } = String.Empty;
+        public string FriendStatus { get; set; } = String.Empty;
     }
 }

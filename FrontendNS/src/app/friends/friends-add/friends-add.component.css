@@ -71,11 +71,27 @@
 }
 
 .user-item:hover {
-  background-color: #545454;
+  background-color: #3d3d3d;
 }
 
 .action-wrapper {
   position: absolute;
   right: 0;
   display: flex;
+
+}
+
+.action-wrapper .add-friend {
+  background-color: #474948;
+  font-size: 0.9rem;
+  padding: 0.15rem;
+  color: #0aa836;
+}
+.action-wrapper .add-friend:hover {
+  background-color: #5e635f;
+}
+
+.action-wrapper .already-friends {
+  font-size: 0.85rem;
+  cursor: auto;
 }

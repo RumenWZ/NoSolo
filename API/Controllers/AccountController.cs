@@ -88,15 +88,53 @@ namespace API.Controllers
             return Ok(userDTO);
         }
 
-        [HttpGet("find-users/{searchString}")]
-        public async Task<IActionResult> FindUsers(string searchString)
+        [HttpGet("find-users/{token}/{searchString}")]
+        public async Task<IActionResult> FindUsers(string token, string searchString)
         {
-            var users = await uow.UserRepository.FindUsers(searchString);
-            if (users == null)
+            var loggedInUser = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (loggedInUser == null)
+            {
+                return BadRequest("Invalid user token");
+            }
+            var userSearchResults = await uow.UserRepository.FindUsers(searchString);
+            if (userSearchResults == null)
             {
                 return Ok(new {});
             }
-            var userDTOs = mapper.Map<IEnumerable<UserDTO>>(users);
+            var userDTOs = mapper.Map<IEnumerable<FindUserDTO>>(userSearchResults);
+            
+            foreach (var user in userDTOs)
+            {
+                if (user.Id == loggedInUser.Id)
+                {
+                    user.FriendStatus = "self";
+                    continue;
+                }
+                
+                var friendship = await uow.FriendsRepository.GetFriendshipAsync(loggedInUser.Id, user.Id);
+                
+                if (friendship != null)
+                {
+                    if (friendship.Status == "accepted")
+                    {
+                        user.FriendStatus = "friends";
+                    }
+                    else if (friendship.Status == "pending")
+                    {
+                        user.FriendStatus = "pending";
+                    } 
+                    else
+                    {
+                        user.FriendStatus = "";
+                    }
+                   
+                } else
+                {
+                    user.FriendStatus = "";
+                }
+                
+                
+            }
             return Ok(userDTOs);
         }
 
