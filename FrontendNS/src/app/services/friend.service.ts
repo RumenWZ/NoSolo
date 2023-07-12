@@ -16,8 +16,6 @@ export class FriendService {
   constructor(
     private http: HttpClient) { }
 
-
-
   raiseCurrentChatUser(user: UserDTO) {
     this.chattingWithUser.emit(user);
   }

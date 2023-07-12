@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { friendsList } from '../friendsListObjectsForTesting';
 import { FriendService } from 'src/app/services/friend.service';
 import { User, UserDTO } from 'src/app/model/user';
@@ -13,13 +13,19 @@ export class FriendsListComponent {
   friendsList: UserDTO[];
   @Output() friendsChatEnabled = new EventEmitter<boolean>();
   @Output() currentChatUser = new EventEmitter<any>();
+  selectedFriend: UserDTO;
 
   constructor(
     private friend: FriendService,
     private sidenav: SidenavService
-  ) {}
+  ) {
+    this.friend.chattingWithUser.subscribe((value: UserDTO) => {
+      this.selectedFriend = value;
+    });
+  }
 
   onFriendClick(user: any) {
+    this.selectedFriend = user;
     this.friend.raiseCurrentChatUser(user);
     if (window.innerWidth < 768) {
       this.sidenav.toggleFriendsSidenav();

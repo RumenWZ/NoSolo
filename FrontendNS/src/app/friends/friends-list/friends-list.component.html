@@ -1,7 +1,7 @@
 <div class="friends-list-wrapper">
   <span class="direct-messages">Direct messages</span>
   <ul class="friends-list">
-    <li *ngFor="let user of friendsList" (click)="onFriendClick(user)">
+    <li *ngFor="let user of friendsList" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
       <img [src]="user.profileImageUrl">
       <span>{{user.displayName}}</span>
     </li>

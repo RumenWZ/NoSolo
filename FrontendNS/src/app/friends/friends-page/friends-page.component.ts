@@ -15,8 +15,6 @@ export class FriendsPageComponent {
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
   friendsAllOpen: boolean;
-
-
   friendInvitesCount: number;
 
 

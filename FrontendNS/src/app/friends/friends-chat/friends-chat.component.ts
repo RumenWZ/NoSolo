@@ -17,7 +17,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   chatMessages: Message[];
   chatFieldMessage: string;
   token: string;
-  webSocket: WebSocket;
   pusher: Pusher
   channel: any;
   environment = environment;
