@@ -17,7 +17,7 @@
 }
 
 .input-field {
-  width: 95%;
+  width: 100%;
   background-color: #3f3f3f;
   outline: none;
   color: var(--light-gray-text);
@@ -106,4 +106,3 @@
 .action-wrapper .cancel-request:hover {
   background-color: #5e635f;
 }
-

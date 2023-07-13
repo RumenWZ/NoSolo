@@ -3,6 +3,7 @@
 @import 'assets/forms.css';
 @import 'assets/variables.css';
 @import 'assets/skeleton-loading.css';
+@import 'assets/pagination.css';
 
 body {
   margin: 0;

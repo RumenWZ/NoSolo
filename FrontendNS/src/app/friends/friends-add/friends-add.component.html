@@ -7,7 +7,7 @@
   </div>
 
   <ul class="users-from-search">
-    <li *ngFor="let user of searchResults" class="user-item">
+    <li *ngFor="let user of searchResults | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="user-item">
       <img [src]="user.profileImageUrl" (click)="onUserClick(user)">
       <span (click)="onUserClick(user)">{{user.displayName}}</span>
       <div class="action-wrapper" >
@@ -17,4 +17,8 @@
       </div>
     </li>
   </ul>
+  <div class="pagination">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+
 </div>

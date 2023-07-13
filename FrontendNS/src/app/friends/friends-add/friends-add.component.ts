@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDTO, UserSearchResult } from 'src/app/model/user';
+import { UserSearchResult } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,6 +13,9 @@ export class FriendsAddComponent {
   searchParameters: string;
   searchResults: UserSearchResult[];
   userToken: string;
+
+  currentPage = 1;
+  itemsPerPage = 8;
 
   constructor(
     private user: UserService,
@@ -38,11 +41,13 @@ export class FriendsAddComponent {
   }
 
   searchUsers() {
-    this.user.findUsers(this.userToken, this.searchParameters).subscribe((response: any) => {
-      this.searchResults = response;
-      console.log(this.searchResults);
-      this.assignDefaultValues();
-    })
+    if (this.searchParameters != '') {
+      this.user.findUsers(this.userToken, this.searchParameters).subscribe((response: any) => {
+        this.searchResults = response;
+        this.assignDefaultValues();
+        this.currentPage = 1;
+      });
+    }
   }
 
   onAddFriend(user: UserSearchResult) {
