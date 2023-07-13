@@ -1,8 +1,9 @@
 .friends-list-wrapper {
   min-width: 15rem;
-  padding: 0.6rem;
-  border-right: 1px solid gray;
+  padding: 0 0.6rem;
   height: 100%;
+  border-top: 1px solid gray;
+  padding-top: 0.5rem;
 }
 
 .direct-messages {
@@ -41,4 +42,47 @@
 
 .friends-list li.selected {
   background-color: #545454;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.nav-links li {
+  font-size: 1.35rem;
+  margin: 0.5rem 0.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+.nav-links li:hover {
+  background-color: #545454;
+}
+
+.friends-list-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.friends-list-header input {
+  margin: 0.3rem 0;
+  background-color: #3f3f3f;
+  border: 0;
+  padding: 0.25rem;
+  border-radius: 5px;;
+  color: var(--light-gray-text);
+  text-indent: 5px;
+  outline: none;
+}
+
+.friends-list-header input:focus {
+  border: grey 1px solid;
+  padding: 0.2rem;
+}
+
+.friends-list-header input::placeholder {
+  color: #777777;
 }

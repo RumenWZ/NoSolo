@@ -1,9 +1,25 @@
-<div class="friends-list-wrapper">
-  <span class="direct-messages">Direct messages</span>
-  <ul class="friends-list">
-    <li *ngFor="let user of friendsList" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
-      <img [src]="user.profileImageUrl">
-      <span>{{user.displayName}}</span>
-    </li>
-  </ul>
+<div>
+  <div *ngIf="isSmallScreen" class="navigation">
+    <ul class="nav-links">
+      <li>All</li>
+      <li>Pending</li>
+      <li>Blocked</li>
+      <li>Add Friend</li>
+    </ul>
+  </div>
+
+  <div class="friends-list-wrapper">
+    <div class="friends-list-header">
+      <span class="direct-messages">Direct messages</span>
+      <input type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
+    </div>
+
+    <ul class="friends-list">
+      <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
+        <img [src]="user.profileImageUrl">
+        <span>{{user.displayName}}</span>
+      </li>
+    </ul>
+  </div>
+
 </div>

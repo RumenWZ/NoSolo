@@ -6,16 +6,16 @@ import { filter } from 'rxjs';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: any[], filterString: string): any {
-    if(!value || value.length === 0 || filterString === ''){
+  transform(value: any[], filterString: string, filterBy: string): any {
+    if (!value || value.length === 0 || filterString === '' || !filterBy) {
       return value;
     }
 
     filterString = filterString.toLowerCase();
 
     return value.filter((item: any) =>
-    item.name.toLowerCase().includes(filterString)
-  );
+      item[filterBy].toLowerCase().includes(filterString)
+    );
   }
 
 }

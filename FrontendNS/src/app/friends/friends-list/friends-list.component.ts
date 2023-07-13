@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { friendsList } from '../friendsListObjectsForTesting';
 import { FriendService } from 'src/app/services/friend.service';
 import { User, UserDTO } from 'src/app/model/user';
@@ -14,6 +14,8 @@ export class FriendsListComponent {
   @Output() friendsChatEnabled = new EventEmitter<boolean>();
   @Output() currentChatUser = new EventEmitter<any>();
   selectedFriend: UserDTO;
+  isSmallScreen: boolean;
+  friendFilter: string;
 
   constructor(
     private friend: FriendService,
@@ -22,12 +24,13 @@ export class FriendsListComponent {
     this.friend.chattingWithUser.subscribe((value: UserDTO) => {
       this.selectedFriend = value;
     });
+    this.isSmallScreen = window.innerWidth < 768;
   }
 
   onFriendClick(user: any) {
     this.selectedFriend = user;
     this.friend.raiseCurrentChatUser(user);
-    if (window.innerWidth < 768) {
+    if (this.isSmallScreen) {
       this.sidenav.toggleFriendsSidenav();
     }
   }
@@ -44,6 +47,12 @@ export class FriendsListComponent {
     this.friend.getAllFriendsOfUser(localStorage.getItem('token')).subscribe((response: any) => {
       this.friendsList = response;
       this.assignDefaultValues();
-    })
+    });
+    this.friendFilter = '';
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: any) {
+    this.isSmallScreen = window.innerWidth < 768;
   }
 }

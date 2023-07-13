@@ -19,12 +19,14 @@ export class FriendsAllComponent {
       if (user.profileImageUrl === '') {
         user.profileImageUrl = '/assets/images/default-user.png';
       }
+      if (user.displayName === '') {
+        user.displayName = user.username;
+      }
     }
   }
 
   onChatBubble(user: UserDTO) {
     this.friend.raiseCurrentChatUser(user);
-  
   }
 
   ngOnInit() {
