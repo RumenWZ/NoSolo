@@ -14,6 +14,7 @@ export class FriendsPageComponent {
   currentChatUser: UserDTO;
   friendsChatOpen = false;
   friendsIncomingRequestsOpen: boolean = false;
+  friendsBlockedOpen: boolean;
   friendsAllOpen: boolean;
   friendsAddOpen: boolean = true;
   friendInvitesCount: number;
@@ -41,7 +42,11 @@ export class FriendsPageComponent {
   onPendingRequests() {
     this.friendsIncomingRequestsOpen = true;
     this.closeAllOtherComponents('friends-incoming-requests');
+  }
 
+  OnBlockedFriends() {
+    this.friendsBlockedOpen = true;
+    this.closeAllOtherComponents('friends-blocked');
   }
 
   OnAllFriends() {
@@ -60,21 +65,31 @@ export class FriendsPageComponent {
         this.friendsIncomingRequestsOpen = false;
         this.friendsAllOpen = false;
         this.friendsAddOpen = false;
+        this.friendsBlockedOpen = false;
         break;
       case 'friends-incoming-requests':
         this.friendsChatOpen = false;
         this.friendsAllOpen = false;
         this.friendsAddOpen = false;
+        this.friendsBlockedOpen = false;
         break;
       case 'friends-all':
         this.friendsChatOpen = false;
         this.friendsIncomingRequestsOpen = false;
         this.friendsAddOpen = false;
+        this.friendsBlockedOpen = false;
         break;
       case 'friends-add':
         this.friendsAllOpen = false;
         this.friendsChatOpen = false;
         this.friendsIncomingRequestsOpen = false;
+        this.friendsBlockedOpen = false;
+        break;
+      case 'friends-blocked':
+        this.friendsAllOpen = false;
+        this.friendsChatOpen = false;
+        this.friendsIncomingRequestsOpen = false;
+        this.friendsAddOpen = false;
         break;
     }
   }

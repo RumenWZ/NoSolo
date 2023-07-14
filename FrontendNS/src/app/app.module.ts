@@ -37,6 +37,7 @@ import { FriendsIncomingRequestsComponent } from './friends/friends-incoming-req
 import { FriendsAllComponent } from './friends/friends-all/friends-all.component';
 import { FriendsAddComponent } from './friends/friends-add/friends-add.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FriendsBlockedComponent } from './friends/friends-blocked/friends-blocked.component';
 
 
 const appRoutes: Routes = [
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     FriendsIncomingRequestsComponent,
     FriendsAllComponent,
     FriendsAddComponent,
+    FriendsBlockedComponent,
 
 
   ],
