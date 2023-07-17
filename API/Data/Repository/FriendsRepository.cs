@@ -42,6 +42,15 @@ namespace API.Data.Repository
             }
         }
 
+        public async Task<IEnumerable<User>> GetAllBlockedUsersAsync(int userId)
+        {
+            var friends = await dc.Friends.Where(f => (f.User2Id == userId || f.User1Id == userId) && f.Status == "blocked")
+                .Select(f => f.User2Id == userId ? f.User1 : f.User2)
+                .ToListAsync();
+
+            return friends;
+        }
+
         public async Task<IEnumerable<User>> GetAllFriendsOfUserAsync(int userId)
         {
             var friends = await dc.Friends.Where(f => (f.User2Id == userId || f.User1Id == userId) && f.Status == "accepted")

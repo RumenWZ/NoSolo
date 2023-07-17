@@ -5,6 +5,7 @@ import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.co
 import { Game } from 'src/app/model/game';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-list',
@@ -21,7 +22,8 @@ export class GameListComponent {
   constructor(
     private gameService: GameService,
     private alertify: AlertifyService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private user: UserService
   ) {}
 
   confirmDeleteGame(game: Game) {
@@ -70,6 +72,7 @@ export class GameListComponent {
   }
 
   ngOnInit() {
+    this.user.authenticateAdmin();
     this.getGamesList();
     this.filterString = '';
     this.gameListSortOrder = 'ascending';

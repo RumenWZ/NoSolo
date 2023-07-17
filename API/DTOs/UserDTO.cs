@@ -12,5 +12,6 @@ namespace API.DTOs
         public string DisplayName { get; set; } = String.Empty;
         public string DiscordUsername { get; set; } = String.Empty;
         public string Summary { get; set; } = String.Empty;
+        public Boolean IsAdmin { get; set; }
     }
 }

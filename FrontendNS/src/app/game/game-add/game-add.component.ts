@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { GameService } from 'src/app/services/game.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-add',
@@ -19,7 +22,9 @@ export class GameAddComponent {
   constructor(
     private gameService: GameService,
     private alertify: AlertifyService,
-    private ng2ImgMax: Ng2ImgMaxService
+    private ng2ImgMax: Ng2ImgMaxService,
+    private user: UserService,
+    private router: Router
   ) {}
 
   getImage(event: any) {
@@ -65,6 +70,10 @@ export class GameAddComponent {
         this.alertify.error(error.message);
       })
     }
+  }
+
+  ngOnInit() {
+    this.user.authenticateAdmin();
   }
 
 }

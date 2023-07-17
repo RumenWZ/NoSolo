@@ -51,7 +51,8 @@ namespace API.Data.Repository
                 ProfileImageUrl = user.ProfileImageUrl,
                 DisplayName = user.DisplayName,
                 DiscordUsername = user.DiscordUsername,
-                Summary = user.Summary
+                Summary = user.Summary,
+                IsAdmin = user.IsAdmin
 
             };
             return userDTO;

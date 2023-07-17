@@ -65,6 +65,16 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/find-users/${token}/${searchString}`);
   }
 
+  authenticateAdmin() {
+    this.getUserByToken(localStorage.getItem('token')).subscribe((response: any) => {
+      if (response.isAdmin !== true) {
+        this.router.navigate(['/unauthorized']);
+      }
+    }, error => {
+      this.router.navigate(['/unauthorized']);
+    })
+  }
+
   logoutUser() {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');

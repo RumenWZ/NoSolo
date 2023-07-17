@@ -37,7 +37,7 @@ import { FriendsIncomingRequestsComponent } from './friends/friends-incoming-req
 import { FriendsAllComponent } from './friends/friends-all/friends-all.component';
 import { FriendsAddComponent } from './friends/friends-add/friends-add.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FriendsBlockedComponent } from './friends/friends-blocked/friends-blocked.component';
+import { UnauthorizedComponent } from './error/unauthorized/unauthorized.component';
 
 
 const appRoutes: Routes = [
@@ -48,7 +48,8 @@ const appRoutes: Routes = [
   {path: 'game-selection', component: GameSelectionComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'friends', component: FriendsPageComponent},
-  {path: 'view-profile/:username', component: ViewProfileComponent}
+  {path: 'view-profile/:username', component: ViewProfileComponent},
+  {path: 'unauthorized', component: UnauthorizedComponent}
 ];
 
 @NgModule({
@@ -75,7 +76,7 @@ const appRoutes: Routes = [
     FriendsIncomingRequestsComponent,
     FriendsAllComponent,
     FriendsAddComponent,
-    FriendsBlockedComponent,
+    UnauthorizedComponent
 
 
   ],

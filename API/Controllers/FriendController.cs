@@ -127,6 +127,7 @@ namespace API.Controllers
             return Ok(201);
         }
 
+
         [HttpDelete("delete-friendship/{token}/{username}")]
         public async Task<IActionResult> DeleteFriendship(string token, string username)
         {

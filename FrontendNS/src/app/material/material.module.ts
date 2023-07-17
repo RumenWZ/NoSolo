@@ -9,6 +9,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatMenuModule } from '@angular/material/menu';
 
 const material = [
   MatDialogModule,
@@ -20,7 +21,8 @@ const material = [
   MatSidenavModule,
   MatDividerModule,
   MatListModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatMenuModule
 ];
 
 @NgModule({
