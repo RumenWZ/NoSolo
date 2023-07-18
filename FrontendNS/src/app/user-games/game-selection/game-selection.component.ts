@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDTO } from 'src/app/model/user';
 import { UserGameDTO } from 'src/app/model/user-game';
 import { UserGameService } from 'src/app/services/user-game.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -22,7 +22,8 @@ export class GameSelectionComponent {
 
   constructor(
     private usrGame: UserGameService,
-    private router: Router
+    private router: Router,
+    private user: UserService
   ) {
     this.cachedUserData = localStorage.getItem('user');
   }
@@ -50,11 +51,8 @@ export class GameSelectionComponent {
   }
 
   ngOnInit() {
-    if (!this.cachedUserData) {
-      this.router.navigate(['/login']);
-    } else {
-      this.updateGameList();
-    }
+    this.user.verifyLoggedIn();
 
+    this.updateGameList();
   }
 }

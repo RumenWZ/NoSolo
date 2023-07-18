@@ -72,7 +72,16 @@ export class UserService {
       }
     }, error => {
       this.router.navigate(['/unauthorized']);
-    })
+    });
+  }
+
+  verifyLoggedIn() {
+    if (localStorage.getItem('token') == null || localStorage.getItem('userName') == null || localStorage.getItem('user') == null) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('user');
+      this.router.navigate(['/login']);
+    }
   }
 
   logoutUser() {
