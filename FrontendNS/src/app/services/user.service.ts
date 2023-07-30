@@ -75,12 +75,15 @@ export class UserService {
     });
   }
 
-  verifyLoggedIn() {
+  verifyLoggedIn(): boolean {
     if (localStorage.getItem('token') == null || localStorage.getItem('userName') == null || localStorage.getItem('user') == null) {
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
       localStorage.removeItem('user');
       this.router.navigate(['/login']);
+      return false;
+    } else {
+      return true;
     }
   }
 

@@ -76,6 +76,7 @@ namespace API.Controllers
             return Ok(user);
         }
 
+
         [HttpGet("get-user-by-token/{token}")]
         public async Task<IActionResult> FindUserByToken(string token)
         {

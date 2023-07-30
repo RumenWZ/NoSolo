@@ -38,6 +38,8 @@ import { FriendsAllComponent } from './friends/friends-all/friends-all.component
 import { FriendsAddComponent } from './friends/friends-add/friends-add.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UnauthorizedComponent } from './error/unauthorized/unauthorized.component';
+import { ProfileCardComponent } from './user/profile-card/profile-card.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 
 const appRoutes: Routes = [
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
   {path: 'settings', component: SettingsComponent},
   {path: 'friends', component: FriendsPageComponent},
   {path: 'view-profile/:username', component: ViewProfileComponent},
-  {path: 'unauthorized', component: UnauthorizedComponent}
+  {path: 'unauthorized', component: UnauthorizedComponent},
+  {path: '', component: WelcomePageComponent}
 ];
 
 @NgModule({
@@ -76,7 +79,9 @@ const appRoutes: Routes = [
     FriendsIncomingRequestsComponent,
     FriendsAllComponent,
     FriendsAddComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    ProfileCardComponent,
+    WelcomePageComponent
 
 
   ],

@@ -1,0 +1,24 @@
+* {
+  color: var(--light-grey-text)
+}
+
+.background {
+  background-color: var(--main-color);
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 55rem;
+}
+
+.page-header {
+  font-size: 2.5rem;
+  padding-top: 2.5rem;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.page-overview {
+  font-size: 1rem;
+  padding: 2rem;
+  border-bottom: 1px solid gray;
+  text-align: center;
+}

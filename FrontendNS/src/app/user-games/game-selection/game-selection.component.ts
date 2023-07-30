@@ -51,8 +51,9 @@ export class GameSelectionComponent {
   }
 
   ngOnInit() {
-    this.user.verifyLoggedIn();
-
-    this.updateGameList();
+    if (this.user.verifyLoggedIn()) {
+      console.log('retrieving')
+      this.updateGameList();
+    }
   }
 }

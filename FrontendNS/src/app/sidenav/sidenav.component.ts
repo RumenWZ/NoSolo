@@ -76,14 +76,13 @@ export class SidenavComponent{
 
     if (this.cachedUserDetails) {
       this.user = JSON.parse(this.cachedUserDetails);
+      this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
+        this.friendRequests = response.length;
+      });
       if (this.user.profileImageUrl == '') {
         this.user.profileImageUrl = '/assets/images/default-user.png';
       }
     }
-
-    this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
-      this.friendRequests = response.length;
-    })
   }
 
   ngOnInit() {

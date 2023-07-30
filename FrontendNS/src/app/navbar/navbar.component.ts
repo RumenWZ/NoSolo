@@ -18,13 +18,6 @@ export class NavbarComponent {
     this.sidenavService.toggleMainSidenav();
   }
 
-  test() {
-    this.sidenavService.isMainSidenavOpen.subscribe((isOpen: boolean) => {
-      console.log(isOpen);
-    });
-
-  }
-
   loggedIn() {
     this.username = this.user.getUsername();
     return this.user.getUsername();
