@@ -1,1 +1,21 @@
-<p>profile-card works!</p>
+<div class="background">
+  <div class="profile-header">
+    <img class="profile-image" [src]="forUser.profileImageUrl">
+    <span class="profile-name">{{forUser.displayName}}</span>
+  </div>
+
+  <div class="tabbed-navigation">
+    <button (click)="selectTab('description')" [class.active]="selectedTab === 'description'">Description</button>
+    <button (click)="selectTab('games')" [class.active]="selectedTab === 'games'">Games</button>
+  </div>
+
+  <div class="tab-content">
+    <div *ngIf="selectedTab === 'description'">
+      <p>Description</p>
+    </div>
+
+    <div *ngIf="selectedTab === 'games'">
+      <p>Games</p>
+    </div>
+  </div>
+</div>

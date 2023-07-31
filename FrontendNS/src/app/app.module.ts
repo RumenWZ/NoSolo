@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './user/login/login.component';
@@ -52,7 +51,8 @@ const appRoutes: Routes = [
   {path: 'friends', component: FriendsPageComponent},
   {path: 'view-profile/:username', component: ViewProfileComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
-  {path: '', component: WelcomePageComponent}
+  {path: '', component: WelcomePageComponent},
+  {path: 'test', component: ProfileCardComponent}
 ];
 
 @NgModule({
