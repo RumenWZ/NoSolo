@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { mergeMap } from 'rxjs';
+import { Subscription, mergeMap } from 'rxjs';
 import { UserDTO } from 'src/app/model/user';
-import { UserGame, UserGameDTO } from 'src/app/model/user-game';
+import { UserGameDTO } from 'src/app/model/user-game';
 import { UserGameService } from 'src/app/services/user-game.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,15 +16,18 @@ export class ProfileCardComponent {
   userProfileGames: UserGameDTO[];
   userGameDetailsOpen: boolean = false;
   userGameSelected: UserGameDTO;
-
-  userForTesting = 'Testuser';
+  private userSubscription: Subscription;
 
   selectedTab: string = 'description';
 
   constructor(
     private user: UserService,
     private userGame: UserGameService
-  ) {}
+  ) {
+    this.userSubscription = this.user.userForUserCard.subscribe((user: UserDTO) => {
+      this.userProfile = user;
+    });
+  }
 
   selectTab(tabName: string) {
     this.selectedTab = tabName;
@@ -57,17 +60,16 @@ export class ProfileCardComponent {
     this.user.getUserByToken(localStorage.getItem('token')).pipe(
       mergeMap((response: any) => {
         this.userViewing = response;
-        return this.user.getUserByUsername(this.userForTesting);
-      }),
-      mergeMap((response: any) => {
-        this.userProfile = response;
         return this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username);
       })
     ).subscribe((response: any) => {
       this.userProfileGames = response;
-      console.log(response)
+      console.log(response);
       this.assignDefaultValues();
     });
   }
 
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
 }

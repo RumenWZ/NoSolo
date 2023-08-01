@@ -39,6 +39,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UnauthorizedComponent } from './error/unauthorized/unauthorized.component';
 import { ProfileCardComponent } from './user/profile-card/profile-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { ProfileCardPopupComponent } from './user/profile-card-popup/profile-card-popup.component';
 
 
 const appRoutes: Routes = [
@@ -81,7 +82,8 @@ const appRoutes: Routes = [
     FriendsAddComponent,
     UnauthorizedComponent,
     ProfileCardComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    ProfileCardPopupComponent
 
 
   ],

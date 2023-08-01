@@ -1,7 +1,7 @@
 <div class="friends-list-wrapper">
   <span class="direct-messages">Friends</span>
   <ul class="friends-list">
-    <li *ngFor="let user of friendsList" class="friends-list-item">
+    <li (click)="onFriendClick()" *ngFor="let user of friendsList" class="friends-list-item">
       <img [src]="user.profileImageUrl">
       <span>{{user.displayName}}</span>
       <div class="action-wrapper">

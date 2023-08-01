@@ -25,6 +25,10 @@ export class FriendsAllComponent {
     }
   }
 
+  onFriendClick() {
+    
+  }
+
   onChatBubble(user: UserDTO) {
     this.friend.raiseCurrentChatUser(user);
   }

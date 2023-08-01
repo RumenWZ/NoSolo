@@ -3,6 +3,11 @@ import { MessageService } from 'src/app/services/message.service';
 import { Message } from 'src/app/model/message';
 import Pusher from 'pusher-js';
 import { environment } from 'src/app/environments/environment';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.component';
+import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
 
 
 @Component({
@@ -26,7 +31,9 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   @ViewChild('messageSound') messageSound: ElementRef<HTMLAudioElement>;
 
   constructor (
-    private message: MessageService
+    private message: MessageService,
+    private user: UserService,
+    private matDialog: MatDialog
   ) {
     this.token = localStorage.getItem('token');
   }
@@ -122,6 +129,20 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     const previousDate = new Date(date);
     previousDate.setDate(previousDate.getDate() - 1);
     return previousDate;
+  }
+
+  onFriendImage(userClicked: string) {
+    const dialogRef = this.matDialog.open(ProfileCardComponent, {
+      width: '470px'
+    })
+    if (userClicked == this.chatUser.displayName || userClicked == this.chatUser.username) {
+      this.user.raiseCurrentUserProfileCard(this.chatUser);
+    } else {
+      this.user.getUserByToken(this.token).subscribe((response: any) => {
+        this.user.raiseCurrentUserProfileCard(response);
+      })
+    }
+
   }
 
   ngOnInit() {

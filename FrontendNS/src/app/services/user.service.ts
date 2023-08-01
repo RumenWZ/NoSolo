@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, UserDTO } from '../model/user';
 import { AlertifyService } from './alertify.service';
@@ -11,12 +11,17 @@ import { Observable, Subject, of, tap } from 'rxjs';
 export class UserService {
   baseUrl = 'https://localhost:7104/api/account';
   username: string;
+  userForUserCard: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
 
   constructor(
     private http: HttpClient,
     private alertify: AlertifyService,
     private router: Router
   ) { }
+
+  raiseCurrentUserProfileCard(user: UserDTO) {
+    this.userForUserCard.emit(user);
+  }
 
   addUser(user: User) {
     return this.http.post(this.baseUrl + '/register', user);
