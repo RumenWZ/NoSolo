@@ -11,5 +11,5 @@ export interface UserGameDTO {
   gameImageUrl: string,
   userDescription: string,
   userGameAddedOn: Date
-  isMatching: boolean
+  isMatching?: boolean
 }

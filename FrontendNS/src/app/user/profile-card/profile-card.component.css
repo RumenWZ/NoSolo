@@ -59,3 +59,32 @@
   border: 1px solid gray;
   height: 100%;
 }
+
+.tab-content-header {
+  text-align: center;
+  font-size: 1.3rem;
+  padding-top: 1.3rem;
+}
+
+.games-row {
+  display: flex;
+  justify-content: center;
+}
+
+.user-games-item {
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.user-games-item img{
+  height: 3.5rem;
+  border-radius: 50%;
+}
+
+.user-games-item:hover {
+  scale: 1.2;
+}
+
+.animate {
+  transition: all 0.3s ease-in-out;
+}

@@ -1,7 +1,7 @@
 <div class="background">
   <div class="profile-header">
-    <img class="profile-image" [src]="forUser.profileImageUrl">
-    <span class="profile-name">{{forUser.displayName}}</span>
+    <img class="profile-image" [src]="userProfile?.profileImageUrl">
+    <span class="profile-name">{{userProfile?.displayName}}</span>
   </div>
 
   <div class="tabbed-navigation">
@@ -11,11 +11,16 @@
 
   <div class="tab-content">
     <div class="description-tab" *ngIf="selectedTab === 'description'">
-      <p>Description</p>
+      <p class="tab-content-header">Description</p>
     </div>
 
     <div class="games-tab" *ngIf="selectedTab === 'games'">
-      <p>Games</p>
+      <p class="tab-content-header">Games</p>
+      <div class="games-row">
+        <div class="user-games-item animate" *ngFor="let game of userProfileGames" (click)="onUserGame(game)">
+          <img [ngClass]="{'glow-border': game.isMatching}" [src]="game.gameImageUrl">
+        </div>
+      </div>
     </div>
   </div>
 </div>
