@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserSearchResult } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
+import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
 
 @Component({
   selector: 'app-friends-add',
@@ -20,7 +22,8 @@ export class FriendsAddComponent {
   constructor(
     private user: UserService,
     private router: Router,
-    private friend: FriendService
+    private friend: FriendService,
+    private matDialog: MatDialog
   ) {
 
   }
@@ -37,7 +40,10 @@ export class FriendsAddComponent {
   }
 
   onUserClick(user: UserSearchResult){
-    this.router.navigate([`view-profile/${user.username}`]);
+    const dialogRef = this.matDialog.open(ProfileCardComponent, {
+      width: '470px'
+    })
+    this.user.raiseCurrentUserProfileCard(user);
   }
 
   searchUsers() {

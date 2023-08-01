@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UserDTO } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
+import { UserService } from 'src/app/services/user.service';
+import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
 
 @Component({
   selector: 'app-friends-all',
@@ -11,7 +14,9 @@ export class FriendsAllComponent {
   friendsList: any[];
 
   constructor(
-    private friend: FriendService
+    private friend: FriendService,
+    private user: UserService,
+    private matDialog: MatDialog
   ) {}
 
   assignDefaultValues() {
@@ -25,8 +30,11 @@ export class FriendsAllComponent {
     }
   }
 
-  onFriendClick() {
-    
+  onFriendClick(user: UserDTO) {
+    const dialogRef = this.matDialog.open(ProfileCardComponent, {
+      width: '470px'
+    })
+    this.user.raiseCurrentUserProfileCard(user);
   }
 
   onChatBubble(user: UserDTO) {
