@@ -12,6 +12,9 @@
   <div class="tab-content">
     <div class="description-tab" *ngIf="selectedTab === 'description'">
       <p class="tab-content-header">Description</p>
+      <div class="summary-container">
+        <textarea readonly class="user-summary">{{userProfile.summary}}</textarea>
+      </div>
     </div>
 
     <div class="games-tab" *ngIf="selectedTab === 'games'">
@@ -20,6 +23,11 @@
         <div class="user-games-item animate" *ngFor="let game of userProfileGames" (click)="onUserGame(game)">
           <img [ngClass]="{'glow-border': game.isMatching}" [src]="game.gameImageUrl">
         </div>
+        <p *ngIf="userProfileGames.length === 0" style="padding-top: 1.5rem;">This user has not added any games yet.</p>
+      </div>
+      <div *ngIf="userGameDetailsOpen"class="game-description-container">
+        <span *ngIf="userGameDetailsOpen && userGameSelected.isMatching" class="matching-notifier">You and {{userProfile.displayName}} both play this game.</span>
+        <textarea readonly class="game-description">{{userGameSelected.userDescription}}</textarea>
       </div>
     </div>
   </div>

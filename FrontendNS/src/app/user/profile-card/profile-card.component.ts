@@ -14,10 +14,12 @@ export class ProfileCardComponent {
   userProfile: UserDTO;
   userViewing: UserDTO;
   userProfileGames: UserGameDTO[];
+  userGameDetailsOpen: boolean = false;
+  userGameSelected: UserGameDTO;
 
   userForTesting = 'Testuser';
 
-  selectedTab: string = 'games';
+  selectedTab: string = 'description';
 
   constructor(
     private user: UserService,
@@ -29,7 +31,8 @@ export class ProfileCardComponent {
   }
 
   onUserGame(game: UserGameDTO) {
-
+    this.userGameDetailsOpen = true;
+    this.userGameSelected = game;
   }
 
   assignDefaultValues() {
@@ -44,6 +47,9 @@ export class ProfileCardComponent {
     }
     if (this.userViewing.displayName === '') {
       this.userViewing.displayName = this.userViewing.username;
+    }
+    if (this.userProfile.summary === '') {
+      this.userProfile.summary = 'No information given.';
     }
   }
 
