@@ -36,8 +36,9 @@ export class SidenavComponent{
     this.sidenavService.toggleMainSidenav();
   }
 
-  onDashboard() {
-    console.log('Dashboard button clicked');
+  onHome() {
+    this.router.navigate(['/']);
+    this.toggleSidenav();
   }
 
   onGameAdd() {
@@ -96,7 +97,7 @@ export class SidenavComponent{
     switch (functionName) {
       case 'onLogout': this.onLogout();
         break;
-      case 'onDashboard': this.onDashboard();
+      case 'onHome': this.onHome();
         break;
       case 'onGameAdd': this.onGameAdd();
         break;

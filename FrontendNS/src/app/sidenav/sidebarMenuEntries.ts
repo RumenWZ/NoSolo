@@ -1,8 +1,8 @@
 export const sidebarMenuEntries = [
   {
-    'label': 'Dashboard',
+    'label': 'Home',
     'icon': 'bx bx-home',
-    'functionName': 'onDashboard'
+    'functionName': 'onHome'
   },
   {
     'label': 'Logout',

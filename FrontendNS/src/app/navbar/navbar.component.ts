@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { SidenavService } from '../services/sidenav.service';
 
@@ -9,10 +9,13 @@ import { SidenavService } from '../services/sidenav.service';
 })
 export class NavbarComponent {
   username: string;
+  isSmallScreen: boolean;
   constructor(
     private user: UserService,
-    private sidenavService: SidenavService
-  ) {}
+    private sidenavService: SidenavService,
+  ) {
+    this.isSmallScreen = window.innerWidth < 768;
+  }
 
   toggleSidenav() {
     this.sidenavService.toggleMainSidenav();
@@ -29,5 +32,10 @@ export class NavbarComponent {
 
   ngOnInit() {
 
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: any) {
+    this.isSmallScreen = window.innerWidth < 768;
   }
 }
