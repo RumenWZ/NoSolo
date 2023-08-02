@@ -18,7 +18,7 @@ export class ProfileCardComponent {
   userGameSelected: UserGameDTO;
   private userSubscription: Subscription;
 
-  selectedTab: string = 'description';
+  selectedTab: string = 'contact';
 
   constructor(
     private user: UserService,
@@ -54,6 +54,9 @@ export class ProfileCardComponent {
     if (this.userProfile.summary === '') {
       this.userProfile.summary = 'No information given.';
     }
+    if (this.userProfile.discordUsername === '') {
+      this.userProfile.discordUsername = 'None provided.';
+    }
   }
 
   ngOnInit() {
@@ -64,7 +67,6 @@ export class ProfileCardComponent {
       })
     ).subscribe((response: any) => {
       this.userProfileGames = response;
-      console.log(response);
       this.assignDefaultValues();
     });
   }

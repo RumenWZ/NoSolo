@@ -117,6 +117,24 @@
   outline: none;
 }
 
+.socials-container {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.discord-logo {
+  max-height: 3rem;
+  padding-right: 1rem;
+}
+
+.discord-username {
+  outline: none;
+  background-color: #54545b;
+  border: none;
+  height: 1.8rem;
+  border-radius: 5px;
+}
+
 .matching-notifier {
   color: #1fc55e;
 }
