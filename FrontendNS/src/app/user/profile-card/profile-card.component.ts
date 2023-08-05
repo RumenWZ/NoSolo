@@ -18,7 +18,7 @@ export class ProfileCardComponent {
   userGameSelected: UserGameDTO;
   private userSubscription: Subscription;
 
-  selectedTab: string = 'contact';
+  selectedTab: string = 'description';
 
   constructor(
     private user: UserService,

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { friendsList } from '../friendsListObjectsForTesting';
 import { FriendService } from 'src/app/services/friend.service';
 import { User, UserDTO } from 'src/app/model/user';
 import { SidenavService } from 'src/app/services/sidenav.service';
