@@ -82,6 +82,7 @@ mat-sidenav {
 .main-content {
   height: 100%;
   width: 100%;
+
 }
 
 .friends-list {
@@ -114,3 +115,9 @@ mat-sidenav {
   font-size: 1.1rem;
 }
 
+
+@media (min-width: 768px) {
+  .main-content {
+    max-width: 28.45rem;
+  }
+}

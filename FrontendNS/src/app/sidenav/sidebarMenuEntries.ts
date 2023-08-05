@@ -13,6 +13,16 @@ export const sidebarMenuEntries = [
     'label': 'Settings',
     'icon': 'bx bxs-cog',
     'functionName': 'onSettings',
+  },
+  {
+    'label': 'My Games',
+    'icon': 'bx bx-game',
+    'functionName': 'onMyGames',
+  },
+  {
+    'label': 'Find Friends',
+    'icon': 'bx bx-face',
+    'functionName': 'onFindFriends',
   }
 ]
 

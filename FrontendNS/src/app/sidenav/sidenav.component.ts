@@ -61,6 +61,16 @@ export class SidenavComponent{
     this.toggleSidenav();
   }
 
+  onFindFriends() {
+    this.router.navigate(['/find-friends']);
+    this.toggleSidenav();
+  }
+
+  onMyGames() {
+    this.router.navigate(['/game-selection']);
+    this.toggleSidenav();
+  }
+
   onLogout() {
     this.userService.logoutUser();
     this.toggleSidenav();
@@ -88,8 +98,6 @@ export class SidenavComponent{
 
   ngOnInit() {
     this.getUserDetails();
-
-
   }
 
 
@@ -106,6 +114,10 @@ export class SidenavComponent{
       case 'onSettings': this.onSettings();
         break;
       case 'onFriends': this.onFriends();
+        break;
+      case 'onMyGames': this.onMyGames();
+        break;
+      case 'onFindFriends': this.onFindFriends();
         break;
       default:
         console.log('Unknown function');

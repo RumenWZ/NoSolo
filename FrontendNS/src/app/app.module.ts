@@ -40,6 +40,7 @@ import { UnauthorizedComponent } from './error/unauthorized/unauthorized.compone
 import { ProfileCardComponent } from './user/profile-card/profile-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ProfileCardPopupComponent } from './user/profile-card-popup/profile-card-popup.component';
+import { FindFriendsComponent } from './find-friends/find-friends.component';
 
 
 const appRoutes: Routes = [
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
   {path: 'view-profile/:username', component: ViewProfileComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '', component: WelcomePageComponent},
-  {path: 'test', component: ProfileCardComponent}
+  {path: 'test', component: ProfileCardComponent},
+  {path: 'find-friends', component: FindFriendsComponent}
 ];
 
 @NgModule({
@@ -83,7 +85,8 @@ const appRoutes: Routes = [
     UnauthorizedComponent,
     ProfileCardComponent,
     WelcomePageComponent,
-    ProfileCardPopupComponent
+    ProfileCardPopupComponent,
+    FindFriendsComponent
 
 
   ],
