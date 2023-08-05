@@ -31,7 +31,6 @@ import { FriendsPageComponent } from './friends/friends-page/friends-page.compon
 import { FriendsPageSidenavComponent } from './friends/friends-page-sidenav/friends-page-sidenav.component';
 import { FriendsChatComponent } from './friends/friends-chat/friends-chat.component';
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
-import { ViewProfileComponent } from './user/view-profile/view-profile.component';
 import { FriendsIncomingRequestsComponent } from './friends/friends-incoming-requests/friends-incoming-requests.component';
 import { FriendsAllComponent } from './friends/friends-all/friends-all.component';
 import { FriendsAddComponent } from './friends/friends-add/friends-add.component';
@@ -51,7 +50,6 @@ const appRoutes: Routes = [
   {path: 'game-selection', component: GameSelectionComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'friends', component: FriendsPageComponent},
-  {path: 'view-profile/:username', component: ViewProfileComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '', component: WelcomePageComponent},
   {path: 'test', component: ProfileCardComponent},
@@ -78,7 +76,6 @@ const appRoutes: Routes = [
     FriendsPageSidenavComponent,
     FriendsChatComponent,
     FriendsListComponent,
-    ViewProfileComponent,
     FriendsIncomingRequestsComponent,
     FriendsAllComponent,
     FriendsAddComponent,
