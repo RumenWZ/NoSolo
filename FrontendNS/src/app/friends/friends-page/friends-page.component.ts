@@ -1,4 +1,5 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { UserDTO } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 import { SidenavService } from 'src/app/services/sidenav.service';
@@ -17,6 +18,7 @@ export class FriendsPageComponent {
   friendsAllOpen: boolean;
   friendsAddOpen: boolean = true;
   friendInvitesCount: number;
+  updatePendingSubscription: Subscription;
 
   constructor(
     private sidenavService: SidenavService,
@@ -78,14 +80,26 @@ export class FriendsPageComponent {
     }
   }
 
+  getFriendRequestsCount() {
+    this.friend.getIncomingFriendRequests(localStorage.getItem('token')).subscribe((response: any) => {
+      this.friendInvitesCount = response.length;
+    });
+  }
+
   ngOnInit() {
+    this.updatePendingSubscription = this.friend.updateFriendsList.subscribe(() => {
+      this.getFriendRequestsCount();
+    });
+
     this.sidenavService.isFriendsSidenavOpen.subscribe((isOpen: boolean) => {
       this.isSidenavOpen = isOpen;
     });
 
-    this.friend.getIncomingFriendRequests(localStorage.getItem('token')).subscribe((response: any) => {
-      this.friendInvitesCount = response.length;
-    });
+    this.getFriendRequestsCount();
+  }
+
+  ngOnDestroy() {
+    this.updatePendingSubscription.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])

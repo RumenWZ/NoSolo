@@ -8,6 +8,7 @@ import { AlertifyService } from '../services/alertify.service';
 import { FriendService } from '../services/friend.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileCardComponent } from '../user/profile-card/profile-card.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
@@ -21,6 +22,7 @@ export class SidenavComponent{
   cachedUserDetails: any;
   token: string;
   friendRequests: number;
+  updatePendingSubscription: Subscription;
 
   constructor (
     private sidenavService: SidenavService,
@@ -86,15 +88,23 @@ export class SidenavComponent{
     this.userService.raiseCurrentUserProfileCard(this.user);
   }
 
+  getFriendRequestsCount() {
+    this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
+      this.friendRequests = response.length;
+    });
+  }
+
   getUserDetails() {
     this.token = localStorage.getItem('token');
     this.cachedUserDetails = localStorage.getItem('user');
 
     if (this.cachedUserDetails) {
       this.user = JSON.parse(this.cachedUserDetails);
-      this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
-        this.friendRequests = response.length;
+
+      this.updatePendingSubscription = this.friend.updateFriendsList.subscribe(() => {
+        this.getFriendRequestsCount();
       });
+      this.getFriendRequestsCount();
       if (this.user.profileImageUrl == '') {
         this.user.profileImageUrl = '/assets/images/default-user.png';
       }
@@ -105,6 +115,9 @@ export class SidenavComponent{
     this.getUserDetails();
   }
 
+  ngOnDestroy(){
+    this.updatePendingSubscription.unsubscribe();
+  }
 
   executeFunction(functionName: string) {
     switch (functionName) {
