@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserDTO } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
+import { UserService } from 'src/app/services/user.service';
+import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
 
 @Component({
   selector: 'app-friends-incoming-requests',
@@ -14,7 +17,9 @@ export class FriendsIncomingRequestsComponent {
 
   constructor(
     private friend: FriendService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog,
+    private user: UserService
   ) {
 
   }
@@ -34,9 +39,13 @@ export class FriendsIncomingRequestsComponent {
     });
   }
 
-  onUserClick (user: UserDTO) {
-    this.router.navigate([`/view-profile/${user.username}`]);
+  onUserClick(user: UserDTO) {
+    const dialogRef = this.matDialog.open(ProfileCardComponent, {
+      width: '470px'
+    })
+    this.user.raiseCurrentUserProfileCard(user);
   }
+
 
   onAcceptFriendRequest(event: Event, user: UserDTO) {
     event.stopPropagation();

@@ -27,7 +27,7 @@
         <p *ngIf="userProfileGames.length === 0" style="padding-top: 1.5rem;">This user has not added any games yet.</p>
       </div>
       <div *ngIf="userGameDetailsOpen"class="game-description-container">
-        <span *ngIf="userGameDetailsOpen && userGameSelected.isMatching" class="matching-notifier">You and {{userProfile.displayName}} both play this game.</span>
+        <span *ngIf="userGameDetailsOpen && userGameSelected.isMatching" class="matching-notifier">You and {{userProfile.displayName}} both play this game!</span>
         <textarea readonly class="game-description">{{userGameSelected.userDescription}}</textarea>
       </div>
     </div>

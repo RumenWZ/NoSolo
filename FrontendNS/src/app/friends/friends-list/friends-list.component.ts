@@ -2,6 +2,7 @@ import { Component, EventEmitter, HostListener, Input, Output } from '@angular/c
 import { FriendService } from 'src/app/services/friend.service';
 import { User, UserDTO } from 'src/app/model/user';
 import { SidenavService } from 'src/app/services/sidenav.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-friends-list',
@@ -15,6 +16,7 @@ export class FriendsListComponent {
   selectedFriend: UserDTO;
   isSmallScreen: boolean;
   friendFilter: string;
+  private updateFriendsListSubscription: Subscription;
 
   constructor(
     private friend: FriendService,
@@ -42,12 +44,23 @@ export class FriendsListComponent {
     }
   }
 
-  ngOnInit() {
+  getFriendsList() {
     this.friend.getAllFriendsOfUser(localStorage.getItem('token')).subscribe((response: any) => {
       this.friendsList = response;
       this.assignDefaultValues();
     });
+  }
+
+  ngOnInit() {
+    this.updateFriendsListSubscription = this.friend.updateFriendsList.subscribe(() => {
+      this.getFriendsList(); 
+    });
+    this.getFriendsList();
     this.friendFilter = '';
+  }
+
+  ngOnDestroy(): void {
+    this.updateFriendsListSubscription.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Friend } from '../model/friend';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { User, UserDTO } from '../model/user';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,7 @@ export class FriendService {
   baseUrl = 'https://localhost:7104/api/friend';
   friendsChatIsOpen: Subject<boolean> = new Subject<boolean>();
   chattingWithUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
+  updateFriendsList: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private http: HttpClient) { }
@@ -25,12 +26,16 @@ export class FriendService {
     return this.http.get<Friend>(`${this.baseUrl}/get-friendship/${token}/${username}`);
   }
 
-  acceptFriendRequest(token:string, username: string) {
-    return this.http.patch(`${this.baseUrl}/accept-friend-request/${token}/${username}`, null);
+  acceptFriendRequest(token: string, username: string) {
+    return this.http.patch(`${this.baseUrl}/accept-friend-request/${token}/${username}`, null).pipe(
+      tap(() => this.updateFriendsList.emit())
+    );
   }
 
-  removeFriend(token:string, username: string) {
-    return this.http.delete(`${this.baseUrl}/delete-friendship/${token}/${username}`);
+  removeFriend(token: string, username: string) {
+    return this.http.delete(`${this.baseUrl}/delete-friendship/${token}/${username}`).pipe(
+      tap(() => this.updateFriendsList.emit()) 
+    );
   }
 
   sendFriendRequest(token:string, username: string) {

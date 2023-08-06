@@ -11,7 +11,7 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
   styleUrls: ['./friends-all.component.css']
 })
 export class FriendsAllComponent {
-  friendsList: any[];
+  friendsList: UserDTO[];
 
   constructor(
     private friend: FriendService,
@@ -39,6 +39,11 @@ export class FriendsAllComponent {
 
   onChatBubble(user: UserDTO) {
     this.friend.raiseCurrentChatUser(user);
+  }
+
+  onRemoveFriend(user: UserDTO) {
+    this.friend.removeFriend(localStorage.getItem('token'), user.username).subscribe();
+    this.friendsList = this.friendsList.filter(friend => friend.username !== user.username);
   }
 
   ngOnInit() {
