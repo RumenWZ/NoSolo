@@ -6,6 +6,8 @@ import { sidebarMenuEntries, sidebarMenuEntriesAdmin } from './sidebarMenuEntrie
 import { UserDTO } from '../model/user';
 import { AlertifyService } from '../services/alertify.service';
 import { FriendService } from '../services/friend.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProfileCardComponent } from '../user/profile-card/profile-card.component';
 
 @Component({
   selector: 'app-sidenav',
@@ -24,7 +26,8 @@ export class SidenavComponent{
     private sidenavService: SidenavService,
     private router: Router,
     private userService: UserService,
-    private friend: FriendService
+    private friend: FriendService,
+    private matDialog: MatDialog,
   ) {
 
     this.sidenavService.userDetailsUpdated$.subscribe(() => {
@@ -77,8 +80,10 @@ export class SidenavComponent{
   }
 
   onProfileImage() {
-    this.router.navigate([`/view-profile/${this.user.username}`]);
-    this.toggleSidenav();
+    const dialogRef = this.matDialog.open(ProfileCardComponent, {
+      width: '470px'
+    })
+    this.userService.raiseCurrentUserProfileCard(this.user);
   }
 
   getUserDetails() {

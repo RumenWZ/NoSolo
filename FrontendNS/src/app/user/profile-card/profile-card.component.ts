@@ -45,10 +45,10 @@ export class ProfileCardComponent {
     if (this.userProfile.displayName === '') {
       this.userProfile.displayName = this.userProfile.username;
     }
-    if (this.userViewing.profileImageUrl === '') {
+    if (this.userViewing?.profileImageUrl === '') {
       this.userViewing.profileImageUrl = '/assets/images/default-user.png';
     }
-    if (this.userViewing.displayName === '') {
+    if (this.userViewing?.displayName === '') {
       this.userViewing.displayName = this.userViewing.username;
     }
     if (this.userProfile.summary === '') {
@@ -60,15 +60,25 @@ export class ProfileCardComponent {
   }
 
   ngOnInit() {
-    this.user.getUserByToken(localStorage.getItem('token')).pipe(
-      mergeMap((response: any) => {
-        this.userViewing = response;
-        return this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username);
-      })
-    ).subscribe((response: any) => {
-      this.userProfileGames = response;
-      this.assignDefaultValues();
+    const token = localStorage.getItem('token');
+    this.user.getUserByToken(token).subscribe((response: any) => {
+      this.userViewing = response;
+      if (this.isViewingOwnProfile()) {
+        this.userGame.getUserGames(this.userViewing.username).subscribe((response: any) => {
+          this.userProfileGames = response;
+          this.assignDefaultValues();
+        });
+      } else {
+        this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username).subscribe((response: any) => {
+          this.userProfileGames = response;
+          this.assignDefaultValues();
+        });
+      }
     });
+  }
+
+  private isViewingOwnProfile(): boolean {
+    return this.userViewing && this.userProfile && this.userViewing.username === this.userProfile.username;
   }
 
   ngOnDestroy() {
