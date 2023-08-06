@@ -20,6 +20,10 @@ export class FriendsPageComponent {
   friendInvitesCount: number;
   updatePendingSubscription: Subscription;
 
+  openFriendsAllSubscription: Subscription;
+  openFriendsPendingSubscription: Subscription;
+  openFriendsAddSubscription: Subscription;
+
   constructor(
     private sidenavService: SidenavService,
     private friend: FriendService
@@ -87,6 +91,18 @@ export class FriendsPageComponent {
   }
 
   ngOnInit() {
+    this.openFriendsAllSubscription = this.friend.openFriendsAll.subscribe(() => {
+      this.OnAllFriends();
+    });
+
+    this.openFriendsPendingSubscription = this.friend.openFriendsPending.subscribe(() => {
+      this.onPendingRequests();
+    });
+
+    this.openFriendsAddSubscription = this.friend.openFriendsAdd.subscribe(() => {
+      this.onAddFriends();
+    });
+
     this.updatePendingSubscription = this.friend.updateFriendsList.subscribe(() => {
       this.getFriendRequestsCount();
     });
@@ -100,6 +116,9 @@ export class FriendsPageComponent {
 
   ngOnDestroy() {
     this.updatePendingSubscription.unsubscribe();
+    this.openFriendsAllSubscription.unsubscribe();
+    this.openFriendsPendingSubscription.unsubscribe();
+    this.openFriendsAddSubscription.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])

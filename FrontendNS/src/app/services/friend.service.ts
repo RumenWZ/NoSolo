@@ -13,6 +13,9 @@ export class FriendService {
   friendsChatIsOpen: Subject<boolean> = new Subject<boolean>();
   chattingWithUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
   updateFriendsList: EventEmitter<void> = new EventEmitter<void>();
+  openFriendsAll: EventEmitter<void> = new EventEmitter<void>();
+  openFriendsPending: EventEmitter<void> = new EventEmitter<void>();
+  openFriendsAdd: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private http: HttpClient) { }
@@ -34,7 +37,7 @@ export class FriendService {
 
   removeFriend(token: string, username: string) {
     return this.http.delete(`${this.baseUrl}/delete-friendship/${token}/${username}`).pipe(
-      tap(() => this.updateFriendsList.emit()) 
+      tap(() => this.updateFriendsList.emit())
     );
   }
 

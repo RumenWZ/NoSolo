@@ -1,4 +1,17 @@
 <div class="sidenav-container">
+  <div class="header-container">
+    <span class="header">Friends</span>
+    <i class="bx bx-x close-btn" (click)="onCloseButton()"></i>
+  </div>
+
+  <div class="navigation">
+    <ul class="nav-links">
+      <li (click)="onFriendsAll()">All</li>
+      <li (click)="onFriendsPending()">Pending</li>
+      <li (click)="onFriendsAdd()">Add Friend</li>
+    </ul>
+  </div>
+
   <app-friends-list></app-friends-list>
 </div>
 

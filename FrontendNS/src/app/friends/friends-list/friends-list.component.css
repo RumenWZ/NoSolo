@@ -44,22 +44,7 @@
   background-color: #545454;
 }
 
-.nav-links {
-  list-style: none;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-}
 
-.nav-links li {
-  font-size: 1.35rem;
-  margin: 0.5rem 0.2rem;
-  padding: 0.5rem 1rem;
-  border-radius: 18px;
-  cursor: pointer;
-}
-
-.nav-links li:hover {
-  background-color: #545454;
-}
 
 .friends-list-header {
   display: flex;
