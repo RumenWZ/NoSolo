@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserGame } from '../model/user-game';
+import { MatchedUserDTO, UserGame } from '../model/user-game';
 
 
 @Injectable({
@@ -37,6 +37,10 @@ export class UserGameService {
 
   getUserGamesForMatching(username1: string, username2: string) {
     return this.http.get(`${this.baseUrl}/get-user-games-for-matching/${username1}/${username2}`);
+  }
+
+  getMatchesForUser(token: string) {
+    return this.http.get<MatchedUserDTO[]>(`${this.baseUrl}/get-matches/${token}`);
   }
 
 }

@@ -1,11 +1,7 @@
-﻿using API.Data;
-using API.DTOs;
+﻿using API.DTOs;
 using API.Interfaces;
-using API.Migrations;
 using API.Models;
 using AutoMapper;
-using Azure.Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -132,6 +128,8 @@ namespace API.Controllers
                 return BadRequest("Invalid token");
             }
 
+            var friendsOfLoggedInUser = await uow.FriendsRepository.GetAllFriendshipsOfUserAsync(loggedInUser.Id);
+
             var loggedInUserGames = await uow.UserGameRepository.GetUserGameListByUserIdAsync(loggedInUser.Id);
             var loggedInUserGameIds = loggedInUserGames.Select(ug => ug.GameId).ToList();
 
@@ -143,37 +141,42 @@ namespace API.Controllers
             {
                 if (user.Id != loggedInUser.Id)
                 {
-                    var userGames = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user.Id);
-                    var matchingGames = userGames.Where(ug => loggedInUserGameIds.Contains(ug.GameId)).ToList();
-                    
-                    if (matchingGames.Count > 0)
+                    var isAlreadyFriend = friendsOfLoggedInUser.Any(friend => friend.User1Id == user.Id || friend.User2Id == user.Id);
+                    if (!isAlreadyFriend)
                     {
-                        var matchedUserDTO = new MatchedUserDTO
-                        {
-                            User = mapper.Map<UserDTO>(user),
-                            UserGames = new List<UserGameDTO>()
-                        };
+                        var userGames = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user.Id);
+                        var matchingGames = userGames.Where(ug => loggedInUserGameIds.Contains(ug.GameId)).ToList();
 
-                        foreach (var userGame in userGames)
+                        if (matchingGames.Count > 0)
                         {
-                            var game = await uow.GameRepository.GetByIdAsync(userGame.GameId);
-
-                            var userGameDTO = new UserGameDTO
+                            var matchedUserDTO = new MatchedUserDTO
                             {
-                                UserGameId = userGame.Id,
-                                GameId = game.Id,
-                                GameName = game.Name,
-                                GameImageUrl = game.ImageUrl,
-                                UserDescription = userGame.Description,
-                                AddedOn = userGame.AddedOn
+                                User = mapper.Map<UserDTO>(user),
+                                UserGames = new List<UserGameDTO>()
                             };
 
-                            userGameDTO.isMatching = matchingGames.Any(matchingGame => matchingGame.GameId == userGame.GameId);
+                            foreach (var userGame in userGames)
+                            {
+                                var game = await uow.GameRepository.GetByIdAsync(userGame.GameId);
 
-                            matchedUserDTO.UserGames.Add(userGameDTO);
+                                var userGameDTO = new UserGameDTO
+                                {
+                                    UserGameId = userGame.Id,
+                                    GameId = game.Id,
+                                    GameName = game.Name,
+                                    GameImageUrl = game.ImageUrl,
+                                    UserDescription = userGame.Description,
+                                    AddedOn = userGame.AddedOn
+                                };
+
+                                userGameDTO.isMatching = matchingGames.Any(matchingGame => matchingGame.GameId == userGame.GameId);
+
+                                matchedUserDTO.UserGames.Add(userGameDTO);
+                            }
+                            matchedUsers.Add(matchedUserDTO);
                         }
-                        matchedUsers.Add(matchedUserDTO);
                     }
+                    
                 }
             }
 

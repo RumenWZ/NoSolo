@@ -8,6 +8,7 @@ namespace API.Interfaces
         void SendFriendRequest(int senderId,  int receiverId);
         Task<IEnumerable<User>> GetUserIncomingFriendRequestsAsync(int userId);
         Task<IEnumerable<User>> GetAllFriendsOfUserAsync(int userId);
+        Task<IEnumerable<FriendshipResponseDTO>> GetAllFriendshipsOfUserAsync(int userId);
         Task<Friend> GetFriendshipAsync(int user1Id, int user2Id);
         FriendshipResponseDTO CreateFriendshipDTO(Friend friendship);
         Task Delete(int friendId);

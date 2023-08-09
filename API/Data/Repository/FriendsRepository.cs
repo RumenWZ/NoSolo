@@ -51,6 +51,15 @@ namespace API.Data.Repository
             return friends;
         }
 
+        public async Task<IEnumerable<FriendshipResponseDTO>> GetAllFriendshipsOfUserAsync(int userId)
+        {
+            var friends = await dc.Friends.Where(f => (f.User2Id == userId || 
+                f.User1Id == userId) && f.Status == "accepted")
+                .ToListAsync(); 
+
+            return friends.Select(friendship => CreateFriendshipDTO(friendship)); 
+        }
+
         public async Task<IEnumerable<User>> GetAllFriendsOfUserAsync(int userId)
         {
             var friends = await dc.Friends.Where(f => (f.User2Id == userId || f.User1Id == userId) && f.Status == "accepted")

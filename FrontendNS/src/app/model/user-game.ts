@@ -1,3 +1,5 @@
+import { UserDTO } from "./user";
+
 export interface UserGame {
   userId: number,
   gameId: number,
@@ -12,4 +14,9 @@ export interface UserGameDTO {
   userDescription: string,
   userGameAddedOn: Date
   isMatching?: boolean
+}
+
+export interface MatchedUserDTO {
+  user: UserDTO;
+  userGames: UserGameDTO[];
 }
