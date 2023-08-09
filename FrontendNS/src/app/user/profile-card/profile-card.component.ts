@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subscription, mergeMap } from 'rxjs';
 import { UserDTO } from 'src/app/model/user';
 import { UserGameDTO } from 'src/app/model/user-game';
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile-card.component.css']
 })
 export class ProfileCardComponent {
-  userProfile: UserDTO;
+  @Input() userProfile: UserDTO;
   userViewing: UserDTO;
   userProfileGames: UserGameDTO[];
   userGameDetailsOpen: boolean = false;

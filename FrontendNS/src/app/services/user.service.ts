@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User, UserDTO } from '../model/user';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
-import { Observable, Subject, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,7 @@ export class UserService {
     this.userForUserCard.emit(user);
   }
 
+  // API calls
   addUser(user: User) {
     return this.http.post(this.baseUrl + '/register', user);
   }
