@@ -3,6 +3,7 @@ using API.DTOs;
 using API.Interfaces;
 using API.Migrations;
 using API.Models;
+using AutoMapper;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,15 @@ namespace API.Controllers
     public class UserGameController : ControllerBase
     {
         private readonly IUnitOfWork uow;
+        private readonly IMapper mapper;
+
         public UserGameController(
-            IUnitOfWork uow
+            IUnitOfWork uow,
+            IMapper mapper
             )
         {
             this.uow = uow;
+            this.mapper = mapper;
         }
 
         [HttpPost("add")]
@@ -116,6 +121,63 @@ namespace API.Controllers
             }
 
             return Ok(user2UserGameDTOs);
+        }
+
+        [HttpGet("get-matches/{token}")]
+        public async Task<IActionResult> GetMatches(string token)
+        {
+            var loggedInUser = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (loggedInUser == null)
+            {
+                return BadRequest("Invalid token");
+            }
+
+            var loggedInUserGames = await uow.UserGameRepository.GetUserGameListByUserIdAsync(loggedInUser.Id);
+            var loggedInUserGameIds = loggedInUserGames.Select(ug => ug.GameId).ToList();
+
+            var matchedUsers = new List<MatchedUserDTO>();
+
+            var allUsers = await uow.UserRepository.GetAllUsersAsync();
+
+            foreach (var user in allUsers)
+            {
+                if (user.Id != loggedInUser.Id)
+                {
+                    var userGames = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user.Id);
+                    var matchingGames = userGames.Where(ug => loggedInUserGameIds.Contains(ug.GameId)).ToList();
+                    
+                    if (matchingGames.Count > 0)
+                    {
+                        var matchedUserDTO = new MatchedUserDTO
+                        {
+                            User = mapper.Map<UserDTO>(user),
+                            UserGames = new List<UserGameDTO>()
+                        };
+
+                        foreach (var userGame in userGames)
+                        {
+                            var game = await uow.GameRepository.GetByIdAsync(userGame.GameId);
+
+                            var userGameDTO = new UserGameDTO
+                            {
+                                UserGameId = userGame.Id,
+                                GameId = game.Id,
+                                GameName = game.Name,
+                                GameImageUrl = game.ImageUrl,
+                                UserDescription = userGame.Description,
+                                AddedOn = userGame.AddedOn
+                            };
+
+                            userGameDTO.isMatching = matchingGames.Any(matchingGame => matchingGame.GameId == userGame.GameId);
+
+                            matchedUserDTO.UserGames.Add(userGameDTO);
+                        }
+                        matchedUsers.Add(matchedUserDTO);
+                    }
+                }
+            }
+
+            return Ok(matchedUsers);
         }
 
         [HttpGet("get-user-game/{id}")]

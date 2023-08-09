@@ -24,7 +24,7 @@
 mat-sidenav {
   font-family: "poppins", sans-serif;
   color: white;
-  min-width: 22rem;
+  max-width: 16rem;
   background-color: var(--main-color);
 }
 

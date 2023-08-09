@@ -11,6 +11,7 @@ namespace API.Interfaces
         Task<User> GetByIdAsync(int userId);
         Task<User> GetByUserNameAsync(string username);
         Task<User> GetUserByTokenAsync(string token);
+        Task<List<User>> GetAllUsersAsync();
         Task<IEnumerable<User>> FindUsers(string searchString);
         UserDTO CreateUserDTO(User User);
     }   

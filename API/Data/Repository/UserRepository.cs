@@ -65,6 +65,11 @@ namespace API.Data.Repository
             return users;
         }
 
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await dc.Users.ToListAsync();
+        }
+
         public async Task<User> GetByIdAsync(int userId)
         {
             var user = await dc.Users.FindAsync(userId);
