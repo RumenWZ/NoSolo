@@ -1,0 +1,62 @@
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.large-screen-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #262b30;
+  width: 3.5rem;
+}
+
+.selection-btn {
+  font-size: 2.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.selection-btn:hover {
+  scale: 1.1;
+}
+
+.select-yes {
+  background-color: green;
+}
+
+.select-no {
+  background-color: red;
+}
+
+.animate {
+  transition: 0.3s ease;
+}
+
+.background-loading {
+  width: 24rem;
+  height: 45rem;
+  background-color: var(--main-color);
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 65px;
+  height: 65px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

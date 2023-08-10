@@ -9,6 +9,10 @@
   max-width: 30rem;
 }
 
+.background.nested {
+  min-width: 24rem;
+}
+
 .profile-header {
   display: flex;
   flex-direction: column;

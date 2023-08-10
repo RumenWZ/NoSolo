@@ -12,6 +12,7 @@ export class FindFriendsComponent {
   token: string;
   matches: MatchedUserDTO[];
   currentDisplayedUser: UserDTO;
+  currentUserIndex: number = 0;
   @Output() userSelected = new EventEmitter<UserDTO>();
   dataReady: boolean = false;
 
@@ -19,6 +20,16 @@ export class FindFriendsComponent {
   constructor(
     private userGame: UserGameService,
   ) {}
+
+  onSelectNo() {
+    this.currentUserIndex += 1;
+    this.currentDisplayedUser = this.matches[this.currentUserIndex].user;
+    this.userSelected.emit(this.currentDisplayedUser);
+  }
+
+  onSelectYes() {
+    console.log(this.dataReady);
+  }
 
   ngOnInit() {
     this.token = localStorage.getItem('token');
@@ -28,6 +39,5 @@ export class FindFriendsComponent {
       this.userSelected.emit(this.currentDisplayedUser);
       this.dataReady = true;
     });
-
   }
 }

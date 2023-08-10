@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Subscription, mergeMap } from 'rxjs';
 import { UserDTO } from 'src/app/model/user';
 import { UserGameDTO } from 'src/app/model/user-game';
@@ -10,13 +10,14 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.css']
 })
-export class ProfileCardComponent {
+export class ProfileCardComponent implements OnChanges {
   @Input() userProfile: UserDTO;
   userViewing: UserDTO;
   userProfileGames: UserGameDTO[];
   userGameDetailsOpen: boolean = false;
   userGameSelected: UserGameDTO;
   private userSubscription: Subscription;
+  @Input() isNestedInsideFindFriends: boolean = false;
 
   selectedTab: string = 'description';
 
@@ -59,6 +60,17 @@ export class ProfileCardComponent {
     }
   }
 
+  updateUserProfile() {
+    this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username).subscribe((response: any) => {
+      this.userProfileGames = response;
+      this.assignDefaultValues();
+    });
+  }
+
+  private isViewingOwnProfile(): boolean {
+    return this.userViewing && this.userProfile && this.userViewing.username === this.userProfile.username;
+  }
+
   ngOnInit() {
     const token = localStorage.getItem('token');
     this.user.getUserByToken(token).subscribe((response: any) => {
@@ -69,16 +81,15 @@ export class ProfileCardComponent {
           this.assignDefaultValues();
         });
       } else {
-        this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username).subscribe((response: any) => {
-          this.userProfileGames = response;
-          this.assignDefaultValues();
-        });
+        this.updateUserProfile();
       }
     });
   }
 
-  private isViewingOwnProfile(): boolean {
-    return this.userViewing && this.userProfile && this.userViewing.username === this.userProfile.username;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['userProfile'] && !changes['userProfile'].firstChange) {
+      this.updateUserProfile();
+    }
   }
 
   ngOnDestroy() {

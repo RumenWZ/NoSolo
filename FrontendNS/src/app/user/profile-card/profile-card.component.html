@@ -1,4 +1,4 @@
-<div class="background">
+<div class="background" [class.nested]="isNestedInsideFindFriends">
   <div class="profile-header">
     <img class="profile-image" [src]="userProfile?.profileImageUrl">
     <span class="profile-name">{{userProfile?.displayName}}</span>
