@@ -18,6 +18,7 @@ export class ProfileCardComponent implements OnChanges {
   userGameSelected: UserGameDTO;
   private userSubscription: Subscription;
   @Input() isNestedInsideFindFriends: boolean = false;
+  dataReady: boolean = false;
 
   selectedTab: string = 'description';
 
@@ -58,6 +59,7 @@ export class ProfileCardComponent implements OnChanges {
     if (this.userProfile.discordUsername === '') {
       this.userProfile.discordUsername = 'None provided.';
     }
+    this.dataReady = true;
   }
 
   updateUserProfile() {
@@ -88,6 +90,7 @@ export class ProfileCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userProfile'] && !changes['userProfile'].firstChange) {
+      this.dataReady = false;
       this.updateUserProfile();
     }
   }

@@ -1,45 +1,51 @@
 <div class="background" [class.nested]="isNestedInsideFindFriends">
-  <div class="profile-header">
-    <img class="profile-image" [src]="userProfile?.profileImageUrl">
-    <span class="profile-name">{{userProfile?.displayName}}</span>
-  </div>
-
-  <div class="tabbed-navigation">
-    <button (click)="selectTab('description')" [class.active]="selectedTab === 'description'">Description</button>
-    <button (click)="selectTab('games')" [class.active]="selectedTab === 'games'">Games</button>
-    <button (click)="selectTab('contact')" [class.active]="selectedTab === 'contact'">Contact</button>
-  </div>
-
-  <div class="tab-content">
-    <div class="description-tab" *ngIf="selectedTab === 'description'">
-      <p class="tab-content-header">Description</p>
-      <div class="summary-container">
-        <textarea readonly class="user-summary">{{userProfile.summary}}</textarea>
-      </div>
+  <div *ngIf="dataReady">
+    <div class="profile-header">
+      <img class="profile-image" [src]="userProfile?.profileImageUrl">
+      <span class="profile-name">{{userProfile?.displayName}}</span>
     </div>
 
-    <div class="games-tab" *ngIf="selectedTab === 'games'">
-      <p class="tab-content-header">Games</p>
-      <div class="games-row">
-        <div class="user-games-item animate" *ngFor="let game of userProfileGames" (click)="onUserGame(game)">
-          <img [ngClass]="{'glow-border': game.isMatching}" [src]="game.gameImageUrl">
-        </div>
-        <p *ngIf="userProfileGames.length === 0" style="padding-top: 1.5rem;">This user has not added any games yet.</p>
-      </div>
-      <div *ngIf="userGameDetailsOpen"class="game-description-container">
-        <span *ngIf="userGameDetailsOpen && userGameSelected.isMatching" class="matching-notifier">You and {{userProfile.displayName}} both play this game!</span>
-        <textarea readonly class="game-description">{{userGameSelected.userDescription}}</textarea>
-      </div>
+    <div class="tabbed-navigation">
+      <button (click)="selectTab('description')" [class.active]="selectedTab === 'description'">Description</button>
+      <button (click)="selectTab('games')" [class.active]="selectedTab === 'games'">Games</button>
+      <button (click)="selectTab('contact')" [class.active]="selectedTab === 'contact'">Contact</button>
     </div>
 
-    <div class="description-tab" *ngIf="selectedTab === 'contact'">
-      <p class="tab-content-header">Contact</p>
-      <div class="socials-container">
-        <div class="discord-section">
-          <img class="discord-logo" src="/assets/images/discord-logo.png">
-          <input readonly class="discord-username" [value]="userProfile?.discordUsername">
+    <div class="tab-content">
+      <div class="description-tab" *ngIf="selectedTab === 'description'">
+        <p class="tab-content-header">Description</p>
+        <div class="summary-container">
+          <textarea readonly class="user-summary">{{userProfile.summary}}</textarea>
         </div>
       </div>
+
+      <div class="games-tab" *ngIf="selectedTab === 'games'">
+        <p class="tab-content-header">Games</p>
+        <div class="games-row">
+          <div class="user-games-item animate" *ngFor="let game of userProfileGames" (click)="onUserGame(game)">
+            <img [ngClass]="{'glow-border': game.isMatching}" [src]="game.gameImageUrl">
+          </div>
+          <p *ngIf="userProfileGames.length === 0" style="padding-top: 1.5rem;">This user has not added any games yet.</p>
+        </div>
+        <div *ngIf="userGameDetailsOpen"class="game-description-container">
+          <span *ngIf="userGameDetailsOpen && userGameSelected.isMatching" class="matching-notifier">You and {{userProfile.displayName}} both play this game!</span>
+          <textarea readonly class="game-description">{{userGameSelected.userDescription}}</textarea>
+        </div>
+      </div>
+
+      <div class="description-tab" *ngIf="selectedTab === 'contact'">
+        <p class="tab-content-header">Contact</p>
+        <div class="socials-container">
+          <div class="discord-section">
+            <img class="discord-logo" src="/assets/images/discord-logo.png">
+            <input readonly class="discord-username" [value]="userProfile?.discordUsername">
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div *ngIf="dataReady == false" class="background-loading">
+    <div class="spinner"></div>
   </div>
 </div>
+
