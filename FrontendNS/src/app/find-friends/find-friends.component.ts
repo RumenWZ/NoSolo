@@ -18,20 +18,30 @@ export class FindFriendsComponent {
   @Output() userSelectedGames = new EventEmitter<UserGameDTO[]>();
   dataReady: boolean = false;
 
+  nextDisplayedUser: UserDTO;
+  nextDisplayedUserGames: UserGameDTO[];
+  isAnimating: boolean = false;
+
   constructor(
     private userGame: UserGameService,
   ) {}
 
-  onSelectNo() {
+  selectNextUser() {
     this.currentUserIndex += 1;
-    this.currentDisplayedUser = this.matches[this.currentUserIndex].user;
-    this.currentDisplayedUserGames = this.matches[this.currentUserIndex].userGames;
-    this.userSelected.emit(this.currentDisplayedUser);
-    this.userSelectedGames.emit(this.currentDisplayedUserGames);
+    if (this.currentUserIndex < this.matches.length) {
+      this.currentDisplayedUser = this.matches[this.currentUserIndex].user;
+      this.currentDisplayedUserGames = this.matches[this.currentUserIndex].userGames;
+      this.userSelected.emit(this.currentDisplayedUser);
+      this.userSelectedGames.emit(this.currentDisplayedUserGames);
+    }
+  }
+
+  onSelectNo() {
+    this.selectNextUser();
   }
 
   onSelectYes() {
-
+    this.selectNextUser();
   }
 
   ngOnInit() {

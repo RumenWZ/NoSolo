@@ -37,13 +37,20 @@
   transition: 0.3s ease;
 }
 
-.background-loading {
+.background-blank {
   width: 24rem;
   height: 45rem;
   background-color: var(--main-color);
   display: flex;
   justify-self: center;
   align-items: center;
+}
+
+.no-users {
+  text-align: center;
+  color: var(--light-grey-text);
+  
+  font-size: 1.2rem;
 }
 
 .spinner {
