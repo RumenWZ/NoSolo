@@ -21,6 +21,7 @@ export class FindFriendsComponent {
   nextDisplayedUser: UserDTO;
   nextDisplayedUserGames: UserGameDTO[];
   isAnimating: boolean = false;
+  canSelectNextUser: boolean;
 
   constructor(
     private userGame: UserGameService,
@@ -33,6 +34,8 @@ export class FindFriendsComponent {
       this.currentDisplayedUserGames = this.matches[this.currentUserIndex].userGames;
       this.userSelected.emit(this.currentDisplayedUser);
       this.userSelectedGames.emit(this.currentDisplayedUserGames);
+    } else {
+      this.canSelectNextUser = false;
     }
   }
 
@@ -53,6 +56,9 @@ export class FindFriendsComponent {
       this.userSelected.emit(this.currentDisplayedUser);
       this.userSelectedGames.emit(this.currentDisplayedUserGames);
       this.dataReady = true;
+      if(this.matches.length > 0) {
+        this.canSelectNextUser = true;
+      }
     });
   }
 }

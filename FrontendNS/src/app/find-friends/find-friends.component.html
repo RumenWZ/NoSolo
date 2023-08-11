@@ -1,6 +1,8 @@
 <div class="content">
   <div class="large-screen-selection" style="border-right: 1px solid #4f5254;">
-    <i class='bx bx-x selection-btn select-no animate' (click)="onSelectNo()"></i>
+    <button class="selection-button" (click)="onSelectNo()" [disabled]="!canSelectNextUser">
+      <i class='bx bx-x selection-btn select-no animate'></i>
+    </button>
   </div>
   <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
   [userProfileGames]="currentDisplayedUserGames"
@@ -12,9 +14,10 @@
     <p class="no-users">You have ran out of users to match with.</p>
   </div>
   <div class="large-screen-selection" style="border-left: 1px solid #4f5254;">
-    <i class='bx bx-check selection-btn select-yes animate' (click)="onSelectYes()"></i>
+    <button class="selection-button" (click)="onSelectYes()" [disabled]="!canSelectNextUser">
+      <i class='bx bx-check selection-btn select-yes animate'></i>
+    </button>
   </div>
-
 </div>
 
 
