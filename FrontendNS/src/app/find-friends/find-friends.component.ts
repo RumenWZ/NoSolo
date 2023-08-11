@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UserGameService } from '../services/user-game.service';
-import { MatchedUserDTO } from '../model/user-game';
+import { MatchedUserDTO, UserGameDTO } from '../model/user-game';
 import { UserDTO } from '../model/user';
 
 @Component({
@@ -12,10 +12,11 @@ export class FindFriendsComponent {
   token: string;
   matches: MatchedUserDTO[];
   currentDisplayedUser: UserDTO;
+  currentDisplayedUserGames: UserGameDTO[];
   currentUserIndex: number = 0;
   @Output() userSelected = new EventEmitter<UserDTO>();
+  @Output() userSelectedGames = new EventEmitter<UserGameDTO[]>();
   dataReady: boolean = false;
-
 
   constructor(
     private userGame: UserGameService,
@@ -24,11 +25,13 @@ export class FindFriendsComponent {
   onSelectNo() {
     this.currentUserIndex += 1;
     this.currentDisplayedUser = this.matches[this.currentUserIndex].user;
+    this.currentDisplayedUserGames = this.matches[this.currentUserIndex].userGames;
     this.userSelected.emit(this.currentDisplayedUser);
+    this.userSelectedGames.emit(this.currentDisplayedUserGames);
   }
 
   onSelectYes() {
-    console.log(this.dataReady);
+
   }
 
   ngOnInit() {
@@ -36,7 +39,9 @@ export class FindFriendsComponent {
     this.userGame.getMatchesForUser(this.token).subscribe((response: MatchedUserDTO[]) => {
       this.matches = response;
       this.currentDisplayedUser = this.matches[0].user;
+      this.currentDisplayedUserGames = this.matches[0].userGames;
       this.userSelected.emit(this.currentDisplayedUser);
+      this.userSelectedGames.emit(this.currentDisplayedUserGames);
       this.dataReady = true;
     });
   }

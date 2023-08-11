@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileCardComponent implements OnChanges {
   @Input() userProfile: UserDTO;
   userViewing: UserDTO;
-  userProfileGames: UserGameDTO[];
+  @Input() userProfileGames: UserGameDTO[];
   userGameDetailsOpen: boolean = false;
   userGameSelected: UserGameDTO;
   private userSubscription: Subscription;
@@ -62,7 +62,7 @@ export class ProfileCardComponent implements OnChanges {
     this.dataReady = true;
   }
 
-  updateUserProfile() {
+  updateUserProfileGames() {
     this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username).subscribe((response: any) => {
       this.userProfileGames = response;
       this.assignDefaultValues();
@@ -83,16 +83,21 @@ export class ProfileCardComponent implements OnChanges {
           this.assignDefaultValues();
         });
       } else {
-        this.updateUserProfile();
+        this.updateUserProfileGames();
       }
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userProfile'] && !changes['userProfile'].firstChange) {
-      this.dataReady = false;
-      this.updateUserProfile();
+      if (changes['userProfileGames']) {
+        this.assignDefaultValues();
+        this.selectedTab = 'description';
+      } else {
+        this.updateUserProfileGames();
+      }
     }
+
   }
 
   ngOnDestroy() {

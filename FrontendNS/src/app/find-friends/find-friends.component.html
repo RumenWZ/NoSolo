@@ -2,7 +2,9 @@
   <div class="large-screen-selection" style="border-right: 1px solid #4f5254;">
     <i class='bx bx-x selection-btn select-no animate' (click)="onSelectNo()"></i>
   </div>
-  <app-profile-card *ngIf="dataReady" [userProfile]="currentDisplayedUser" [isNestedInsideFindFriends]="true"></app-profile-card>
+  <app-profile-card *ngIf="dataReady" [userProfile]="currentDisplayedUser"
+  [userProfileGames]="currentDisplayedUserGames"
+  [isNestedInsideFindFriends]="true"></app-profile-card>
   <div *ngIf="dataReady == false" class="background-loading">
     <div class="spinner"></div>
   </div>
