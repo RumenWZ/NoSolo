@@ -66,7 +66,6 @@
 .no-users {
   text-align: center;
   color: var(--light-grey-text);
-
   font-size: 1.2rem;
 }
 
@@ -85,3 +84,19 @@
   100% { transform: rotate(360deg); }
 }
 
+.card-container{
+  position: relative;
+}
+
+.top-card {
+  position: relative;
+  z-index: 1000;
+
+}
+
+.bottom-card {
+  position: absolute;
+  top: 0;
+  z-index: 900;
+  display: none;
+}

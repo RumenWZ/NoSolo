@@ -4,15 +4,22 @@
       <i class='bx bx-x selection-btn select-no animate'></i>
     </button>
   </div>
-  <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
-  [userProfileGames]="currentDisplayedUserGames"
-  [isNestedInsideFindFriends]="true" ></app-profile-card>
-  <div *ngIf="dataReady == false" class="background-blank">
-    <div class="spinner"></div>
+  <div class="card-container">
+    <!-- Top component -->
+    <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
+    [userProfileGames]="currentDisplayedUserGames"
+    [isNestedInsideFindFriends]="true" class="top-card"></app-profile-card>
+    <!-- Bottom component -->
+    <app-profile-card *ngIf="dataReady" [userProfile]="bottomCardUser"
+    [userProfileGames]="bottomCardUserGames"
+    [isNestedInsideFindFriends]="true" class="bottom-card"></app-profile-card>
+
+    <div *ngIf="(dataReady == false) || (currentUserIndex >= matches?.length && dataReady)" class="background-blank">
+      <div *ngIf="dataReady == false" class="spinner"></div>
+      <p *ngIf="currentUserIndex >= matches?.length && dataReady" class="no-users">You have ran out of users to match with.</p>
+    </div>
   </div>
-  <div *ngIf="currentUserIndex >= matches?.length && dataReady" class="background-blank">
-    <p class="no-users">You have ran out of users to match with.</p>
-  </div>
+
   <div class="large-screen-selection" style="border-left: 1px solid #4f5254;">
     <button class="selection-button" (click)="onSelectYes()" [disabled]="!canSelectNextUser">
       <i class='bx bx-check selection-btn select-yes animate'></i>

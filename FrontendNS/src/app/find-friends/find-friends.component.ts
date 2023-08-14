@@ -18,10 +18,13 @@ export class FindFriendsComponent {
   @Output() userSelectedGames = new EventEmitter<UserGameDTO[]>();
   dataReady: boolean = false;
 
-  nextDisplayedUser: UserDTO;
-  nextDisplayedUserGames: UserGameDTO[];
   isAnimating: boolean = false;
   canSelectNextUser: boolean;
+
+  // Bottom component vars
+  bottomCardIndex: number;
+  bottomCardUser: UserDTO;
+  bottomCardUserGames: UserGameDTO[];
 
   constructor(
     private userGame: UserGameService,
