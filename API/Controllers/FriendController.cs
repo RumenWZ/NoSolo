@@ -42,7 +42,20 @@ namespace API.Controllers
             return Ok(201);
         }
 
+        [HttpGet("get-friendship-requests-of-user/{token}")]
+        public async Task<IActionResult> GetFriendshipRequestsOfUser(string token)
+        {
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user == null)
+            {
+                return BadRequest("Invalid token");
+            }
+            var friendRequests = await uow.FriendsRepository.GetAllRequestedFriendshipsOfUserAsync(user.Id);
 
+            var friendRequestDTOs = mapper.Map<IEnumerable<UserDTO>>(friendRequests);
+
+            return Ok(friendRequestDTOs);
+        }
 
         [HttpGet("get-my-friend-requests/{token}")]
         public async Task<IActionResult> GetAllIncomingFriendRequests(string token)

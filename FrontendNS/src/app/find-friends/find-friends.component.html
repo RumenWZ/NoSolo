@@ -6,13 +6,18 @@
   </div>
   <div class="card-container">
     <!-- Top component -->
-    <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
-    [userProfileGames]="currentDisplayedUserGames"
-    [isNestedInsideFindFriends]="true" class="top-card"></app-profile-card>
+    <div class="top-card-container" >
+      <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
+      [userProfileGames]="currentDisplayedUserGames"
+      [isNestedInsideFindFriends]="true" class="top-card"></app-profile-card>
+    </div>
+
     <!-- Bottom component -->
-    <app-profile-card *ngIf="dataReady" [userProfile]="bottomCardUser"
-    [userProfileGames]="bottomCardUserGames"
-    [isNestedInsideFindFriends]="true" class="bottom-card"></app-profile-card>
+    <div class="bottom-card-container">
+      <app-profile-card *ngIf="dataReady" [userProfile]="bottomCardUser"
+      [userProfileGames]="bottomCardUserGames"
+      [isNestedInsideFindFriends]="true" class="bottom-card"></app-profile-card>
+    </div>
 
     <div *ngIf="(dataReady == false) || (currentUserIndex >= matches?.length && dataReady)" class="background-blank">
       <div *ngIf="dataReady == false" class="spinner"></div>

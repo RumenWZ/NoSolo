@@ -17,6 +17,7 @@ export class FriendsPageComponent {
   friendsIncomingRequestsOpen: boolean = false;
   friendsAllOpen: boolean;
   friendsAddOpen: boolean = true;
+  friendsRequestedOpen: boolean;
   friendInvitesCount: number;
   updatePendingSubscription: Subscription;
 
@@ -54,6 +55,11 @@ export class FriendsPageComponent {
     this.closeAllOtherComponents('friends-all');
   }
 
+  onRequestedFriends() {
+    this.friendsRequestedOpen = true;
+    this.closeAllOtherComponents('friends-requested');
+  }
+
   onAddFriends() {
     this.friendsAddOpen = true;
     this.closeAllOtherComponents('friends-add');
@@ -62,21 +68,31 @@ export class FriendsPageComponent {
   closeAllOtherComponents(componentName: string) {
     switch (componentName) {
       case 'friends-chat':
+        this.friendsRequestedOpen = false;
         this.friendsIncomingRequestsOpen = false;
         this.friendsAllOpen = false;
         this.friendsAddOpen = false;
         break;
       case 'friends-incoming-requests':
+        this.friendsRequestedOpen = false;
         this.friendsChatOpen = false;
         this.friendsAllOpen = false;
         this.friendsAddOpen = false;
         break;
       case 'friends-all':
+        this.friendsRequestedOpen = false;
         this.friendsChatOpen = false;
         this.friendsIncomingRequestsOpen = false;
         this.friendsAddOpen = false;
         break;
       case 'friends-add':
+        this.friendsRequestedOpen = false;
+        this.friendsAllOpen = false;
+        this.friendsChatOpen = false;
+        this.friendsIncomingRequestsOpen = false;
+        break;
+      case 'friends-requested':
+        this.friendsAddOpen = false
         this.friendsAllOpen = false;
         this.friendsChatOpen = false;
         this.friendsIncomingRequestsOpen = false;

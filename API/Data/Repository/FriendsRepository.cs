@@ -69,6 +69,14 @@ namespace API.Data.Repository
             return friends;
         }
 
+        public async Task<IEnumerable<User>> GetAllRequestedFriendshipsOfUserAsync(int userId)
+        {
+            var requested = await dc.Friends.Where(f => f.User1Id == userId && f.Status == "pending")
+                .Select(f => f.User2)
+                .ToListAsync();
+            return requested;
+        }
+
         public async Task<Friend> GetFriendshipAsync(int user1Id, int user2Id)
         {
             var friendship = await dc.Friends.FirstOrDefaultAsync(x => (x.User1Id == user1Id && x.User2Id == user2Id)

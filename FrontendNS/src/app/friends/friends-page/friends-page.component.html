@@ -18,7 +18,8 @@
             <label style="padding-left: 0.5rem;">Friends</label>
             <button (click)="OnAllFriends()">All</button>
             <button class="pending-btn" [matBadge]="friendInvitesCount" [matBadgeHidden]="!friendInvitesCount" matBadgeColor="warn" matBadgeSize="small" (click)="onPendingRequests()">Pending</button>
-            <button (click)="onAddFriends()" style="background-color: #51e25b; margin-left: 12px">Add Friend</button>
+            <button (click)="onRequestedFriends()">Requested</button>
+            <button (click)="onAddFriends()" style="background-color: #51e25b;">Add Friend</button>
           </div>
         </div>
         <div class="main-content">
@@ -26,6 +27,7 @@
           <app-friends-incoming-requests *ngIf="friendsIncomingRequestsOpen"></app-friends-incoming-requests>
           <app-friends-all *ngIf="friendsAllOpen"></app-friends-all>
           <app-friends-add *ngIf="friendsAddOpen"></app-friends-add>
+          <app-friends-requested *ngIf="friendsRequestedOpen"></app-friends-requested>
         </div>
       </div>
 

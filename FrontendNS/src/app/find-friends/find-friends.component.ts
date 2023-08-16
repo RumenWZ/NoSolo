@@ -18,13 +18,14 @@ export class FindFriendsComponent {
   @Output() userSelectedGames = new EventEmitter<UserGameDTO[]>();
   dataReady: boolean = false;
 
-  isAnimating: boolean = false;
   canSelectNextUser: boolean;
 
   // Bottom component vars
   bottomCardIndex: number;
   bottomCardUser: UserDTO;
   bottomCardUserGames: UserGameDTO[];
+  @Output() nextUserSelected = new EventEmitter<UserDTO>();
+  @Output() nextUserSelectedGames = new EventEmitter<UserGameDTO[]>();
 
   constructor(
     private userGame: UserGameService,
@@ -37,8 +38,12 @@ export class FindFriendsComponent {
       this.currentDisplayedUserGames = this.matches[this.currentUserIndex].userGames;
       this.userSelected.emit(this.currentDisplayedUser);
       this.userSelectedGames.emit(this.currentDisplayedUserGames);
-    } else {
-      this.canSelectNextUser = false;
+      if (this.currentUserIndex + 1 < this.matches.length) {
+        this.bottomCardUser = this.matches[1].user;
+        this.bottomCardUserGames = this.matches[1].userGames;
+        this.nextUserSelected.emit(this.bottomCardUser);
+        this.nextUserSelectedGames.emit(this.bottomCardUserGames)
+      }
     }
   }
 
@@ -54,13 +59,15 @@ export class FindFriendsComponent {
     this.token = localStorage.getItem('token');
     this.userGame.getMatchesForUser(this.token).subscribe((response: MatchedUserDTO[]) => {
       this.matches = response;
-      this.currentDisplayedUser = this.matches[0].user;
-      this.currentDisplayedUserGames = this.matches[0].userGames;
-      this.userSelected.emit(this.currentDisplayedUser);
-      this.userSelectedGames.emit(this.currentDisplayedUserGames);
+      if (this.matches.length > 0) {
+        this.currentDisplayedUser = this.matches[0].user;
+        this.currentDisplayedUserGames = this.matches[0].userGames;
+
+      }
       this.dataReady = true;
-      if(this.matches.length > 0) {
-        this.canSelectNextUser = true;
+      if(this.matches.length > 1) {
+        this.bottomCardUser = this.matches[1].user;
+        this.bottomCardUserGames = this.matches[1].userGames;
       }
     });
   }
