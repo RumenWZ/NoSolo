@@ -53,7 +53,7 @@ export class FriendsListComponent {
 
   ngOnInit() {
     this.updateFriendsListSubscription = this.friend.updateFriendsList.subscribe(() => {
-      this.getFriendsList(); 
+      this.getFriendsList();
     });
     this.getFriendsList();
     this.friendFilter = '';
@@ -61,6 +61,10 @@ export class FriendsListComponent {
 
   ngOnDestroy(): void {
     this.updateFriendsListSubscription.unsubscribe();
+  }
+
+  clearSearch() {
+    this.friendFilter = '';
   }
 
   @HostListener('window:resize', ['$event'])

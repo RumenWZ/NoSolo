@@ -71,3 +71,22 @@
 .friends-list-header input::placeholder {
   color: #777777;
 }
+
+.search-field {
+  position: relative;
+  display: flex;
+}
+
+.search-field input {
+  width: 100%;
+}
+
+.clear-search {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  cursor: pointer;
+  color: #9ea09a;
+}

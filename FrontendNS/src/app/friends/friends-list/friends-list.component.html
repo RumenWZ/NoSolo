@@ -2,8 +2,10 @@
   <div class="friends-list-wrapper">
     <div class="friends-list-header">
       <span class="direct-messages">Direct messages</span>
-      <input type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
-    </div>
+      <div class="search-field">
+        <input type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
+        <i class='bx bx-x clear-search' (click)="clearSearch()"></i>
+      </div>
 
     <ul class="friends-list">
       <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
