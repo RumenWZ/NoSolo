@@ -69,6 +69,14 @@
   font-size: 1.2rem;
 }
 
+.bottom-selection {
+  display: flex;
+  background-color: var(--main-color);
+  border-top: 1px solid #4f5254;
+  padding: 0.5rem;
+  justify-content: space-between;
+}
+
 .spinner {
   width: 65px;
   height: 65px;
@@ -82,20 +90,5 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-.card-container{
-  position: relative;
-}
-
-.top-card-container {
-  position: relative;
-  z-index: 1000;
-}
-
-.bottom-card-container {
-  position: absolute;
-  top: 0;
-  z-index: 900;
 }
 

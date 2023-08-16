@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { UserGameService } from '../services/user-game.service';
 import { MatchedUserDTO, UserGameDTO } from '../model/user-game';
 import { UserDTO } from '../model/user';
@@ -9,6 +9,7 @@ import { UserDTO } from '../model/user';
   styleUrls: ['./find-friends.component.css']
 })
 export class FindFriendsComponent {
+  isSmallScreen: boolean;
   token: string;
   matches: MatchedUserDTO[];
   currentDisplayedUser: UserDTO;
@@ -20,16 +21,11 @@ export class FindFriendsComponent {
 
   canSelectNextUser: boolean;
 
-  // Bottom component vars
-  bottomCardIndex: number;
-  bottomCardUser: UserDTO;
-  bottomCardUserGames: UserGameDTO[];
-  @Output() nextUserSelected = new EventEmitter<UserDTO>();
-  @Output() nextUserSelectedGames = new EventEmitter<UserGameDTO[]>();
-
   constructor(
     private userGame: UserGameService,
-  ) {}
+  ) {
+    this.isSmallScreen = window.innerWidth < 768;
+  }
 
   selectNextUser() {
     this.currentUserIndex += 1;
@@ -38,12 +34,8 @@ export class FindFriendsComponent {
       this.currentDisplayedUserGames = this.matches[this.currentUserIndex].userGames;
       this.userSelected.emit(this.currentDisplayedUser);
       this.userSelectedGames.emit(this.currentDisplayedUserGames);
-      if (this.currentUserIndex + 1 < this.matches.length) {
-        this.bottomCardUser = this.matches[1].user;
-        this.bottomCardUserGames = this.matches[1].userGames;
-        this.nextUserSelected.emit(this.bottomCardUser);
-        this.nextUserSelectedGames.emit(this.bottomCardUserGames)
-      }
+    } else {
+      this.canSelectNextUser = false;
     }
   }
 
@@ -66,9 +58,13 @@ export class FindFriendsComponent {
       }
       this.dataReady = true;
       if(this.matches.length > 1) {
-        this.bottomCardUser = this.matches[1].user;
-        this.bottomCardUserGames = this.matches[1].userGames;
+        this.canSelectNextUser = true;
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: any) {
+    this.isSmallScreen = window.innerWidth < 768;
   }
 }
