@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FriendService } from 'src/app/services/friend.service';
 import { User, UserDTO } from 'src/app/model/user';
 import { SidenavService } from 'src/app/services/sidenav.service';
@@ -17,6 +17,8 @@ export class FriendsListComponent {
   isSmallScreen: boolean;
   friendFilter: string;
   private updateFriendsListSubscription: Subscription;
+
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   constructor(
     private friend: FriendService,
@@ -65,6 +67,7 @@ export class FriendsListComponent {
 
   clearSearch() {
     this.friendFilter = '';
+    this.searchInput.nativeElement.focus();
   }
 
   @HostListener('window:resize', ['$event'])

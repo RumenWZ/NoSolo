@@ -3,7 +3,8 @@
     Search for friends
   </div>
   <div class="search-bar-container">
-    <input class="input-field" type="text" [(ngModel)]="searchParameters" placeholder="Enter your friend's profile name" (keyup.enter)="searchUsers()">
+    <input #searchInput class="input-field" type="text" [(ngModel)]="searchParameters" placeholder="Enter your friend's profile name" (keyup.enter)="searchUsers()">
+    <i class='bx bx-x clear-search' (click)="clearSearch()"></i>
   </div>
 
   <ul class="users-from-search">

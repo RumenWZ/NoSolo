@@ -3,7 +3,7 @@
     <div class="friends-list-header">
       <span class="direct-messages">Direct messages</span>
       <div class="search-field">
-        <input type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
+        <input #searchInput type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
         <i class='bx bx-x clear-search' (click)="clearSearch()"></i>
       </div>
 

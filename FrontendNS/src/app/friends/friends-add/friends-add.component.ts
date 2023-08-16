@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UserSearchResult } from 'src/app/model/user';
@@ -19,9 +19,10 @@ export class FriendsAddComponent {
   currentPage = 1;
   itemsPerPage = 8;
 
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
   constructor(
     private user: UserService,
-    private router: Router,
     private friend: FriendService,
     private matDialog: MatDialog
   ) {
@@ -54,6 +55,11 @@ export class FriendsAddComponent {
         this.currentPage = 1;
       });
     }
+  }
+
+  clearSearch() {
+    this.searchParameters = '';
+    this.searchInput.nativeElement.focus();
   }
 
   onAddFriend(user: UserSearchResult) {
