@@ -1,4 +1,5 @@
 <div class="friends-list-wrapper">
+  <span class="direct-messages">Pending</span>
   <ul class="friends-list">
     <li class="friends-list-item" *ngFor="let user of incomingFriendRequests" (click)="onUserClick(user)">
       <img [src]="user.profileImageUrl">

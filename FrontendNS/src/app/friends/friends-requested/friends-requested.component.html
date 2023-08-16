@@ -1,1 +1,15 @@
-<p>friends-requested works!</p>
+<div class="friends-list-wrapper">
+  <span class="direct-messages">Requested Friendships</span>
+  <ul class="friends-list">
+    <li (click)="onUserClick(user)" *ngFor="let user of friendRequests" class="friends-list-item">
+      <img [src]="user.profileImageUrl">
+      <span>{{user.displayName}}</span>
+      <div class="action-wrapper">
+        <div class="button remove" (click)="onRemove($event, user)">
+          <i class='bx bx-x icon'></i>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <p *ngIf="friendRequests.length == 0">You do not have any pending outgoing friend requests.</p>
+</div>

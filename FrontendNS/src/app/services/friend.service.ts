@@ -52,4 +52,8 @@ export class FriendService {
   getAllFriendsOfUser(token: string) {
     return this.http.get(`${this.baseUrl}/get-all-my-friends/${token}`);
   }
+
+  getAllFriendRequestsByUser(token: string) {
+    return this.http.get<UserDTO[]>(`${this.baseUrl}/get-friendship-requests-of-user/${token}`);
+  }
 }

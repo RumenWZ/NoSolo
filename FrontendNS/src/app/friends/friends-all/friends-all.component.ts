@@ -41,9 +41,14 @@ export class FriendsAllComponent {
     this.friend.raiseCurrentChatUser(user);
   }
 
-  onRemoveFriend(user: UserDTO) {
-    this.friend.removeFriend(localStorage.getItem('token'), user.username).subscribe();
-    this.friendsList = this.friendsList.filter(friend => friend.username !== user.username);
+  onRemoveFriend(event: Event, user: UserDTO) {
+    event.stopPropagation();
+
+    this.friend.removeFriend(localStorage.getItem('token'), user.username).subscribe((response: any) => {
+      if (response == 201) {
+        this.friendsList = this.friendsList.filter(friend => friend.username !== user.username);
+      }
+    });
   }
 
   ngOnInit() {
