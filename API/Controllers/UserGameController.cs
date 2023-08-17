@@ -128,7 +128,7 @@ namespace API.Controllers
                 return BadRequest("Invalid token");
             }
 
-            var friendsOfLoggedInUser = await uow.FriendsRepository.GetAllFriendshipsOfUserAsync(loggedInUser.Id);
+            var friendsOfLoggedInUser = await uow.FriendsRepository.GetAllPendingAndAcceptedAsync(loggedInUser.Id);
 
             var loggedInUserGames = await uow.UserGameRepository.GetUserGameListByUserIdAsync(loggedInUser.Id);
             var loggedInUserGameIds = loggedInUserGames.Select(ug => ug.GameId).ToList();

@@ -35,11 +35,26 @@ namespace API.Controllers
             {
                 return BadRequest("The receiving user could not be found");
             }
+            var friendship = await uow.FriendsRepository.GetFriendshipAsync(sender.Id, receiver.Id);
+            if (friendship == null)
+            {
+                uow.FriendsRepository.SendFriendRequest(sender.Id, receiver.Id);
+                await uow.SaveAsync();
 
-            uow.FriendsRepository.SendFriendRequest(sender.Id, receiver.Id);
-            await uow.SaveAsync();
-
-            return Ok(201);
+                return Ok(201);
+            }
+            if (friendship.Status == "pending")
+            {
+                return BadRequest("There is already a pending friend request");
+            }
+            else if (friendship.Status == "accepted")
+            {
+                return BadRequest("You are already friends with this user.");
+            } else
+            {
+                return BadRequest("Some unknown error occured while sending a friend request");
+            }
+            
         }
 
         [HttpGet("get-friendship-requests-of-user/{token}")]

@@ -5,6 +5,9 @@
     </button>
   </div>
   <div class="card-container">
+    <div *ngIf="friendRequestSent" class="notification-overlay">
+      Friend request sent
+    </div>
     <div class="top-card-container" >
       <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
       [userProfileGames]="currentDisplayedUserGames"

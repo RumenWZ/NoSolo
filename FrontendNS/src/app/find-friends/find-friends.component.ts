@@ -2,6 +2,8 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { UserGameService } from '../services/user-game.service';
 import { MatchedUserDTO, UserGameDTO } from '../model/user-game';
 import { UserDTO } from '../model/user';
+import { FriendService } from '../services/friend.service';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-find-friends',
@@ -21,8 +23,12 @@ export class FindFriendsComponent {
 
   canSelectNextUser: boolean;
 
+  friendRequestSent: boolean = false;
+
   constructor(
     private userGame: UserGameService,
+    private friend: FriendService,
+    private alertify: AlertifyService
   ) {
     this.isSmallScreen = window.innerWidth < 768;
   }
@@ -44,7 +50,14 @@ export class FindFriendsComponent {
   }
 
   onSelectYes() {
-    this.selectNextUser();
+    this.canSelectNextUser = false;
+    this.friend.sendFriendRequest(this.token, this.currentDisplayedUser.username).subscribe((response: any) => {
+      if (response == 201) {
+        this.alertify.success('Friend request sent.');
+      }
+      this.canSelectNextUser = true;
+      this.selectNextUser();
+    })
   }
 
   ngOnInit() {
@@ -54,12 +67,9 @@ export class FindFriendsComponent {
       if (this.matches.length > 0) {
         this.currentDisplayedUser = this.matches[0].user;
         this.currentDisplayedUserGames = this.matches[0].userGames;
-
-      }
-      this.dataReady = true;
-      if(this.matches.length > 1) {
         this.canSelectNextUser = true;
       }
+      this.dataReady = true;
     });
   }
 
