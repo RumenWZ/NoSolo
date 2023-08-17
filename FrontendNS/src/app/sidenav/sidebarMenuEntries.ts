@@ -5,16 +5,6 @@ export const sidebarMenuEntries = [
     'functionName': 'onHome'
   },
   {
-    'label': 'Logout',
-    'icon': 'bx bx-exit',
-    'functionName': 'onLogout',
-  },
-  {
-    'label': 'Settings',
-    'icon': 'bx bxs-cog',
-    'functionName': 'onSettings',
-  },
-  {
     'label': 'My Games',
     'icon': 'bx bx-game',
     'functionName': 'onMyGames',
@@ -23,6 +13,16 @@ export const sidebarMenuEntries = [
     'label': 'Find Friends',
     'icon': 'bx bx-face',
     'functionName': 'onFindFriends',
+  },
+  {
+    'label': 'Settings',
+    'icon': 'bx bxs-cog',
+    'functionName': 'onSettings',
+  },
+  {
+    'label': 'Logout',
+    'icon': 'bx bx-exit',
+    'functionName': 'onLogout',
   }
 ]
 

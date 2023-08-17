@@ -27,6 +27,23 @@
 </ul>
 </div>
 <div class="user-info-bottom">
-  <img [src]="user?.profileImageUrl" (click)="onProfileImage()">
-  <span>{{user?.username}}</span>
+  <div class="user-info">
+    <img [src]="user?.profileImageUrl" (click)="onProfileImage()">
+    <span>{{user?.username}}</span>
+  </div>
+
+  <div class="account-menu-container" (click)="toggleAccountMenu()">
+    <i class='bx bx-dots-vertical-rounded account-menu'></i>
+    <div *ngIf="isAccountMenuOpen" class="account-menu-popup">
+      <div class="menu-option" (click)="onSettings()">
+        <i class="bx bxs-cog menu-option-icon"></i>
+        <span>Settings</span>
+      </div>
+      <div class="menu-option" (click)="onLogout()">
+        <i class="bx bx-exit menu-option-icon"></i>
+        <span>Logout</span>
+      </div>
+    </div>
+  </div>
+
 </div>

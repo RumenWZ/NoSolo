@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostListener, OnChanges, SimpleChanges } from '@angular/core';
 import { SidenavService } from '../services/sidenav.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
@@ -23,6 +23,7 @@ export class SidenavComponent{
   token: string;
   friendRequests: number;
   updatePendingSubscription: Subscription;
+  isAccountMenuOpen = false;
 
   constructor (
     private sidenavService: SidenavService,
@@ -30,11 +31,20 @@ export class SidenavComponent{
     private userService: UserService,
     private friend: FriendService,
     private matDialog: MatDialog,
+    private el: ElementRef
   ) {
 
     this.sidenavService.userDetailsUpdated$.subscribe(() => {
       this.getUserDetails();
     });
+  }
+
+  toggleAccountMenu() {
+    this.isAccountMenuOpen = !this.isAccountMenuOpen;
+  }
+
+  closeAccountMenu() {
+    this.isAccountMenuOpen = false;
   }
 
   toggleSidenav() {
@@ -140,6 +150,13 @@ export class SidenavComponent{
       default:
         console.log('Unknown function');
         break;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    if (!this.el.nativeElement.contains(event.target)) {
+      this.closeAccountMenu();
     }
   }
 }

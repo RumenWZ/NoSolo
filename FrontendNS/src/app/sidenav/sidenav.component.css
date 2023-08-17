@@ -96,6 +96,7 @@
   border-top: 1px solid grey;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .user-info-bottom img {
@@ -114,4 +115,53 @@
   padding-left: 0.7rem;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+}
 
+.account-menu-container {
+  margin-right: 1.5rem;
+  border: 2px solid #a9a9ad;
+  border-radius: 7px;
+  padding: 0.15rem;
+  cursor: pointer;
+}
+
+.account-menu {
+  font-size: 1.7rem;
+}
+
+.account-menu-popup {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 0.5rem;
+  background-color: #1f2226;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  width: 120px;
+}
+
+.menu-option {
+  padding: 0.5rem 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.menu-option:hover {
+  background-color: #56565b;
+}
+
+.menu-option-icon{
+  font-size: 1.5rem;
+}
+
+.menu-option span {
+  font-size: 1rem;
+}

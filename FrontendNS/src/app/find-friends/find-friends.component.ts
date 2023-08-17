@@ -4,6 +4,7 @@ import { MatchedUserDTO, UserGameDTO } from '../model/user-game';
 import { UserDTO } from '../model/user';
 import { FriendService } from '../services/friend.service';
 import { AlertifyService } from '../services/alertify.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-find-friends',
@@ -28,7 +29,8 @@ export class FindFriendsComponent {
   constructor(
     private userGame: UserGameService,
     private friend: FriendService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private user: UserService
   ) {
     this.isSmallScreen = window.innerWidth < 768;
   }
@@ -61,6 +63,7 @@ export class FindFriendsComponent {
   }
 
   ngOnInit() {
+    this.user.verifyLoggedIn();
     this.token = localStorage.getItem('token');
     this.userGame.getMatchesForUser(this.token).subscribe((response: MatchedUserDTO[]) => {
       this.matches = response;
