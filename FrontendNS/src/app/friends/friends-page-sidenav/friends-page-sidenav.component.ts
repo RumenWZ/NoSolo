@@ -37,6 +37,11 @@ export class FriendsPageSidenavComponent {
     this.closeSidenav();
   }
 
+  onFriendsRequested() {
+    this.friend.openFriendsRequested.emit();
+    this.closeSidenav();
+  }
+
   ngOnInit() {
 
   }

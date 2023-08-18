@@ -24,6 +24,7 @@ export class FriendsPageComponent {
   openFriendsAllSubscription: Subscription;
   openFriendsPendingSubscription: Subscription;
   openFriendsAddSubscription: Subscription;
+  openFriendsRequestedSubscription: Subscription;
 
   constructor(
     private sidenavService: SidenavService,
@@ -119,6 +120,10 @@ export class FriendsPageComponent {
       this.onAddFriends();
     });
 
+    this.openFriendsRequestedSubscription = this.friend.openFriendsRequested.subscribe(() => {
+      this.onRequestedFriends();
+    });
+
     this.updatePendingSubscription = this.friend.updateFriendsList.subscribe(() => {
       this.getFriendRequestsCount();
     });
@@ -135,6 +140,7 @@ export class FriendsPageComponent {
     this.openFriendsAllSubscription.unsubscribe();
     this.openFriendsPendingSubscription.unsubscribe();
     this.openFriendsAddSubscription.unsubscribe();
+    this.openFriendsRequestedSubscription.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])

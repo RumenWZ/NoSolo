@@ -16,6 +16,7 @@ export class FriendService {
   openFriendsAll: EventEmitter<void> = new EventEmitter<void>();
   openFriendsPending: EventEmitter<void> = new EventEmitter<void>();
   openFriendsAdd: EventEmitter<void> = new EventEmitter<void>();
+  openFriendsRequested: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private http: HttpClient) { }
