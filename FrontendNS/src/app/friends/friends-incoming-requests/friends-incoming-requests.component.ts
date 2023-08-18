@@ -14,6 +14,7 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
 export class FriendsIncomingRequestsComponent {
   incomingFriendRequests: any;
   token: string;
+  searchParameters: string;
 
   constructor(
     private friend: FriendService,
@@ -30,6 +31,10 @@ export class FriendsIncomingRequestsComponent {
         user.profileImageUrl = '/assets/images/default-user.png';
       }
     }
+  }
+
+  clearSearch() {
+    this.searchParameters = '';
   }
 
   getIncomingFriendRequests() {
@@ -70,6 +75,7 @@ export class FriendsIncomingRequestsComponent {
   }
 
   ngOnInit() {
+    this.searchParameters = '';
     this.token = localStorage.getItem('token');
 
     this.getIncomingFriendRequests();

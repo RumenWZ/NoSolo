@@ -13,6 +13,7 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
 })
 export class FriendsAllComponent {
   friendsList: UserDTO[];
+  searchParameters: string;
 
   constructor(
     private friend: FriendService,
@@ -29,6 +30,10 @@ export class FriendsAllComponent {
         user.displayName = user.username;
       }
     }
+  }
+
+  clearSearch() {
+    this.searchParameters = '';
   }
 
   onFriendClick(user: UserDTO) {
@@ -72,6 +77,7 @@ export class FriendsAllComponent {
   }
 
   ngOnInit() {
+    this.searchParameters = '';
     this.friend.getAllFriendsOfUser(localStorage.getItem('token')).subscribe((response: any) => {
       this.friendsList = response;
       this.assignDefaultValues();

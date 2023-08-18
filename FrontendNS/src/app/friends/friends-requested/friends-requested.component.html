@@ -1,7 +1,12 @@
 <div class="friends-list-wrapper">
   <span class="direct-messages">Requested Friendships</span>
+  <div *ngIf="friendRequests.length > 0" class="search-bar-container">
+    <input #searchInput class="input-field" type="text" [(ngModel)]="searchParameters" placeholder="Search">
+    <i *ngIf="searchParameters != ''" class='bx bx-x clear-search' (click)="clearSearch()"></i>
+    <i *ngIf="searchParameters == ''" class='bx bx-search search-icon'></i>
+  </div>
   <ul class="friends-list">
-    <li (click)="onUserClick(user)" *ngFor="let user of friendRequests" class="friends-list-item">
+    <li (click)="onUserClick(user)" *ngFor="let user of friendRequests | filter: searchParameters : 'displayName'" class="friends-list-item">
       <img [src]="user.profileImageUrl">
       <span>{{user.displayName}}</span>
       <div class="action-wrapper">

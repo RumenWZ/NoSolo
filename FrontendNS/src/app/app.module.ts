@@ -42,7 +42,6 @@ import { ProfileCardPopupComponent } from './user/profile-card-popup/profile-car
 import { FindFriendsComponent } from './find-friends/find-friends.component';
 import { FriendsRequestedComponent } from './friends/friends-requested/friends-requested.component';
 
-
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
@@ -85,8 +84,7 @@ const appRoutes: Routes = [
     WelcomePageComponent,
     ProfileCardPopupComponent,
     FindFriendsComponent,
-    FriendsRequestedComponent
-
+    FriendsRequestedComponent,
 
   ],
   imports: [

@@ -13,6 +13,7 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
 export class FriendsRequestedComponent {
   friendRequests: UserDTO[];
   token: string;
+  searchParameters: string;
 
   constructor(
     private friend: FriendService,
@@ -25,6 +26,10 @@ export class FriendsRequestedComponent {
       width: '470px'
     })
     this.user.raiseCurrentUserProfileCard(user);
+  }
+
+  clearSearch() {
+    this.searchParameters = '';
   }
 
   onRemove(event: Event, user: UserDTO) {
@@ -50,6 +55,7 @@ export class FriendsRequestedComponent {
   }
 
   ngOnInit() {
+    this.searchParameters = '';
     this.token = localStorage.getItem('token');
     this.friend.getAllFriendRequestsByUser(this.token).subscribe((response: UserDTO[]) => {
       this.friendRequests = response;

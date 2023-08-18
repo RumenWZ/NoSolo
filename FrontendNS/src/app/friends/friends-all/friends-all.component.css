@@ -37,3 +37,48 @@
 .remove:hover {
   color: red;
 }
+
+.search-bar-container{
+  padding: 0.5rem 0;
+  width: 100%;
+  position: relative;
+}
+
+.clear-search, .search-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 25px;
+  cursor: pointer;
+  color: #9ea09a;
+}
+
+.search-icon {
+  font-size: 22px;
+  cursor: default;
+}
+
+.input-field {
+  width: 100%;
+  background-color: #3f3f3f;
+  outline: none;
+  color: var(--light-gray-text);
+  border:none;
+  text-indent: 5px;
+  height: 1.8rem;
+  border-radius: 5px;
+}
+
+.input-field::placeholder {
+  color: #a7a7aa;
+}
+
+.input-field:hover {
+  background-color: #5b5b5b;
+}
+
+.input-field:focus{
+  border: 1px solid #a8a8a8;
+  text-indent: 4px;
+}
