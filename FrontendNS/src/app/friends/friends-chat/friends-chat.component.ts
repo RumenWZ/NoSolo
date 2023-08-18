@@ -25,6 +25,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   pusher: Pusher
   channel: any;
   environment = environment;
+  canSendMessage: boolean = true;
 
   @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
@@ -64,12 +65,17 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   sendMessage() {
-    this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
-      this.chatFieldMessage = '';
-      this.chatMessagesProcessor();
-      this.scrollToBottom();
-    })
-
+    if (this.canSendMessage && this.chatFieldMessage) {
+      this.canSendMessage = false;
+      this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
+        if (response == 201) {
+          this.chatFieldMessage = '';
+          this.chatMessagesProcessor();
+          this.scrollToBottom();
+          this.canSendMessage = true;
+        }
+      });
+    }
   }
 
   getChatMessages() {

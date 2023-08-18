@@ -66,7 +66,7 @@ namespace API.Controllers
             });
             await pusher.TriggerAsync("my-channel", "my-event", new { message = newMessageDTO });
 
-            return Ok(newMessageDTO);
+            return Ok(201);
         }
 
         [HttpGet("get-messages-between-users/{token}/{username}")]
