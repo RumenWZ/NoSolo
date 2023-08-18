@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.component';
 import { UserDTO } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';
@@ -44,6 +45,25 @@ export class FriendsAllComponent {
   onRemoveFriend(event: Event, user: UserDTO) {
     event.stopPropagation();
 
+    const dialogRef = this.matDialog.open(ConfirmDeleteComponent, {
+      width: '500px',
+      data: {
+        displayMessage: `Are you sure you want to remove ${user.displayName} from your friends list?`,
+        confirmButtonName: 'Remove'
+      }
+    })
+
+    dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
+      this.removeFriend(user);
+      dialogRef.close();
+    });
+
+    dialogRef.componentInstance.deleteCancelled.subscribe(() => {
+      dialogRef.close();
+    })
+  }
+
+  removeFriend(user: UserDTO) {
     this.friend.removeFriend(localStorage.getItem('token'), user.username).subscribe((response: any) => {
       if (response == 201) {
         this.friendsList = this.friendsList.filter(friend => friend.username !== user.username);

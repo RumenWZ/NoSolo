@@ -41,7 +41,11 @@ export class UserGameDetailsComponent implements OnChanges {
   confirmDelete() {
     const dialogRef = this.matDialog.open(ConfirmDeleteComponent, {
       width: '500px',
-      data: {itemName: this.game.gameName}
+      data: {
+        itemName: this.game.gameName,
+        displayMessage: `Are you sure you want to delete ${this.game.gameName} from your games list?`,
+        confirmButtonName: 'Delete'
+      }
     })
 
     dialogRef.componentInstance.deleteConfirmed.subscribe(() => {

@@ -30,7 +30,10 @@ export class GameListComponent {
     this.gamePendingDeletion = game;
     const dialogRef = this.matDialog.open(ConfirmDeleteComponent, {
       width: '500px',
-      data: { itemName: this.gamePendingDeletion.name }
+      data: {
+        displayMessage: `Are you sure you want to delete ${this.gamePendingDeletion.name}?`,
+        confirmButtonName: 'Delete'
+      }
     });
 
     dialogRef.componentInstance.deleteConfirmed.subscribe(() => {

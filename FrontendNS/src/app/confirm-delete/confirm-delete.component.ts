@@ -8,12 +8,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 
 export class ConfirmDeleteComponent {
-  @Input() itemName: string;
+  @Input() displayMessage: string;
+  @Input() confirmButtonName: string;
   @Output() deleteConfirmed: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteCancelled: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any) {
-    this.itemName = data.itemName;
+    this.displayMessage = data.displayMessage;
+    this.confirmButtonName = data.confirmButtonName;
   }
 
   onDelete(): void {
