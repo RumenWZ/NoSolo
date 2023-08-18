@@ -20,6 +20,9 @@
                       <span *ngIf="userName.hasError('minlength')">
                         Username must be at least 4 characters
                       </span>
+                      <span *ngIf="userName.hasError('maxlength')">
+                        Username can not be longer than 15 characters
+                      </span>
                     </span>
                   </div>
 
@@ -32,6 +35,9 @@
                       </span>
                       <span *ngIf="email.hasError('email')">
                         Please provide a valid email address
+                      </span>
+                      <span *ngIf="email.hasError('maxlength')">
+                        Your email can not be more than 40 characters
                       </span>
                     </span>
                   </div>
@@ -46,6 +52,9 @@
                       <span *ngIf="password.hasError('minlength')">
                         Password must be at least 6 characters
                       </span>
+                      <span *ngIf="password.hasError('maxlength')">
+                        Password can not be longer than 30 characters
+                      </span>
                     </span>
                   </div>
 
@@ -53,15 +62,14 @@
                     <label class="form-label" for="typePasswordX">Repeat Password</label>
                     <input type="password" class="form-control form-control-lg" formControlName="confirmPassword"/>
                     <span *ngIf="!confirmPassword.valid && (confirmPassword.touched || userSubmitted)" class="error-block">
-                      <span *ngIf="password.hasError('required')">
+                      <span *ngIf="confirmPassword.hasError('required')">
                         Please confirm password
                       </span>
-                      <span *ngIf="registerForm.hasError('notmatched')">
+                      <span *ngIf="registerForm.hasError('notmatched') && !confirmPassword.hasError('required')">
                         Passwords do not match
                       </span>
                     </span>
                   </div>
-
 
                   <button class="btn btn-outline-light btn-lg px-5" type="submit" style="margin-top: 20px;">Create Account</button>
             </form>

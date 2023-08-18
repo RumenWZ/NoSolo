@@ -28,17 +28,25 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.registerForm = new FormGroup({
-      userName: new FormControl(null, [Validators.required, Validators.minLength(4)]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      userName: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(15)]),
+      email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(40)]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
       confirmPassword: new FormControl(null, [Validators.required])
-    }) , {Validators: this.passwordMatchValidator}
+    }, { validators: this.passwordMatchValidator });
   }
 
   passwordMatchValidator(fc: AbstractControl): ValidationErrors | null {
-    return fc.get('password')?.value === fc.get('confirmPassword')?.value ? null :
-      { notmatched: true }
-  };
+    const passwordControl = fc.get('password');
+    const confirmPasswordControl = fc.get('confirmPassword');
+
+    if (passwordControl.value !== confirmPasswordControl.value) {
+      confirmPasswordControl.setErrors({ notmatched: true });
+      return { notmatched: true };
+    } else {
+      confirmPasswordControl.setErrors(null);
+      return null;
+    }
+  }
 
   onSubmit() {
     this.userSubmitted = true;
