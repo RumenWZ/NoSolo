@@ -8,17 +8,40 @@
       <form #userSettingsForm="ngForm" (ngSubmit)="onSaveChanges(userSettingsForm)">
         <div class="user-info-inputs-element">
           <label for="display-name">Display Name</label>
-          <input class="input-field" id="display-name" type="text" (ngModelChange)="onFormChange()" ngModel name="displayName" [value]="initialDisplayName" placeholder="Enter your display name...">
+          <input class="input-field" id="display-name" type="text" (ngModelChange)="onFormChange()"
+          ngModel name="displayName" [value]="initialDisplayName" placeholder="Enter your display name..."
+          minlength="3" maxlength="20" required>
+
+          <div *ngIf="userSettingsForm.controls['displayName']?.hasError('minlength')"
+          class="error-block">Minimum length should be 3 characters.</div>
+          <div *ngIf="userSettingsForm.controls['displayName']?.hasError('maxlength')"
+          class="error-block">Maximum length should be 20 characters.</div>
+
         </div>
         <div class="user-info-inputs-element">
+
           <label for="discord-username">Discord Username</label>
-          <input class="input-field" id="discord-username" type="text" (ngModelChange)="discordUsernameModified = true" ngModel name="discordUsername" [value]="initialDiscordUsername" placeholder="Example#8309" pattern="[a-zA-Z]{2,32}#[0-9]{4}">
-          <div *ngIf="userSettingsForm.controls['discordUsername']?.invalid && (userSettingsForm.controls['discordUsername'].dirty || userSettingsForm.controls['discordUsername'].touched)"
+          <input class="input-field" id="discord-username" type="text" (ngModelChange)="discordUsernameModified = true"
+           ngModel name="discordUsername" [value]="initialDiscordUsername" placeholder="Example#8309"
+            minlength="8" maxlength="20" pattern="[a-zA-Z]{2,32}#[0-9]{4}">
+
+           <div *ngIf="userSettingsForm.controls['discordUsername']?.hasError('minlength')"
+           class="error-block">Minimum length should be 8 characters.</div>
+           <div *ngIf="userSettingsForm.controls['discordUsername']?.hasError('maxlength')"
+           class="error-block">Maximum length should be 20 characters.</div>
+
+           <div *ngIf="userSettingsForm.controls['discordUsername']?.invalid && (userSettingsForm.controls['discordUsername'].dirty || userSettingsForm.controls['discordUsername'].touched)"
           class="error-block">Invalid Discord username format. Please input a valid discord Username: Example#8309</div>
         </div>
         <div class="user-info-inputs-element">
+
           <label for="discord-username">Summary</label>
-          <textarea class="input-field" id="summary" type="text" (ngModelChange)="onFormChange()" ngModel name="summary" [value]="initialSummary" placeholder="Describe yourself..."></textarea>
+          <textarea class="input-field" id="summary" type="text" (ngModelChange)="onFormChange()" ngModel name="summary"
+          [value]="initialSummary" placeholder="Describe yourself..." maxlength="300"></textarea>
+
+          <div *ngIf="userSettingsForm.controls['summary']?.hasError('maxlength')"
+          class="error-block">Maximum length should be 300 characters.</div>
+
         </div>
         <button [disabled]="!formModified && !discordUsernameModified && !photoChanged" class="save-button" type="submit">Save Changes</button>
       </form>
