@@ -9,5 +9,6 @@ namespace API.Interfaces
         Task<IEnumerable<Game>> GetAllAsync();
         Task<Game> GetByIdAsync(int gameId);
         Task<IEnumerable<Game>> GetGamesByIds(IEnumerable<int> ids);
+        Task<Game> GetByNameAsync(string name);
     }
 }

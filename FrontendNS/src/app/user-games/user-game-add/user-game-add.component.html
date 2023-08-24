@@ -23,7 +23,7 @@
 
                 <div class="description-wrapper">
                   <label>Game Description</label>
-                  <textarea class="description-field" required [(ngModel)]="gameDescription" name="description" placeholder={{gameDescriptionPlaceholder}}></textarea>
+                  <textarea class="description-field" required [(ngModel)]="gameDescription" name="description" placeholder={{gameDescriptionPlaceholder}} maxlength="450"></textarea>
                 </div>
                 <button type="submit" [disabled]="!gameForm.valid || !selectedGame" class="confirm-button">Confirm</button>
             </div>

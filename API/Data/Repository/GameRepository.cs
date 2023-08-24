@@ -48,10 +48,14 @@ namespace API.Data.Repository
                 dc.Games.Remove(game);
                 await dc.SaveChangesAsync();
             }
-            else
-            {
-                // Add API error handling here later
-            }
+            
+        }
+
+        public async Task<Game> GetByNameAsync(string name)
+        {
+            var game = await dc.Games.FirstOrDefaultAsync(g => g.Name == name);
+
+            return game;
         }
     }
 }

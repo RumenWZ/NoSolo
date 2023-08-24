@@ -7,7 +7,7 @@
       </div>
       <div class="description-wrapper">
         <label>Your Description</label>
-        <textarea class="description-field" name="description" [(ngModel)]="userDescription" ></textarea>
+        <textarea class="description-field" name="description" [(ngModel)]="userDescription" maxlength="450" ></textarea>
       </div>
       <div class="button-wrapper">
         <button (click)="confirmDelete()" class="button delete-btn">DELETE</button>

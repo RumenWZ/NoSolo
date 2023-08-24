@@ -62,12 +62,12 @@ export class GameAddComponent {
     formData.append('name', gameForm.form.value.name);
     formData.append('image', this.image, this.image.name);
     if (gameForm.valid) {
-      this.gameService.addGame(formData).subscribe(() => {
-        gameForm.reset();
-        this.alertify.success('Successfully added game to database');
-        this.previewImage = null;
-      }, (error) => {
-        this.alertify.error(error.message);
+      this.gameService.addGame(formData).subscribe((response: any) => {
+        if (response == 201) {
+          gameForm.reset();
+          this.alertify.success('Successfully added game to database');
+          this.previewImage = null;
+        }
       })
     }
   }

@@ -33,8 +33,14 @@ namespace API.Controllers
                 return BadRequest("No image uploaded");
             } else if (game.Name == null)
             {
-                return BadRequest("Name can not be empty");
-            } 
+                return BadRequest("Name field can not be empty");
+            }
+
+            var existingGame = await uow.GameRepository.GetByNameAsync(game.Name);
+            if (existingGame != null)
+            {
+                return BadRequest("A game with the same name already exists");
+            }
 
             var cloudinaryResult = await photoService.UploadPhotoAsync(image);
 
@@ -47,7 +53,7 @@ namespace API.Controllers
             uow.GameRepository.Add(newGame.Name, newGame.ImageUrl);
             await uow.SaveAsync();
 
-            return Ok(newGame);
+            return Ok(201);
         }
 
         [HttpDelete("delete/{id}")]
