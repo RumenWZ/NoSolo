@@ -10,12 +10,14 @@
           <label for="display-name">Display Name</label>
           <input class="input-field" id="display-name" type="text" (ngModelChange)="onFormChange()"
           ngModel name="displayName" [value]="initialDisplayName" placeholder="Enter your display name..."
-          minlength="3" maxlength="20" required>
+          minlength="3" maxlength="20" required pattern="^[a-zA-Z0-9]*$">
 
           <div *ngIf="userSettingsForm.controls['displayName']?.hasError('minlength')"
           class="error-block">Minimum length should be 3 characters.</div>
           <div *ngIf="userSettingsForm.controls['displayName']?.hasError('maxlength')"
           class="error-block">Maximum length should be 20 characters.</div>
+          <div *ngIf="userSettingsForm.controls['displayName']?.hasError('pattern')"
+          class="error-block">Your display name can not contain special characters.</div>
 
         </div>
         <div class="user-info-inputs-element">
