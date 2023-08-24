@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PusherServer;
 using dotenv.net;
+using System.Web;
 
 namespace API.Controllers
 {
@@ -32,6 +33,9 @@ namespace API.Controllers
         public async Task<IActionResult> SendMessage(string token, string username, string message)
         {
             DotEnv.Load();
+
+            string originalMessage = HttpUtility.UrlDecode(message);
+
             var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user1 == null)
             {
@@ -51,7 +55,7 @@ namespace API.Controllers
             {
                 return BadRequest("These users are not friends");
             }
-            var newMessage = uow.MessageRepository.SendMessage(user1.Id, user2.Id, message);
+            var newMessage = uow.MessageRepository.SendMessage(user1.Id, user2.Id, originalMessage);
             await uow.SaveAsync();
             var newMessageDTO = mapper.Map<MessageDTO>(newMessage);
 

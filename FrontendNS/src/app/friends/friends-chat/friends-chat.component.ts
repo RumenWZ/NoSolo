@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.component';
 import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   constructor (
     private message: MessageService,
     private user: UserService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private alertify: AlertifyService
   ) {
     this.token = localStorage.getItem('token');
   }
@@ -65,6 +67,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   sendMessage() {
+    if (this.chatFieldMessage.length >= 300) {
+      this.alertify.error('Your message is too long.');
+      return;
+    }
     if (this.canSendMessage && this.chatFieldMessage) {
       this.canSendMessage = false;
       this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {

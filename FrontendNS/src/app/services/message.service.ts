@@ -14,7 +14,8 @@ export class MessageService {
   ) { }
 
   sendMessage(token: string, username: string, message: string) {
-    return this.http.post(`${this.baseUrl}/send-message/${token}/${username}/${message}`, null);
+    const encodedMessage = encodeURIComponent(message);
+    return this.http.post(`${this.baseUrl}/send-message/${token}/${username}/${encodedMessage}`, null);
   }
 
   getMessagesForUsers(token: string, username: string): Observable<Message> {

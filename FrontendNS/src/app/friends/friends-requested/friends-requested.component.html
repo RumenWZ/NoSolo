@@ -1,6 +1,6 @@
 <div class="friends-list-wrapper">
   <span class="direct-messages">Requested Friendships</span>
-  <div *ngIf="friendRequests.length > 0" class="search-bar-container">
+  <div *ngIf="friendRequests?.length > 0" class="search-bar-container">
     <input #searchInput class="input-field" type="text" [(ngModel)]="searchParameters" placeholder="Search">
     <i *ngIf="searchParameters != ''" class='bx bx-x clear-search' (click)="clearSearch()"></i>
     <i *ngIf="searchParameters == ''" class='bx bx-search search-icon'></i>
