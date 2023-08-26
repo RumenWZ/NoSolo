@@ -18,6 +18,7 @@ export class GameListComponent {
   getGamesErrorMessage: string = null;
   filterString: string;
   gameListSortOrder : string;
+  userToken: string;
 
   constructor(
     private gameService: GameService,
@@ -37,8 +38,6 @@ export class GameListComponent {
     });
 
     dialogRef.componentInstance.deleteConfirmed.subscribe(() => {
-      console.log(this.gamePendingDeletion);
-      console.log(game);
       this.deleteGame();
       dialogRef.close();
     });
@@ -49,13 +48,11 @@ export class GameListComponent {
   }
 
   deleteGame(){
-    this.gameService.deleteGame(this.gamePendingDeletion.id).subscribe((response: any) => {
+    this.gameService.deleteGame(this.userToken, this.gamePendingDeletion.id).subscribe((response: any) => {
       if (response == 201) {
         this.alertify.success(this.gamePendingDeletion.name + " successfully deleted from database");
         this.getGamesList();
       }
-    }, error => {
-      this.alertify.error(error.error);
     })
   }
 
@@ -64,9 +61,6 @@ export class GameListComponent {
       if (games) {
         this.gamesList = games;
       }
-    }, error => {
-      this.getGamesErrorMessage = error.message;
-      console.log(error);
     });
   }
 
@@ -75,9 +69,9 @@ export class GameListComponent {
   }
 
   ngOnInit() {
+    this.userToken = localStorage.getItem('token');
     this.getGamesList();
     this.filterString = '';
     this.gameListSortOrder = 'ascending';
   }
-
 }

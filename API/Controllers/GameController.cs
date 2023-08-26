@@ -4,6 +4,7 @@ using API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
 {
@@ -65,9 +66,19 @@ namespace API.Controllers
             return Ok(201);
         }
 
-        [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("delete/{token}/{id}")]
+        public async Task<IActionResult> Delete(string token, int id)
         {
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user == null)
+            {
+                return BadRequest("Invalid user token");
+            }
+            else if (!user.IsAdmin)
+            {
+                return BadRequest("You are not authorized to perform this action");
+            }
+
             var game = await uow.GameRepository.GetByIdAsync(id);
             if (game == null)
             {

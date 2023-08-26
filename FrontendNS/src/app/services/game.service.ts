@@ -20,7 +20,7 @@ export class GameService {
     return this.http.get(this.baseUrl + '/getall');
   }
 
-  deleteGame(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + '/delete/' + id);
+  deleteGame(token: string, id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + `/delete/${token}/${id}`);
   }
 }
