@@ -12,8 +12,8 @@ export class GameService {
     private http: HttpClient,
   ) {}
 
-  addGame(game: FormData) {
-    return this.http.post(this.baseUrl + '/add', game);
+  addGame(token: string, game: FormData) {
+    return this.http.post(this.baseUrl + `/add/${token}`, game);
   }
 
   getGamesList() {

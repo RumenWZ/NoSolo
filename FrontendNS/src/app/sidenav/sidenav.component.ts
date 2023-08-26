@@ -24,6 +24,7 @@ export class SidenavComponent{
   friendRequests: number;
   updatePendingSubscription: Subscription;
   isAccountMenuOpen = false;
+  showAdminOptions: boolean = false;
 
   constructor (
     private sidenavService: SidenavService,

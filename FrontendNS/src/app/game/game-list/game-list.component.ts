@@ -75,7 +75,6 @@ export class GameListComponent {
   }
 
   ngOnInit() {
-    this.user.authenticateAdmin();
     this.getGamesList();
     this.filterString = '';
     this.gameListSortOrder = 'ascending';

@@ -15,16 +15,18 @@
   </li>
 </ul>
 </div>
-<div class="sidenav-header" style="border-top: 1px #9a999b solid;">
-<h5 class="sidenav-title">Admin/Staff Options</h5>
-</div>
-<div class="sidenav-body">
-<ul class="sidebar-menu">
-  <li *ngFor="let item of sidebarDataAdmin" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
-    <i class="{{item.icon}} icon"></i>
-    <a class="label">{{item.label}}</a>
-  </li>
-</ul>
+<div class="admin-options">
+  <div class="sidenav-header" style="border-top: 1px #9a999b solid;">
+  <h5 class="sidenav-title">Admin/Staff Options</h5>
+  </div>
+    <div class="sidenav-body">
+    <ul class="sidebar-menu">
+      <li *ngFor="let item of sidebarDataAdmin" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
+        <i class="{{item.icon}} icon"></i>
+        <a class="label">{{item.label}}</a>
+      </li>
+    </ul>
+    </div>
 </div>
 <div class="user-info-bottom">
   <div class="user-info">

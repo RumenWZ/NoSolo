@@ -23,9 +23,18 @@ namespace API.Controllers
             this.photoService = photoService;
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> Add([FromForm] GameAddRequestDTO game )
+        [HttpPost("add/{token}")]
+        public async Task<IActionResult> Add(string token, [FromForm] GameAddRequestDTO game )
         {
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            if (user == null)
+            {
+                return BadRequest("Invalid user token");
+            } else if (!user.IsAdmin)
+            {
+                return BadRequest("You are not authorized to perform this action");
+            }
+            
             var image = game.Image;
 
             if (image == null)
