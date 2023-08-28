@@ -7,5 +7,9 @@ namespace API.Interfaces
         Task<ImageUploadResult> UploadPhotoAsync(IFormFile photo);
 
         Task<DeletionResult> DeletePhotoAsync(string imageUrl);
+
+        bool IsImageValidFormat(IFormFile image);
+
+        bool IsImageValidSize(IFormFile image, int maxSizeInBytes);
     }
 }

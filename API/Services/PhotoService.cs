@@ -52,5 +52,26 @@ namespace API.Services
             
             return publicId;
         }
+
+        public bool IsImageValidFormat(IFormFile image)
+        {
+            {
+                var fileExtension = Path.GetExtension(image.FileName)?.ToLowerInvariant();
+
+                return fileExtension switch
+                {
+                    ".jpeg" => true,
+                    ".png" => true,
+                    ".jpg" => true,
+                    _ => false
+                };
+            }
+        }
+
+        public bool IsImageValidSize(IFormFile image, int maxSizeInBytes)
+        {
+            return image.Length <= maxSizeInBytes;
+        }
     }
+    
 }

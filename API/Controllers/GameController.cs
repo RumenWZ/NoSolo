@@ -1,10 +1,7 @@
 ﻿using API.DTOs;
 using API.Interfaces;
 using API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
 {
@@ -18,30 +15,40 @@ namespace API.Controllers
         public GameController(
             IUnitOfWork uow,
             IPhotoService photoService
-            ) 
+            )
         {
             this.uow = uow;
             this.photoService = photoService;
         }
 
         [HttpPost("add/{token}")]
-        public async Task<IActionResult> Add(string token, [FromForm] GameAddRequestDTO game )
+        public async Task<IActionResult> Add(string token, [FromForm] GameAddRequestDTO game)
         {
             var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
                 return BadRequest("Invalid user token");
-            } else if (!user.IsAdmin)
+            }
+            else if (!user.IsAdmin)
             {
                 return BadRequest("You are not authorized to perform this action");
             }
-            
+
             var image = game.Image;
+
+            if (!photoService.IsImageValidFormat(image))
+            {
+                return BadRequest("Invalid image format. Please upload an image in JPEG,JPG or PNG format");
+            } else if (!photoService.IsImageValidSize(image, 1 * 1024 * 1024))
+            {
+                return BadRequest("Image can not be larger than 1 MB");
+            }
 
             if (image == null)
             {
                 return BadRequest("No image uploaded");
-            } else if (game.Name == null)
+            }
+            else if (game.Name == null)
             {
                 return BadRequest("Name field can not be empty");
             }
@@ -106,8 +113,9 @@ namespace API.Controllers
             {
                 return BadRequest("Game could not be found");
             }
-            
+
             return Ok(game);
         }
+
     }
 }
