@@ -50,6 +50,13 @@ export class SettingsComponent {
   }
 
   onSaveChanges(userSettingsForm: NgForm) {
+    if(this.photoChanged && !userSettingsForm.valid) {
+      this.updateUserPhoto();
+      return;
+    } else if (this.photoChanged) {
+      this.updateUserPhoto();
+    }
+
     if (!userSettingsForm.valid) {
       return this.alertify.warning('Invalid input. Please review your entries');
     }
@@ -62,9 +69,6 @@ export class SettingsComponent {
       return this.alertify.warning('No changes to be made');
     }
 
-    if(this.photoChanged) {
-      this.updateUserPhoto();
-    }
     if (displayName != this.initialDisplayName && displayName != '') {
       this.updateDisplayName(displayName);
     }
@@ -96,7 +100,7 @@ export class SettingsComponent {
           this.profileImageUrl = e.target.result;
         };
         reader.readAsDataURL(this.image);
-        this.alertify.success('Changes saved successfully');
+        this.alertify.success('Successfully updated profile image');
 
         this.updateLocalStorageUserImage(response.profileImageUrl);
 
