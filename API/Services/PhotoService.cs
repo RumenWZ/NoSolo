@@ -68,7 +68,7 @@ namespace API.Services
             }
         }
 
-        public bool IsImageValidSize(IFormFile image, int maxSizeInBytes)
+        public bool IsImageValidSize(IFormFile image, double maxSizeInBytes)
         {
             return image.Length <= maxSizeInBytes;
         }

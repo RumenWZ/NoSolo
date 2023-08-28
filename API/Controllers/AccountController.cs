@@ -151,17 +151,28 @@ namespace API.Controllers
             return Ok(userDTO);
         }
 
-        [HttpPatch("update-photo/{username}")]
-        public async Task<IActionResult> UpdateUserPhoto(string username, [FromForm] UpdateUserPhotoDTO updateRequest)
+        [HttpPatch("update-photo/{token}")]
+        public async Task<IActionResult> UpdateUserPhoto(string token, [FromForm] UpdateUserPhotoDTO updateRequest)
         {
-            var user = await uow.UserRepository.GetByUserNameAsync(username);
+
             var photo = updateRequest.Image;
+
+            if (!photoService.IsImageValidFormat(photo))
+            {
+                return BadRequest("Invalid image format. Please upload an image in JPEG,JPG or PNG format");
+            }
+            else if (!photoService.IsImageValidSize(photo, 1.5 * 1024 * 1024))
+            {
+                return BadRequest("Image can not be larger than 1.5 MB");
+            }
+
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
 
             if (user == null)
             {
-                throw new Exception("User does not exist");
+                throw new Exception("Invalid token");
             }
-
+            
             if (user.ProfileImageUrl != "")
             {
                 await photoService.DeletePhotoAsync(user.ProfileImageUrl);

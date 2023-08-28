@@ -49,8 +49,8 @@ export class UserService {
     return this.http.get(this.baseUrl + '/get-user-by-username/' + username);
   }
 
-  updateUserPhoto(username: string, photo: FormData) {
-    return this.http.patch(`${this.baseUrl}/update-photo/${username}`, photo);
+  updateUserPhoto(token: string, photo: FormData) {
+    return this.http.patch(`${this.baseUrl}/update-photo/${token}`, photo);
   }
 
   updateDisplayName(username: string, displayName:string) {

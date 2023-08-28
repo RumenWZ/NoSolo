@@ -18,6 +18,7 @@ export class SettingsComponent {
   profileImageUrl : string = '/assets/images/default-user.png';
   changes = {};
   photoChanged: boolean = false;
+  token: string;
 
   initialDisplayName: string;
   initialDiscordUsername: string;
@@ -88,7 +89,7 @@ export class SettingsComponent {
   private updateUserPhoto() {
     const formData = new FormData();
     formData.append('image', this.image);
-    this.userService.updateUserPhoto(this.username, formData).subscribe((response: any) => {
+    this.userService.updateUserPhoto(this.token, formData).subscribe((response: any) => {
       if (response) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
@@ -154,6 +155,7 @@ export class SettingsComponent {
   }
 
   ngOnInit() {
+    this.token = localStorage.getItem('token');
     this.updateUserDetails();
   }
 }

@@ -24,6 +24,17 @@ namespace API.Controllers
         [HttpPost("add/{token}")]
         public async Task<IActionResult> Add(string token, [FromForm] GameAddRequestDTO game)
         {
+            var image = game.Image;
+
+            if (!photoService.IsImageValidFormat(image))
+            {
+                return BadRequest("Invalid image format. Please upload an image in JPEG,JPG or PNG format");
+            }
+            else if (!photoService.IsImageValidSize(image, 1 * 1024 * 1024))
+            {
+                return BadRequest("Image can not be larger than 1 MB");
+            }
+
             var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
@@ -32,16 +43,6 @@ namespace API.Controllers
             else if (!user.IsAdmin)
             {
                 return BadRequest("You are not authorized to perform this action");
-            }
-
-            var image = game.Image;
-
-            if (!photoService.IsImageValidFormat(image))
-            {
-                return BadRequest("Invalid image format. Please upload an image in JPEG,JPG or PNG format");
-            } else if (!photoService.IsImageValidSize(image, 1 * 1024 * 1024))
-            {
-                return BadRequest("Image can not be larger than 1 MB");
             }
 
             if (image == null)

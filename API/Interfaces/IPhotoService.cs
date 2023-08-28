@@ -10,6 +10,6 @@ namespace API.Interfaces
 
         bool IsImageValidFormat(IFormFile image);
 
-        bool IsImageValidSize(IFormFile image, int maxSizeInBytes);
+        bool IsImageValidSize(IFormFile image, double maxSizeInBytes);
     }
 }
