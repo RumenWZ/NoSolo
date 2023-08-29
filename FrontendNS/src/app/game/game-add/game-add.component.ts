@@ -31,30 +31,27 @@ export class GameAddComponent {
   getImage(event: any) {
     const file = event.target.files[0];
     const allowedFormats = ['image/jpeg', 'image/png'];
+    const maxSize = 1 * 1024 * 1024;
 
-    if (allowedFormats.includes(file.type)) {
-      this.image = file;
-
-      this.ng2ImgMax.resizeImage(this.image, 400, 400).subscribe(
-        result => {
-          const reader = new FileReader();
-          reader.readAsDataURL(this.image);
-          reader.onload = () => {
-            this.previewImage = reader.result;
-          };
-          this.validImageSelected = true;
-        },
-        error => {
-          console.log('An error occured: ', error);
-        }
-      );
-    } else {
+    if (!allowedFormats.includes(file.type)) {
       this.alertify.error('Invalid file format. Only JPEG and PNG files are allowed.');
-      const fileInput = event.target;
-      fileInput.value = null;
-      this.previewImage = undefined;
-      this.validImageSelected = false;
+      this.resetImageInput(event);
+      return;
     }
+
+    if (file.size > maxSize) {
+      this.alertify.error('File size exceeds the limit of 1 MB.');
+      this.resetImageInput(event);
+      return;
+    }
+
+    this.image = file;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.image);
+    reader.onload = () => {
+      this.previewImage = reader.result;
+    };
+    this.validImageSelected = true;
 
   }
 
@@ -75,6 +72,13 @@ export class GameAddComponent {
 
   ngOnInit() {
     this.userToken = localStorage.getItem('token');
+  }
+
+  private resetImageInput(event: any) {
+    const fileInput = event.target;
+    fileInput.value = null;
+    this.previewImage = undefined;
+    this.validImageSelected = false;
   }
 
 }
