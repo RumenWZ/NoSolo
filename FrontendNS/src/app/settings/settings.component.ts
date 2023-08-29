@@ -20,6 +20,7 @@ export class SettingsComponent {
   photoChanged: boolean = false;
   token: string;
   isUpdating: boolean = false;
+  ongoingApiCalls: number = 0;
 
   initialDisplayName: string;
   initialDiscordUsername: string;
@@ -92,6 +93,7 @@ export class SettingsComponent {
   }
 
   private updateUserPhoto() {
+    this.ongoingApiCalls++;
     this.isUpdating = true;
     const formData = new FormData();
     formData.append('image', this.image);
@@ -108,7 +110,7 @@ export class SettingsComponent {
 
         this.sidenav.updateUserDetails();
         this.photoChanged = false;
-        this.isUpdating = false;
+        this.ApiCallFinished();
       }
     }, error => {
       this.isUpdating = false;
@@ -116,13 +118,14 @@ export class SettingsComponent {
   }
 
   private updateDisplayName(displayName: string) {
-    this.isUpdating = false;
+    this.ongoingApiCalls++;
+    this.isUpdating = true;
     this.userService.updateDisplayName(this.username, displayName).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated display name');
         this.initialDisplayName = displayName;
         this.formModified = false;
-        this.isUpdating = true;
+        this.ApiCallFinished();
       }
     }, error => {
       this.isUpdating = false;
@@ -130,13 +133,14 @@ export class SettingsComponent {
   }
 
   private updateDiscordUsername(discordUsername: string) {
+    this.ongoingApiCalls++;
     this.isUpdating = true;
     this.userService.updateDiscordUsername(this.username, discordUsername).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated discord username');
         this.initialDiscordUsername = discordUsername;
         this.discordUsernameModified = false;
-        this.isUpdating = false;
+        this.ApiCallFinished();
       }
     }, error => {
       this.isUpdating = false;
@@ -144,13 +148,14 @@ export class SettingsComponent {
   }
 
   private updateSummary(summary: string) {
+    this.ongoingApiCalls++;
     this.isUpdating = true;
     this.userService.updateSummary(this.username, summary).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated summary');
         this.initialSummary = summary;
         this.formModified = false;
-        this.isUpdating = false;
+        this.ApiCallFinished();
       }
     }, error => {
       this.isUpdating = false;
@@ -178,5 +183,16 @@ export class SettingsComponent {
   ngOnInit() {
     this.token = localStorage.getItem('token');
     this.updateUserDetails();
+  }
+
+  private checkApiStatus() {
+    if (this.ongoingApiCalls === 0) {
+      this.isUpdating = false;
+    }
+  }
+
+  private ApiCallFinished() {
+    this.ongoingApiCalls--;
+    this.checkApiStatus();
   }
 }
