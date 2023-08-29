@@ -1,14 +1,14 @@
 <div class="settings">
   <div class="user-info-wrapper">
-    <img [src]="profileImageUrl" class="skeleton">
+    <img [src]="profileImageUrl">
     <label class="username-label">{{initialDisplayName}}</label>
     <label for="upload" class="upload-label">Upload photo</label>
-    <input type="file" id="upload" (change)="getImage($event)" style="display: none;">
+    <input type="file" id="upload" (change)="getImage($event)" style="display: none;" [disabled]="isUpdating">
     <div class="user-info-inputs">
       <form #userSettingsForm="ngForm" (ngSubmit)="onSaveChanges(userSettingsForm)">
         <div class="user-info-inputs-element">
           <label for="display-name">Display Name</label>
-          <input class="input-field" id="display-name" type="text" (ngModelChange)="onFormChange()"
+          <input class="input-field" id="display-name" type="text" [disabled]="isUpdating" (ngModelChange)="onFormChange()"
           ngModel name="displayName" [value]="initialDisplayName" placeholder="Enter your display name..."
           minlength="3" maxlength="20" required pattern="^[a-zA-Z0-9]*$">
 
@@ -23,7 +23,7 @@
         <div class="user-info-inputs-element">
 
           <label for="discord-username">Discord Username</label>
-          <input class="input-field" id="discord-username" type="text" (ngModelChange)="discordUsernameModified = true"
+          <input class="input-field" id="discord-username" type="text" [disabled]="isUpdating" (ngModelChange)="discordUsernameModified = true"
            ngModel name="discordUsername" [value]="initialDiscordUsername" placeholder="Example#8309"
             minlength="8" maxlength="20" pattern="[a-zA-Z]{2,32}#[0-9]{4}">
 
@@ -38,14 +38,17 @@
         <div class="user-info-inputs-element">
 
           <label for="discord-username">Summary</label>
-          <textarea class="input-field" id="summary" type="text" (ngModelChange)="onFormChange()" ngModel name="summary"
+          <textarea class="input-field" id="summary" type="text" [disabled]="isUpdating" (ngModelChange)="onFormChange()" ngModel name="summary"
           [value]="initialSummary" placeholder="Describe yourself..." maxlength="300"></textarea>
 
           <div *ngIf="userSettingsForm.controls['summary']?.hasError('maxlength')"
           class="error-block">Maximum length should be 300 characters.</div>
 
         </div>
-        <button [disabled]="!formModified && !discordUsernameModified && !photoChanged" class="save-button" type="submit">Save Changes</button>
+        <div *ngIf="isUpdating" style="margin-top: 1rem;">
+          <div class="spinner"></div>
+        </div>
+        <button [disabled]="!formModified && !discordUsernameModified && !photoChanged || isUpdating" class="save-button" type="submit">Save Changes</button>
       </form>
     </div>
   </div>

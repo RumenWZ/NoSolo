@@ -19,6 +19,7 @@ export class SettingsComponent {
   changes = {};
   photoChanged: boolean = false;
   token: string;
+  isUpdating: boolean = false;
 
   initialDisplayName: string;
   initialDiscordUsername: string;
@@ -91,6 +92,7 @@ export class SettingsComponent {
   }
 
   private updateUserPhoto() {
+    this.isUpdating = true;
     const formData = new FormData();
     formData.append('image', this.image);
     this.userService.updateUserPhoto(this.token, formData).subscribe((response: any) => {
@@ -106,37 +108,52 @@ export class SettingsComponent {
 
         this.sidenav.updateUserDetails();
         this.photoChanged = false;
+        this.isUpdating = false;
       }
+    }, error => {
+      this.isUpdating = false;
     });
   }
 
   private updateDisplayName(displayName: string) {
+    this.isUpdating = false;
     this.userService.updateDisplayName(this.username, displayName).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated display name');
         this.initialDisplayName = displayName;
         this.formModified = false;
+        this.isUpdating = true;
       }
+    }, error => {
+      this.isUpdating = false;
     });
   }
 
   private updateDiscordUsername(discordUsername: string) {
+    this.isUpdating = true;
     this.userService.updateDiscordUsername(this.username, discordUsername).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated discord username');
         this.initialDiscordUsername = discordUsername;
         this.discordUsernameModified = false;
+        this.isUpdating = false;
       }
+    }, error => {
+      this.isUpdating = false;
     });
   }
 
   private updateSummary(summary: string) {
+    this.isUpdating = true;
     this.userService.updateSummary(this.username, summary).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated summary');
         this.initialSummary = summary;
         this.formModified = false;
+        this.isUpdating = false;
       }
+    }, error => {
+      this.isUpdating = false;
     });
   }
 
