@@ -38,17 +38,24 @@ export class SettingsComponent {
 
   getImage(event: any) {
     const file = event.target.files[0];
-    const allowedFormats = ['image/jpeg', 'image/png'];
+    const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 1.5 * 1024 * 1024;
 
-    if (allowedFormats.includes(file.type)) {
-      this.image = file;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {this.profileImageUrl = e.target.result;};
-      reader.readAsDataURL(this.image);
-      this.photoChanged = true;
-    } else {
+    if (!allowedFormats.includes(file.type)) {
       this.alertify.error('Invalid file format. Only JPEG and PNG files are allowed.');
+      return;
     }
+
+    if (file.size > maxSize) {
+      this.alertify.error('File size exceeds the limit of 1.5 MB.');
+      return;
+    }
+
+    this.image = file;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {this.profileImageUrl = e.target.result;};
+    reader.readAsDataURL(this.image);
+    this.photoChanged = true;
   }
 
   onSaveChanges(userSettingsForm: NgForm) {
