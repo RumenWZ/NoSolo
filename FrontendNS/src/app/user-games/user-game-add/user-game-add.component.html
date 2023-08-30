@@ -5,7 +5,7 @@
             <div class="card-content">
                 <label for="game-input">Select a Game</label>
                 <div class="input-wrapper">
-                  <input class="search-field" type="text" [(ngModel)]="filterString" [ngModelOptions]="{ standalone: true }" id="game-input" placeholder="Search..." (focus)="showDropdownList()" (blur)="hideDropdownList()" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+                  <input class="search-field" type="text" [(ngModel)]="filterString" [ngModelOptions]="{ standalone: true }" id="game-input" placeholder="Search for a game..." (focus)="showDropdownList()" (blur)="hideDropdownList()" autocomplete="off" (keydown.enter)="$event.preventDefault()">
                   <i class="clear-button bx bx-x" (click)="clearInput()"></i>
                   <ul id="game-list" class="dropdown-list" [ngClass]="{'visible': isDropdownVisible}">
                     <li *ngFor="let game of gameList | filter: filterString : 'name'" (click)="onSelectGame(game)">
@@ -17,7 +17,7 @@
                 <div *ngIf="selectedGame" class="selected-game-wrapper">
                   <img src="{{selectedGame.imageUrl}}">
                   <label>{{selectedGame.name.toUpperCase()}}</label>
-                  <i class="clear-button bx bx-x" (click)="clearSelectedGame()"></i>
+                  <i class="clear-button bx bx-x" style="color: white;" (click)="clearSelectedGame()"></i>
                 </div>
 
 

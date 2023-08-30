@@ -6,7 +6,7 @@ export const sidebarMenuEntries = [
   },
   {
     'label': 'My Games',
-    'icon': 'bx bx-game',
+    'icon': 'bx bx-joystick',
     'functionName': 'onMyGames',
   },
   {

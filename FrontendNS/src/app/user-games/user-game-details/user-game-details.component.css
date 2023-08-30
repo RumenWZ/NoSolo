@@ -43,7 +43,15 @@
   width: 70%;
   height: 10rem;
   max-height: 10rem;
+  background-color: #3f3f3f;
+  color: white;
+  outline: none;
 }
+
+.description-field::placeholder {
+  color: #adabab;
+}
+
 
 .button-wrapper {
   display: flex;
@@ -53,23 +61,22 @@
 }
 
 .button {
-  font-weight: 700;
+  font-weight: 500;
   background-color: var(--main-color);
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-radius: 20px;
   margin-top: 1rem;
   min-width: 10rem;
   min-height: 3rem;
-  border: 2px solid;
+  border: 1px solid;
+  border-color: #dbd4d5;
 }
 
 .update-btn {
-  border-color: #f7be38;
   color: #f7be38;
 }
 
 .delete-btn {
-  border-color: #ff6b6b;
   color: #ff6b6b
 }
 

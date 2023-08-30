@@ -18,6 +18,9 @@ export class UserGameDetailsComponent implements OnChanges {
 
   username = localStorage.getItem('userName');
   userDescription: string;
+  gameDescriptionPlaceholder =
+    `Describe your playstyle (casual/ranked) and what you are looking for in other players that play this game. Share your relevant experience in the game.\n\nThis information will be displayed to other players.`;
+    
 
   constructor(
     private usrGame: UserGameService,
@@ -33,8 +36,6 @@ export class UserGameDetailsComponent implements OnChanges {
         this.alertify.success(`${this.game.gameName} deleted from your games list`);
         this.gameDeleted.emit();
       }
-    }, error => {
-      this.alertify.error(error.message);
     });
   }
 
@@ -59,13 +60,16 @@ export class UserGameDetailsComponent implements OnChanges {
   }
 
   onUpdate() {
+    if (this.userDescription == '') {
+      this.alertify.warning('Your game description can not be empty');
+      return;
+    }
+
     this.usrGame.updateUserGame(this.game.userGameId, this.userDescription).subscribe((response: any) => {
       if (this.userDescription == response.userDescription) {
         this.alertify.success(`Successfully updated your description for ${this.game.gameName}`);
         this.gameUpdated.emit();
       }
-    }, error => {
-      this.alertify.error(error.error);
     });
   }
 

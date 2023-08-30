@@ -20,14 +20,21 @@
   top: 100%;
   width: 100%;
   overflow-y: auto;
-  max-height: 25rem;
+  max-height: 15rem;
   transform: translateY(1px);
-
 }
 
 .search-field {
   width: 100%;
   outline: none;
+  background-color: #3f3f3f;
+  border: none;
+  min-height: 1.5rem;
+  color: white;
+}
+
+.search-field::placeholder {
+  color: #adabab;
 }
 
 .dropdown-list li img {
@@ -65,7 +72,7 @@
   position: absolute;
   top: 50%;
   font-size: 20px;
-  color: #333333;
+  color: #d8d8d8;
   right: 4px;
   transform: translateY(-50%);
   background: none;
@@ -85,6 +92,13 @@
   width: 70%;
   height: 10rem;
   max-height: 10rem;
+  background-color: #3f3f3f;
+  color: white;
+  outline: none;
+}
+
+.description-field::placeholder {
+  color: #adabab;
 }
 
 
