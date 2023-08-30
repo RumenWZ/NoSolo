@@ -53,7 +53,9 @@ export class SettingsComponent {
 
     this.image = file;
     const reader = new FileReader();
-    reader.onload = (e: any) => {this.profileImageUrl = e.target.result;};
+    reader.onload = (e: any) => {
+      this.profileImageUrl = e.target.result;
+    };
     reader.readAsDataURL(this.image);
     this.photoChanged = true;
   }
@@ -87,7 +89,6 @@ export class SettingsComponent {
     if (summary != this.initialSummary && summary != '') {
       this.updateSummary(summary);
     }
-    this.updateUserDetails();
 
   }
 
@@ -195,6 +196,7 @@ export class SettingsComponent {
   private checkApiStatus() {
     if (this.ongoingApiCalls === 0) {
       this.isUpdating = false;
+      this.updateUserDetails();
     }
   }
 

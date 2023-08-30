@@ -10,7 +10,7 @@
           <label for="display-name">Display Name</label>
           <input class="input-field" id="display-name" type="text" [disabled]="isUpdating" (ngModelChange)="onFormChange()"
           ngModel name="displayName" [value]="initialDisplayName" placeholder="Enter your display name..."
-          minlength="3" maxlength="20" required pattern="^[a-zA-Z0-9]*$">
+          minlength="3" maxlength="20" pattern="^[a-zA-Z0-9]*$">
 
           <div *ngIf="userSettingsForm.controls['displayName']?.hasError('minlength')"
           class="error-block">Minimum length should be 3 characters.</div>
