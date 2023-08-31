@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { UserSearchResult } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
 import { UserService } from 'src/app/services/user.service';

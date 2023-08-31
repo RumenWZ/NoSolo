@@ -7,7 +7,7 @@
   text-align: left;
   border: 1px grey solid;
   margin-top: -1px;
-  display: flex; /* add this */
+  display: flex;
   align-items: center;
   gap: 0.45rem;
 }
@@ -56,4 +56,8 @@
 
 .sort-btn-icon {
   font-size: 1.2rem;
+}
+
+.pagination {
+  padding-right: 8rem;
 }

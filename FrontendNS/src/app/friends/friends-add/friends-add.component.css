@@ -118,3 +118,7 @@
 .action-wrapper .cancel-request:hover {
   background-color: #5e635f;
 }
+
+.pagination {
+  padding-right: 2rem;
+}

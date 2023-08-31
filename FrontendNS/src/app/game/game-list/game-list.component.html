@@ -14,13 +14,16 @@
                   <input [(ngModel)]="filterString" class="filter-input" type="text" placeholder="Filter Games...">
                   <button class="sort-btn" (click)="onSortGamesList()"><i class="sort-btn-icon" [ngClass]="gameListSortOrder === 'ascending' ? 'bx bx-sort-up' : 'bx bx-sort-down'"></i></button>
                 </div>
-                <li *ngFor="let game of gamesList | filter: filterString : 'name' |sort: gameListSortOrder : 'name'" class="game-list-item">
+                <li *ngFor="let game of gamesList | filter: filterString : 'name' |sort: gameListSortOrder : 'name' | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="game-list-item">
                   <img class="game-image" src="{{game.imageUrl}}">
                   <label class="game-label">{{game.name}}</label>
                   <i class="bx bx-x delete-game-btn" (click)="confirmDeleteGame(game)"></i>
                 </li>
               </ul>
               <p *ngIf="getGamesErrorMessage" class="error-block">{{getGamesErrorMessage}}</p>
+            </div>
+            <div *ngIf="gamesList.length > 0" class="pagination">
+              <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
           </div>
         </div>

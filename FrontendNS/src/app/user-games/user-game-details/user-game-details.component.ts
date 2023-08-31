@@ -20,7 +20,7 @@ export class UserGameDetailsComponent implements OnChanges {
   userDescription: string;
   gameDescriptionPlaceholder =
     `Describe your playstyle (casual/ranked) and what you are looking for in other players that play this game. Share your relevant experience in the game.\n\nThis information will be displayed to other players.`;
-    
+
 
   constructor(
     private usrGame: UserGameService,
@@ -44,7 +44,7 @@ export class UserGameDetailsComponent implements OnChanges {
       width: '500px',
       data: {
         itemName: this.game.gameName,
-        displayMessage: `Are you sure you want to delete ${this.game.gameName} from your games list?`,
+        displayMessage: `Are you sure you want to remove ${this.game.gameName} from your games list?`,
         confirmButtonName: 'Delete'
       }
     })

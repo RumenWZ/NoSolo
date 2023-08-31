@@ -10,13 +10,13 @@
                   <ul id="game-list" class="dropdown-list" [ngClass]="{'visible': isDropdownVisible}">
                     <li *ngFor="let game of gameList | filter: filterString : 'name'" (click)="onSelectGame(game)">
                       <img src="{{game.imageUrl}}">
-                      <label class="game-label">{{game.name}}</label>
+                      <label class="game-label truncate" style="max-width: 85%">{{game.name}}</label>
                     </li>
                   </ul>
                 </div>
                 <div *ngIf="selectedGame" class="selected-game-wrapper">
                   <img src="{{selectedGame.imageUrl}}">
-                  <label>{{selectedGame.name.toUpperCase()}}</label>
+                  <span class="truncate">{{selectedGame.name.toUpperCase()}}</span>
                   <i class="clear-button bx bx-x" style="color: white;" (click)="clearSelectedGame()"></i>
                 </div>
 

@@ -20,6 +20,9 @@ export class GameListComponent {
   gameListSortOrder : string;
   userToken: string;
 
+  currentPage = 1;
+  itemsPerPage = 7;
+
   constructor(
     private gameService: GameService,
     private alertify: AlertifyService,

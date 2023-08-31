@@ -46,6 +46,7 @@
   background-color: #3f3f3f;
   color: white;
   outline: none;
+
 }
 
 .description-field::placeholder {
@@ -66,10 +67,12 @@
   font-size: 1rem;
   border-radius: 20px;
   margin-top: 1rem;
-  min-width: 10rem;
+  width: 100%;
+  max-width: 8rem;
   min-height: 3rem;
   border: 1px solid;
   border-color: #dbd4d5;
+  margin: 0 0.4rem;
 }
 
 .update-btn {
