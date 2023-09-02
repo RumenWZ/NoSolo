@@ -53,8 +53,8 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/update-photo/${token}`, photo);
   }
 
-  updateDisplayName(username: string, displayName:string) {
-    return this.http.patch(`${this.baseUrl}/update-display-name/${username}?displayName=${displayName}`, null);
+  updateDisplayName(displayName:string) {
+    return this.http.patch(`${this.baseUrl}/update-display-name?displayName=${displayName}`, null);
   }
 
   updateDiscordUsername(username: string, discordUsername:string) {

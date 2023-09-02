@@ -41,6 +41,7 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ProfileCardPopupComponent } from './user/profile-card-popup/profile-card-popup.component';
 import { FindFriendsComponent } from './find-friends/find-friends.component';
 import { FriendsRequestedComponent } from './friends/friends-requested/friends-requested.component';
+import { TokenInterceptor } from './services/token-interceptor.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -102,6 +103,11 @@ const appRoutes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
       multi: true
     },
     UserService,

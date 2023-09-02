@@ -128,7 +128,7 @@ export class SettingsComponent {
   private updateDisplayName(displayName: string) {
     this.ongoingApiCalls++;
     this.isUpdating = true;
-    this.userService.updateDisplayName(this.username, displayName).subscribe((response: any) => {
+    this.userService.updateDisplayName(displayName).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated display name');
         this.initialDisplayName = displayName;

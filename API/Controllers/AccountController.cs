@@ -1,14 +1,13 @@
-﻿using API.Data;
-using API.DTOs;
+﻿using API.DTOs;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using API.Extensions;
 
 
 namespace API.Controllers
@@ -151,8 +150,8 @@ namespace API.Controllers
             return Ok(userDTO);
         }
 
-        [HttpPatch("update-photo/{token}")]
-        public async Task<IActionResult> UpdateUserPhoto(string token, [FromForm] UpdateUserPhotoDTO updateRequest)
+        [HttpPatch("update-photo/")]
+        public async Task<IActionResult> UpdateUserPhoto([FromForm] UpdateUserPhotoDTO updateRequest)
         {
 
             var photo = updateRequest.Image;
@@ -166,11 +165,12 @@ namespace API.Controllers
                 return BadRequest("Image can not be larger than 1.5 MB");
             }
 
+            var token = HttpContext.GetAuthToken();
             var user = await uow.UserRepository.GetUserByTokenAsync(token);
 
             if (user == null)
             {
-                throw new Exception("Invalid token");
+                throw new Exception("Invalid token: " + token);
             }
             
             if (user.ProfileImageUrl != "")
@@ -195,10 +195,11 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpPatch("update-display-name/{username}")]
-        public async Task<IActionResult> UpdateDisplayName(string username, string displayName)
+        [HttpPatch("update-display-name/{displayName}")]
+        public async Task<IActionResult> UpdateDisplayName(string displayName)
         {
-            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            var token = HttpContext.GetAuthToken();
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
                 return BadRequest("User could not be found");
