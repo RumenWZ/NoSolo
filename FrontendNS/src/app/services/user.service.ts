@@ -49,22 +49,21 @@ export class UserService {
     return this.http.get(this.baseUrl + '/get-user-by-username/' + username);
   }
 
-  updateUserPhoto(token: string, photo: FormData) {
-    return this.http.patch(`${this.baseUrl}/update-photo/${token}`, photo);
+  updateUserPhoto(photo: FormData) {
+    return this.http.patch(`${this.baseUrl}/update-photo`, photo);
   }
 
   updateDisplayName(displayName:string) {
     return this.http.patch(`${this.baseUrl}/update-display-name?displayName=${displayName}`, null);
   }
 
-  updateDiscordUsername(username: string, discordUsername:string) {
-    const encodedUsername = encodeURIComponent(username);
+  updateDiscordUsername(discordUsername:string) {
     const encodedDiscordUsername = encodeURIComponent(discordUsername);
-    return this.http.patch(`${this.baseUrl}/update-discord-username/${encodedUsername}?discordUsername=${encodedDiscordUsername}`, null);
+    return this.http.patch(`${this.baseUrl}/update-discord-username?discordUsername=${encodedDiscordUsername}`, null);
   }
 
-  updateSummary(username: string, summary:string) {
-    return this.http.patch(`${this.baseUrl}/update-summary/${username}?summary=${summary}`, null);
+  updateSummary(summary:string) {
+    return this.http.patch(`${this.baseUrl}/update-summary?summary=${summary}`, null);
   }
 
   findUsers(token: string, searchString: string) {

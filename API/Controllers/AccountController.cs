@@ -88,9 +88,10 @@ namespace API.Controllers
             return Ok(userDTO);
         }
 
-        [HttpGet("find-users/{token}/{searchString}")]
-        public async Task<IActionResult> FindUsers(string token, string searchString)
+        [HttpGet("find-users/{searchString}")]
+        public async Task<IActionResult> FindUsers(string searchString)
         {
+            var token = HttpContext.GetAuthToken();
             var loggedInUser = await uow.UserRepository.GetUserByTokenAsync(token);
             if (loggedInUser == null)
             {
@@ -195,14 +196,14 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpPatch("update-display-name/{displayName}")]
-        public async Task<IActionResult> UpdateDisplayName(string displayName)
+        [HttpPatch("update-display-name")]
+        public async Task<IActionResult> UpdateDisplayName(string? displayName = null)
         {
             var token = HttpContext.GetAuthToken();
             var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
-                return BadRequest("User could not be found");
+                return BadRequest("Invalid token");
             }
             user.DisplayName = displayName;
             await uow.SaveAsync();
@@ -210,13 +211,14 @@ namespace API.Controllers
             return Ok(201);
         }
 
-        [HttpPatch("update-discord-username/{username}")]
-        public async Task<IActionResult> UpdateDiscordUsername(string username, string? discordUsername = null)
+        [HttpPatch("update-discord-username")]
+        public async Task<IActionResult> UpdateDiscordUsername(string? discordUsername = null)
         {
-            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            var token = HttpContext.GetAuthToken();
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
-                return BadRequest("User could not be found");
+                return BadRequest("Invalid token");
             }
                 if (!string.IsNullOrEmpty(discordUsername))
             {
@@ -231,13 +233,14 @@ namespace API.Controllers
             return Ok(201);
         }
 
-        [HttpPatch("update-summary/{username}")]
-        public async Task<IActionResult> UpdateSummary(string username, string summary)
+        [HttpPatch("update-summary/")]
+        public async Task<IActionResult> UpdateSummary(string summary)
         {
-            var user = await uow.UserRepository.GetByUserNameAsync(username);
+            var token = HttpContext.GetAuthToken();
+            var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
-                return BadRequest("User could not be found");
+                return BadRequest("Invalid token");
             }
             user.Summary = summary;
             await uow.SaveAsync();

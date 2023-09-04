@@ -105,7 +105,7 @@ export class SettingsComponent {
     this.isUpdating = true;
     const formData = new FormData();
     formData.append('image', this.image);
-    this.userService.updateUserPhoto(this.token, formData).subscribe((response: any) => {
+    this.userService.updateUserPhoto(formData).subscribe((response: any) => {
       if (response) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
@@ -143,7 +143,7 @@ export class SettingsComponent {
   private updateDiscordUsername(discordUsername: string) {
     this.ongoingApiCalls++;
     this.isUpdating = true;
-    this.userService.updateDiscordUsername(this.username, discordUsername).subscribe((response: any) => {
+    this.userService.updateDiscordUsername(discordUsername).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated discord username');
         this.initialDiscordUsername = discordUsername;
@@ -158,7 +158,7 @@ export class SettingsComponent {
   private updateSummary(summary: string) {
     this.ongoingApiCalls++;
     this.isUpdating = true;
-    this.userService.updateSummary(this.username, summary).subscribe((response: any) => {
+    this.userService.updateSummary(summary).subscribe((response: any) => {
       if (response === 201) {
         this.alertify.success('Successfully updated summary');
         this.initialSummary = summary;
