@@ -32,7 +32,8 @@ export class UserService {
     return this.http.post(this.baseUrl + '/login', user).pipe(
       tap((response: any) => {
         const token = response.token;
-        return this.getUserByToken(token).subscribe();
+        localStorage.setItem('token', token);
+        //return this.getLoggedInUser().subscribe();
       })
     );
   }
@@ -41,8 +42,8 @@ export class UserService {
     return localStorage.getItem('userName');
   }
 
-  getUserByToken(token: string): Observable<UserDTO> {
-    return this.http.get<UserDTO>(this.baseUrl + '/get-user-by-token/' + token);
+  getLoggedInUser(): Observable<UserDTO> {
+    return this.http.get<UserDTO>(this.baseUrl + '/get-logged-in-user');
   }
 
   getUserByUsername(username: string) {

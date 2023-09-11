@@ -74,7 +74,7 @@ export class RegisterComponent {
             localStorage.setItem('userName', user.username);
             this.router.navigate(['/']);
             this.alertify.success('Welcome to NoSolo');
-            return this.userService.getUserByToken(user.token);
+            return this.userService.getLoggedInUser();
           })
         )
         .subscribe((userDTO: UserDTO) => {

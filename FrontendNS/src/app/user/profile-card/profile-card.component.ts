@@ -75,7 +75,7 @@ export class ProfileCardComponent implements OnChanges {
 
   ngOnInit() {
     const token = localStorage.getItem('token');
-    this.user.getUserByToken(token).subscribe((response: any) => {
+    this.user.getLoggedInUser().subscribe((response: any) => {
       this.userViewing = response;
       if (this.isViewingOwnProfile()) {
         this.userGame.getUserGames(this.userViewing.username).subscribe((response: any) => {

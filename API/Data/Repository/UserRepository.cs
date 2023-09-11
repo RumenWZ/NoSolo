@@ -112,7 +112,7 @@ namespace API.Data.Repository
                     return user;
                 } else
                 {
-                    // some error
+                    
                 }
                 return null;
             }
@@ -120,6 +120,7 @@ namespace API.Data.Repository
             {
                 return null;
             }
+            
         }
 
         public void Register(string username, string email, string password)

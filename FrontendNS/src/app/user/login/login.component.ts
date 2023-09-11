@@ -24,25 +24,20 @@ export class LoginComponent {
   ) {}
 
   onLogin(form: NgForm) {
-    
+
 
     this.userService.authUser(form.value).subscribe(
       (response: any) => {
-        console.log(response);
         const user = response;
-        localStorage.setItem('token', user.token);
         localStorage.setItem('userName', user.username);
 
         this.router.navigate(['/']);
         this.alertify.success("Login Successful");
 
-        this.userService.getUserByToken(user.token).subscribe(
+        this.userService.getLoggedInUser().subscribe(
           (userDTO: UserDTO) => {
             localStorage.setItem('user', JSON.stringify(userDTO));
             this.sidenav.updateUserDetails();
-          },
-          (error) => {
-            console.log('Error fetching user details:', error);
           }
         );
       }

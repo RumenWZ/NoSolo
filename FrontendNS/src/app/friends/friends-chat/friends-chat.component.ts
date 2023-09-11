@@ -150,7 +150,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     if (userClicked == this.chatUser.displayName || userClicked == this.chatUser.username) {
       this.user.raiseCurrentUserProfileCard(this.chatUser);
     } else {
-      this.user.getUserByToken(this.token).subscribe((response: any) => {
+      this.user.getLoggedInUser().subscribe((response: any) => {
         this.user.raiseCurrentUserProfileCard(response);
       })
     }

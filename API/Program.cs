@@ -53,6 +53,8 @@ var cloudinaryConfig = builder.Configuration.GetSection("CloudinarySettings");
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<CloudinarySettings>(cloudinaryConfig);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(op =>
@@ -77,7 +79,6 @@ if (env.IsDevelopment())
 }
 app.ConfigureExceptionHandler(env);
 
-//Don't forget to properly configure Cors later
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseHttpsRedirection();

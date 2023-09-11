@@ -19,16 +19,19 @@ namespace API.Controllers
         private readonly IUnitOfWork uow;
         private readonly IPhotoService photoService;
         private readonly IMapper mapper;
+        private readonly IAuthenticationService auth;
 
         public AccountController(
             IUnitOfWork uow,
             IPhotoService photoService,
-            IMapper mapper
+            IMapper mapper,
+            IAuthenticationService auth
             )
         {
             this.uow = uow;
             this.photoService = photoService;
             this.mapper = mapper;
+            this.auth = auth;
         }
 
         [HttpPost("login")]
@@ -64,25 +67,14 @@ namespace API.Controllers
             return StatusCode(201);
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> FindUserById(int userId)
+        [HttpGet("get-logged-in-user")]
+        public async Task<IActionResult> GetLoggedInUser()
         {
-            var user = await uow.UserRepository.GetByIdAsync(userId);
-            if (user == null)
-            {
-                return BadRequest("User could not be found");
-            }
-            return Ok(user);
-        }
-
-
-        [HttpGet("get-user-by-token/{token}")]
-        public async Task<IActionResult> FindUserByToken(string token)
-        {
+            var token = HttpContext.GetAuthToken();
             var user = await uow.UserRepository.GetUserByTokenAsync(token);
             if (user == null)
             {
-                return BadRequest("User could not be found");
+                return BadRequest("Invalid token");
             }
             var userDTO = uow.UserRepository.CreateUserDTO(user);
             return Ok(userDTO);
@@ -171,7 +163,7 @@ namespace API.Controllers
 
             if (user == null)
             {
-                throw new Exception("Invalid token: " + token);
+                throw new Exception("Invalid token");
             }
             
             if (user.ProfileImageUrl != "")
@@ -236,8 +228,7 @@ namespace API.Controllers
         [HttpPatch("update-summary/")]
         public async Task<IActionResult> UpdateSummary(string summary)
         {
-            var token = HttpContext.GetAuthToken();
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
                 return BadRequest("Invalid token");
@@ -248,8 +239,6 @@ namespace API.Controllers
             return Ok(201);
         }
 
-
-        //*********************************************
         private string CreateJWT(User user)
         {
             var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
