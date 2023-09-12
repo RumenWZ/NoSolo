@@ -69,7 +69,7 @@ export class FriendsAllComponent {
   }
 
   removeFriend(user: UserDTO) {
-    this.friend.removeFriend(localStorage.getItem('token'), user.username).subscribe((response: any) => {
+    this.friend.removeFriend(user.username).subscribe((response: any) => {
       if (response == 201) {
         this.friendsList = this.friendsList.filter(friend => friend.username !== user.username);
       }
@@ -78,7 +78,7 @@ export class FriendsAllComponent {
 
   ngOnInit() {
     this.searchParameters = '';
-    this.friend.getAllFriendsOfUser(localStorage.getItem('token')).subscribe((response: any) => {
+    this.friend.getAllFriendsOfUser().subscribe((response: any) => {
       this.friendsList = response;
       this.assignDefaultValues();
     })

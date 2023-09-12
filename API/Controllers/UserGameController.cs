@@ -13,23 +13,26 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
+        private readonly IAuthenticationService auth;
 
         public UserGameController(
             IUnitOfWork uow,
-            IMapper mapper
+            IMapper mapper,
+            IAuthenticationService auth
             )
         {
             this.uow = uow;
             this.mapper = mapper;
+            this.auth = auth;
         }
 
         [HttpPost("add")]
         public async Task<IActionResult> Add(UserGameAddRequest request)
         {
-            var user = await uow.UserRepository.GetByIdAsync(request.UserId);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
-                return BadRequest("User can not be found");
+                return BadRequest("Invalid token");
             }
             var game = await uow.GameRepository.GetByIdAsync(request.GameId);
             if (game == null)
@@ -45,7 +48,6 @@ namespace API.Controllers
         [HttpGet("get-user-games/{username}")]
         public async Task<IActionResult> GetUserGames(string username)
         {
-
             var user = await uow.UserRepository.GetByUserNameAsync(username);
             if (user == null)
             {
@@ -75,15 +77,15 @@ namespace API.Controllers
             return Ok(userGameDTOs);
         }
 
-        [HttpGet("get-user-games-for-matching/{username1}/{username2}")]
-        public async Task<IActionResult> GetUserGamesForMatching(string username1, string username2)
+        [HttpGet("get-user-games-for-matching/{username}")]
+        public async Task<IActionResult> GetUserGamesForMatching(string username)
         {
-            var user1 = await uow.UserRepository.GetByUserNameAsync(username1);
+            var user1 = await auth.GetUserFromTokenAsync(HttpContext);
             if (user1 == null)
             {
-                return BadRequest("User 1 doesn't exist");
+                return BadRequest("Invalid token");
             }
-            var user2 = await uow.UserRepository.GetByUserNameAsync(username2);
+            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
             if (user2 == null)
             {
                 return BadRequest("User 2 doesn't exist");
@@ -119,10 +121,10 @@ namespace API.Controllers
             return Ok(user2UserGameDTOs);
         }
 
-        [HttpGet("get-matches/{token}")]
-        public async Task<IActionResult> GetMatches(string token)
+        [HttpGet("get-matches")]
+        public async Task<IActionResult> GetMatches()
         {
-            var loggedInUser = await uow.UserRepository.GetUserByTokenAsync(token);
+            var loggedInUser = await auth.GetUserFromTokenAsync(HttpContext);
             if (loggedInUser == null)
             {
                 return BadRequest("Invalid token");
@@ -215,6 +217,11 @@ namespace API.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
+            if (user == null)
+            {
+                return BadRequest("Invalid token");
+            }
             await uow.UserGameRepository.DeleteUserGameAsync(id);
             await uow.SaveAsync();
             return Ok(201);
@@ -227,7 +234,11 @@ namespace API.Controllers
             {
                 throw new Exception("Description field can not be empty");
             }
-
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
+            if (user == null)
+            {
+                return BadRequest("Invalid token");
+            }
             var userGame = await uow.UserGameRepository.GetUserGameByIdAsync(id);
             if (userGame == null)
             {

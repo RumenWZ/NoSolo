@@ -63,7 +63,7 @@ export class ProfileCardComponent implements OnChanges {
   }
 
   updateUserProfileGames() {
-    this.userGame.getUserGamesForMatching(this.userViewing.username, this.userProfile.username).subscribe((response: any) => {
+    this.userGame.getUserGamesForMatching(this.userProfile.username).subscribe((response: any) => {
       this.userProfileGames = response;
       this.assignDefaultValues();
     });
@@ -74,7 +74,6 @@ export class ProfileCardComponent implements OnChanges {
   }
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
     this.user.getLoggedInUser().subscribe((response: any) => {
       this.userViewing = response;
       if (this.isViewingOwnProfile()) {

@@ -20,7 +20,6 @@ export class SidenavComponent{
   sidebarDataAdmin = sidebarMenuEntriesAdmin;
   user: UserDTO;
   cachedUserDetails: any;
-  token: string;
   friendRequests: number;
   updatePendingSubscription: Subscription;
   isAccountMenuOpen = false;
@@ -100,13 +99,12 @@ export class SidenavComponent{
   }
 
   getFriendRequestsCount() {
-    this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
+    this.friend.getIncomingFriendRequests().subscribe((response: any) => {
       this.friendRequests = response.length;
     });
   }
 
   getUserDetails() {
-    this.token = localStorage.getItem('token');
     this.cachedUserDetails = localStorage.getItem('user');
 
     if (this.cachedUserDetails) {

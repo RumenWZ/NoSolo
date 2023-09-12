@@ -11,18 +11,21 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IPhotoService photoService;
+        private readonly IAuthenticationService auth;
 
         public GameController(
             IUnitOfWork uow,
-            IPhotoService photoService
+            IPhotoService photoService,
+            IAuthenticationService auth
             )
         {
             this.uow = uow;
             this.photoService = photoService;
+            this.auth = auth;
         }
 
-        [HttpPost("add/{token}")]
-        public async Task<IActionResult> Add(string token, [FromForm] GameAddRequestDTO game)
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromForm] GameAddRequestDTO game)
         {
             var image = game.Image;
 
@@ -35,12 +38,12 @@ namespace API.Controllers
                 return BadRequest("Image can not be larger than 1 MB");
             }
 
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
-                return BadRequest("Invalid user token");
+                return BadRequest("Invalid token");
             }
-            else if (!user.IsAdmin)
+            if (!user.IsAdmin)
             {
                 return BadRequest("You are not authorized to perform this action");
             }
@@ -74,15 +77,15 @@ namespace API.Controllers
             return Ok(201);
         }
 
-        [HttpDelete("delete/{token}/{id}")]
-        public async Task<IActionResult> Delete(string token, int id)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
-                return BadRequest("Invalid user token");
+                return BadRequest("Invalid token");
             }
-            else if (!user.IsAdmin)
+            if (!user.IsAdmin)
             {
                 return BadRequest("You are not authorized to perform this action");
             }

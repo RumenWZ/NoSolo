@@ -35,12 +35,12 @@ export class UserGameService {
     return this.http.patch(`${this.baseUrl}/update/${id}?description=${description}`, null);
   }
 
-  getUserGamesForMatching(username1: string, username2: string) {
-    return this.http.get(`${this.baseUrl}/get-user-games-for-matching/${username1}/${username2}`);
+  getUserGamesForMatching(username: string) {
+    return this.http.get(`${this.baseUrl}/get-user-games-for-matching/${username}`);
   }
 
-  getMatchesForUser(token: string) {
-    return this.http.get<MatchedUserDTO[]>(`${this.baseUrl}/get-matches/${token}`);
+  getMatchesForUser() {
+    return this.http.get<MatchedUserDTO[]>(`${this.baseUrl}/get-matches`);
   }
 
 }

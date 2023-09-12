@@ -18,7 +18,6 @@ export class GameListComponent {
   getGamesErrorMessage: string = null;
   filterString: string;
   gameListSortOrder : string;
-  userToken: string;
 
   currentPage = 1;
   itemsPerPage = 7;
@@ -51,7 +50,7 @@ export class GameListComponent {
   }
 
   deleteGame(){
-    this.gameService.deleteGame(this.userToken, this.gamePendingDeletion.id).subscribe((response: any) => {
+    this.gameService.deleteGame(this.gamePendingDeletion.id).subscribe((response: any) => {
       if (response == 201) {
         this.alertify.success(this.gamePendingDeletion.name + " successfully deleted from database");
         this.getGamesList();
@@ -72,7 +71,6 @@ export class GameListComponent {
   }
 
   ngOnInit() {
-    this.userToken = localStorage.getItem('token');
     this.getGamesList();
     this.filterString = '';
     this.gameListSortOrder = 'ascending';

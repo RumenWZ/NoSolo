@@ -13,9 +13,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
-  test: any;
-
+  
   constructor(
     private alertify: AlertifyService,
     private userService: UserService,
@@ -24,8 +22,6 @@ export class LoginComponent {
   ) {}
 
   onLogin(form: NgForm) {
-
-
     this.userService.authUser(form.value).subscribe(
       (response: any) => {
         const user = response;

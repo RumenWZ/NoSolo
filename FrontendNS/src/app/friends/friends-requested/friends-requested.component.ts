@@ -12,7 +12,6 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
 })
 export class FriendsRequestedComponent {
   friendRequests: UserDTO[];
-  token: string;
   searchParameters: string;
 
   constructor(
@@ -35,7 +34,7 @@ export class FriendsRequestedComponent {
   onRemove(event: Event, user: UserDTO) {
     event.stopPropagation();
 
-    this.friend.removeFriend(this.token, user.username).subscribe((response: any) => {
+    this.friend.removeFriend(user.username).subscribe((response: any) => {
       if (response == 201) {
         this.friendRequests = this.friendRequests.filter(friend => friend.username !== user.username);
       }
@@ -56,8 +55,7 @@ export class FriendsRequestedComponent {
 
   ngOnInit() {
     this.searchParameters = '';
-    this.token = localStorage.getItem('token');
-    this.friend.getAllFriendRequestsByUser(this.token).subscribe((response: UserDTO[]) => {
+    this.friend.getAllFriendRequestsByUser().subscribe((response: UserDTO[]) => {
       this.friendRequests = response;
       this.assignDefaultValues();
     })

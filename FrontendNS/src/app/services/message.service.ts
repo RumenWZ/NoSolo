@@ -13,12 +13,12 @@ export class MessageService {
     private http: HttpClient
   ) { }
 
-  sendMessage(token: string, username: string, message: string) {
+  sendMessage(username: string, message: string) {
     const encodedMessage = encodeURIComponent(message);
-    return this.http.post(`${this.baseUrl}/send-message/${token}/${username}/${encodedMessage}`, null);
+    return this.http.post(`${this.baseUrl}/send-message/${username}/${encodedMessage}`, null);
   }
 
-  getMessagesForUsers(token: string, username: string): Observable<Message> {
-    return this.http.get<Message>(`${this.baseUrl}/get-messages-between-users/${token}/${username}`);
+  getMessagesForUsers(username: string): Observable<Message> {
+    return this.http.get<Message>(`${this.baseUrl}/get-messages-between-users/${username}`);
   }
 }

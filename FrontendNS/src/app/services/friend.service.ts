@@ -26,35 +26,35 @@ export class FriendService {
   }
 
   // API Calls
-  getFriendship(token: string, username: string): Observable<Friend> {
-    return this.http.get<Friend>(`${this.baseUrl}/get-friendship/${token}/${username}`);
+  getFriendship(username: string): Observable<Friend> {
+    return this.http.get<Friend>(`${this.baseUrl}/get-friendship/${username}`);
   }
 
-  acceptFriendRequest(token: string, username: string) {
-    return this.http.patch(`${this.baseUrl}/accept-friend-request/${token}/${username}`, null).pipe(
+  acceptFriendRequest(username: string) {
+    return this.http.patch(`${this.baseUrl}/accept-friend-request/${username}`, null).pipe(
       tap(() => this.updateFriendsList.emit())
     );
   }
 
-  removeFriend(token: string, username: string) {
-    return this.http.delete(`${this.baseUrl}/delete-friendship/${token}/${username}`).pipe(
+  removeFriend(username: string) {
+    return this.http.delete(`${this.baseUrl}/delete-friendship/${username}`).pipe(
       tap(() => this.updateFriendsList.emit())
     );
   }
 
-  sendFriendRequest(token:string, username: string) {
-    return this.http.post(`${this.baseUrl}/send-friend-request/${token}/${username}`, null);
+  sendFriendRequest(username: string) {
+    return this.http.post(`${this.baseUrl}/send-friend-request/${username}`, null);
   }
 
-  getIncomingFriendRequests(token: string) {
-    return this.http.get(`${this.baseUrl}/get-my-friend-requests/${token}`);
+  getIncomingFriendRequests() {
+    return this.http.get(`${this.baseUrl}/get-my-friend-requests`);
   }
 
-  getAllFriendsOfUser(token: string) {
-    return this.http.get(`${this.baseUrl}/get-all-my-friends/${token}`);
+  getAllFriendsOfUser() {
+    return this.http.get(`${this.baseUrl}/get-all-my-friends`);
   }
 
-  getAllFriendRequestsByUser(token: string) {
-    return this.http.get<UserDTO[]>(`${this.baseUrl}/get-friendship-requests-of-user/${token}`);
+  getAllFriendRequestsByUser() {
+    return this.http.get<UserDTO[]>(`${this.baseUrl}/get-friendship-requests-of-user`);
   }
 }

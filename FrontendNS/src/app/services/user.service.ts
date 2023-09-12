@@ -23,7 +23,6 @@ export class UserService {
     this.userForUserCard.emit(user);
   }
 
-  // API calls
   addUser(user: User) {
     return this.http.post(this.baseUrl + '/register', user);
   }
@@ -33,7 +32,6 @@ export class UserService {
       tap((response: any) => {
         const token = response.token;
         localStorage.setItem('token', token);
-        //return this.getLoggedInUser().subscribe();
       })
     );
   }
@@ -67,8 +65,8 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/update-summary?summary=${summary}`, null);
   }
 
-  findUsers(token: string, searchString: string) {
-    return this.http.get(`${this.baseUrl}/find-users/${token}/${searchString}`);
+  findUsers(searchString: string) {
+    return this.http.get(`${this.baseUrl}/find-users/${searchString}`);
   }
 
   verifyLoggedIn(): boolean {

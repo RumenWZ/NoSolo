@@ -1,5 +1,6 @@
 using API.Data;
 using API.Extensions;
+using API.Filters;
 using API.Helpers;
 using API.Interfaces;
 using API.Middlewares;
@@ -54,6 +55,7 @@ var cloudinaryConfig = builder.Configuration.GetSection("CloudinarySettings");
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<CloudinarySettings>(cloudinaryConfig);
 

@@ -15,7 +15,6 @@ export class GameAddComponent {
   image: File;
   previewImage: string | ArrayBuffer
   validImageSelected: boolean = false;
-  userToken: string;
 
   constructor(
     private gameService: GameService,
@@ -79,7 +78,7 @@ export class GameAddComponent {
     formData.append('name', gameForm.form.value.name);
     formData.append('image', this.image, this.image.name);
     if (gameForm.valid) {
-      this.gameService.addGame(this.userToken, formData).subscribe((response: any) => {
+      this.gameService.addGame(formData).subscribe((response: any) => {
         if (response == 201) {
           gameForm.reset();
           this.alertify.success('Successfully added game to database');
@@ -90,7 +89,7 @@ export class GameAddComponent {
   }
 
   ngOnInit() {
-    this.userToken = localStorage.getItem('token');
+
   }
 
   private resetImageInput(event: any) {

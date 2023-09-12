@@ -13,7 +13,6 @@ import { UserService } from 'src/app/services/user.service';
 export class GameSelectionComponent {
   selectedGame: UserGameDTO = undefined;
   cachedUserData: string;
-
   userGameList: any[];
   addGameCardEnabled: boolean = true;
   userGameDetailsEnabled: boolean = false;

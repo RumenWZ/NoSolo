@@ -18,7 +18,6 @@ export class SettingsComponent {
   profileImageUrl : string = '/assets/images/default-user.png';
   changes = {};
   photoChanged: boolean = false;
-  token: string;
   isUpdating: boolean = false;
   ongoingApiCalls: number = 0;
 
@@ -189,7 +188,6 @@ export class SettingsComponent {
   }
 
   ngOnInit() {
-    this.token = localStorage.getItem('token');
     this.updateUserDetails();
   }
 

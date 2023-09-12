@@ -18,28 +18,30 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
+        private readonly IAuthenticationService auth;
 
         public MessageController(
             IUnitOfWork uow,
-            IMapper mapper
+            IMapper mapper,
+            IAuthenticationService auth
             )
         {
             this.uow = uow;
             this.mapper = mapper;
-
+            this.auth = auth;
         }
 
-        [HttpPost("send-message/{token}/{username}/{message}")]
-        public async Task<IActionResult> SendMessage(string token, string username, string message)
+        [HttpPost("send-message/{username}/{message}")]
+        public async Task<IActionResult> SendMessage(string username, string message)
         {
             DotEnv.Load();
 
             string originalMessage = HttpUtility.UrlDecode(message);
 
-            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user1 = await auth.GetUserFromTokenAsync(HttpContext);
             if (user1 == null)
             {
-                return BadRequest("No user could be linkned to this token");
+                return BadRequest("Invalid token");
             }
 
             var user2 = await uow.UserRepository.GetByUserNameAsync(username);
@@ -73,13 +75,13 @@ namespace API.Controllers
             return Ok(201);
         }
 
-        [HttpGet("get-messages-between-users/{token}/{username}")]
-        public async Task<IActionResult> GetMessagesBetweenUsers(string token, string username)
+        [HttpGet("get-messages-between-users/{username}")]
+        public async Task<IActionResult> GetMessagesBetweenUsers(string username)
         {
-            var user1 = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user1 = await auth.GetUserFromTokenAsync(HttpContext);
             if (user1 == null)
             {
-                return BadRequest("No user could be linkned to this token");
+                return BadRequest("Invalid token");
             }
 
             var user2 = await uow.UserRepository.GetByUserNameAsync(username);

@@ -22,7 +22,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   messageFieldPlaceholder: string;
   chatMessages: Message[];
   chatFieldMessage: string;
-  token: string;
   pusher: Pusher
   channel: any;
   environment = environment;
@@ -38,7 +37,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     private matDialog: MatDialog,
     private alertify: AlertifyService
   ) {
-    this.token = localStorage.getItem('token');
   }
 
   chatMessagesProcessor() {
@@ -73,7 +71,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     }
     if (this.canSendMessage && this.chatFieldMessage) {
       this.canSendMessage = false;
-      this.message.sendMessage(this.token, this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
+      this.message.sendMessage(this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
         if (response == 201) {
           this.chatFieldMessage = '';
           this.chatMessagesProcessor();
@@ -85,7 +83,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   getChatMessages() {
-    this.message.getMessagesForUsers(this.token, this.chatUser.username).subscribe((response: Message) => {
+    this.message.getMessagesForUsers(this.chatUser.username).subscribe((response: Message) => {
       if (Array.isArray(response)) {
         this.chatMessages = response;
       } else {
@@ -158,7 +156,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
-    this.token = localStorage.getItem('token');
     this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
 
     this.getChatMessages();

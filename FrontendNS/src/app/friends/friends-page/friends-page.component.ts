@@ -102,7 +102,7 @@ export class FriendsPageComponent {
   }
 
   getFriendRequestsCount() {
-    this.friend.getIncomingFriendRequests(localStorage.getItem('token')).subscribe((response: any) => {
+    this.friend.getIncomingFriendRequests().subscribe((response: any) => {
       this.friendInvitesCount = response.length;
     });
   }

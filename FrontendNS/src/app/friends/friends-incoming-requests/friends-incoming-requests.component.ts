@@ -13,7 +13,6 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
 })
 export class FriendsIncomingRequestsComponent {
   incomingFriendRequests: any;
-  token: string;
   searchParameters: string;
 
   constructor(
@@ -38,7 +37,7 @@ export class FriendsIncomingRequestsComponent {
   }
 
   getIncomingFriendRequests() {
-    this.friend.getIncomingFriendRequests(this.token).subscribe((response: any) => {
+    this.friend.getIncomingFriendRequests().subscribe((response: any) => {
       this.incomingFriendRequests = response;
       this.assignDefaultValues();
     });
@@ -54,7 +53,7 @@ export class FriendsIncomingRequestsComponent {
 
   onAcceptFriendRequest(event: Event, user: UserDTO) {
     event.stopPropagation();
-    this.friend.acceptFriendRequest(this.token, user.username).subscribe((response: any) => {
+    this.friend.acceptFriendRequest(user.username).subscribe((response: any) => {
       if (response == 201) {
         this.incomingFriendRequests = this.incomingFriendRequests.filter((incomingUser: UserDTO) => {
           return incomingUser.username !== user.username;
@@ -65,7 +64,7 @@ export class FriendsIncomingRequestsComponent {
 
   onDenyFriendRequest(event: Event, user: UserDTO) {
     event.stopPropagation();
-    this.friend.removeFriend(this.token, user.username).subscribe((response: any) => {
+    this.friend.removeFriend(user.username).subscribe((response: any) => {
       if (response == 201) {
         this.incomingFriendRequests = this.incomingFriendRequests.filter((incomingUser: UserDTO) => {
           return incomingUser.username !== user.username;
@@ -76,7 +75,6 @@ export class FriendsIncomingRequestsComponent {
 
   ngOnInit() {
     this.searchParameters = '';
-    this.token = localStorage.getItem('token');
 
     this.getIncomingFriendRequests();
   }

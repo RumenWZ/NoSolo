@@ -47,7 +47,7 @@ export class FriendsListComponent {
   }
 
   getFriendsList() {
-    this.friend.getAllFriendsOfUser(localStorage.getItem('token')).subscribe((response: any) => {
+    this.friend.getAllFriendsOfUser().subscribe((response: any) => {
       this.friendsList = response;
       this.assignDefaultValues();
     });

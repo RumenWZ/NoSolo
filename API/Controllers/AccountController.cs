@@ -1,14 +1,14 @@
 ﻿using API.DTOs;
 using API.Interfaces;
+using API.Migrations;
 using API.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using API.Extensions;
-
 
 namespace API.Controllers
 {
@@ -70,12 +70,12 @@ namespace API.Controllers
         [HttpGet("get-logged-in-user")]
         public async Task<IActionResult> GetLoggedInUser()
         {
-            var token = HttpContext.GetAuthToken();
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
                 return BadRequest("Invalid token");
             }
+
             var userDTO = uow.UserRepository.CreateUserDTO(user);
             return Ok(userDTO);
         }
@@ -83,12 +83,12 @@ namespace API.Controllers
         [HttpGet("find-users/{searchString}")]
         public async Task<IActionResult> FindUsers(string searchString)
         {
-            var token = HttpContext.GetAuthToken();
-            var loggedInUser = await uow.UserRepository.GetUserByTokenAsync(token);
+            var loggedInUser = await auth.GetUserFromTokenAsync(HttpContext);
             if (loggedInUser == null)
             {
-                return BadRequest("Invalid user token");
+                return BadRequest("Invalid token");
             }
+
             var userSearchResults = await uow.UserRepository.FindUsers(searchString);
             if (userSearchResults == null)
             {
@@ -158,14 +158,12 @@ namespace API.Controllers
                 return BadRequest("Image can not be larger than 1.5 MB");
             }
 
-            var token = HttpContext.GetAuthToken();
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
-
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
-                throw new Exception("Invalid token");
+                return BadRequest("Invalid token");
             }
-            
+
             if (user.ProfileImageUrl != "")
             {
                 await photoService.DeletePhotoAsync(user.ProfileImageUrl);
@@ -191,12 +189,12 @@ namespace API.Controllers
         [HttpPatch("update-display-name")]
         public async Task<IActionResult> UpdateDisplayName(string? displayName = null)
         {
-            var token = HttpContext.GetAuthToken();
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
                 return BadRequest("Invalid token");
             }
+
             user.DisplayName = displayName;
             await uow.SaveAsync();
 
@@ -206,13 +204,13 @@ namespace API.Controllers
         [HttpPatch("update-discord-username")]
         public async Task<IActionResult> UpdateDiscordUsername(string? discordUsername = null)
         {
-            var token = HttpContext.GetAuthToken();
-            var user = await uow.UserRepository.GetUserByTokenAsync(token);
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
             if (user == null)
             {
                 return BadRequest("Invalid token");
             }
-                if (!string.IsNullOrEmpty(discordUsername))
+
+            if (!string.IsNullOrEmpty(discordUsername))
             {
                 user.DiscordUsername = discordUsername;
             } else
@@ -226,6 +224,7 @@ namespace API.Controllers
         }
 
         [HttpPatch("update-summary/")]
+        [Authorize]
         public async Task<IActionResult> UpdateSummary(string summary)
         {
             var user = await auth.GetUserFromTokenAsync(HttpContext);

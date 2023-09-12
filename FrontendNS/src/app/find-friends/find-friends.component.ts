@@ -13,7 +13,6 @@ import { UserService } from '../services/user.service';
 })
 export class FindFriendsComponent {
   isSmallScreen: boolean;
-  token: string;
   matches: MatchedUserDTO[];
   currentDisplayedUser: UserDTO;
   currentDisplayedUserGames: UserGameDTO[];
@@ -53,7 +52,7 @@ export class FindFriendsComponent {
 
   onSelectYes() {
     this.canSelectNextUser = false;
-    this.friend.sendFriendRequest(this.token, this.currentDisplayedUser.username).subscribe((response: any) => {
+    this.friend.sendFriendRequest(this.currentDisplayedUser.username).subscribe((response: any) => {
       if (response == 201) {
         this.alertify.success('Friend request sent.');
       }
@@ -64,8 +63,7 @@ export class FindFriendsComponent {
 
   ngOnInit() {
     this.user.verifyLoggedIn();
-    this.token = localStorage.getItem('token');
-    this.userGame.getMatchesForUser(this.token).subscribe((response: MatchedUserDTO[]) => {
+    this.userGame.getMatchesForUser().subscribe((response: MatchedUserDTO[]) => {
       this.matches = response;
       if (this.matches.length > 0) {
         this.currentDisplayedUser = this.matches[0].user;

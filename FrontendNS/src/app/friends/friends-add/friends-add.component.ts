@@ -13,8 +13,6 @@ import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.com
 export class FriendsAddComponent {
   searchParameters: string;
   searchResults: UserSearchResult[];
-  userToken: string;
-
   currentPage = 1;
   itemsPerPage = 8;
 
@@ -48,7 +46,7 @@ export class FriendsAddComponent {
 
   searchUsers() {
     if (this.searchParameters != '') {
-      this.user.findUsers(this.userToken, this.searchParameters).subscribe((response: any) => {
+      this.user.findUsers(this.searchParameters).subscribe((response: any) => {
         this.searchResults = response;
         this.assignDefaultValues();
         this.currentPage = 1;
@@ -62,7 +60,7 @@ export class FriendsAddComponent {
   }
 
   onAddFriend(user: UserSearchResult) {
-    this.friend.sendFriendRequest(this.userToken, user.username).subscribe((response: any) => {
+    this.friend.sendFriendRequest(user.username).subscribe((response: any) => {
       if (response == 201) {
         const foundUser = this.searchResults.find((x) => x.username === user.username);
         foundUser.friendStatus = 'pending';
@@ -72,7 +70,7 @@ export class FriendsAddComponent {
   }
 
   onCancelRequest(user: UserSearchResult) {
-    this.friend.removeFriend(this.userToken, user.username).subscribe((response: any) => {
+    this.friend.removeFriend(user.username).subscribe((response: any) => {
       if (response == 201) {
         const foundUser = this.searchResults.find((x) => x.username === user.username);
         foundUser.friendStatus = '';
@@ -81,6 +79,5 @@ export class FriendsAddComponent {
   }
 
   ngOnInit() {
-    this.userToken = localStorage.getItem('token');
   }
 }
