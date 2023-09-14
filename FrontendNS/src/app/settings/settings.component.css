@@ -92,3 +92,6 @@
   max-height: 9.5rem;
 }
 
+.disable {
+  opacity: 0.5;
+}

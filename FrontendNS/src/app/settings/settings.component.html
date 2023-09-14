@@ -1,6 +1,6 @@
 <div class="settings">
   <div class="user-info-wrapper">
-    <img [src]="profileImageUrl">
+    <img [src]="profileImageUrl" [class.disable]="isUpdating">
     <label class="username-label">{{initialDisplayName}}</label>
     <label for="upload" class="upload-label">Upload photo</label>
     <input type="file" id="upload" (change)="getImage($event)" style="display: none;" [disabled]="isUpdating">
@@ -52,7 +52,4 @@
       </form>
     </div>
   </div>
-
-
-  <!-- <button (click)="Test()">test</button> -->
 </div>

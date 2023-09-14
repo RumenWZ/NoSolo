@@ -3,7 +3,6 @@ import { UserService } from '../services/user.service';
 import { User } from '../model/user';
 import { AlertifyService } from '../services/alertify.service';
 import { NgForm } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { SidenavService } from '../services/sidenav.service';
 
 @Component({
@@ -32,7 +31,6 @@ export class SettingsComponent {
     private userService: UserService,
     private alertify: AlertifyService,
     private sidenav: SidenavService
-
     ) {}
 
   getImage(event: any) {
