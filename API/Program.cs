@@ -1,6 +1,5 @@
 using API.Data;
 using API.Extensions;
-using API.Filters;
 using API.Helpers;
 using API.Interfaces;
 using API.Middlewares;
