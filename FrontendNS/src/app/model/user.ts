@@ -19,6 +19,7 @@ export interface UserDTO {
   displayName: string,
   discordUsername: string,
   summary: string
+  isAdmin: boolean
 }
 
 export interface UserSearchResult {
@@ -31,4 +32,5 @@ export interface UserSearchResult {
   discordUsername: string,
   summary: string,
   friendStatus: string
+  isAdmin: boolean
 }

@@ -42,12 +42,13 @@ import { ProfileCardPopupComponent } from './user/profile-card-popup/profile-car
 import { FindFriendsComponent } from './find-friends/find-friends.component';
 import { FriendsRequestedComponent } from './friends/friends-requested/friends-requested.component';
 import { TokenInterceptor } from './services/token-interceptor.service';
+import { AdminGuard } from './guards/admin-auth.guard';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'add-game', component: GameAddComponent},
-  {path: 'game-list', component: GameListComponent},
+  {path: 'add-game', component: GameAddComponent, canActivate: [AdminGuard]},
+  {path: 'game-list', component: GameListComponent, canActivate: [AdminGuard]},
   {path: 'game-selection', component: GameSelectionComponent},
   {path: 'settings', component: SettingsComponent},
   {path: 'friends', component: FriendsPageComponent},
