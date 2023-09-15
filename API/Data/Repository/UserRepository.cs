@@ -89,7 +89,7 @@ namespace API.Data.Repository
         public async Task<User> GetUserByTokenAsync(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
+            var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,

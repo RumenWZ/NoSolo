@@ -12,8 +12,8 @@ namespace API.Services
         {
             Account account = new Account(
                 cloudinaryConfig.Value.CloudName,
-                cloudinaryConfig.Value.ApiKey,
-                cloudinaryConfig.Value.ApiSecret
+                Environment.GetEnvironmentVariable("CLOUDINARY_API_KEY"),
+                Environment.GetEnvironmentVariable("CLOUDINARY_API_SECRET")
                 );
             cloudinary = new Cloudinary( account );
         }

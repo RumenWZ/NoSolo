@@ -1,10 +1,6 @@
 ﻿using API.DTOs;
-using API.Helpers;
 using API.Interfaces;
-using API.Migrations;
-using API.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PusherServer;
 using dotenv.net;
@@ -34,8 +30,6 @@ namespace API.Controllers
         [HttpPost("send-message/{username}/{message}")]
         public async Task<IActionResult> SendMessage(string username, string message)
         {
-            DotEnv.Load();
-
             string originalMessage = HttpUtility.UrlDecode(message);
 
             var user1 = await auth.GetUserFromTokenAsync(HttpContext);

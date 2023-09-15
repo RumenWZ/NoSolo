@@ -12,7 +12,7 @@ namespace API.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _uow;
-        private readonly string _secretKey = "TemporarySuperTopSecretKeyWillChangeDestinationLater";
+        private readonly string _secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 
         public AuthenticationService(
             IHttpContextAccessor httpContextAccessor,
