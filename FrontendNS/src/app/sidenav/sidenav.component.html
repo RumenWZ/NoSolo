@@ -4,26 +4,26 @@
 </div>
 <div class="sidenav-body">
 <ul class="sidebar-menu">
-  <li *ngFor="let item of sidebarData" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
+  <li *ngFor="let item of sidebarData" class="sidebar-menu-item regular-item" (click)="executeFunction(item.functionName)">
     <i class="{{item.icon}} icon"></i>
     <a class="label">{{item.label}}</a>
   </li>
-  <li class="sidebar-menu-item" (click)="executeFunction('onFriends')">
+  <li class="sidebar-menu-item regular-item" (click)="executeFunction('onFriends')">
     <i class="bx bxs-contact icon"></i>
     <a [matBadge]="friendRequests" [matBadgeHidden]="!friendRequests"
     matBadgeColor="warn" matBadgeSize="medium" class="label" style="padding-right: 7px;">Friends</a>
   </li>
 </ul>
 </div>
-<div class="admin-options">
+<div *ngIf="showAdminOptions" class="admin-options">
   <div class="sidenav-header" style="border-top: 1px #9a999b solid;">
-  <h5 class="sidenav-title">Admin/Staff Options</h5>
+  <h5 class="sidenav-title admin-header">Admin/Staff Options</h5>
   </div>
     <div class="sidenav-body">
     <ul class="sidebar-menu">
       <li *ngFor="let item of sidebarDataAdmin" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
-        <i class="{{item.icon}} icon"></i>
-        <a class="label">{{item.label}}</a>
+        <i class="{{item.icon}} icon" style="color: #66b9f4;"></i>
+        <a class="label" style="color: #66b9f4;">{{item.label}}</a>
       </li>
     </ul>
     </div>

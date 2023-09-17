@@ -1,10 +1,29 @@
+* {
+  font-family: "poppins";
+}
+
 .background {
-  max-width: 80%;
   width: 100%;
   background-color: var(--main-color);
   margin: 0 auto;
   color: var(--light-grey-text);
-  text-align: center;
+  min-height: 25rem;
+}
+
+.error-image-container {
+  padding: 0 3rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.error-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .go-back-button {
@@ -24,31 +43,5 @@
 }
 
 .btn-container {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 1.5rem;
-}
-
-.error-message-container {
-  padding: 7rem 1rem;
-
-}
-
-.error-message {
-  color: red;
-  font-size: 4rem;
-  word-wrap: break-word;
-  line-height: 1;
-}
-
-@media (max-width: 768px) {
-  .background {
-    min-height: 15rem;
-  }
-  .error-message {
-    font-size: 2.5rem;
-  }
-  .go-back-button {
-    font-size: 14px;
-  }
+  padding-bottom: 1rem;
 }

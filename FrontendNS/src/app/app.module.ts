@@ -43,6 +43,7 @@ import { FindFriendsComponent } from './find-friends/find-friends.component';
 import { FriendsRequestedComponent } from './friends/friends-requested/friends-requested.component';
 import { TokenInterceptor } from './services/token-interceptor.service';
 import { AdminGuard } from './guards/admin-auth.guard';
+import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '', component: WelcomePageComponent},
   {path: 'test', component: ProfileCardComponent},
-  {path: 'find-friends', component: FindFriendsComponent}
+  {path: 'find-friends', component: FindFriendsComponent},
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -87,6 +89,7 @@ const appRoutes: Routes = [
     ProfileCardPopupComponent,
     FindFriendsComponent,
     FriendsRequestedComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [

@@ -58,11 +58,10 @@
 
 .sidebar-menu-item:hover {
   background-color: var(--sidebar-menu-text);
-  border: solid;
 }
 
-.sidebar-menu-item:hover .label,
-.sidebar-menu-item:hover .icon {
+.regular-item:hover .label,
+.regular-item:hover .icon {
   color: var(--main-color);
 }
 
@@ -165,3 +164,8 @@
 .menu-option span {
   font-size: 1rem;
 }
+
+.admin-header {
+  color: #2ba6ff;
+}
+

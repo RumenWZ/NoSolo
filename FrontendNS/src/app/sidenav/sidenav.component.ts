@@ -105,19 +105,20 @@ export class SidenavComponent{
   }
 
   getUserDetails() {
-    this.cachedUserDetails = localStorage.getItem('user');
-
-    if (this.cachedUserDetails) {
-      this.user = JSON.parse(this.cachedUserDetails);
-
-      this.updatePendingSubscription = this.friend.updateFriendsList.subscribe(() => {
-        this.getFriendRequestsCount();
-      });
-      this.getFriendRequestsCount();
-      if (this.user.profileImageUrl == '') {
+    this.userService.getLoggedInUser().subscribe((response: UserDTO) => {
+      this.user = response;
+      this.showAdminOptions = response.isAdmin === true ? true : false;
+      if (response.profileImageUrl == '') {
         this.user.profileImageUrl = '/assets/images/default-user.png';
       }
-    }
+    });
+
+    this.updatePendingSubscription = this.friend.updateFriendsList.subscribe(() => {
+      this.getFriendRequestsCount();
+    });
+
+    this.getFriendRequestsCount();
+
   }
 
   ngOnInit() {
