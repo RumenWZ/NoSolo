@@ -224,7 +224,6 @@ namespace API.Controllers
         }
 
         [HttpPatch("update-summary/")]
-        [Authorize]
         public async Task<IActionResult> UpdateSummary(string summary)
         {
             var user = await auth.GetUserFromTokenAsync(HttpContext);

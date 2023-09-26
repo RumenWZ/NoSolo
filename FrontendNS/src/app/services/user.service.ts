@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { User, UserDTO } from '../model/user';
 import { AlertifyService } from './alertify.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = 'https://localhost:7104/api/account';
+  baseUrl = environment.apiUrl + '/account';
   username: string;
   userForUserCard: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
 

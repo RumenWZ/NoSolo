@@ -13,6 +13,11 @@ using System.Text;
 DotEnv.Load();
 var builder = WebApplication.CreateBuilder(args);
 
+var env = builder.Environment;
+
+var connectionString = env.IsDevelopment() ? builder.Configuration.GetConnectionString("Default") 
+    : Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -41,7 +46,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"),
+    options.UseSqlServer(connectionString, 
         sqlServerOptions => sqlServerOptions.EnableRetryOnFailure());
 });
 
@@ -72,13 +77,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 var app = builder.Build();
 
-var env = app.Environment;
-
 if (env.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 app.ConfigureExceptionHandler(env);
 
 app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());

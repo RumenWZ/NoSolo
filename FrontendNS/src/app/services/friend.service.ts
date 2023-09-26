@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Friend } from '../model/friend';
 import { Observable, Subject, tap } from 'rxjs';
-import { User, UserDTO } from '../model/user';
-import { Router } from '@angular/router';
+import { UserDTO } from '../model/user';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
-  baseUrl = 'https://localhost:7104/api/friend';
+  baseUrl = environment.apiUrl + '/friend';
   friendsChatIsOpen: Subject<boolean> = new Subject<boolean>();
   chattingWithUser: EventEmitter<UserDTO> = new EventEmitter<UserDTO>();
   updateFriendsList: EventEmitter<void> = new EventEmitter<void>();
@@ -25,7 +25,6 @@ export class FriendService {
     this.chattingWithUser.emit(user);
   }
 
-  // API Calls
   getFriendship(username: string): Observable<Friend> {
     return this.http.get<Friend>(`${this.baseUrl}/get-friendship/${username}`);
   }

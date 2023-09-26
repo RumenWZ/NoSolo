@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatchedUserDTO, UserGame } from '../model/user-game';
-
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserGameService {
-  baseUrl = 'https://localhost:7104/api/usergame';
+  baseUrl = environment.apiUrl + '/usergame';
   username: string;
 
   constructor(
