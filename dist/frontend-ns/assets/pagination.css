@@ -1,0 +1,25 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.pagination .ngx-pagination .current {
+  background: #96998f;
+}
+
+.pagination .ngx-pagination .disabled {
+  color: #9e9b96;
+}
+
+.pagination .ngx-pagination a {
+  color: var(--light-gray-text);
+}
+
+.pagination .ngx-pagination a:hover {
+  background-color: #595b55;
+}
