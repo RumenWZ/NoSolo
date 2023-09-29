@@ -17,6 +17,7 @@ export class FriendsListComponent {
   isSmallScreen: boolean;
   friendFilter: string;
   private updateFriendsListSubscription: Subscription;
+  skeletonLoadingCount = 10;
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -28,6 +29,10 @@ export class FriendsListComponent {
       this.selectedFriend = value;
     });
     this.isSmallScreen = window.innerWidth < 768;
+  }
+
+  getLoopRange(){
+    return new Array(this.skeletonLoadingCount);
   }
 
   onFriendClick(user: any) {

@@ -44,6 +44,8 @@ import { FriendsRequestedComponent } from './friends/friends-requested/friends-r
 import { TokenInterceptor } from './services/token-interceptor.service';
 import { AdminGuard } from './guards/admin-auth.guard';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { SkeletonFriendComponent } from './skeleton-loading/skeleton-friend/skeleton-friend.component';
+import { SkeletonChatMessageComponent } from './skeleton-loading/skeleton-chat-message/skeleton-chat-message.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -90,6 +92,8 @@ const appRoutes: Routes = [
     FindFriendsComponent,
     FriendsRequestedComponent,
     PageNotFoundComponent,
+    SkeletonFriendComponent,
+    SkeletonChatMessageComponent,
 
   ],
   imports: [

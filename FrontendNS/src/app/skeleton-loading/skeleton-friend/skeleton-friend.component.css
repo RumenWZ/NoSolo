@@ -1,0 +1,19 @@
+.skeleton-friend {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  width: 100%;
+}
+
+.skeleton-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.skeleton-name {
+  height: 1rem;
+  width: 9rem;
+  border-radius: 5px;
+}

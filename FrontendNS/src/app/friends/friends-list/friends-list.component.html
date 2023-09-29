@@ -8,10 +8,19 @@
       </div>
 
     <ul class="friends-list">
-      <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
-        <img [src]="user.profileImageUrl">
-        <span>{{user.displayName}}</span>
-      </li>
+      <ng-container *ngIf="!friendsList; else loadedData">
+        <li *ngFor="let _ of getLoopRange()">
+          <app-skeleton-friend></app-skeleton-friend>
+        </li>
+      </ng-container>
+
+      <!-- Loaded data -->
+      <ng-template #loadedData>
+        <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
+          <img [src]="user.profileImageUrl">
+          <span>{{ user.displayName }}</span>
+        </li>
+      </ng-template>
     </ul>
   </div>
 

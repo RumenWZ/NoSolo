@@ -11,14 +11,41 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 
 DotEnv.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
 var env = builder.Environment;
 
 var connectionString = env.IsDevelopment() ? builder.Configuration.GetConnectionString("Default") 
-    : Environment.GetEnvironmentVariable("AZURE_CONNECTION_STRING");
+    : Environment.GetEnvironmentVariable("PRODUCTION_CONNECTION_STRING");
 
 builder.Services.AddControllers();
+
+if (env.IsDevelopment())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+    });
+}
+else if (env.IsProduction())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("ProductionPolicy", builder =>
+        {
+            builder.WithOrigins(Environment.GetEnvironmentVariable("PRODUCTION_FRONTEND_URL"))
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+    });
+}
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -81,12 +108,13 @@ if (env.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors();
+} else
+{
+    app.UseCors("ProductionPolicy");
 }
 
-
 app.ConfigureExceptionHandler(env);
-
-app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseHttpsRedirection();
 
