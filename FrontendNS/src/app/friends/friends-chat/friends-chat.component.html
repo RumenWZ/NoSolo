@@ -5,19 +5,32 @@
   </div>
   <div class="chat-box-wrapper">
     <div class="chat-messages" #chatMessagesContainer>
-      <div *ngFor="let userMessage of chatMessages | sort: 'ascending' : 'timestamp'">
-        <div class="chat-message-wrapper">
-          <img [src]="userMessage.user1ProfilePictureUrl" (click)="onFriendImage(userMessage.user1DisplayName)">
-          <div class="chat-message">
-            <div class="chat-message-header">
-              <span style="font-weight: 700;">{{userMessage.user1DisplayName}}</span>
-              <span class="chat-date">{{getMessageDate(userMessage.timestamp)}}
-                 {{userMessage.timestamp | date:'HH:mm'}} {{getTimePeriod(userMessage.timestamp)}}</span>
+
+      <ng-container *ngIf="!chatMessages; else loadedData">
+        <ng-container *ngFor="let _ of getLoopRange()">
+          <div class="chat-message-wrapper">
+            <app-skeleton-chat-message></app-skeleton-chat-message>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #loadedData>
+        <div *ngFor="let userMessage of chatMessages | sort: 'ascending' : 'timestamp'">
+          <div class="chat-message-wrapper">
+            <img [src]="userMessage.user1ProfilePictureUrl" (click)="onFriendImage(userMessage.user1DisplayName)">
+            <div class="chat-message">
+              <div class="chat-message-header">
+                <span style="font-weight: 700;">{{userMessage.user1DisplayName}}</span>
+                <span class="chat-date">{{getMessageDate(userMessage.timestamp)}}
+                   {{userMessage.timestamp | date:'HH:mm'}} {{getTimePeriod(userMessage.timestamp)}}</span>
+              </div>
+              <div class="message">{{userMessage.messageString}}</div>
             </div>
-            <div class="message">{{userMessage.messageString}}</div>
           </div>
         </div>
-      </div>
+      </ng-template>
+
+
     </div>
     <div class="chat-field-wrapper">
       <input type="text" class="chat-field" [(ngModel)]="chatFieldMessage" [placeholder]="messageFieldPlaceholder" (keyup.enter)="sendMessage()" #chatField>

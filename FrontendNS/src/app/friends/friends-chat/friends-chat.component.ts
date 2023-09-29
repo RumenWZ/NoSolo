@@ -4,9 +4,7 @@ import { Message } from 'src/app/model/message';
 import Pusher from 'pusher-js';
 import { environment } from 'src/app/environments/environment';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDeleteComponent } from 'src/app/confirm-delete/confirm-delete.component';
 import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
 import { AlertifyService } from 'src/app/services/alertify.service';
 
@@ -26,6 +24,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   channel: any;
   environment = environment;
   canSendMessage: boolean = true;
+  skeletonLoadingCount = 10;
 
   @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
@@ -37,6 +36,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     private matDialog: MatDialog,
     private alertify: AlertifyService
   ) {
+  }
+
+  getLoopRange(){
+    return new Array(this.skeletonLoadingCount);
   }
 
   chatMessagesProcessor() {

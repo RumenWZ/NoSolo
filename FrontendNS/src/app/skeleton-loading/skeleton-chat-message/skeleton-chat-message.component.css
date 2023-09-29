@@ -1,0 +1,29 @@
+.skeleton-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.skeleton-avatar {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+}
+
+.skeleton-message-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+}
+
+.skeleton-message, .skeleton-header {
+  height: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-message {
+  width: 17rem;
+}
+
+.skeleton-header {
+  width: 12rem
+}

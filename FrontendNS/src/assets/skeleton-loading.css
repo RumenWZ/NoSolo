@@ -1,5 +1,5 @@
 .shimmer {
-  background: linear-gradient(90deg, #d9dce2 25%, #b0b1b2 50%, #d9dce2 75%);
+  background: linear-gradient(90deg, #6f706f 25%, #afafaf 50%, #6f706f 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite linear;
 }

@@ -45,7 +45,7 @@ export class ProfileCardComponent implements OnChanges {
       this.userProfile.profileImageUrl = '/assets/images/default-user.png';
     }
     if (this.userProfile.displayName === '') {
-      this.userProfile.displayName = this.userProfile.username;
+      this.userProfile.displayName = this.userProfile?.username;
     }
     if (this.userViewing?.profileImageUrl === '') {
       this.userViewing.profileImageUrl = '/assets/images/default-user.png';
