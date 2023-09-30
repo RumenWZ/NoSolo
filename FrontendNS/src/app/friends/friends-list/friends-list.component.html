@@ -10,7 +10,7 @@
     <ul class="friends-list">
       <ng-container *ngIf="!friendsList; else loadedData">
         <li *ngFor="let _ of getLoopRange()">
-          <app-skeleton-friend></app-skeleton-friend>
+          <app-skeleton-friend [renderDelay]="200"></app-skeleton-friend>
         </li>
       </ng-container>
 

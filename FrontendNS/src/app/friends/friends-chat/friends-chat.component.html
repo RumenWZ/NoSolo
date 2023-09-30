@@ -9,7 +9,7 @@
       <ng-container *ngIf="!chatMessages; else loadedData">
         <ng-container *ngFor="let _ of getLoopRange()">
           <div class="chat-message-wrapper">
-            <app-skeleton-chat-message></app-skeleton-chat-message>
+            <app-skeleton-chat-message [renderDelay]="150"></app-skeleton-chat-message>
           </div>
         </ng-container>
       </ng-container>

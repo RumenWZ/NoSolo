@@ -7,7 +7,7 @@
   </div>
 
   <div *ngIf="!friendRequests; else loadedData" style="padding-bottom:4.5rem; height: 100%">
-    <app-loading-spinner></app-loading-spinner>
+    <app-loading-spinner [renderDelay]="150"></app-loading-spinner>
   </div>
 
   <ng-template #loadedData>

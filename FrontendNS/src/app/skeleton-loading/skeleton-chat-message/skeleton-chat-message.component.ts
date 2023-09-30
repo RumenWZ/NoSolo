@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { take, timer } from 'rxjs';
 
 @Component({
@@ -9,10 +9,11 @@ import { take, timer } from 'rxjs';
 export class SkeletonChatMessageComponent {
   randomizedMessageWidth: string;
   showSkeletonLoading: boolean = true;
+  @Input() renderDelay: number = 0;
 
   delaySkeletonLoading() {
     this.showSkeletonLoading = false;
-    const delay = timer(200);
+    const delay = timer(this.renderDelay);
 
     delay.pipe(take(1)).subscribe(() => {
       this.showSkeletonLoading = true;
