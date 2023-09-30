@@ -86,16 +86,16 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   getChatMessages() {
-    this.message.getMessagesForUsers(this.chatUser.username).subscribe((response: Message) => {
-      if (Array.isArray(response)) {
-        this.chatMessages = response;
-      } else {
-        this.chatMessages = [response];
-      }
+    // this.message.getMessagesForUsers(this.chatUser.username).subscribe((response: Message) => {
+    //   if (Array.isArray(response)) {
+    //     this.chatMessages = response;
+    //   } else {
+    //     this.chatMessages = [response];
+    //   }
 
-      this.scrollToBottom();
-      this.chatMessagesProcessor();
-    });
+    //   this.scrollToBottom();
+    //   this.chatMessagesProcessor();
+    // });
   }
 
 
@@ -195,12 +195,12 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     if (changes['chatUser'] && changes['chatUser'].currentValue) {
       this.messageFieldPlaceholder = `Message ${this.chatUser.username}`;
       this.getChatMessages();
-      this.focusOnChatField()
+      this.focusOnChatField();
     }
   }
 
   ngAfterViewInit(): void {
-    this.focusOnChatField()
+    this.focusOnChatField();
   }
 
 }

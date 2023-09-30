@@ -6,10 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./skeleton-chat-message.component.css']
 })
 export class SkeletonChatMessageComponent {
-  randomizedWidth: string;
+  randomizedMessageWidth: string;
 
   ngOnInit() {
-    const randomRem = Math.floor(Math.random() * 9 + 6); // Generate a random number between 6 and 14
-    this.randomizedWidth = `${randomRem}rem`;
+    this.randomizedMessageWidth = Math.floor(Math.random() * 13 + 9) + 'rem';
   }
 }
