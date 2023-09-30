@@ -194,6 +194,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chatUser'] && changes['chatUser'].currentValue) {
       this.messageFieldPlaceholder = `Message ${this.chatUser.username}`;
+      this.chatMessages = null;
       this.getChatMessages();
       this.focusOnChatField();
     }
@@ -202,5 +203,4 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   ngAfterViewInit(): void {
     this.focusOnChatField();
   }
-
 }

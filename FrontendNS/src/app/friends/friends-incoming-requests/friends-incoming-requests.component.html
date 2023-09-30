@@ -5,20 +5,28 @@
     <i *ngIf="searchParameters != ''" class='bx bx-x clear-search' (click)="clearSearch()"></i>
     <i *ngIf="searchParameters == ''" class='bx bx-search search-icon'></i>
   </div>
-  <ul class="friends-list">
-    <li class="friends-list-item" *ngFor="let user of incomingFriendRequests | filter: searchParameters : 'displayName'" (click)="onUserClick(user)">
-      <img [src]="user.profileImageUrl">
-      <span>{{user.username}}</span>
-      <div class="action-wrapper">
-        <div class="button confirm" (click)="onAcceptFriendRequest($event, user)">
-          <i class='bx bx-check icon'></i>
+
+  <div *ngIf="!incomingFriendRequests; else loadedData" style="padding-bottom:4.5rem; height: 100%">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+
+  <ng-template #loadedData>
+    <ul class="friends-list">
+      <li class="friends-list-item" *ngFor="let user of incomingFriendRequests | filter: searchParameters : 'displayName'" (click)="onUserClick(user)">
+        <img [src]="user.profileImageUrl">
+        <span>{{user.username}}</span>
+        <div class="action-wrapper">
+          <div class="button confirm" (click)="onAcceptFriendRequest($event, user)">
+            <i class='bx bx-check icon'></i>
+          </div>
+          <div class="button deny" (click)="onDenyFriendRequest($event, user)">
+            <i class='bx bx-x icon' ></i>
+          </div>
         </div>
-        <div class="button deny" (click)="onDenyFriendRequest($event, user)">
-          <i class='bx bx-x icon' ></i>
-        </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </ng-template>
+
   <div *ngIf="incomingFriendRequests?.length < 1">
     <span>You currently do not have any friend requests.</span>
   </div>

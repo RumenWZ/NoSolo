@@ -14,7 +14,6 @@
         </li>
       </ng-container>
 
-      <!-- Loaded data -->
       <ng-template #loadedData>
         <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
           <img [src]="user.profileImageUrl">

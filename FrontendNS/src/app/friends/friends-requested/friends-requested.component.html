@@ -5,16 +5,24 @@
     <i *ngIf="searchParameters != ''" class='bx bx-x clear-search' (click)="clearSearch()"></i>
     <i *ngIf="searchParameters == ''" class='bx bx-search search-icon'></i>
   </div>
-  <ul class="friends-list">
-    <li (click)="onUserClick(user)" *ngFor="let user of friendRequests | filter: searchParameters : 'displayName'" class="friends-list-item">
-      <img [src]="user.profileImageUrl">
-      <span>{{user.displayName}}</span>
-      <div class="action-wrapper">
-        <div class="button remove" (click)="onRemove($event, user)">
-          <i class='bx bx-x icon'></i>
+
+  <div *ngIf="!friendRequests; else loadedData" style="padding-bottom:4.5rem; height: 100%">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+
+  <ng-template #loadedData>
+    <ul class="friends-list">
+      <li (click)="onUserClick(user)" *ngFor="let user of friendRequests | filter: searchParameters : 'displayName'" class="friends-list-item">
+        <img [src]="user.profileImageUrl">
+        <span>{{user.displayName}}</span>
+        <div class="action-wrapper">
+          <div class="button remove" (click)="onRemove($event, user)">
+            <i class='bx bx-x icon'></i>
+          </div>
         </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </ng-template>
+
   <p *ngIf="friendRequests?.length == 0">You do not have any pending outgoing friend requests.</p>
 </div>

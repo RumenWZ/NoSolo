@@ -8,15 +8,26 @@
   </div>
 
   <ul class="users-from-search">
-    <li *ngFor="let user of searchResults | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="user-item">
-      <img [src]="user.profileImageUrl" (click)="onUserClick(user)">
-      <span (click)="onUserClick(user)">{{user.displayName}}</span>
-      <div class="action-wrapper" >
-        <span class="add-friend" *ngIf="user.friendStatus == ''" (click)="onAddFriend(user)">ADD AS FRIEND</span>
-        <span class="already-friends" *ngIf="user.friendStatus == 'friends'">You are friends</span>
-        <span class="cancel-request" *ngIf="user.friendStatus == 'pending'" (click)="onCancelRequest(user)">CANCEL REQUEST</span>
-      </div>
-    </li>
+    <ng-container *ngIf="fetchingData; else loadedData">
+      <li *ngFor="let _ of getLoopRange()" class="user-item">
+        <app-skeleton-friend></app-skeleton-friend>
+      </li>
+
+    </ng-container>
+
+    <ng-template #loadedData>
+      <li *ngFor="let user of searchResults | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="user-item">
+        <img [src]="user.profileImageUrl" (click)="onUserClick(user)">
+        <span (click)="onUserClick(user)">{{user.displayName}}</span>
+        <div class="action-wrapper" >
+          <span class="add-friend" *ngIf="user.friendStatus == ''" (click)="onAddFriend(user)">ADD AS FRIEND</span>
+          <span class="already-friends" *ngIf="user.friendStatus == 'friends'">You are friends</span>
+          <span class="cancel-request" *ngIf="user.friendStatus == 'pending'" (click)="onCancelRequest(user)">CANCEL REQUEST</span>
+        </div>
+      </li>
+    </ng-template>
+
+
   </ul>
   <div *ngIf="searchResults?.length > 0" class="pagination">
     <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>

@@ -15,6 +15,8 @@ export class FriendsAddComponent {
   searchResults: UserSearchResult[];
   currentPage = 1;
   itemsPerPage = 8;
+  skeletonLoadingCount = 8;
+  fetchingData: boolean = false;
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -24,6 +26,10 @@ export class FriendsAddComponent {
     private matDialog: MatDialog
   ) {
 
+  }
+
+  getLoopRange(){
+    return new Array(this.skeletonLoadingCount);
   }
 
   assignDefaultValues() {
@@ -46,10 +52,12 @@ export class FriendsAddComponent {
 
   searchUsers() {
     if (this.searchParameters != '') {
+      this.fetchingData = true;
       this.user.findUsers(this.searchParameters).subscribe((response: any) => {
         this.searchResults = response;
         this.assignDefaultValues();
         this.currentPage = 1;
+        this.fetchingData = false;
       });
     }
   }
