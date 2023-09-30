@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-skeleton-friend',
@@ -6,6 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./skeleton-friend.component.css']
 })
 export class SkeletonFriendComponent {
-  @Input() skeletonNameWidth: number;
-  
+  randomizedWidth: string;
+
+  ngOnInit() {
+    const randomRem = Math.floor(Math.random() * 5 + 5);
+    this.randomizedWidth = `${randomRem}rem`;
+  }
+
 }

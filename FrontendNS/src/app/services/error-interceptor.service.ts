@@ -8,6 +8,8 @@ import { Router } from "@angular/router";
   providedIn: 'root'
 })
 export class HttpErrorInterceptorService implements HttpInterceptor {
+  ignoredErrors = ['Invalid token'];
+
   constructor(
     private alertify: AlertifyService,
     private router: Router
@@ -18,7 +20,6 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     .pipe(
       catchError((error: HttpErrorResponse) => {
         const errorMessage = this.setError(error);
-        console.log(errorMessage);
         if (error.status == 400 && error.error === 'Invalid token' && this.router.url !== '/login') {
           localStorage.removeItem('token');
           localStorage.removeItem('userName');
@@ -27,7 +28,9 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
           this.router.navigate(['/login']);
           this.alertify.error('Your token is either invalid or expired. Login to receive a new token.');
         } else {
-          this.alertify.error(errorMessage);
+          if (!this.ignoredErrors.includes(error.error)) {
+            this.alertify.error(errorMessage);
+          }
         }
         return throwError(errorMessage);
       })
