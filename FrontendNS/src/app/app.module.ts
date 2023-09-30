@@ -46,6 +46,7 @@ import { AdminGuard } from './guards/admin-auth.guard';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { SkeletonFriendComponent } from './skeleton-loading/skeleton-friend/skeleton-friend.component';
 import { SkeletonChatMessageComponent } from './skeleton-loading/skeleton-chat-message/skeleton-chat-message.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -94,6 +95,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     SkeletonFriendComponent,
     SkeletonChatMessageComponent,
+    LoadingSpinnerComponent,
 
   ],
   imports: [

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { take, timer } from 'rxjs';
 
 @Component({
   selector: 'app-skeleton-chat-message',
@@ -7,8 +8,20 @@ import { Component } from '@angular/core';
 })
 export class SkeletonChatMessageComponent {
   randomizedMessageWidth: string;
+  showSkeletonLoading: boolean = true;
+
+  delaySkeletonLoading() {
+    this.showSkeletonLoading = false;
+    const delay = timer(200);
+
+    delay.pipe(take(1)).subscribe(() => {
+      this.showSkeletonLoading = true;
+    });
+  }
 
   ngOnInit() {
     this.randomizedMessageWidth = Math.floor(Math.random() * 13 + 9) + 'rem';
+
+    this.delaySkeletonLoading();
   }
 }

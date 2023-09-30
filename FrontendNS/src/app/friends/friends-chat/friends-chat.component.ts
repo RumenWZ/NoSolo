@@ -86,16 +86,16 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   getChatMessages() {
-    // this.message.getMessagesForUsers(this.chatUser.username).subscribe((response: Message) => {
-    //   if (Array.isArray(response)) {
-    //     this.chatMessages = response;
-    //   } else {
-    //     this.chatMessages = [response];
-    //   }
+    this.message.getMessagesForUsers(this.chatUser.username).subscribe((response: Message) => {
+      if (Array.isArray(response)) {
+        this.chatMessages = response;
+      } else {
+        this.chatMessages = [response];
+      }
 
-    //   this.scrollToBottom();
-    //   this.chatMessagesProcessor();
-    // });
+      this.scrollToBottom();
+      this.chatMessagesProcessor();
+    });
   }
 
 

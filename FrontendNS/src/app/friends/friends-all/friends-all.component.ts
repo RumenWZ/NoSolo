@@ -78,9 +78,9 @@ export class FriendsAllComponent {
 
   ngOnInit() {
     this.searchParameters = '';
-    this.friend.getAllFriendsOfUser().subscribe((response: any) => {
-      this.friendsList = response;
-      this.assignDefaultValues();
-    })
+    // this.friend.getAllFriendsOfUser().subscribe((response: any) => {
+    //   this.friendsList = response;
+    //   this.assignDefaultValues();
+    // })
   }
 }

@@ -5,19 +5,27 @@
     <i *ngIf="searchParameters != ''" class='bx bx-x clear-search' (click)="clearSearch()"></i>
     <i *ngIf="searchParameters == ''" class='bx bx-search search-icon'></i>
   </div>
-  <ul class="friends-list">
-    <li (click)="onFriendClick(user)" *ngFor="let user of friendsList | filter: searchParameters : 'displayName'" class="friends-list-item">
-      <img [src]="user.profileImageUrl">
-      <span>{{user.displayName}}</span>
-      <div class="action-wrapper">
-        <div class="button chat" (click)="onChatBubble(user)">
-          <i class='bx bxs-message icon'></i>
-        </div>
-        <div class="button remove" (click)="onRemoveFriend($event, user)">
-          <i class='bx bx-x icon'></i>
-        </div>
-      </div>
 
-    </li>
-  </ul>
+  <div *ngIf="!friendsList; else loadedData" style="padding-bottom:4.5rem; height: 100%">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+
+  <ng-template #loadedData>
+    <ul class="friends-list">
+      <li (click)="onFriendClick(user)" *ngFor="let user of friendsList | filter: searchParameters : 'displayName'" class="friends-list-item">
+        <img [src]="user.profileImageUrl">
+        <span>{{user.displayName}}</span>
+        <div class="action-wrapper">
+          <div class="button chat" (click)="onChatBubble(user)">
+            <i class='bx bxs-message icon'></i>
+          </div>
+          <div class="button remove" (click)="onRemoveFriend($event, user)">
+            <i class='bx bx-x icon'></i>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </ng-template>
+
+
 </div>
