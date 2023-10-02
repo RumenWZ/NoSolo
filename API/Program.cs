@@ -87,6 +87,7 @@ var cloudinaryConfig = builder.Configuration.GetSection("CloudinarySettings");
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IStringValidationService, StringValidationService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<CloudinarySettings>(cloudinaryConfig);

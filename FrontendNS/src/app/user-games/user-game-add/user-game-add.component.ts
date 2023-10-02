@@ -72,6 +72,10 @@ import { UserService } from 'src/app/services/user.service';
     }
 
     onSubmit(gameForm: NgForm) {
+      if (this.userGameList.length >= 5) {
+        this.alertify.warning('You can not have more than 5 games added at a time');
+        return;
+      }
       this.user.getUserByUsername(this.username).pipe(
         switchMap((response: any) => {
           const userId = response.id;

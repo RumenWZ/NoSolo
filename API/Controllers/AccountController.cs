@@ -20,18 +20,21 @@ namespace API.Controllers
         private readonly IPhotoService photoService;
         private readonly IMapper mapper;
         private readonly IAuthenticationService auth;
+        private readonly IStringValidationService validator;
 
         public AccountController(
             IUnitOfWork uow,
             IPhotoService photoService,
             IMapper mapper,
-            IAuthenticationService auth
+            IAuthenticationService auth,
+            IStringValidationService validator
             )
         {
             this.uow = uow;
             this.photoService = photoService;
             this.mapper = mapper;
             this.auth = auth;
+            this.validator = validator;
         }
 
         [HttpPost("login")]
@@ -53,9 +56,13 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequestDTO registerRequest)
         {
-            if (String.IsNullOrEmpty(registerRequest.Username.Trim()) ||
-                String.IsNullOrEmpty(registerRequest.Password.Trim())) {
-                return BadRequest("Username or Password can not be empty");
+
+            registerRequest.Username = registerRequest.Username.Trim();
+            registerRequest.Password = registerRequest.Password.Trim();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
             if (await uow.UserRepository.UserAlreadyExists(registerRequest.Username))
@@ -194,8 +201,20 @@ namespace API.Controllers
             {
                 return BadRequest("Invalid token");
             }
+            displayName = displayName?.Trim();
 
-            user.DisplayName = displayName;
+            if (!validator.hasOnlyLettersAndNumbers(displayName))
+            {
+                return BadRequest("Display name can not contain special characters");
+            }
+
+            if (!string.IsNullOrEmpty(displayName))
+            {
+                user.DisplayName = displayName;
+            } else
+            {
+                user.DisplayName = String.Empty;
+            }
             await uow.SaveAsync();
 
             return Ok(201);
@@ -208,6 +227,12 @@ namespace API.Controllers
             if (user == null)
             {
                 return BadRequest("Invalid token");
+            }
+            discordUsername = discordUsername?.Trim();
+
+            if (!validator.isValidDiscordUsername(discordUsername))
+            {
+                return BadRequest($"\"{discordUsername}\" is not a valid Discord username format. Please input a valid Discord username: Example#8309");
             }
 
             if (!string.IsNullOrEmpty(discordUsername))

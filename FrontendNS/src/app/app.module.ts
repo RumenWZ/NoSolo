@@ -47,6 +47,7 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
 import { SkeletonFriendComponent } from './skeleton-loading/skeleton-friend/skeleton-friend.component';
 import { SkeletonChatMessageComponent } from './skeleton-loading/skeleton-chat-message/skeleton-chat-message.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
   {path: '', component: WelcomePageComponent},
   {path: 'test', component: ProfileCardComponent},
   {path: 'find-friends', component: FindFriendsComponent},
+  {path: 'documentation', component: DocumentationComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -96,6 +98,7 @@ const appRoutes: Routes = [
     SkeletonFriendComponent,
     SkeletonChatMessageComponent,
     LoadingSpinnerComponent,
+    DocumentationComponent
 
   ],
   imports: [
