@@ -18,8 +18,8 @@ import { UserService } from 'src/app/services/user.service';
   export class UserGameAddComponent {
     @Output() gameAdded: EventEmitter<void> = new EventEmitter<void>();
 
-    userGame: UserGame = {description: null, userId: null, gameId: null};
-    userGameList: any[];
+    userGame: UserGame = {description: null, gameId: null};
+    userGameList: UserGame[];
     gameList: Game[];
     username = localStorage.getItem('userName');
     filterString: '';
@@ -77,21 +77,17 @@ import { UserService } from 'src/app/services/user.service';
         this.alertify.warning('You can not have more than 5 games added at a time');
         return;
       }
-      this.user.getLoggedInUser().pipe(
-        switchMap((response: UserDTO) => {
-          const userId = response.id;
-          this.userGame.description = gameForm.form.value.description;
-          this.userGame.gameId = this.selectedGame.id;
-          this.userGame.userId = userId;
-          return this.usrGame.addUserGame(this.userGame)
-        })
-      ).subscribe(() => {
-        this.alertify.success(`${this.selectedGame.name} has been added to your games list`);
-        this.userGameList.push(this.userGame);
-        this.selectedGame = undefined;
-        gameForm.resetForm();
-        this.gameAdded.emit();
-      });
+      this.userGame.description = gameForm.form.value.description;
+      this.userGame.gameId = this.selectedGame.id;
+      this.usrGame.addUserGame(this.userGame).subscribe((response: any) => {
+        if (response == 201) {
+          this.alertify.success(`${this.selectedGame.name} has been added to your games list`);
+          this.userGameList.push(this.userGame);
+          this.selectedGame = undefined;
+          gameForm.resetForm();
+          this.gameAdded.emit();
+        }
+      })
     }
 
     ngOnInit() {

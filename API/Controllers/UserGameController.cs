@@ -37,6 +37,18 @@ namespace API.Controllers
             {
                 return BadRequest("Invalid token");
             }
+            var userGameList = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user.Id);
+            if (userGameList.Count() >= 5)
+            {
+                return BadRequest("You can not have more than 5 games in your games list");
+            }
+
+            if (userGameList.Any(x => x.GameId == request.GameId)) 
+            {
+                return BadRequest("This game is already added to your games list");
+            }
+
+
             if (!stringValidator.isValidLength(request.Description, 0 , 400))
             {
                 return BadRequest("Your game description is too long");

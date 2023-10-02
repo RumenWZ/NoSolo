@@ -1,7 +1,6 @@
 import { UserDTO } from "./user";
 
 export interface UserGame {
-  userId: number,
   gameId: number,
   description: string
 }

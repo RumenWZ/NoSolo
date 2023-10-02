@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserGameDTO } from 'src/app/model/user-game';
 import { UserGameService } from 'src/app/services/user-game.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,10 +17,8 @@ export class GameSelectionComponent {
   userGameDetailsEnabled: boolean = false;
   username = localStorage.getItem('userName');
 
-
   constructor(
     private usrGame: UserGameService,
-    private router: Router,
     private user: UserService
   ) {
     this.cachedUserData = localStorage.getItem('user');

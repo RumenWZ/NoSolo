@@ -47,9 +47,6 @@
       </div>
     </div>
   </div>
-  <!-- <div *ngIf="dataReady == false" class="background-loading">
-    <div class="spinner"></div>
-  </div> -->
-  <app-loading-spinner></app-loading-spinner>
+  <app-loading-spinner *ngIf="dataReady == false"></app-loading-spinner>
 </div>
 
