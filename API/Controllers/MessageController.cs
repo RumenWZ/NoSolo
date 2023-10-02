@@ -15,22 +15,29 @@ namespace API.Controllers
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
         private readonly IAuthenticationService auth;
+        private readonly IStringValidationService stringValidator;
 
         public MessageController(
             IUnitOfWork uow,
             IMapper mapper,
-            IAuthenticationService auth
+            IAuthenticationService auth,
+            IStringValidationService stringValidator
             )
         {
             this.uow = uow;
             this.mapper = mapper;
             this.auth = auth;
+            this.stringValidator = stringValidator;
         }
 
         [HttpPost("send-message/{username}/{message}")]
         public async Task<IActionResult> SendMessage(string username, string message)
         {
             string originalMessage = HttpUtility.UrlDecode(message);
+
+            if (!stringValidator.isValidLength(originalMessage, 0, 200)) {
+                return BadRequest("Your message is too long");
+            }
 
             var user1 = await auth.GetUserFromTokenAsync(HttpContext);
             if (user1 == null)
@@ -46,7 +53,7 @@ namespace API.Controllers
 
             var friendship = await uow.FriendsRepository.GetFriendshipAsync(user1.Id, user2.Id);
             if (friendship == null) {
-                return BadRequest("The users do not know each other");
+                return BadRequest("These users do not know each other");
             } else if (friendship.Status != "accepted")
             {
                 return BadRequest("These users are not friends");

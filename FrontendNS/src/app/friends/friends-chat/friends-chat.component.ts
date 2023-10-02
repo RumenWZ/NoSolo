@@ -68,7 +68,7 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   sendMessage() {
-    if (this.chatFieldMessage.length >= 300) {
+    if (this.chatFieldMessage.length >= 200) {
       this.alertify.error('Your message is too long.');
       return;
     }

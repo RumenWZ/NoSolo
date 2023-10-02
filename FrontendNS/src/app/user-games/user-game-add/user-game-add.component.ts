@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { switchMap } from 'rxjs';
   import { Game } from 'src/app/model/game';
+import { UserDTO } from 'src/app/model/user';
 import { UserGame } from 'src/app/model/user-game';
 import { AlertifyService } from 'src/app/services/alertify.service';
   import { GameService } from 'src/app/services/game.service';
@@ -76,8 +77,8 @@ import { UserService } from 'src/app/services/user.service';
         this.alertify.warning('You can not have more than 5 games added at a time');
         return;
       }
-      this.user.getUserByUsername(this.username).pipe(
-        switchMap((response: any) => {
+      this.user.getLoggedInUser().pipe(
+        switchMap((response: UserDTO) => {
           const userId = response.id;
           this.userGame.description = gameForm.form.value.description;
           this.userGame.gameId = this.selectedGame.id;

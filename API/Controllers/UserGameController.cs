@@ -14,16 +14,19 @@ namespace API.Controllers
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
         private readonly IAuthenticationService auth;
+        private readonly IStringValidationService stringValidator;
 
         public UserGameController(
             IUnitOfWork uow,
             IMapper mapper,
-            IAuthenticationService auth
+            IAuthenticationService auth,
+            IStringValidationService stringValidator
             )
         {
             this.uow = uow;
             this.mapper = mapper;
             this.auth = auth;
+            this.stringValidator = stringValidator;
         }
 
         [HttpPost("add")]
@@ -34,6 +37,11 @@ namespace API.Controllers
             {
                 return BadRequest("Invalid token");
             }
+            if (!stringValidator.isValidLength(request.Description, 0 , 400))
+            {
+                return BadRequest("Your game description is too long");
+            }
+
             var game = await uow.GameRepository.GetByIdAsync(request.GameId);
             if (game == null)
             {

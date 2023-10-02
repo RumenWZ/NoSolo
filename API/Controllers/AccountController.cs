@@ -20,21 +20,21 @@ namespace API.Controllers
         private readonly IPhotoService photoService;
         private readonly IMapper mapper;
         private readonly IAuthenticationService auth;
-        private readonly IStringValidationService validator;
+        private readonly IStringValidationService stringValidator;
 
         public AccountController(
             IUnitOfWork uow,
             IPhotoService photoService,
             IMapper mapper,
             IAuthenticationService auth,
-            IStringValidationService validator
+            IStringValidationService stringValidator
             )
         {
             this.uow = uow;
             this.photoService = photoService;
             this.mapper = mapper;
             this.auth = auth;
-            this.validator = validator;
+            this.stringValidator = stringValidator;
         }
 
         [HttpPost("login")]
@@ -203,9 +203,14 @@ namespace API.Controllers
             }
             displayName = displayName?.Trim();
 
-            if (!validator.hasOnlyLettersAndNumbers(displayName))
+            if (!stringValidator.hasOnlyLettersAndNumbers(displayName))
             {
                 return BadRequest("Display name can not contain special characters");
+            }
+
+            if (!stringValidator.isValidLength(displayName, 3, 20)) 
+            {
+                return BadRequest("Display name can be between 3 and 20 characters long");
             }
 
             if (!string.IsNullOrEmpty(displayName))
@@ -230,9 +235,14 @@ namespace API.Controllers
             }
             discordUsername = discordUsername?.Trim();
 
-            if (!validator.isValidDiscordUsername(discordUsername))
+            if (!stringValidator.isValidDiscordUsername(discordUsername))
             {
                 return BadRequest($"\"{discordUsername}\" is not a valid Discord username format. Please input a valid Discord username: Example#8309");
+            }
+
+            if (!stringValidator.isValidLength(discordUsername, 8, 20))
+            {
+                return BadRequest("Discord username should be between 8 and 20 characters long");
             }
 
             if (!string.IsNullOrEmpty(discordUsername))
@@ -256,6 +266,12 @@ namespace API.Controllers
             {
                 return BadRequest("Invalid token");
             }
+
+            if(!stringValidator.isValidLength(summary, 0, 200))
+            {
+                return BadRequest("Your summary can not be more than 200 characters");
+            }
+
             user.Summary = summary;
             await uow.SaveAsync();
 
