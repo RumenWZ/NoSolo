@@ -63,7 +63,7 @@ export class ProfileCardComponent implements OnChanges {
   }
 
   updateUserProfileGames() {
-    this.userGame.getUserGamesForMatching(this.userProfile.username).subscribe((response: any) => {
+    this.userGame.getUserGamesForMatching(this.userProfile?.username).subscribe((response: any) => {
       this.userProfileGames = response;
       this.assignDefaultValues();
     });

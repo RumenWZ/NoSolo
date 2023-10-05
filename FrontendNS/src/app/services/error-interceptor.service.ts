@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { catchError, throwError } from "rxjs";
+import { Observable, catchError, concatMap, of, retryWhen, throwError } from "rxjs";
 import { AlertifyService } from "./alertify.service";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
@@ -18,6 +18,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     return next.handle(request)
     .pipe(
+      retryWhen(error => this.retryRequest(error, 10)),
       catchError((error: HttpErrorResponse) => {
         const errorMessage = this.setError(error);
         if (error.status == 400 && error.error === 'Invalid token' && this.router.url !== '/login') {
@@ -35,6 +36,17 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         return throwError(errorMessage);
       })
     );
+  }
+
+  retryRequest(error: any, retryCount: number): Observable<unknown> {
+    return error.pipe(
+      concatMap((checkErr: HttpErrorResponse, count: number) => {
+        if (checkErr.status === 0 && count <= retryCount) {
+          return of(checkErr);
+        }
+        return throwError(checkErr);
+      })
+    )
   }
 
   setError(error: HttpErrorResponse): string {

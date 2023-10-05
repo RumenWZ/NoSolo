@@ -179,9 +179,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
         timestamp: new Date(data.message.Timestamp)
       };
       this.chatMessages.push(newMessage);
+      this.messageSound.nativeElement.play();
       this.scrollToBottom();
       this.chatMessagesProcessor();
-      this.messageSound.nativeElement.play();
+
     });
 
     this.getChatMessages();

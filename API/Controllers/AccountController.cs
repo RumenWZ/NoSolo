@@ -267,9 +267,9 @@ namespace API.Controllers
                 return BadRequest("Invalid token");
             }
 
-            if(!stringValidator.isValidLength(summary, 0, 200))
+            if(!stringValidator.isValidLength(summary, 0, 300))
             {
-                return BadRequest("Your summary can not be more than 200 characters");
+                return BadRequest("Your summary can not be more than 300 characters");
             }
 
             user.Summary = summary;
