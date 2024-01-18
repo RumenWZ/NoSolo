@@ -6,6 +6,10 @@
 @import 'assets/pagination.css';
 @import 'assets/text.css';
 
+body .container {
+  padding: 0;
+}
+
 body {
   margin: 0;
   padding: 0;

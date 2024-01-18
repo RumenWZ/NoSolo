@@ -86,6 +86,11 @@ export class SidenavComponent{
     this.toggleSidenav();
   }
 
+  onDocumentation() {
+    this.router.navigate(['/documentation']);
+    this.toggleSidenav();
+  }
+
   onLogout() {
     this.userService.logoutUser();
     this.toggleSidenav();
@@ -122,7 +127,10 @@ export class SidenavComponent{
   }
 
   ngOnInit() {
-    this.getUserDetails();
+    if (localStorage.getItem('token')) {
+      this.getUserDetails();
+    }
+
   }
 
   ngOnDestroy(){
@@ -146,6 +154,8 @@ export class SidenavComponent{
       case 'onMyGames': this.onMyGames();
         break;
       case 'onFindFriends': this.onFindFriends();
+        break;
+      case 'onDocumentation': this.onDocumentation();
         break;
       default:
         console.log('Unknown function');

@@ -1,1 +1,81 @@
-<p>documentation works!</p>
+<div class="doc-background">
+  <div class="doc-content">
+    <div class="doc-top-header">No Solo Documentation</div>
+    <h1>Welcome</h1>
+    <hr>
+    <div class="doc-description">Thank you for visiting my project. This page is a comprehensive documentation for my this web project, with a table of contents below to help with navigating the sections. </div>
+
+    <app-scroll-to-menu></app-scroll-to-menu>
+
+    <div class="doc-section" id="about">
+      <h1>1. About Project</h1>
+      <hr>
+      <div class="doc-description">
+        This web app is a platform for people who play video games to get matched with other users based on shared game preferences to find new partners. With a real-time chat functionality and a user-friendly interface.
+      </div>
+      <div class="doc-description">
+
+      </div>
+    </div>
+
+    <div class="doc-section" id="getting-started">
+      <h1>2. Getting Started</h1>
+      <hr>
+      <div class="doc-description">
+        This section is a guide on how to use the app
+      </div>
+
+      <h4>Create an Account</h4>
+      <div  class="doc-description">
+        Firstly, create a new account by clicking on the "Register" button at the top right of the screen, or by clicking <a target="_blank" routerLink="/register">here</a>.
+      </div>
+
+      <h4>Add Games</h4>
+      <div class="doc-description">
+        After creating an account, let's add some games that you would like to find people to play with. Navigate to your games list by clicking on the "My Games" button on the navbar or sidenav, or by clicking <a target="_blank" routerLink="/game-selection">here</a>.
+      </div>
+      <div class="doc-description">
+        Your games that you have selected will be displayed on the left, along with a "+" button, used for adding games to your list.
+      </div>
+      <div class="doc-description">
+        Select a game that you would like to find partners for by clicking on the 'Select a Game' search bar. After finding the game of your liking, add a description of your playstyle and what types of partners you are looking for in this game and press "Confirm". You must have at least 1 game added to your list to match with other users.
+      </div>
+
+      <h4>Edit Your Profile Details (optional)</h4>
+      <div class="doc-description">
+        If you would like to upload a profile picture for your account, change your display name, add your Discord username or add a description to your profile, then you can do so in the Settings page. To open the Settings page, open the sidenav by clicking on the burger menu on the top right and click Settings, or <a target="_blank" routerLink="/settings">click here</a>.
+      </div>
+
+      <h4>Start Matching</h4>
+      <div class="doc-description">
+        To start matching with other users, navigate to the "Find Friends" page, which is located on the navbar, or in the sidenav buttons. On this page, you will be displayed the profiles of users that have at least 1 game in common with you. You can browse the user's games, along with their respective description.
+      </div>
+      <div class="doc-description">
+        If you would like to play with this user, press the green checkmark to send them a friend request. Otherwise press on the red X button to move on to the next user.
+      </div>
+    </div>
+
+    <div class="doc-section" id="features">
+      <h1>3. Features</h1>
+      <hr>
+      <div class="doc-description">
+        This section will be a look at the notable features of the app.
+      </div>
+
+      <h2 id="game-selection">3.1 Game Selection</h2>
+      <div class="doc-description">
+        The "Game Selection" offers the user a user-friendly interface for managing their games list.
+      </div>
+
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<div *ngIf="isScrollToTopVisible" class="scroll-to-top" (click)="onBackToTop()">
+  <span>Back to Top</span>
+  <i class='bx bx-up-arrow-alt'></i>
+</div>

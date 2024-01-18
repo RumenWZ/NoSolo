@@ -22,12 +22,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         const errorMessage = this.setError(error);
         if (error.status == 400 && error.error === 'Invalid token' && this.router.url !== '/login') {
-          localStorage.removeItem('token');
-          localStorage.removeItem('userName');
-          localStorage.removeItem('user');
-
-          this.router.navigate(['/login']);
-          this.alertify.error('Your token is either invalid or expired. Login to receive a new token.');
+          this.logoutUser();
         } else {
           if (!this.ignoredErrors.includes(error.error)) {
             this.alertify.error(errorMessage);
@@ -47,6 +42,15 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         return throwError(checkErr);
       })
     )
+  }
+
+  logoutUser() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('user');
+
+    this.router.navigate(['/login']);
+    this.alertify.error('Your token is either invalid or expired. Login to receive a new token.');
   }
 
   setError(error: HttpErrorResponse): string {

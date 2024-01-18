@@ -1,7 +1,9 @@
 ﻿using API.DTOs;
+using API.Extensions;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -96,6 +98,39 @@ namespace API.Controllers
 
             return Ok(userGameDTOs);
         }
+
+        [HttpGet("get-loggedin-user-games")]
+        public async Task<IActionResult> GetLoggedinUserGames()
+        {
+            var user = await uow.UserRepository.GetUserByTokenAsync(HttpContext.GetAuthToken());
+            if (user == null)
+            {
+                return BadRequest("User can not be found");
+            }
+            var userGameList = await uow.UserGameRepository.GetUserGameListByUserIdAsync(user.Id);
+            var gameIds = userGameList.Select(ug => ug.GameId).ToList();
+            var games = await uow.GameRepository.GetGamesByIds(gameIds);
+
+            var userGameDTOs = new List<UserGameDTO>();
+
+            foreach (var game in games)
+            {
+                var userGame = userGameList.FirstOrDefault(ug => ug.GameId == game.Id);
+                var userGameDTO = new UserGameDTO
+                {
+                    UserGameId = userGame.Id,
+                    GameId = game.Id,
+                    GameName = game.Name,
+                    GameImageUrl = game.ImageUrl,
+                    UserDescription = userGame.Description,
+                    AddedOn = userGame.AddedOn
+                };
+                userGameDTOs.Add(userGameDTO);
+            }
+
+            return Ok(userGameDTOs);
+        }
+
 
         [HttpGet("get-user-games-for-matching/{username}")]
         public async Task<IActionResult> GetUserGamesForMatching(string username)

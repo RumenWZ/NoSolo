@@ -48,19 +48,22 @@ import { SkeletonFriendComponent } from './skeleton-loading/skeleton-friend/skel
 import { SkeletonChatMessageComponent } from './skeleton-loading/skeleton-chat-message/skeleton-chat-message.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { FindFriendsAccessGuard } from './guards/find-friends-access.guard';
+import { LoggedInGuard } from './guards/logged-in.guard';
+import { ScrollToMenuComponent } from './scroll-to-menu/scroll-to-menu.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'add-game', component: GameAddComponent, canActivate: [AdminGuard]},
   {path: 'game-list', component: GameListComponent, canActivate: [AdminGuard]},
-  {path: 'game-selection', component: GameSelectionComponent},
-  {path: 'settings', component: SettingsComponent},
-  {path: 'friends', component: FriendsPageComponent},
+  {path: 'game-selection', component: GameSelectionComponent, canActivate: [LoggedInGuard]},
+  {path: 'settings', component: SettingsComponent, canActivate: [LoggedInGuard]},
+  {path: 'friends', component: FriendsPageComponent, canActivate: [LoggedInGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '', component: WelcomePageComponent},
   {path: 'test', component: ProfileCardComponent},
-  {path: 'find-friends', component: FindFriendsComponent},
+  {path: 'find-friends', component: FindFriendsComponent, canActivate: [FindFriendsAccessGuard]},
   {path: 'documentation', component: DocumentationComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
@@ -98,7 +101,8 @@ const appRoutes: Routes = [
     SkeletonFriendComponent,
     SkeletonChatMessageComponent,
     LoadingSpinnerComponent,
-    DocumentationComponent
+    DocumentationComponent,
+    ScrollToMenuComponent
 
   ],
   imports: [

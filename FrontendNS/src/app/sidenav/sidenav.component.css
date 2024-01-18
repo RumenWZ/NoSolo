@@ -169,3 +169,16 @@
   color: #2ba6ff;
 }
 
+.admin-menu:last-child {
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 350px) {
+  * {
+    font-size: 5vw !important;
+  }
+
+  .close-btn {
+    font-size: 40px !important;
+  }
+}

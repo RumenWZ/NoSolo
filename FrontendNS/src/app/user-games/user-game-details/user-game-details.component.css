@@ -40,7 +40,7 @@
 }
 
 .description-field {
-  width: 70%;
+  width: 100%;
   height: 10rem;
   max-height: 10rem;
   background-color: #3f3f3f;
@@ -76,7 +76,7 @@
 }
 
 .update-btn {
-  color: #f7be38;
+  color: #f4f0d2;
 }
 
 .delete-btn {

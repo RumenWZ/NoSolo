@@ -61,3 +61,10 @@
 .pagination {
   padding-right: 8rem;
 }
+
+@media (max-width: 400px) {
+  .card-body {
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+  }
+}

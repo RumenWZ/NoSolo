@@ -22,6 +22,7 @@
   width: 100%;
   z-index: 1000;
   height: 3.5rem;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.4);
 }
 
 .navbar-acc-nav {
@@ -50,21 +51,17 @@
   animation: glowing 1.5s infinite;
 }
 
-.nav-link-item {
-  height: 2.3rem;
-}
-
-.your-games {
-  background: #cf26ff;
+.nav-item {
   border-radius: 1rem;
   font-size: 0.90rem;
   color: white;
   font-weight: 500;
-  height: 100%;
   display: flex;
   align-items: center;
-  width: 7rem;
+  padding: 0.5rem 0.8rem;
   justify-content: center;
+  list-style: none;
+  text-decoration: none;
 }
 
 .sidebar-open-btn {
@@ -86,6 +83,8 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  display: flex;
+  gap: 1rem;
 }
 
 .navbar-left {

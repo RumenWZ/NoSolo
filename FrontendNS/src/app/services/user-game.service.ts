@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatchedUserDTO, UserGame } from '../model/user-game';
+import { MatchedUserDTO, UserGame, UserGameDTO } from '../model/user-game';
 import { environment } from 'src/app/environments/environment';
 
 @Injectable({
@@ -21,6 +21,10 @@ export class UserGameService {
 
   getUserGames(username: string) {
     return this.http.get(this.baseUrl + '/get-user-games/' + username);
+  }
+
+  getLoggedinUserGames() {
+    return this.http.get<UserGameDTO[]>(this.baseUrl + '/get-loggedin-user-games');
   }
 
   getUserGame(id: number) {

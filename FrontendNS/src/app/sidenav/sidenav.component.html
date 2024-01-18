@@ -1,51 +1,57 @@
-<div class="sidenav-header">
-  <h5 class="sidenav-title" id="offcanvasRightLabel">Account Settings</h5>
-  <i class='bx bx-x close-btn' style='color:#e4e0e0' (click)="toggleSidenav()"></i>
-</div>
-<div class="sidenav-body">
-<ul class="sidebar-menu">
-  <li *ngFor="let item of sidebarData" class="sidebar-menu-item regular-item" (click)="executeFunction(item.functionName)">
-    <i class="{{item.icon}} icon"></i>
-    <a class="label">{{item.label}}</a>
-  </li>
-  <li class="sidebar-menu-item regular-item" (click)="executeFunction('onFriends')">
-    <i class="bx bxs-contact icon"></i>
-    <a [matBadge]="friendRequests" [matBadgeHidden]="!friendRequests"
-    matBadgeColor="warn" matBadgeSize="medium" class="label" style="padding-right: 7px;">Friends</a>
-  </li>
-</ul>
-</div>
-<div *ngIf="showAdminOptions" class="admin-options">
-  <div class="sidenav-header" style="border-top: 1px #9a999b solid;">
-  <h5 class="sidenav-title admin-header">Admin/Staff Options</h5>
+<div class="sidenav-container">
+  <div class="sidenav-header">
+    <h5 class="sidenav-title" id="offcanvasRightLabel">Account Settings</h5>
+    <i class='bx bx-x close-btn' style='color:#e4e0e0' (click)="toggleSidenav()"></i>
   </div>
-    <div class="sidenav-body">
-    <ul class="sidebar-menu">
-      <li *ngFor="let item of sidebarDataAdmin" class="sidebar-menu-item" (click)="executeFunction(item.functionName)">
-        <i class="{{item.icon}} icon" style="color: #66b9f4;"></i>
-        <a class="label" style="color: #66b9f4;">{{item.label}}</a>
-      </li>
-    </ul>
+  <div class="sidenav-body">
+  <ul class="sidebar-menu">
+    <li *ngFor="let item of sidebarData" class="sidebar-menu-item regular-item" (click)="executeFunction(item.functionName)">
+      <i class="{{item.icon}} icon"></i>
+      <a class="label">{{item.label}}</a>
+    </li>
+    <li class="sidebar-menu-item regular-item" (click)="executeFunction('onFriends')">
+      <i class="bx bxs-contact icon"></i>
+      <a [matBadge]="friendRequests" [matBadgeHidden]="!friendRequests"
+      matBadgeColor="warn" matBadgeSize="medium" class="label" style="padding-right: 7px;">Friends</a>
+    </li>
+    <li class="sidebar-menu-item regular-item" (click)="executeFunction('onDocumentation')">
+      <i class="bx bxs-file-doc icon"></i>
+      <a class="label" style="padding-right: 7px;">Documentation</a>
+    </li>
+  </ul>
+  </div>
+  <div *ngIf="showAdminOptions" class="admin-options">
+    <div class="sidenav-header" style="border-top: 1px #9a999b solid;">
+    <h5 class="sidenav-title admin-header">Admin/Staff Tools</h5>
     </div>
-</div>
-<div class="user-info-bottom">
-  <div class="user-info">
-    <img [src]="user?.profileImageUrl" (click)="onProfileImage()">
-    <span>{{user?.username}}</span>
-  </div>
-
-  <div class="account-menu-container" (click)="toggleAccountMenu()">
-    <i class='bx bx-dots-vertical-rounded account-menu'></i>
-    <div *ngIf="isAccountMenuOpen" class="account-menu-popup">
-      <div class="menu-option" (click)="onSettings()">
-        <i class="bx bxs-cog menu-option-icon"></i>
-        <span>Settings</span>
+      <div class="sidenav-body">
+      <ul class="sidebar-menu">
+        <li *ngFor="let item of sidebarDataAdmin" class="sidebar-menu-item admin-menu" (click)="executeFunction(item.functionName)">
+          <i class="{{item.icon}} icon" style="color: #66b9f4;"></i>
+          <a class="label" style="color: #66b9f4;">{{item.label}}</a>
+        </li>
+      </ul>
       </div>
-      <div class="menu-option" (click)="onLogout()">
-        <i class="bx bx-exit menu-option-icon"></i>
-        <span>Logout</span>
+  </div>
+  <div class="user-info-bottom">
+    <div class="user-info">
+      <img [src]="user?.profileImageUrl" (click)="onProfileImage()">
+      <span>{{user?.username}}</span>
+    </div>
+
+    <div class="account-menu-container" (click)="toggleAccountMenu()">
+      <i class='bx bx-dots-vertical-rounded account-menu'></i>
+      <div *ngIf="isAccountMenuOpen" class="account-menu-popup">
+        <div class="menu-option" (click)="onSettings()">
+          <i class="bx bxs-cog menu-option-icon"></i>
+          <span>Settings</span>
+        </div>
+        <div class="menu-option" (click)="onLogout()">
+          <i class="bx bx-exit menu-option-icon"></i>
+          <span>Logout</span>
+        </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

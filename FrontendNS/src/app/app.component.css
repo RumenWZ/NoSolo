@@ -1,3 +1,9 @@
+.container {
+  padding: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 * {
   font-family: "poppins", sans-serif;
 }
@@ -19,6 +25,9 @@ mat-sidenav {
   background-color: var(--main-color);
 }
 
-
-
-
+@media (max-width: 350px) {
+  mat-sidenav {
+    width: 100vw !important;
+    min-width: 0;
+  }
+}

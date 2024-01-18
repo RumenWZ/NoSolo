@@ -1,0 +1,47 @@
+* {
+  color: white;
+}
+
+.doc-background {
+  background-color: var(--main-color);
+  height: 3000px;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 3rem 1rem 3rem;
+}
+
+.doc-content {
+  height: 100%;
+}
+
+.doc-top-header {
+  font-size: 2.6rem;
+  padding: 4rem 0;
+}
+
+.doc-description {
+  margin-bottom: 1rem;
+  color: #a5a5a5;
+}
+
+.doc-section {
+  margin-top: 1rem;
+}
+
+.scroll-to-top {
+  background-color: #373a3d;
+  border-radius: 20px;
+  padding: 0.7rem 1.1rem 0.7rem 1.5rem;
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.scroll-to-top i {
+  font-size: 1.5rem;
+}
