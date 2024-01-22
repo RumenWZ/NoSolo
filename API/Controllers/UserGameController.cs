@@ -277,6 +277,16 @@ namespace API.Controllers
             {
                 return BadRequest("Invalid token");
             }
+            var userGame = await uow.UserGameRepository.GetUserGameByIdAsync(id);
+            if (userGame == null)
+            {
+                return BadRequest("No user game with that id exists in the database.");
+            }
+            if (userGame.UserId != user.Id)
+            {
+                return BadRequest("You are not allowed to edit other user's games");
+            }
+            
             await uow.UserGameRepository.DeleteUserGameAsync(id);
             await uow.SaveAsync();
             return Ok(201);
@@ -298,6 +308,10 @@ namespace API.Controllers
             if (userGame == null)
             {
                 throw new Exception("No user game with that id exists in the database.");
+            }
+            if (userGame.UserId != user.Id)
+            {
+                return BadRequest("You are not allowed to edit other user's games");
             }
             await uow.UserGameRepository.UpdateUserGame(id, description);
             await uow.SaveAsync();

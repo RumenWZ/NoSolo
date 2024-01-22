@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileCardComponent } from 'src/app/user/profile-card/profile-card.component';
 import { AlertifyService } from 'src/app/services/alertify.service';
+import { UserDTO } from 'src/app/model/user';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   environment = environment;
   canSendMessage: boolean = true;
   skeletonLoadingCount = 10;
+  channelName: string;
+  loggedInUser: UserDTO;
 
   @ViewChild('chatField', { static: false }) chatField: ElementRef;
   @ViewChild('chatMessagesContainer', { static: false }) chatMessagesContainer: ElementRef;
@@ -46,7 +49,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     if (!this.chatMessages || this.chatMessages.length === 0) {
       return;
     }
-
     const processedMessages: Message[] = [];
     let previousMessage: Message = this.chatMessages[0];
 
@@ -76,6 +78,16 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
       this.canSendMessage = false;
       this.message.sendMessage(this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
         if (response == 201) {
+          const msg: Message = {
+            id: this.chatMessages[this.chatMessages.length - 1].id + 1,
+            user1Id: this.loggedInUser.id,
+            user1DisplayName: this.loggedInUser.displayName == (undefined || null) ? this.loggedInUser.username : this.loggedInUser.displayName,
+            user1ProfilePictureUrl: this.loggedInUser.profileImageUrl,
+            user2Id: this.chatUser.id,
+            messageString: this.chatFieldMessage,
+            timestamp: new Date(),
+          }
+          this.chatMessages.push(msg);
           this.chatFieldMessage = '';
           this.chatMessagesProcessor();
           this.scrollToBottom();
@@ -158,50 +170,67 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
 
   }
 
-  ngOnInit() {
-    this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
+  updatePusherConfiguration() {
+    this.pusher.unsubscribe(this.channelName);
+    this.channel = null;
 
-    this.getChatMessages();
-
-    this.pusher = new Pusher(this.environment.pusherKey, {
-      cluster: this.environment.pusherCluster
-    });
-
-    this.channel = this.pusher.subscribe('my-channel');
+    this.channel = this.pusher.subscribe(this.channelName);
     this.channel.bind('my-event', (data: any) => {
       const newMessage: Message = {
         id: data.message.Id,
         user1Id: data.message.User1Id,
         user1DisplayName: data.message.User1DisplayName,
         user1ProfilePictureUrl: data.message.User1ProfilePictureUrl,
-        user2Id: null,
+        user2Id: this.loggedInUser.id,
         messageString: data.message.MessageString,
         timestamp: new Date(data.message.Timestamp)
       };
-      this.chatMessages.push(newMessage);
+      if (newMessage.user1Id != this.loggedInUser.id) {
+        this.chatMessages.push(newMessage);
+      }
       this.messageSound.nativeElement.play();
       this.scrollToBottom();
       this.chatMessagesProcessor();
-
     });
+  }
+
+  ngOnInit() {
+    this.pusher = new Pusher(this.environment.pusherKey, {
+      cluster: this.environment.pusherCluster
+    });
+    this.loggedInUser = JSON.parse(localStorage.getItem('user'));
+
+    this.updatePusherChannelName();
+
+    this.messageFieldPlaceholder = `Message ${this.chatUser.displayName}`;
+
+    this.getChatMessages();
+
+    this.updatePusherConfiguration();
 
     this.getChatMessages();
   }
 
-  handleIncomingMessage(message: string) {
-
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chatUser'] && changes['chatUser'].currentValue) {
+      this.updatePusherChannelName();
       this.messageFieldPlaceholder = `Message ${this.chatUser.username}`;
       this.chatMessages = null;
+      this.updatePusherConfiguration();
       this.getChatMessages();
       this.focusOnChatField();
     }
   }
 
+  updatePusherChannelName() {
+    this.channelName = `chat-channel-${this.chatUser.username}-${localStorage.getItem('userName')}`;
+  }
+
   ngAfterViewInit(): void {
     this.focusOnChatField();
+  }
+
+  ngOnDestroy() {
+    this.pusher.unsubscribe(this.channelName);
   }
 }

@@ -71,8 +71,8 @@ namespace API.Controllers
                 Cluster = Environment.GetEnvironmentVariable("PUSHER_APP_CLUSTER"),
                 Encrypted = true
             });
-            await pusher.TriggerAsync("my-channel", "my-event", new { message = newMessageDTO });
-
+            await pusher.TriggerAsync($"chat-channel-{user1.Username}-{user2.Username}", "my-event", new { message = newMessageDTO });
+            await pusher.TriggerAsync($"chat-channel-{user2.Username}-{user1.Username}", "my-event", new { message = newMessageDTO });
             return Ok(201);
         }
 

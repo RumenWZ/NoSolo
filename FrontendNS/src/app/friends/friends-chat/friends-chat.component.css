@@ -1,6 +1,7 @@
 
 .chat-container {
   height: 100%;
+  width: 105.3%;
 }
 
 .chat-header {
@@ -112,5 +113,8 @@
   background-color: #65656b;
 }
 
-
-
+@media (max-width: 768px) {
+  .chat-container {
+    width: 100%;
+  }
+}

@@ -62,11 +62,47 @@
         This section will be a look at the notable features of the app.
       </div>
 
-      <h2 id="game-selection">3.1 Game Selection</h2>
+      <h2 id="game-selection">3.1. Game Selection</h2>
       <div class="doc-description">
-        The "Game Selection" offers the user a user-friendly interface for managing their games list.
+        The "Game Selection" offers the user a user-friendly interface for managing their games list. This component provides the user access to all CRUD operations for their games. The user must select at least 1 game before matching with other users.
       </div>
 
+      <h4>Adding a Game</h4>
+      <div class="doc-description">
+        The user can add a game by clicking the plus icon at the top left of the Game Selection to add a game. The assortment of games to choose from can only be modified by a user with admin privileges.
+      </div>
+      <div class="doc-description">
+        The user can browse the assortment of games by clicking on the search bar under "Select a Game" and select a game from the dropdown menu. They can also filter games by name through this search bar.
+      </div>
+
+      <h4>Updating a Game</h4>
+      <div class="doc-description">
+        The user can choose to update their description that they have provided for the game at any time.
+      </div>
+
+      <h2 id="friends-list">3.2. Friends List</h2>
+      <div class="doc-description">The Friends feature enables users to establish and manage connections with other users of the application. Once users become friends, they gain the ability to communicate through the integrated real-time chat system.</div>
+      <h4>Responsive Design</h4>
+      <div class="doc-description">If the screen width is below 768px, the interface of the Friends component changes notably:</div>
+      <ul class="doc-bulletpoints">
+        <li>The list of friends on the left is hidden to conserve space.</li>
+        <li>The navigation buttons at the top of the Friends UI are replaced with a burger menu.</li>
+        <li>The new burger menu opens a sidenav, which contains the list of friends and the navigation links.</li>
+      </ul>
+      <h4>User Interface</h4>
+      <div class="doc-description">The Friends interface allows the user to message their friends, browse their friends list, incoming requests, outgoing requests and add friends, all from one component. </div>
+      <h4>Sending a Friend Request</h4>
+      <div class="doc-description">Sending a friend request is typically done through the "Find Friends" component when a user is being matched with other users. However, this can also be done via the "Add Friend" button in the Friends List, the user can find users based on their username as the search parameter and send them a friend request.</div>
+
+      <h2 id="real-time-chat">3.3. Real-Time Chat</h2>
+      <div class="doc-description">The Real-Time Chat feature allows the users to send and receive messages between each other in real-time, without having to refresh the page to receive new messages.</div>
+      <h4>Opening a Chat</h4>
+      <div class="doc-description">A chat window is opened by clicking on on a user in the user's friends list. Upon loading a chat with a user, the existing messages between the users are retrieved from the database. If the messages are retrieved successfully, they are then processed by the message processor function, which combines multiple messages into one message if they are sent consecutively by the user.</div>
+      <h4>Sending a Message</h4>
+      <div class="doc-description">When a message is sent, the API endpoint responsible for sending messages is called and it starts by performs validation checks. The send message endpoint validates the logged in user's credentials, if the message receiver exists and if the two users have each other added in their friends list.</div>
+      <div class="doc-description">After the validation checks, an instance of the Pusher class is created, using my hidden Pusher account credentials as parameters. The endpoint then proceeds t</div>
+      <h4>Message Processing</h4>
+      <div class="doc-description">When a user sends a message</div>
 
     </div>
 
