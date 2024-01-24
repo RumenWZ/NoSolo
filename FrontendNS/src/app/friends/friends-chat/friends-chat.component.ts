@@ -171,8 +171,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   }
 
   updatePusherConfiguration() {
-    this.pusher.unsubscribe(this.channelName);
+    if (this.pusher) {
+      this.pusher.unsubscribe(this.channelName);
     this.channel = null;
+    }
 
     this.channel = this.pusher.subscribe(this.channelName);
     this.channel.bind('my-event', (data: any) => {

@@ -27,6 +27,10 @@ export const scrollToMenuItems = [
     {
       submenuName: 'Skeleton Loading',
       submenuId: 'skeleton-loading'
+    },
+    {
+      submenuName: 'Other Minor Features',
+      submenuId: 'other-features'
     }
     ]
   },
@@ -35,17 +39,13 @@ export const scrollToMenuItems = [
     menuId: 'validation',
     submenus: [
       {
-        submenuName: 'Form Validation',
-        submenuId: 'form-validation'
+        submenuName: 'User Input Validation',
+        submenuId: 'user-input-validation'
       },
       {
         submenuName: 'Image Validation',
         submenuId: 'image-validation'
-      },
-      {
-        submenuName: 'User Validation',
-        submenuId: 'user-validation'
-      },
+      }
     ]
   },
   {
@@ -53,7 +53,7 @@ export const scrollToMenuItems = [
     menuId: 'auth'
   },
   {
-    menuName: 'Best Practices',
-    menuId: 'best-practices'
+    menuName: 'Coding Practices',
+    menuId: 'coding-practices'
   },
 ]

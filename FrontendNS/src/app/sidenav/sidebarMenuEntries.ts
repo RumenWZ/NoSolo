@@ -10,7 +10,7 @@ export const sidebarMenuEntries = [
     'functionName': 'onMyGames',
   },
   {
-    'label': 'Find Friends',
+    'label': 'Start Matching',
     'icon': 'bx bx-face',
     'functionName': 'onFindFriends',
   },

@@ -10,12 +10,8 @@
     <div class="doc-section" id="about">
       <h1>1. About Project</h1>
       <hr>
-      <div class="doc-description">
-        This web app is a platform for people who play video games to get matched with other users based on shared game preferences to find new partners. With a real-time chat functionality and a user-friendly interface.
-      </div>
-      <div class="doc-description">
-
-      </div>
+      <div class="doc-description">This web app is a platform for people who play video games to get matched with other users based on shared game preferences to find new partners with a friend list and real-time chat.</div>
+      <div class="doc-description">Although the app has Bootstrap installed, it is only used for the login and register components. All the other html and css in this app are written by me, excluding</div>
     </div>
 
     <div class="doc-section" id="getting-started">
@@ -53,6 +49,8 @@
       <div class="doc-description">
         If you would like to play with this user, press the green checkmark to send them a friend request. Otherwise press on the red X button to move on to the next user.
       </div>
+      <h4>Send a Message!</h4>
+      <div class="doc-description">If the user accepts your friend request or vice versa, you can find them in your friends list. To send a message, click on their profile in the friends list, or the chat bubble if you are in the "All Friends" section of the friends list.</div>
     </div>
 
     <div class="doc-section" id="features">
@@ -98,16 +96,76 @@
       <div class="doc-description">The Real-Time Chat feature allows the users to send and receive messages between each other in real-time, without having to refresh the page to receive new messages.</div>
       <h4>Opening a Chat</h4>
       <div class="doc-description">A chat window is opened by clicking on on a user in the user's friends list. Upon loading a chat with a user, the existing messages between the users are retrieved from the database. If the messages are retrieved successfully, they are then processed by the message processor function, which combines multiple messages into one message if they are sent consecutively by the user.</div>
+      <div class="doc-description">The chat component creates an instance of the Pusher class and subscribes to it afterwards. A private channel is established between the two users, using their usernames as the name of the private channel to ensure their messages are only sent and received between each other. A binding is then added to the channel, so that it updates the chat messages after a ping is received from the Pusher service.</div>
       <h4>Sending a Message</h4>
       <div class="doc-description">When a message is sent, the API endpoint responsible for sending messages is called and it starts by performs validation checks. The send message endpoint validates the logged in user's credentials, if the message receiver exists and if the two users have each other added in their friends list.</div>
-      <div class="doc-description">After the validation checks, an instance of the Pusher class is created, using my hidden Pusher account credentials as parameters. The endpoint then proceeds t</div>
-      <h4>Message Processing</h4>
-      <div class="doc-description">When a user sends a message</div>
+      <div class="doc-description">After the validation checks, an instance of the Pusher class is created, using my hidden Pusher account credentials as parameters. The endpoint then sends the message to the Pusher service to a private channel between the two users, which sends a ping to my chat component in Angular. </div>
+      <div class="doc-description">Since the chat component is subscribed to the pusher instance, it receives the ping from the Pusher service, along with the new message. The new message is then added to the chatMessages variable and reprocessed again by the chatMessageProcessor function.</div>
 
+      <h2 id="skeleton-loading">3.4. Skeleton Loading</h2>
+      <div class="doc-description">I have also implemented loading animations/skeleton loading for some of the components. Namely the friends list, chat messages and the user profile card.</div>
+      <div class="doc-description">Some of the skeleton loading objects for the friends list and chat messages have randomised lengths to simulate the varying lenghts of messages and usernames.</div>
+      <div class="doc-description">The user profile card simply has a loading spinner while the user's details are being retrieved.</div>
+      <h2 id="other-features">3.5. Other Minor Features</h2>
+      <div class="doc-description">The app includes other minor features such as:</div>
+      <ul class="doc-bulletpoints">
+        <li>Alertify notifications</li>
+        <li>Notifications for pending friend requests</li>
+        <li>When viewing the profile card of a user, the games they have in common will be highlighted in green, along with a message that they play the same game.</li>
+        <li>Filter input fields for friends list and add friends components</li>
+        <li>Input validation for frontend and backend</li>
+        <li>Image upload validation for frontend and backend</li>
+        <li>Sidenav navigation</li>
+        <li>The user receives a preview of the image they have selected from the file browser, if it passes the validation checks.</li>
+      </ul>
     </div>
 
+    <div class="doc-section" id="validation">
+      <h1>4. Validation</h1>
+      <h2 id="user-input-validation">4.1. User Input Validation</h2>
+      <h4>Frontend</h4>
+      <div class="doc-description">For my user input validation in the Frontend I used both template-driven and reactive forms. Template-driven forms were used for the simpler forms such as the Add Game form for the admin, and for the adding/updating the games in a user's list. A reactive form was used for the Register component, as it required more complex validation, namely for matching the two password fields.</div>
+      <div class="doc-image-wrapper"><img src="assets/images/documentation/registerReactiveForm.png" class="doc-image"></div>
+      <h4>Backend</h4>
+      <div class="doc-description">As for the Backend, I used Data Transfer Objects(DTOs) with the appropriate Data Annotations for the larger forms. For the smaller forms I made a string validation service to validate the string's length and regex patterns to validate the string's values.</div>
+      <div class="doc-image-wrapper"><img src="assets/images/documentation/registerRequestDTO.png" class="doc-image"></div>
+      <div class="doc-image-wrapper"><img src="assets/images/documentation/RegisterEndpoint.png" class="doc-image"></div>
 
-  </div>
+      <h2 id="image-validation">4.2. Image Validation</h2>
+      <div class="doc-description">For the image validation in the frontend I created a function, which performs several validation checks on an image, after the user selects it from the file browser.</div>
+      <div class="doc-description">The function validates the file's format, ensuring only JPG,JPEG and PNG are accepted. The function also validates the image's size (a maximum of 1 MB in my case).</div>
+      <div class="doc-description">The aspect ratio of the image is also validated, ensuring that the images being selected have a similar height and width. The validation allows a 5% difference between the height and width of the image so they don't have to be pixel perfect.</div>
+      <div class="doc-description">These validation checks are also performed in the backend. If all of the validation is successful, the image is then uploaded to Cloudinary and the url string for the image is saved to the database. If an object in the database is deleted, and that object contains a Cloudinary image url, the image will be deleted from the Cloudinary storage as well.</div>
+    </div>
+
+    <div class="doc-section" id="auth">
+      <h1>5. Authentication/Authorization</h1>
+      <div class="doc-description">This app uses JSON Web Tokens to authenticate the user's credentials.</div>
+      <h3>Frontend</h3>
+      <div class="doc-description">A token is assigned to a user once they successfully log into their account, afterwards the token is saved to the local storage of the user's browser.</div>
+      <div class="doc-description">I have implemented a token interceptor service for this app. This interceptor retrieves the user's token from the local storage and automatically includes it in the HTTP Headers for every outgoing request to the database. If the token is invalid/expired, the user's request will be ignored and they will be automatically logged out and prompted to log in to receive a new valid token.</div>
+      <h3>Backend</h3>
+      <div class="doc-description">In the Backend I have added a middleware, which retrieves the token from the HTTP Headers on every request and validates it for every endpoint, which requires a user to be logged in. The validation occurs, when the backend tries to retrieve the user's details via the 'GetUserByTokenAsync' function in my User Repository, using the token as a parameter. The API will return a 401 Unauthorized status code error if the token is invalid.</div>
+      <div class="doc-description"><span class="doc-note">Note: I wasn't aware at the time that I could just add an [Authorize] attribute to the endpoints to perform the same validation task. But it still does the job.</span></div>
+      <h3>Guards</h3>
+      <div class="doc-description">An admin guard is used to validate if the user requesting to access the component is an admin, by checking if their "IsAdmin" property is set to true.</div>
+      <div class="doc-description">A guard is also used to check if a user has any games added to their games list, before they can start matching with other users. If they have no games added, they will be redirected to the Game Selection component and prompted to add a game to their list, along with a notification message.</div>
+    </div>
+
+    <div class="doc-section" id="coding-practices">
+      <h1>6. Coding Practices</h1>
+      <div class="doc-descriptoin">Some of the code practices I have used are: </div>
+      <ul class="doc-bulletpoints">
+        <li>Repository Pattern</li>
+        <li>Unit of Work Pattern</li>
+        <li>Password Hashing</li>
+        <li>Dependancy Injection</li>
+        <li>Error Handling</li>
+        <li>Responsive Design</li>
+        <li>Modularization</li>
+        <li>Consistent Code Formatting</li>
+      </ul>
+    </div>
 </div>
 
 

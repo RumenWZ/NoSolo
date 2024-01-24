@@ -1,6 +1,5 @@
 ﻿using API.DTOs;
 using API.Interfaces;
-using API.Migrations;
 using API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -75,6 +74,7 @@ namespace API.Controllers
         }
 
         [HttpGet("get-logged-in-user")]
+        [Authorize]
         public async Task<IActionResult> GetLoggedInUser()
         {
             var user = await auth.GetUserFromTokenAsync(HttpContext);

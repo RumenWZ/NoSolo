@@ -87,8 +87,13 @@
   text-indent: 4px;
 }
 
+
 @media (max-width: 768px) {
   .friends-list-wrapper {
     width: 100%;
+  }
+
+  .friend-name {
+    max-width: 50%;
   }
 }

@@ -23,6 +23,7 @@
   z-index: 1000;
   height: 3.5rem;
   box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.4);
+  margin-right: 40px;
 }
 
 .navbar-acc-nav {
@@ -54,7 +55,7 @@
 .nav-item {
   border-radius: 1rem;
   font-size: 0.90rem;
-  color: white;
+  color: #eaeaea;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -91,3 +92,8 @@
   display: flex;
   align-items: center;
 }
+
+.white-text {
+  color: #fff;
+}
+

@@ -9,12 +9,15 @@ import { SidenavService } from '../services/sidenav.service';
 })
 export class NavbarComponent {
   username: string;
-  isSmallScreen: boolean;
+  screenLessThan768: boolean;
+  screenLessThan992: boolean;
+
   constructor(
     private user: UserService,
     private sidenavService: SidenavService,
   ) {
-    this.isSmallScreen = window.innerWidth < 768;
+    this.screenLessThan768 = window.innerWidth < 768;
+    this.screenLessThan992 = window.innerWidth < 992;
   }
 
   toggleSidenav() {
@@ -36,6 +39,7 @@ export class NavbarComponent {
 
   @HostListener('window:resize', ['$event'])
   onWindowResize(event: any) {
-    this.isSmallScreen = window.innerWidth < 768;
+    this.screenLessThan768 = window.innerWidth < 768;
+    this.screenLessThan992 = window.innerWidth < 992;
   }
 }

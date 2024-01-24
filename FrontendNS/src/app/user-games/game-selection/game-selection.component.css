@@ -4,9 +4,9 @@
 }
 
 .main-body {
-  min-width: 15rem;
   max-width: 45rem;
   margin: 0 auto;
+  /* width: 100vw !important; */
 }
 
 .game-selection {
@@ -81,10 +81,20 @@
 
 .component-section {
   width: 100%;
-  margin: 10px;
+  padding: 10px;
 }
 
 .add-game-header {
   font-size: 2rem;
   text-align: center;
+}
+
+@media (max-width: 576px) {
+  .main-body {
+    width: 90%;
+  }
+
+  .component-section {
+    padding: 0 !important;
+  }
 }

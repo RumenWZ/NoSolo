@@ -29,7 +29,7 @@ export class FindFriendsComponent {
     private userGame: UserGameService,
     private friend: FriendService,
     private alertify: AlertifyService,
-    private user: UserService
+    private userService: UserService
   ) {
     this.isSmallScreen = window.innerWidth < 768;
   }
@@ -62,7 +62,7 @@ export class FindFriendsComponent {
   }
 
   ngOnInit() {
-    this.user.verifyLoggedIn();
+    this.userService.verifyLoggedIn();
     this.userGame.getMatchesForUser().subscribe((response: MatchedUserDTO[]) => {
       this.matches = response;
       if (this.matches.length > 0) {

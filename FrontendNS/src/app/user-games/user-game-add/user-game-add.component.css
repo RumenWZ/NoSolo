@@ -8,6 +8,16 @@
   min-height: 55rem;
 }
 
+.add-game-wrapper {
+  padding: 0.5rem 0.6rem;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .dropdown-list {
   display: none;
   position: absolute;
@@ -101,6 +111,10 @@
   color: #adabab;
 }
 
+.content-wrapper {
+  padding: 0.5rem;
+  width: 100%;
+}
 
 .selected-game-wrapper {
   margin-top: 1.50rem;

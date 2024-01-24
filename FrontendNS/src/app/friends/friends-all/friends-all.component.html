@@ -14,7 +14,7 @@
     <ul class="friends-list">
       <li (click)="onFriendClick(user)" *ngFor="let user of friendsList | filter: searchParameters : 'displayName'" class="friends-list-item">
         <img [src]="user.profileImageUrl">
-        <span>{{user.displayName}}</span>
+        <span class="friend-name truncate">{{user.displayName}}</span>
         <div class="action-wrapper">
           <div class="button chat" (click)="onChatBubble(user)">
             <i class='bx bxs-message icon'></i>

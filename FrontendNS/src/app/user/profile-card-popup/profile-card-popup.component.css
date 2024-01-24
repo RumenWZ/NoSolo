@@ -1,0 +1,16 @@
+* {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+mat-dialog-container {
+  width: 50% !important;
+}
+
+mat-dialog-content {
+  width: 50% !important;
+}
+
+app-profile-card {
+  width: 2rem;
+}

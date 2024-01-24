@@ -4,10 +4,10 @@
 
 .doc-background {
   background-color: var(--main-color);
-  height: 3000px;
   max-width: 60rem;
   margin: 0 auto;
-  padding: 0 3rem 1rem 3rem;
+  padding: 0 3rem 4rem 3rem;
+  margin-bottom: 1rem;
 }
 
 .doc-content {
@@ -22,6 +22,17 @@
 .doc-description {
   margin-bottom: 1rem;
   color: #a5a5a5;
+}
+
+.doc-image-wrapper{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.doc-image {
+  max-width: 100%;
+  border: 1px solid gray;
 }
 
 .doc-bulletpoints li {
@@ -50,9 +61,27 @@
   font-size: 1.5rem;
 }
 
+.doc-note {
+  color: #f0f481;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .doc-top-header {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    padding: 2rem 0;
+  }
+}
+
 @media (max-width: 400px) {
   .doc-background {
     height: 100%;
     padding: 0 1.5rem 1rem 1.5rem;
   }
+
+  .doc-top-header {
+    font-size: 9vw;
+  }
 }
+

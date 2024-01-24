@@ -17,7 +17,7 @@
       <ng-template #loadedData>
         <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
           <img [src]="user.profileImageUrl">
-          <span>{{ user.displayName }}</span>
+          <span class="friend-name truncate">{{ user.displayName }}</span>
         </li>
       </ng-template>
     </ul>

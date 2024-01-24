@@ -1,8 +1,9 @@
-<p class="add-game-header">Add game</p>
-      <div  class="add-game-card card">
-        <div class="card-body">
+<div class="add-game-wrapper">
+  <p class="add-game-header">Add game</p>
+      <div class="add-game-card card">
+        <div class="content-wrapper">
           <form #gameForm="ngForm" (submit)="onSubmit(gameForm)">
-            <div class="card-content">
+            <div class="main-content">
                 <label for="game-input">Select a Game</label>
                 <div class="input-wrapper">
                   <input class="search-field" type="text" [(ngModel)]="filterString" [ngModelOptions]="{ standalone: true }" id="game-input" placeholder="Search for a game..." (focus)="showDropdownList()" (blur)="hideDropdownList()" autocomplete="off" (keydown.enter)="$event.preventDefault()">
@@ -30,4 +31,6 @@
           </form>
         </div>
       </div>
+
+</div>
 

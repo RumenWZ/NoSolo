@@ -72,6 +72,7 @@ namespace API.Services
         {
             return image.Length <= maxSizeInBytes;
         }
+
     }
     
 }

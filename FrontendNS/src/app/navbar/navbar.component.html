@@ -2,16 +2,21 @@
   <div class="navbar-left">
     <a class="navbar-brand" href="/">NoSolo</a>
 
-    <div *ngIf="!isSmallScreen" class="nav-links-section">
+    <div *ngIf="!screenLessThan768" class="nav-links-section">
       <ul class="nav-links">
+        <div *ngIf="loggedIn()" style="display: flex">
+          <li class="nav-link-item">
+            <a class="nav-item"  routerLink="game-selection" routerLinkActive="white-text">My Games</a>
+          </li>
+          <li class="nav-link-item">
+            <a class="nav-item" routerLink="friends" routerLinkActive="white-text">My Friends</a>
+          </li>
+          <li class="nav-link-item">
+            <a class="nav-item" style="background-color: #21a500;" routerLink="find-friends" routerLinkActive="white-text">Start Matching</a>
+          </li>
+        </div>
         <li class="nav-link-item">
-          <a class="nav-item"  routerLink="game-selection">My Games</a>
-        </li>
-        <li class="nav-link-item">
-          <a class="nav-item" routerLink="friends">My Friends</a>
-        </li>
-        <li class="nav-link-item">
-          <a class="nav-item" routerLink="documentation">Documentation</a>
+          <a class="nav-item" routerLink="documentation" routerLinkActive="white-text">Documentation</a>
         </li>
       </ul>
     </div>
@@ -20,7 +25,7 @@
   <ul class="navbar-acc-nav">
     <li *ngIf="!loggedIn()" class="navbar-acc-item" routerLink="/login"><a>Login</a></li>
     <li *ngIf="!loggedIn()" class="navbar-acc-item" routerLink="/register"><a>Register</a></li>
-    <p *ngIf="loggedIn()" class="welcome">Welcome {{username}}</p>
+    <span *ngIf="loggedIn() && !screenLessThan992" class="welcome">Welcome {{username}}</span>
     <i *ngIf="loggedIn()" class='bx bx-menu sidebar-open-btn' style='color:#eaeaea' (click)="toggleSidenav()"></i>
   </ul>
 

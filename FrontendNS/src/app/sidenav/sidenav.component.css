@@ -175,10 +175,14 @@
 
 @media (max-width: 350px) {
   * {
-    font-size: 5vw !important;
+    font-size: 7vw !important;
   }
 
   .close-btn {
     font-size: 40px !important;
+  }
+
+  .sidebar-menu-item {
+    height: 16vw;
   }
 }
