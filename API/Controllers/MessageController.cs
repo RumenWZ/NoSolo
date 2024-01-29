@@ -72,7 +72,7 @@ namespace API.Controllers
                 Encrypted = true
             });
             await pusher.TriggerAsync($"chat-channel-{user1.Username}-{user2.Username}", "my-event", new { message = newMessageDTO });
-            await pusher.TriggerAsync($"chat-channel-{user2.Username}-{user1.Username}", "my-event", new { message = newMessageDTO });
+            
             return Ok(201);
         }
 

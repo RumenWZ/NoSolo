@@ -58,6 +58,16 @@ export class FindFriendsComponent {
       }
       this.canSelectNextUser = true;
       this.selectNextUser();
+    }, error => {
+      if (error == 'There is already a pending friend request') {
+        this.friend.acceptFriendRequest(this.currentDisplayedUser.username).subscribe((response: any) => {
+          if (response == 201) {
+            this.alertify.success('You are now friends!');
+          }
+          this.canSelectNextUser = true;
+          this.selectNextUser();
+        })
+      }
     })
   }
 

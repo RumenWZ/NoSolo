@@ -45,16 +45,28 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     return new Array(this.skeletonLoadingCount);
   }
 
+  getUserProfileImage(imageUrl: string) {
+    if (imageUrl == '') {
+      return '/assets/images/default-user.png';
+    }
+    return imageUrl;
+  }
+
   chatMessagesProcessor() {
     if (!this.chatMessages || this.chatMessages.length === 0) {
       return;
     }
     const processedMessages: Message[] = [];
     let previousMessage: Message = this.chatMessages[0];
+    if (!previousMessage.user1ProfilePictureUrl) {
+      previousMessage.user1ProfilePictureUrl = '/assets/images/default-user.png';
+    }
 
     for (let i = 1; i < this.chatMessages.length; i++) {
       const currentMessage: Message = this.chatMessages[i];
-
+      if (!currentMessage.user1ProfilePictureUrl) {
+        currentMessage.user1ProfilePictureUrl = '/assets/images/default-user.png';
+      }
       if (previousMessage.user1DisplayName === currentMessage.user1DisplayName) {
         previousMessage.messageString += '\n' + currentMessage.messageString;
         previousMessage.timestamp = currentMessage.timestamp;
@@ -79,10 +91,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
       this.message.sendMessage(this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
         if (response == 201) {
           const msg: Message = {
-            id: this.chatMessages[this.chatMessages.length - 1].id + 1,
+            id: 999,
             user1Id: this.loggedInUser.id,
             user1DisplayName: this.loggedInUser.displayName == (undefined || null) ? this.loggedInUser.username : this.loggedInUser.displayName,
-            user1ProfilePictureUrl: this.loggedInUser.profileImageUrl,
+            user1ProfilePictureUrl: this.getUserProfileImage(this.loggedInUser.profileImageUrl),
             user2Id: this.chatUser.id,
             messageString: this.chatFieldMessage,
             timestamp: new Date(),
@@ -104,7 +116,6 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
       } else {
         this.chatMessages = [response];
       }
-
       this.scrollToBottom();
       this.chatMessagesProcessor();
     });
@@ -178,21 +189,23 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
 
     this.channel = this.pusher.subscribe(this.channelName);
     this.channel.bind('my-event', (data: any) => {
-      const newMessage: Message = {
-        id: data.message.Id,
-        user1Id: data.message.User1Id,
-        user1DisplayName: data.message.User1DisplayName,
-        user1ProfilePictureUrl: data.message.User1ProfilePictureUrl,
-        user2Id: this.loggedInUser.id,
-        messageString: data.message.MessageString,
-        timestamp: new Date(data.message.Timestamp)
-      };
-      if (newMessage.user1Id != this.loggedInUser.id) {
-        this.chatMessages.push(newMessage);
+      if (data.message.User1Id == this.chatUser.id) {
+        const newMessage: Message = {
+          id: data.message.Id,
+          user1Id: data.message.User1Id,
+          user1DisplayName: data.message.User1DisplayName,
+          user1ProfilePictureUrl: data.message.User1ProfilePictureUrl,
+          user2Id: this.loggedInUser.id,
+          messageString: data.message.MessageString,
+          timestamp: new Date(data.message.Timestamp)
+        };
+        if (newMessage.user1Id != this.loggedInUser.id) {
+          this.chatMessages.push(newMessage);
+        }
+        this.messageSound.nativeElement.play();
+        this.scrollToBottom();
+        this.chatMessagesProcessor();
       }
-      this.messageSound.nativeElement.play();
-      this.scrollToBottom();
-      this.chatMessagesProcessor();
     });
   }
 
