@@ -70,6 +70,10 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/find-users/${searchString}`);
   }
 
+  checkIfLoggedIn() {
+    return this.http.get(`${this.baseUrl}/check-logged-in`);
+  }
+
   verifyLoggedIn(): boolean {
     if (localStorage.getItem('token') == null || localStorage.getItem('userName') == null || localStorage.getItem('user') == null) {
       localStorage.removeItem('token');

@@ -13,6 +13,7 @@ export const sidebarMenuEntries = [
     'label': 'Start Matching',
     'icon': 'bx bx-face',
     'functionName': 'onFindFriends',
+    green: true
   },
   {
     'label': 'Settings',

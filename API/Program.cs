@@ -10,7 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-DotEnv.Load();
+
+DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { "D:\\CSharp\\repos\\env\\NoSolo\\.env" }));
 
 var builder = WebApplication.CreateBuilder(args);
 

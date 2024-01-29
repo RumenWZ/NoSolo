@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { UserDTO } from '../model/user';
 import { AlertifyService } from '../services/alertify.service';
 
@@ -16,15 +16,17 @@ export class LoggedInGuard implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean> {
-    return this.userService.getLoggedInUser().pipe(
+    return this.userService.checkIfLoggedIn().pipe(
       map((response: any) => {
-        if (response.error == 401) {
-          this.alertify.error('Not logged in');
-          return false;
-        } else {
+        if (response == 200) {
           return true;
+        } else {
+          this.router.navigate(['/login']);
+          this.alertify.warning('Please log in to access that page');
+          return false;
         }
       })
     );
   }
 }
+

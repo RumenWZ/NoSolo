@@ -58,9 +58,6 @@
   font-size: 1.2rem;
 }
 
-.pagination {
-  padding-right: 8rem;
-}
 
 @media (max-width: 400px) {
   .card-body {

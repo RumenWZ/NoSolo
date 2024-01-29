@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Extensions;
 using API.Interfaces;
 using API.Models;
 using AutoMapper;
@@ -276,6 +277,16 @@ namespace API.Controllers
             await uow.SaveAsync();
 
             return Ok(201);
+        }
+        [HttpGet("check-logged-in")]
+        public async Task<IActionResult> CheckIfUserIsLoggedIn()
+        {
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
+            if (user == null)
+            {
+                return Ok(401);
+            }
+            return Ok(200);
         }
 
         private string CreateJWT(User user)

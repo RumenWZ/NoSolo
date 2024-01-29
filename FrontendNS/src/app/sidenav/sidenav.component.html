@@ -5,7 +5,7 @@
   </div>
   <div class="sidenav-body">
   <ul class="sidebar-menu">
-    <li *ngFor="let item of sidebarData" class="sidebar-menu-item regular-item" (click)="executeFunction(item.functionName)">
+    <li *ngFor="let item of sidebarData" class="sidebar-menu-item regular-item" [class.bg-green]="item.green" (click)="executeFunction(item.functionName)">
       <i class="{{item.icon}} icon"></i>
       <a class="label">{{item.label}}</a>
     </li>

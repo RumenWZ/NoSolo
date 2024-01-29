@@ -36,7 +36,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
-/src/app/environments/environment.ts
+/src/app/environments
 /API/.env
 
 # System files

@@ -63,7 +63,7 @@ const appRoutes: Routes = [
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '', component: WelcomePageComponent},
   {path: 'test', component: ProfileCardComponent},
-  {path: 'find-friends', component: FindFriendsComponent, canActivate: [FindFriendsAccessGuard]},
+  {path: 'find-friends', component: FindFriendsComponent, canActivate: [LoggedInGuard, FindFriendsAccessGuard]},
   {path: 'documentation', component: DocumentationComponent},
   {path: '**', component: PageNotFoundComponent}
 ];

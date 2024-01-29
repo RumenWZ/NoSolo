@@ -6,6 +6,12 @@
   bottom: 0;
   z-index: 10;
   width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pagination .ngx-pagination {
+  padding: 0;
 }
 
 .pagination .ngx-pagination .current {
