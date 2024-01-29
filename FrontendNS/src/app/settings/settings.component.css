@@ -38,6 +38,12 @@
   text-decoration: underline
 }
 
+.remove-photo-label {
+  display: inline-block;
+  color: #d8d8d8;
+  cursor: pointer;
+}
+
 .save-btn-wrapper {
   position: relative;
   bottom: 0;

@@ -3,6 +3,7 @@
     <img [src]="profileImageUrl" [class.disable]="isUpdating">
     <label class="username-label">{{initialDisplayName}}</label>
     <label for="upload" class="upload-label">Upload photo</label>
+    <span (click)="onRemovePhoto()" class="remove-photo-label">Remove photo</span>
     <input type="file" id="upload" (change)="getImage($event)" style="display: none;" [disabled]="isUpdating">
     <div class="user-info-inputs">
       <form #userSettingsForm="ngForm" (ngSubmit)="onSaveChanges(userSettingsForm)">

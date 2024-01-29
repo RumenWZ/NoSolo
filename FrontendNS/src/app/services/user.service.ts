@@ -53,6 +53,10 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/update-photo`, photo);
   }
 
+  deleteUserPhoto() {
+    return this.http.patch(`${this.baseUrl}/remove-photo`, null);
+  }
+
   updateDisplayName(displayName:string) {
     return this.http.patch(`${this.baseUrl}/update-display-name?displayName=${displayName}`, null);
   }

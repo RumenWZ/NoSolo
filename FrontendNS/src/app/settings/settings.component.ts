@@ -19,6 +19,7 @@ export class SettingsComponent {
   photoChanged: boolean = false;
   isUpdating: boolean = false;
   ongoingApiCalls: number = 0;
+  deleteUserPhoto: boolean = false;
 
   initialDisplayName: string;
   initialDiscordUsername: string;
@@ -55,6 +56,15 @@ export class SettingsComponent {
     };
     reader.readAsDataURL(this.image);
     this.photoChanged = true;
+    this.deleteUserPhoto = false;
+    event.target.value = null;
+  }
+
+  onRemovePhoto() {
+    this.image = null;
+    this.photoChanged = true;
+    this.profileImageUrl = '/assets/images/default-user.png';
+    this.deleteUserPhoto = true;
   }
 
   onSaveChanges(userSettingsForm: NgForm) {
@@ -100,26 +110,39 @@ export class SettingsComponent {
   private updateUserPhoto() {
     this.ongoingApiCalls++;
     this.isUpdating = true;
-    const formData = new FormData();
-    formData.append('image', this.image);
-    this.userService.updateUserPhoto(formData).subscribe((response: any) => {
-      if (response) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.profileImageUrl = e.target.result;
-        };
-        reader.readAsDataURL(this.image);
-        this.alertify.success('Successfully updated profile image');
+    if (this.deleteUserPhoto) {
+      this.userService.deleteUserPhoto().subscribe(response => {
+        if (response == 201) {
+          this.alertify.success('Successfully removed profile image');
+          this.updateLocalStorageUserImage('/assets/images/default-user.png');
+          this.sidenav.updateUserDetails();
+          this.photoChanged = false;
+          this.ApiCallFinished();
+        }
+      })
+    } else {
+      const formData = new FormData();
+      formData.append('image', this.image);
+      this.userService.updateUserPhoto(formData).subscribe((response: any) => {
+        if (response) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.profileImageUrl = e.target.result;
+          };
+          reader.readAsDataURL(this.image);
+          this.alertify.success('Successfully updated profile image');
 
-        this.updateLocalStorageUserImage(response.profileImageUrl);
+          this.updateLocalStorageUserImage(response.profileImageUrl);
 
-        this.sidenav.updateUserDetails();
-        this.photoChanged = false;
-        this.ApiCallFinished();
-      }
-    }, error => {
-      this.isUpdating = false;
-    });
+          this.sidenav.updateUserDetails();
+          this.photoChanged = false;
+          this.ApiCallFinished();
+        }
+      }, error => {
+        this.isUpdating = false;
+      });
+    }
+
   }
 
   private updateDisplayName(displayName: string) {

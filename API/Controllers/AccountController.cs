@@ -194,6 +194,26 @@ namespace API.Controllers
             return Ok(response);
         }
 
+        [HttpPatch("remove-photo")]
+        public async Task<IActionResult> RemoveUserPhoto()
+        {
+            var user = await auth.GetUserFromTokenAsync(HttpContext);
+            if (user == null)
+            {
+                return BadRequest("Invalid token");
+            }
+
+            if (user.ProfileImageUrl != "")
+            {
+                await photoService.DeletePhotoAsync(user.ProfileImageUrl);
+            }
+
+            user.ProfileImageUrl = "";
+            await uow.SaveAsync();
+
+            return Ok(201);
+        }
+
         [HttpPatch("update-display-name")]
         public async Task<IActionResult> UpdateDisplayName(string? displayName = null)
         {
