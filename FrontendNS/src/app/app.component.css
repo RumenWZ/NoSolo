@@ -25,6 +25,43 @@ mat-sidenav {
   background-color: var(--main-color);
 }
 
+.background {
+  background-color: black;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../assets/images/background-image-mini.png');
+  filter: blur(7px);
+}
+
+.background-img {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hidden {
+  opacity: 0;
+}
+
 @media (max-width: 350px) {
   mat-sidenav {
     width: 100vw !important;

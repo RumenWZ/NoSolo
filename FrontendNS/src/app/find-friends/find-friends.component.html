@@ -1,39 +1,47 @@
 <div class="content">
-  <div *ngIf="!isSmallScreen" class="large-screen-selection" style="border-right: 1px solid #4f5254;">
-    <button class="selection-button" (click)="onSelectNo()" [disabled]="!canSelectNextUser">
-      <i class='bx bx-x selection-btn select-no animate'></i>
-    </button>
-  </div>
-  <div class="card-container">
-    <div *ngIf="friendRequestSent" class="notification-overlay">
-      Friend request sent
-    </div>
-    <div class="top-card-container" >
-      <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
-      [userProfileGames]="currentDisplayedUserGames"
-      [isNestedInsideFindFriends]="true" class="top-card"></app-profile-card>
-    </div>
-
-    <div *ngIf="(dataReady == false) || (currentUserIndex >= matches?.length && dataReady)" class="background-blank">
-      <div *ngIf="dataReady == false" class="spinner"></div>
-      <p *ngIf="currentUserIndex >= matches?.length && dataReady" class="no-users">You have ran out of users to match with.</p>
-    </div>
-
-    <div *ngIf="isSmallScreen" class="bottom-selection">
+  <div class="content-wrapper">
+    <div *ngIf="!isSmallScreen" class="large-screen-selection" style="border-right: 1px solid #4f5254;">
       <button class="selection-button" (click)="onSelectNo()" [disabled]="!canSelectNextUser">
         <i class='bx bx-x selection-btn select-no animate'></i>
       </button>
+    </div>
+    <div class="card-container">
+      <div *ngIf="friendRequestSent" class="notification-overlay">
+        Friend request sent
+      </div>
+      <div class="top-card-container" >
+        <app-profile-card *ngIf="dataReady && currentUserIndex < matches?.length" [userProfile]="currentDisplayedUser"
+        [userProfileGames]="currentDisplayedUserGames"
+        [showCloseButton]="false"
+        [isNestedInsideFindFriends]="true" class="top-card"></app-profile-card>
+      </div>
+
+      <div *ngIf="(dataReady == false) || (currentUserIndex >= matches?.length && dataReady)" class="background-blank">
+        <div *ngIf="dataReady == false" class="spinner"></div>
+        <p *ngIf="currentUserIndex >= matches?.length && dataReady" class="no-users">You have ran out of users to match with.</p>
+      </div>
+    </div>
+
+    <div *ngIf="!isSmallScreen" class="large-screen-selection" style="border-left: 1px solid #4f5254;">
       <button class="selection-button" (click)="onSelectYes()" [disabled]="!canSelectNextUser">
         <i class='bx bx-check selection-btn select-yes animate'></i>
       </button>
     </div>
+
+    <div *ngIf="isSmallScreen" class="small-sreen-no">
+      <button class="selection-button" (click)="onSelectNo()" [disabled]="!canSelectNextUser">
+        <i class='bx bx-x selection-btn select-no animate'></i>
+      </button>
+    </div>
+    <div *ngIf="isSmallScreen" class="small-sreen-yes">
+      <button class="selection-button" (click)="onSelectYes()" [disabled]="!canSelectNextUser">
+        <i class='bx bx-check selection-btn select-yes animate'></i>
+      </button>
+    </div>
+
   </div>
 
-  <div *ngIf="!isSmallScreen" class="large-screen-selection" style="border-left: 1px solid #4f5254;">
-    <button class="selection-button" (click)="onSelectYes()" [disabled]="!canSelectNextUser">
-      <i class='bx bx-check selection-btn select-yes animate'></i>
-    </button>
-  </div>
 </div>
+
 
 

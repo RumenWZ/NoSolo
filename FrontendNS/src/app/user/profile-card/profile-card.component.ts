@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Subscription, mergeMap } from 'rxjs';
 import { UserDTO } from 'src/app/model/user';
 import { UserGameDTO } from 'src/app/model/user-game';
@@ -19,6 +19,8 @@ export class ProfileCardComponent implements OnChanges {
   private userSubscription: Subscription;
   @Input() isNestedInsideFindFriends: boolean = false;
   dataReady: boolean = false;
+  @Output() cardClosed: EventEmitter<void> = new EventEmitter<void>();
+  @Input() showCloseButton: boolean = true;
 
   selectedTab: string = 'description';
 
@@ -73,6 +75,10 @@ export class ProfileCardComponent implements OnChanges {
     return this.userViewing && this.userProfile && this.userViewing.username === this.userProfile.username;
   }
 
+  onCloseCard() {
+    this.cardClosed.emit();
+  }
+
   ngOnInit() {
     this.user.getLoggedInUser().subscribe((response: any) => {
       this.userViewing = response;
@@ -96,7 +102,6 @@ export class ProfileCardComponent implements OnChanges {
         this.updateUserProfileGames();
       }
     }
-
   }
 
   ngOnDestroy() {

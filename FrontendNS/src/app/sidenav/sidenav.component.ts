@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostListener, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { SidenavService } from '../services/sidenav.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
@@ -13,7 +13,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+  styleUrls: ['./sidenav.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SidenavComponent{
   sidebarData = sidebarMenuEntries;
@@ -24,6 +25,7 @@ export class SidenavComponent{
   updatePendingSubscription: Subscription;
   isAccountMenuOpen = false;
   showAdminOptions: boolean = false;
+  username: string;
 
   constructor (
     private sidenavService: SidenavService,
@@ -98,9 +100,14 @@ export class SidenavComponent{
 
   onProfileImage() {
     const dialogRef = this.matDialog.open(ProfileCardComponent, {
-      width: '470px'
+      width: 'auto',
+      maxWidth: '100vw'
     })
     this.userService.raiseCurrentUserProfileCard(this.user);
+
+    dialogRef.componentInstance.cardClosed.subscribe(() => {
+      dialogRef.close();
+    });
   }
 
   getFriendRequestsCount() {
@@ -133,6 +140,11 @@ export class SidenavComponent{
 
   }
 
+  loggedIn() {
+    this.username = this.userService.getUsername();
+    return this.userService.getUsername();
+  }
+
   ngOnDestroy(){
     this.updatePendingSubscription.unsubscribe();
   }
@@ -158,7 +170,6 @@ export class SidenavComponent{
       case 'onDocumentation': this.onDocumentation();
         break;
       default:
-        console.log('Unknown function');
         break;
     }
   }

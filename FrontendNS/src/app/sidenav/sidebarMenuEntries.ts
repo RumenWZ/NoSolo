@@ -11,7 +11,7 @@ export const sidebarMenuEntries = [
   },
   {
     'label': 'Start Matching',
-    'icon': 'bx bx-face',
+    'icon': 'bx bx-search-alt',
     'functionName': 'onFindFriends',
     green: true
   },

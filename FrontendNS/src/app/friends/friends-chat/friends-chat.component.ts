@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MessageService } from 'src/app/services/message.service';
-import { Message } from 'src/app/model/message';
+import { Message, newMessage } from 'src/app/model/message';
 import Pusher from 'pusher-js';
 import { environment } from 'src/app/environments/environment';
 import { UserService } from 'src/app/services/user.service';
@@ -88,7 +88,11 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
     }
     if (this.canSendMessage && this.chatFieldMessage) {
       this.canSendMessage = false;
-      this.message.sendMessage(this.chatUser.username, this.chatFieldMessage).subscribe((response: any) => {
+      const sendMessage: newMessage = {
+        receiverUsername: this.chatUser.username,
+        message: this.chatFieldMessage
+      }
+      this.message.sendMessage(sendMessage).subscribe((response: any) => {
         if (response == 201) {
           const msg: Message = {
             id: 999,
@@ -169,8 +173,12 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
 
   onFriendImage(userClicked: string) {
     const dialogRef = this.matDialog.open(ProfileCardComponent, {
-      width: '470px'
+      width: 'auto',
+      maxWidth: '100vw'
     })
+    dialogRef.componentInstance.cardClosed.subscribe(() => {
+      dialogRef.close();
+    });
     if (userClicked == this.chatUser.displayName || userClicked == this.chatUser.username) {
       this.user.raiseCurrentUserProfileCard(this.chatUser);
     } else {
@@ -184,10 +192,9 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
   updatePusherConfiguration() {
     if (this.pusher) {
       this.pusher.unsubscribe(this.channelName);
-    this.channel = null;
-    }
+      this.channel = null;
 
-    this.channel = this.pusher.subscribe(this.channelName);
+      this.channel = this.pusher.subscribe(this.channelName);
     this.channel.bind('my-event', (data: any) => {
       if (data.message.User1Id == this.chatUser.id) {
         const newMessage: Message = {
@@ -207,6 +214,10 @@ export class FriendsChatComponent implements OnChanges, AfterViewInit {
         this.chatMessagesProcessor();
       }
     });
+
+    }
+
+
   }
 
   ngOnInit() {

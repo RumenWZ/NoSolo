@@ -13,9 +13,9 @@ export class FriendsPageComponent {
   isSmallScreen: boolean;
   isSidenavOpen: boolean = false;
   currentChatUser: UserDTO;
-  friendsChatOpen = false;
+  friendsChatOpen: boolean = false;
   friendsIncomingRequestsOpen: boolean = false;
-  friendsAllOpen: boolean;
+  friendsAllOpen: boolean = false;
   friendsAddOpen: boolean = true;
   friendsRequestedOpen: boolean;
   friendInvitesCount: number;

@@ -1,12 +1,17 @@
-<mat-sidenav-container (backdropClick)="toggleSidenav()">
-  <mat-sidenav position="end" [opened]="isSidenavOpen" >
-    <app-sidenav></app-sidenav>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <app-navbar></app-navbar>
-    <div class="container" style="margin-top: 60px; ">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
+<div class="background" [style.background-image]="'url(' + backgroundImageUrl + ')'">
+  <img class="background-img"  src="../assets/images/background-image.png"
+   [ngClass]="{ 'hidden': !backgroundImageLoaded }" [@fadeIn]="backgroundImageLoaded"
+  (load)="imageLoaded()" alt="Background image">
+  <mat-sidenav-container (backdropClick)="toggleSidenav()">
+    <mat-sidenav position="end" [opened]="isSidenavOpen" >
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-navbar></app-navbar>
+        <div class="container" style="margin-top: 60px; ">
+          <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
 
-</mat-sidenav-container>

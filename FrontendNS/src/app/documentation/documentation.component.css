@@ -64,6 +64,7 @@
 .doc-note {
   color: #f0f481;
   font-style: italic;
+  padding-bottom: 0.8rem;
 }
 
 @media (max-width: 768px) {

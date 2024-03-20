@@ -86,6 +86,24 @@
   animation: spin 1s linear infinite;
   margin: auto;
 }
+.content-wrapper {
+  display: flex;
+  position: relative;
+  width: fit-content;
+}
+
+.small-sreen-no {
+  position: absolute;
+  top: 32%;
+  left: 10px;
+}
+
+.small-sreen-yes {
+  position: absolute;
+  top: 32%;
+  right: 10px;
+
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }

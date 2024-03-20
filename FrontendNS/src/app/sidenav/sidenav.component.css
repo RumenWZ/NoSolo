@@ -17,8 +17,7 @@
 }
 
 .sidenav-title {
-  padding-top: 0.9rem;
-  padding-left: 0.5rem;
+  padding: 0.8rem 0.5rem;
   font-size: 1.5rem;
   font-weight: 500;
 }
@@ -100,10 +99,11 @@
 
 .user-info-bottom img {
   height: 3rem;
+  width: 3rem;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 0.5rem;
-
+  object-fit: cover;
 }
 
 .user-info-bottom span{
@@ -178,7 +178,7 @@
 }
 
 @media (max-width: 350px) {
-  * {
+  .sidenav-container * {
     font-size: 7vw !important;
   }
 

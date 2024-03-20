@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FriendService } from 'src/app/services/friend.service';
 import { User, UserDTO } from 'src/app/model/user';
 import { SidenavService } from 'src/app/services/sidenav.service';
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-friends-list',
   templateUrl: './friends-list.component.html',
-  styleUrls: ['./friends-list.component.css']
+  styleUrls: ['./friends-list.component.css'],
 })
 export class FriendsListComponent {
   friendsList: UserDTO[];

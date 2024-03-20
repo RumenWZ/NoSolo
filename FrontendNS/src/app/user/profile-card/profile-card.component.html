@@ -1,7 +1,10 @@
 <div class="background" [class.nested]="isNestedInsideFindFriends">
   <div *ngIf="dataReady">
     <div class="profile-header">
-      <img class="profile-image" [src]="userProfile?.profileImageUrl">
+      <div class="profile-image-wrapper">
+        <img class="profile-image" [src]="userProfile?.profileImageUrl">
+      </div>
+
       <span class="profile-name">{{userProfile?.displayName}}</span>
     </div>
 
@@ -50,3 +53,4 @@
   <app-loading-spinner *ngIf="dataReady == false"></app-loading-spinner>
 </div>
 
+<i *ngIf="showCloseButton" class='bx bx-x close-btn' style='color:#e4e0e0' (click)="onCloseCard()"></i>

@@ -49,6 +49,7 @@ namespace API.Middlewares
                 {
                     response = new ApiError((int)statusCode, message);
                 }
+
                 logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = (int)statusCode;
                 context.Response.ContentType = "application/json";

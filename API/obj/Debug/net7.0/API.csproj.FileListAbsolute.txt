@@ -83,3 +83,4 @@ D:\CSharp\repos\NoSolo\API\bin\Debug\net7.0\System.Net.WebSockets.WebSocketProto
 D:\CSharp\repos\NoSolo\API\bin\Debug\net7.0\NaCl.dll
 D:\CSharp\repos\NoSolo\API\bin\Debug\net7.0\PusherServer.dll
 D:\CSharp\repos\NoSolo\API\bin\Debug\net7.0\dotenv.net.dll
+D:\CSharp\repos\NoSolo\API\obj\Debug\net7.0\API.sourcelink.json

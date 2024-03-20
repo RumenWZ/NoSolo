@@ -1,27 +1,26 @@
-<div>
-  <div class="friends-list-wrapper">
-    <div class="friends-list-header">
-      <span class="direct-messages">Direct messages</span>
-      <div class="search-field">
-        <input #searchInput type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
-        <i class='bx bx-x clear-search' (click)="clearSearch()"></i>
-      </div>
+<div class="friends-list-wrapper">
+  <div class="friends-list-header">
+    <span class="direct-messages">Direct messages</span>
+    <div class="search-field">
+      <input #searchInput type="text" [(ngModel)]="friendFilter" placeholder="Search for friend...">
+      <i class='bx bx-x clear-search' (click)="clearSearch()"></i>
+    </div>
 
-    <ul class="friends-list">
-      <ng-container *ngIf="!friendsList; else loadedData">
-        <li *ngFor="let _ of getLoopRange()">
-          <app-skeleton-friend [renderDelay]="200"></app-skeleton-friend>
-        </li>
-      </ng-container>
+  <ul class="friends-list">
+    <ng-container *ngIf="!friendsList; else loadedData">
+      <li *ngFor="let _ of getLoopRange()">
+        <app-skeleton-friend [renderDelay]="200"></app-skeleton-friend>
+      </li>
+    </ng-container>
 
-      <ng-template #loadedData>
-        <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
-          <img [src]="user.profileImageUrl">
-          <span class="friend-name truncate">{{ user.displayName }}</span>
-        </li>
-      </ng-template>
-    </ul>
-  </div>
+    <ng-template #loadedData>
+      <li *ngFor="let user of friendsList | filter: friendFilter : 'displayName'" (click)="onFriendClick(user)" [class.selected]="user === selectedFriend">
+        <img [src]="user.profileImageUrl">
+        <span class="friend-name truncate">{{ user.displayName }}</span>
+      </li>
+    </ng-template>
+  </ul>
+</div>
 
 </div>
 

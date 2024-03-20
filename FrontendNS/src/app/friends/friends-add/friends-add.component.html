@@ -17,11 +17,13 @@
     <ng-template #loadedData>
       <li *ngFor="let user of searchResults | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="user-item">
         <img [src]="user.profileImageUrl" (click)="onUserClick(user)">
-        <span (click)="onUserClick(user)">{{user.displayName}}</span>
+        <span class="truncate username" (click)="onUserClick(user)">{{user.displayName}}</span>
         <div class="action-wrapper" >
-          <span class="add-friend" *ngIf="user.friendStatus == ''" (click)="onAddFriend(user)">ADD AS FRIEND</span>
-          <span class="already-friends" *ngIf="user.friendStatus == 'friends'">You are friends</span>
-          <span class="cancel-request" *ngIf="user.friendStatus == 'pending'" (click)="onCancelRequest(user)">CANCEL REQUEST</span>
+          <span class="add-friend" *ngIf="user.friendStatus == '' && !isScreenWidthLessThan350px" (click)="onAddFriend(user)">ADD AS FRIEND</span>
+          <span class="cancel-request" *ngIf="user.friendStatus == 'pending' && !isScreenWidthLessThan350px" (click)="onCancelRequest(user)">CANCEL REQUEST</span>
+          <div class="action-button action-add" *ngIf="user.friendStatus == '' && isScreenWidthLessThan350px" (click)="onAddFriend(user)">+</div>
+          <div class="action-button action-cancel" *ngIf="user.friendStatus == 'pending' && isScreenWidthLessThan350px" (click)="onCancelRequest(user)">-</div>
+          <span class="already-friends" *ngIf="user.friendStatus == 'friends' && !isScreenWidthLessThan350px">You are friends</span>
         </div>
       </li>
     </ng-template>

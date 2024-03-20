@@ -24,7 +24,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         if (error.status == 400 && error.error === 'Invalid token' && this.router.url !== '/login') {
           this.logoutUser();
         } else {
-          if (!this.ignoredErrors.includes(error.error)) {
+          if (errorMessage && !this.ignoredErrors.includes(error.error)) {
             this.alertify.error(errorMessage);
           }
         }
@@ -54,7 +54,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
   }
 
   setError(error: HttpErrorResponse): string {
-    let errorMessage = 'Unknown error occured';
+    let errorMessage = 'Unknown error occurred';
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
     } else {

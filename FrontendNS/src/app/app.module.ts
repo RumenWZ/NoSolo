@@ -51,10 +51,11 @@ import { DocumentationComponent } from './documentation/documentation.component'
 import { FindFriendsAccessGuard } from './guards/find-friends-access.guard';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { ScrollToMenuComponent } from './scroll-to-menu/scroll-to-menu.component';
+import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate: [NotLoggedInGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [NotLoggedInGuard]},
   {path: 'add-game', component: GameAddComponent, canActivate: [AdminGuard]},
   {path: 'game-list', component: GameListComponent, canActivate: [AdminGuard]},
   {path: 'game-selection', component: GameSelectionComponent, canActivate: [LoggedInGuard]},
@@ -62,7 +63,6 @@ const appRoutes: Routes = [
   {path: 'friends', component: FriendsPageComponent, canActivate: [LoggedInGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: '', component: WelcomePageComponent},
-  {path: 'test', component: ProfileCardComponent},
   {path: 'find-friends', component: FindFriendsComponent, canActivate: [LoggedInGuard, FindFriendsAccessGuard]},
   {path: 'documentation', component: DocumentationComponent},
   {path: '**', component: PageNotFoundComponent}

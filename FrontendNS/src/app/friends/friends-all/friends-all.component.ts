@@ -38,8 +38,12 @@ export class FriendsAllComponent {
 
   onFriendClick(user: UserDTO) {
     const dialogRef = this.matDialog.open(ProfileCardComponent, {
-      width: '470px'
+      width: 'auto',
+      maxWidth: '100vw'
     })
+    dialogRef.componentInstance.cardClosed.subscribe(() => {
+      dialogRef.close();
+    });
     this.user.raiseCurrentUserProfileCard(user);
   }
 

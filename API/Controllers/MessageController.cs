@@ -30,10 +30,15 @@ namespace API.Controllers
             this.stringValidator = stringValidator;
         }
 
-        [HttpPost("send-message/{username}/{message}")]
-        public async Task<IActionResult> SendMessage(string username, string message)
+        [HttpPost("send-message")]
+        public async Task<IActionResult> SendMessage(NewMessageDTO incomingMessage)
         {
-            string originalMessage = HttpUtility.UrlDecode(message);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Empty fields are not allowed");
+            }
+            var originalMessage = incomingMessage.Message;
+            var receiverUsername = incomingMessage.ReceiverUsername;
 
             if (!stringValidator.isValidLength(originalMessage, 0, 200)) {
                 return BadRequest("Your message is too long");
@@ -45,7 +50,7 @@ namespace API.Controllers
                 return BadRequest("Invalid token");
             }
 
-            var user2 = await uow.UserRepository.GetByUserNameAsync(username);
+            var user2 = await uow.UserRepository.GetByUserNameAsync(receiverUsername);
             if (user2 == null)
             {
                 return BadRequest("No user exists with this username");

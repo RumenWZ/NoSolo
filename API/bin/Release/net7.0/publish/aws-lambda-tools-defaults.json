@@ -1,0 +1,12 @@
+
+{
+    "profile" : "default",
+    "region"  : "eu-central-1",
+    "configuration" : "Release",
+    "framework"     : "net7.0",
+    "s3-prefix"     : "CoreAPI/",
+    "template"      : "serverless.template",
+    "template-parameters" : "",
+    "s3-bucket"           : "wozberbucket",
+    "stack-name"          : "CoreAPIStack"
+}

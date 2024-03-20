@@ -74,6 +74,8 @@
   height: 2.5rem;
   border-radius: 50%;
   cursor: pointer;
+  width: 2.5rem;
+  object-fit: cover;
 }
 
 .user-item span {
@@ -120,12 +122,53 @@
   background-color: #5e635f;
 }
 
-.pagination {
-  padding-right: 2rem;
+.action-button {
+  background-color: #414241;
+  width: 1.7rem;
+  height: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.action-cancel {
+  padding-top: 2px;
+  background-color: #af050a;
+}
+
+.action-add {
+  padding-top: 1px;
+  background-color: #4c8e00;
+}
+
+.username {
+  max-width: 50%;
 }
 
 @media (max-width: 768px) {
   .container {
     padding-right: 24px;
+  }
+}
+
+@media (max-width: 350px) {
+  .header {
+    font-size: 8.5vw;
+  }
+
+  .pagination {
+    font-size: 4.5vw;
+  }
+
+  .username {
+    max-width: 70%;
+  }
+
+  .users-from-search {
+    padding-bottom: 5rem !important;
   }
 }

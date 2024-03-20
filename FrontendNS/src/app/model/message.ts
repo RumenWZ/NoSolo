@@ -7,3 +7,8 @@ export interface Message {
   messageString: string,
   timestamp: Date,
 }
+
+export interface newMessage {
+  receiverUsername: string,
+  message: string
+}

@@ -1,6 +1,6 @@
 <div class="sidenav-container">
   <div class="sidenav-header">
-    <h5 class="sidenav-title" id="offcanvasRightLabel">Account Settings</h5>
+    <div class="sidenav-title" id="offcanvasRightLabel">Account Settings</div>
     <i class='bx bx-x close-btn' style='color:#e4e0e0' (click)="toggleSidenav()"></i>
   </div>
   <div class="sidenav-body">
@@ -22,7 +22,7 @@
   </div>
   <div *ngIf="showAdminOptions" class="admin-options">
     <div class="sidenav-header" style="border-top: 1px #9a999b solid;">
-    <h5 class="sidenav-title admin-header">Admin/Staff Tools</h5>
+    <div class="sidenav-title admin-header">Admin/Staff Tools</div>
     </div>
       <div class="sidenav-body">
       <ul class="sidebar-menu">
@@ -39,7 +39,7 @@
       <span>{{user?.username}}</span>
     </div>
 
-    <div class="account-menu-container" (click)="toggleAccountMenu()">
+    <div *ngIf="loggedIn()" class="account-menu-container" (click)="toggleAccountMenu()">
       <i class='bx bx-dots-vertical-rounded account-menu'></i>
       <div *ngIf="isAccountMenuOpen" class="account-menu-popup">
         <div class="menu-option" (click)="onSettings()">

@@ -81,6 +81,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddCors();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
+
 var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 var cloudinaryConfig = builder.Configuration.GetSection("CloudinarySettings");

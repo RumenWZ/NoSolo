@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserSearchResult } from 'src/app/model/user';
 import { FriendService } from 'src/app/services/friend.service';
@@ -17,6 +17,7 @@ export class FriendsAddComponent {
   itemsPerPage = 8;
   skeletonLoadingCount = 8;
   fetchingData: boolean = false;
+  isScreenWidthLessThan350px: boolean;
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -26,6 +27,10 @@ export class FriendsAddComponent {
     private matDialog: MatDialog
   ) {
 
+  }
+
+  applyScreenWidthSettings() {
+    this.isScreenWidthLessThan350px = window.innerWidth < 350;
   }
 
   getLoopRange(){
@@ -45,8 +50,12 @@ export class FriendsAddComponent {
 
   onUserClick(user: UserSearchResult){
     const dialogRef = this.matDialog.open(ProfileCardComponent, {
-      width: '470px'
+      width: 'auto',
+      maxWidth: '100vw'
     })
+    dialogRef.componentInstance.cardClosed.subscribe(() => {
+      dialogRef.close();
+    });
     this.user.raiseCurrentUserProfileCard(user);
   }
 
@@ -87,5 +96,11 @@ export class FriendsAddComponent {
   }
 
   ngOnInit() {
+    this.applyScreenWidthSettings();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: any) {
+    this.isScreenWidthLessThan350px = window.innerWidth < 350;
   }
 }

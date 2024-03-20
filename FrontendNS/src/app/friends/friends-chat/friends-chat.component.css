@@ -68,6 +68,7 @@
   width: 3rem;
   border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .chat-message {

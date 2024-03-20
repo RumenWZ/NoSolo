@@ -32,6 +32,8 @@
 .friends-list img {
   height: 2.5rem;
   border-radius: 50%;
+  object-fit: cover;
+  width: 2.5rem;
 }
 
 .friends-list span {
